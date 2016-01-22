@@ -5,7 +5,7 @@ Roborobo! is a fast and simple 2D mobile robot simulator written in C++ loosely 
 
 This is version 3 of Roborobo!
 
-Roborobo! runs mostly on Linux and Mac, and its only dependencies are: Boost (header-only) and SDL2.
+Roborobo only dependencies are: Boost (header-only) and SDL2. Roborobo is used on a daily basis on Linux and MacOS X. It was also tested on various systems, including RaspberryPi, Pandora, MS Windows, Linux in Virtual Box and several Linux-based clusters. 
 
 Installation
 ============
@@ -17,7 +17,7 @@ Check _FAQ.TXT for trouble shooting and random questions.
 Citing roborobo
 ===============
 
-If you use roborobo in your work, please cite the following paper:
+If you use roborobo (any version) in your work, please cite the following paper:
 
 N. Bredeche, J.-M. Montanier, B. Weel, and E. Haasdijk. Roborobo! a fast robot simulator for swarm and collective robotics. CoRR, abs/1304.2888, 2013. 
 
