@@ -3,6 +3,8 @@ roborobo3
 
 Roborobo! is a fast and simple 2D mobile robot simulator written in C++ loosely based on a khepera/epuck model. It is targeted for fast single and multi-robots simulation (primary motivation is evolutionary robotics et swarm/collective robotics).
 
+This is version 3 of Roborobo!
+
 Roborobo! runs mostly on Linux and Mac, and its only dependencies are: Boost (header-only) and SDL2.
 
 Installation
