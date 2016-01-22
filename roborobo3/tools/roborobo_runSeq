@@ -1,0 +1,17 @@
+#! /bin/sh
+
+# TO USE THIS SCRIPT: Copy (or add a symbolic link of) this script in the main directory of roborobo. 
+
+if [ ! $# -eq 2 ]
+then
+	echo "USAGE: ./roborobo_runSeq NB_OF_EXP CONFIG_FILE"
+else
+	for cnt in `seq 1 $1`
+	do
+		echo =-=-=-=-=-=
+		echo Exp. $cnt of $1
+		echo =-=-=-=-=-=
+		./roborobo -l $2
+		echo -
+	done
+fi

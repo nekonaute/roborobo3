@@ -1,0 +1,155 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-= ROBOROBO.3 -=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=- 2008-2016 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+-=-=-=-= nicolas.bredeche(at)upmc.com =-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+=-=-=-=-=-=
+= F.A.Q.  =
+=-=-=-=-=-=
+
+Q: What is the licence under which roborobo is distributed?
+A: Creative Commons, BY SA — http://creativecommons.org/licenses/by-sa/4.0/
+
+Q: What it the current version of roborobo and what is the main difference with previous version?
+A: This is version 3. It uses SDL2, while older versions used SDL1.2. It is also better in every way (ah!). If you want to use SDL1.2, use roborobo version 2 - though I would strongly recommend using the latest version. Roborobo is extensively used on both Mac OS X and Linux (Ubuntu) on a daily basis.
+
+Q: I want to start coding now!
+A: check _README.txt, Section "DEVELOPER'S QUICK START", paragraph "VERY QUICK START". This includes entry points to tutorials, and how to create/clone a new project from an existing one.
+
+Q: roborobo does not compile.
+A: did you read _INSTALL.TXT ?
+
+Q: roborobo compiles, but fails at run time.
+A: did you read _INSTALL.TXT ? If yes, continue.
+
+Q: roborobo segmentation fault just after the simulation starts (instantly after the windows is displayed, or a few seconds after).
+A: You may be using a corrupted background image. For example, you expect the colors are either obstacle=(0,0,0) and empty=(255,255,255), but you have a (255,255,254) pixel somewhere. When the robot proximity sensors hits this pixel, a callback is sent to a non-existing object. 
+
+Q: roborobo segmentation fault before the simulation even starts.
+A: You may be running a simulation with a very large number of robots, and your computer cant hold it (e.g. 100000 agents requires more than 32go RAM).
+
+Q: How to add a new arena/robot/sensorlayout/...?
+A: (a) if you want to modify an existing environment, first check the properties file in the config/ directory ; (b) if you want to draw a new arena or redefined the sensor layout, check existing example in the data/ directory (the properties file should tell you which one are used). When creating/modifying an image, the only -- very important -- rule is to use 32-bits uncompressed (BMP) image.
+
+Q: Why use BMP files (over PNG)?
+A: As of roborobo version 3, roborobo only supports BMP images (while previous versions supported PNG). The reason is that there is a bug in SDL2_image, that prevent to load *exactly* the pixel values of the image, hence provoking problems with masks and images. This is caused by the automatic embedded calibration applied when SDL2_image's IMG_Load(...) function is called. Until this bug is solved, there will be no PNG support, and SDL2_image won't be required. cf.:
+	- https://forums.libsdl.org/viewtopic.php?t=10013&sid=34e8ef7cf74074039495037c1a077025
+	- http://stackoverflow.com/questions/24987165/sdl2-sdl-image-strange-png-behavior-with-rgb-values
+
+Q: I am running roborobo remotely, typically on a cluster. Roborobo either hangs at startup (''connect localhost port xxxx: connection time out'') or crashes (segmentation fault).
+A: First, check you have been running headless roborobo (value of gBatchMode in the properties file). If it still fails, it is most probably due to video initialization -- SDL tries to initialize the video, even if it wont be used. This can cause a problem, especially when exporting the display is not possible (slow connection, bad configuration, closed ports... -- this problem will also impact other X-based application, e.g. try ''xeyes''.). To avoid this: connect to the remote server such that exporting X is not an option (ie. use *always* the ''ssh'' command without any options -- *not* ''ssh -X'' or ''ssh -Y''). This will force SDL to bypass the video initialization. Note that if aalib is installed and SDL is able to use it, any display from roborobo will be done in nice ascii art within the very terminal. If this does not solve the problem, then try changing, or reconfiguring, your terminal application, and/or type ''export TERM=xterm'' in the console.
+
+Q: No makefile method seem to work.
+A: The basic makefile method is really... basic. And should work everywhere, except with Mac OSX due to a different SDL installation location. The modular makefile method was tested successfully in linux with GNU Make, in freeBSD with BSD Make, and under Windows with Cygwin/Mingw (with GNU Make). Possible problems: (a) check dependencies. SDL must be installed (b) running Mac OSX? Use Xcode project (c) uh... a bug, may be? Did you try 'make clean' before compiling again?
+
+Q: Roborobo compiles but at run-time i get the following error: '[CORRUPT] The configuration (nameofproject)ConfigurationLoader isn't known by the ConfigurationLoader', why?
+A: Most likely, you did not compile the project mentionned. Activate this project with the 'makefile-manager' script (see _INSTALL.TXT)
+
+Q: How to compile using make with a debug option?
+A: Under Linux, type 'DEBUG=true make'
+
+Q: How to compile using parallelization?
+A: Under Linux, type 'make -jXX', with XX the number of processors.
+
+Q: I want to use Boost. How to install the boost library under Windows?
+A: If you are running Cygwin, run setup.exe and select the libboost package. If you are running minGW only, go to http://ascendwiki.cheme.cmu.edu/Binary_installer_for_Boost_on_MinGW to download the most recent installation file. Any other platforms: it should work out-of-the-box.
+
+Q: I want to compile one project only (with the modular makefile)
+A: Under Linux, use the makefile-manager script.
+
+Q: Can I change the verbose mode with the modular makefile
+A: yes. 'make VERBOSE="1" -f Makefile.modular clean all'
+
+Q: Are there guidelines, hints, tutorials?
+A: Check _README.TXT for further informations. That's all there is.
+
+Q: Can you add...? Can you help...?
+A: Unfortunatly, roborobo is provided "as is" and is not really supported. You'll have to find out by yourself, or chat with others. But you may always ask, of course.
+
+Q: [deprecated?] I have some strange image related i/o processing problems under MACOSX (e.g. rendering is ok, but sensors dont seem to work) ?
+A: At some point, some versions of SDL may cause problems -- if you experience strange problem such as error wrt. sensor numbering, this may be caused by a too recent SDL. Install an older version (it works with 1.2.14), or the newest ones.
+
+Q: How can i run roborobo in batch mode for fast computation?
+A: it is enough to set the gBatchMode parameter value  to 'true' in the properties file (also, I suggest to switch to gDisplayMode = 2 and gVerbose=false). Note that we daily use this to launch stand-alone roborobo processes on the lab's cluster of machines as well as the Grid 5000 national cluster (ie. machines without video output) and this works like a charm. However, we never tried with a remote Mac (I use a mac, but not remotely) but it can be locally run headless.
+
+Q: How can I modify roborobo core to implement ...(whatever)... ?
+A: You really should consider to stick with your project. Mostly because your desired feature may have an impact of roborobo's stability and/or speed, which is not the best thing as the code is shared among several people. If you really need a specific feature, the good way is to inherit from existing class and rewrite what you need *within your project*. 
+
+Q: But I really want to modify roborobo's core!
+A:
+  - Case 1, you downloaded roborobo and use it for personnal purpose: do what you want, but dont expect future release to be backward compatible... If you want to correct a well-identified bug, please contact me :-)
+  - Case 2, we are working on a joint project: NO! YOU ARE NOT GOING TO MODIFY THE CORE! At least not before you ask me! If you spot a bug, i'd be delighted to know about it and most happy if you send me a patch. But i'd really like to apply the patch by myself to double-check and approve it. Sorry for being paranoid, but we all depend on this code. Of course, you can always do your own fork version of roborobo and modify whatever you want to modify - but bear in mind that converging back to the ''official'' version is going to be *very* painful. Very *very*.
+
+Q: I need to get/set new parameters on the properties file. How do i implement the read/write methods?
+A: Actually you dont have to do anything. To access any data from your configuration file from anywhere, you just have to do the following:
+  1. just add your new entry to your properties file (eg. "mydatatest = 0" in test.properties)
+  2. then, from *anywhere* in your source code:
+  'gProperties.checkAndGetPropertyValue("mydataset",&myvariable,true);'
+  That's all. Of course, it's up to you to test the consistency of your variable.
+
+Q: How can I modify the dynamics of my robot, apply external forces, etc.?
+A: a WorldInterface implements the influence of robot dynamics (hardware and context-dependant) (check _README.TXT). Then, you have to inherit from the WorldInterface to implement your own dynamics.
+
+Q: Is it possible to speed up roborobo?
+A: Yes. Avoid using a past version of roborobo (ver.1 used to be with two O(n^2) algorithms). You should run it without vizualization (gDisplayMode=2 in the config file, or with ''d'' key in the GUI), and use ''{mini}agent-mask-edgesOnly'' as the robot mask (in the config file). You may want to add a new property also, ''gAgentDisplayImageFilename'' with value ''{mini}agent-mask'', to keep rendering as before.
+
+Q: How to record trajectories from agent(s)?
+A: It can be done in three ways: (1) within the GUI, use the 't' or shift+'t' command (see help); (2) within the config file, set 'gTrajectoryMonitor=true' (and, optionaly, 'gTrajectoryMonitorMode=1 or 2'); (3) within the code, explicitly calling the following methods: (a) gTrajectoryMonitorImage = load_image( gEnvironmentImageFilename ); (b) updateTrajectoriesMonitor() and (c) saveTrajectoryImage(). In all cases, an image will be saved in the logs directory. This trajectory tracking code use very little computing power (<10% slow down).
+This is provided as is for quick vizualization, you may want something more complex/different. The correct way to get it is *not* to modify the code, but rather to dump the coordinates of your agents for external processing.
+
+Q: Roborobo seems to run slower on my Mac compared to a similar machine on Linux?
+A: SDL (ver. 1 and 2) implementations are slower on Mac... Ironically, there is a work-around: install Linux in Virtual Box (or Parallels) on your mac (the very mac which you think is slow), build and launch roborobo and... it will run faster. Up to 300% on my macbook pro. So ironic...
+
+Q: [this might be deprecated for roborobo3 w/ SDL2] I tested roborobo for memory leaks with Valgrind, there are plenty of them!
+A: (if your code is not responsible for these:) SDL is responsible for them. Actually, these are not ''real'' memory leaks. Check the internet for further explanations. Or be reassured: you can safely ignore them.
+
+Q: I understand that logged image files beginning with "robotsId_(...)" display the location and id of each robot. But the image is just black!
+A: The image is not just black, though it can look quite dark if you have few robots (<1000). Zoom in. Robot’s id are counted from 1, ie. robot with id = 0 is display as red=0,green=0,blue=1. This is pretty close to black, isn’t it. A way to make it clearer: use GIMP or Photoshop to change black to white — this will reveal the non black dots.
+
+Q: [deprecated?] I use Xcode on MacOSX. When roborobo is launched from Xcode, I got some strange reports related to non-existing command-line parameters. Why?
+A: Xcode may add additional parameters to the command line. This is caused if you checked the ''Allow debugging when using document Versions Browser'' box, that can be found in: Product=>Scheme=>Edit Scheme=>Run roborobo.app=>Options. Solution: uncheck this box. Note that this did not occur in roborobo builds anterior to Sept. 17, 2014 as only the first argument was parsed.
+
+Q: I generate a lot of log files. Raw text files and BMP image files takes a awful lot of disk space! What can I do?
+A: If you are running under Linux/Unix/MacOsX, the following commands are really useful (enter commands in terminal):
+	- compressing all '.txt' files in the current directory, and *all* sub-directories (each .txt file is replaced by a .gz file):
+		find . -name '*.txt' -execdir gzip {} \;
+	- converting all BMP image files into PNG image format in the current directory, and *all* sub-directories (a .png file is created, the original file is kept):
+		find . -name '*.bmp' -execdir mogrify -format png {} \;
+	- deleting all BMP files in the current directory, and *all* sub-directories (USE WITH CARE):
+		find . -name '*.bmp' -type f -delete
+
+Q: What are the dependencies?
+A: As of roborobo.3, only SDL2, boost (headers only) are required. Previous versions (<3) use SDL1.2, SDL1.2_image and boost (headers only)
+
+Q: Should I use g++ (or gcc) or clang++?
+A: both works. Dont forget to edit the Makefile to set the right compiler.
+
+Q: I want to re-create a project with Xcode 7 (or later):
+A: Let's go for step-by-step quick list:
+	New project (name: "roborobo3")
+	    command-line tool
+	Build Phases:
+	    "Link Binary With Libraries"
+	    "Add others": SDL2 (SDL2_image is optional) (when in explorer: cmd+shift+G, /Library/Frameworks)
+	Build Settings:
+	    "Search paths"
+	        Always search user path: YES
+	        Header Search path:
+	            column "roborobo3"
+	            add: "roborobo3/prj roborobo3/include/ext roborobo3/include/contrib roborobo3/include/core /usr/local/include/"
+	            Remarks: /usr/local/include is for boost
+	Project => Edit Scheme => Options
+	    Use custom directory: YES
+	Add code to sub-directory with project name.
+	     - drag-drop from folder
+	     - check add to target "roborobo"
+	     - check add as group
+	     - don't forget to delete the main.cpp file created for the project (roborobo already got one)
+Troubleshooting:
+- error "Mach-O Linker Error on Xcode": caused by duplicated sources -- probably two main.cpp files (don't forget to delete the one created by Xcode)
+

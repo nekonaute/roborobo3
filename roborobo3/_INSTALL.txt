@@ -1,0 +1,106 @@
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-= ROBOROBO.3 =-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=- 2008-2016 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+-=-=-=-= nicolas.bredeche(at)upmc.fr -=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+=-=-=-=
+=-=-=-= QUICK START
+=-=-=-=
+
+1. Install dependencies:
+- SDL2
+- BOOST (headers)
+
+2. Build and run:
+- Linux:
+	- open a terminal, and enter the following commands:
+	- "./makefile-manager -l"
+	- "make" (or, if you have multiple processors: "make -jXX", with XX=nb_of_processors)
+	- "./roborobo -l config/default-wander_bigrobots.properties"
+- MacOSX: use XCode project
+	- create symbolic links to config/, data/ and /logs directories into the build directory where roborobo binary is created.
+		- in order to know where the build directory is:
+			- build and run roborobo. 
+			- roborobo will exit immediately, but not before the location it is launched from is displayed on screen.
+			- go to this location ("cd <whereever-is-roborobo-binary>")
+			- create symbolic links ("ln -s <whereever-are-roborobo-source>/config config", "(...)/data data", "(...)/logs logs")
+	- run again.
+
+3. Use:
+	- in the roborobo window, type "h". Help tips will be display in the terminal.
+
+
+=-=-=-=
+=-=-=-= QUICK START : longer version.
+=-=-=-=
+
+**MacOS X**
+
+- First, a suggestion: use homebrew for package management (http://brew.sh/)
+- install Boost-libraries
+- install SDL2 (example of location: http://www.libsdl.org/ and http://www.libsdl.org/projects/)
+- use the Xcode project (Xcode 7 or later)
+
+It should compile and run OK. 
+- If it fails at compilation, be sure to have your libraries installed.
+- If it fails at runtime, check the console messages.
+
+**Linux: Ubuntu, Debian**
+
+Dependencies:
+- install Boost and SDL2 (using apt-get, synaptic, or any package installation manager)
+	Example with ubuntu 14 and 15 (as of 2016-01-22):
+		sudo apt-get install libsdl2-2.0
+		sudo apt-get install libboost-all-dev
+
+Compile&run:
+- use "./makefile-manager" to generate a makefile (see below for further explanation of using makefile-manager)
+- compile and link: "make" (a new binary is created at the roborobo root called "roborobo")
+- launch: "./roborobo" (with/without option(s), use "-h" for help)
+
+Note that roborobo is used daily on quite a bunch of linux-based computers, including clusters. It was also tested on Raspberry PI and Pandora.
+
+**Windows**
+
+You basically two options:
+- [recommended] use Virtual Box (https://www.virtualbox.org), install Linux. Then follow the steps for Linux-based systems. 
+- [not recommended] use Cygwin or MinGW or whatever. Not tested after 2008.
+
+
+=-=-=-=
+=-=-=-= makefile-manager (Linux only!)
+=-=-=-=
+
+makefile-manager is a script that generates a makefile with only the project(s) you want to compile.
+"./makefile-manager" creates a default makefile.  
+"./makefile-manager -h" displays usage help.
+
+Quick start: in the console, enter the following commands (set-up makefile, compile, and execute)
+    $ ./makefile-manager -l
+    $ make  
+    $ ./roborobo
+
+Two default projects are activated (BasicProject and DemoMedea) for you to test roborobo.
+
+Remarks:
+- note that makefile-manager uses Makefile.modular to create a local Makefile. You should not need to edit this, but if you want to change the compiler used (default: g++), do it there.
+- to speed up compilation on multicore systems, you may want to use "make -j<nb_of_cores>" instead of "make"
+
+=-=-=-=
+=-=-=-= THE NEXT STEP
+=-=-=-=
+
+Where to go from here? 
+
+Check _README.TXT for further informations.
+
+Check _FAQ.TXT for trouble shooting.
+
+Check prj/clone_project.py to clone an existing project and to start playing around.
+
+[n].

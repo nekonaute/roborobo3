@@ -1,0 +1,283 @@
+#!/usr/bin/env python
+
+# History:
+# - 20110411: created by Leo
+# - 20110426: modified/updated by Nicolas
+# - 20110428: bugfix by Leo : touch configuration loader files when adding a project
+# - 20110428: cosmetic change by Nicolas (list display)
+# - 20110429: run 'make clean' when adding, removing or reseting, by Leo
+# - 20110429: added BasicProject as default active project by Nicolas
+# - 20110505: refactored code (add functions to add/del/modify makefile vars), by Leo
+# - 20110505: add options to always use VERBOSE or DEBUG, is wanted, by Leo
+# - 20151016: changed default active projects (by Nicolas)
+
+
+import sys
+import os
+import re
+import glob
+import fileinput
+import shutil
+from optparse import OptionParser
+
+
+makefileName = "Makefile"
+referenceMakefileName = "Makefile.modular"
+tmpMakefileName = "Makefile.tmp"
+prjDir = "prj"
+configurationLoaderPath = os.path.join("src", "ext", "ConfigurationLoader.cpp")
+projectsConfigurationLoadersPath = os.path.join("src", "ext")
+makefileVariablePattern = "[ \t]*=[ \t]*([^\n]*)"
+debugVariableName = "DEBUG"
+verboseVariableName = "VERBOSE"
+modulesVariableName = "MODULES"
+initialValueOfModulesVariable = "TemplateRandomwalk TemplateBoids TemplateMedea TemplateWander"
+configurationLoaderPattern = re.compile(".*ConfigurationLoader.cpp")
+
+
+# Return the value of a variable, or None
+def getVariableValueInMakefile(varName):
+	pattern = re.compile(varName + makefileVariablePattern)
+	res = None
+
+	for line in open(makefileName):
+		match = pattern.match(line)
+		if(match):
+			res = match.group(1)
+
+	return res
+
+
+def delVariableInMakefile(varName):
+	pattern = re.compile(varName + makefileVariablePattern)
+	foundLine = False
+
+	o = open(tmpMakefileName, "a")
+	for line in open(makefileName):
+		match = pattern.match(line)
+		if(match):
+			foundLine = True
+		else:
+			o.write(line)
+	o.close()
+	shutil.move(tmpMakefileName, makefileName)
+
+	return foundLine
+
+
+def addOrChangeVariableInMakefile(varName, value=""):
+	pattern = re.compile(varName + makefileVariablePattern)
+
+	var = getVariableValueInMakefile(varName)
+
+	o = open(tmpMakefileName, "a")
+	if var is None:
+		o.write(varName + " = " + value + "\n")
+		for line in open(makefileName, 'r'):
+			o.write(line)
+	else:
+		for line in open(makefileName):
+			match = pattern.match(line)
+			if(match):
+				o.write(varName + " = " + value + "\n")
+			else:
+				o.write(line)
+	o.close()
+
+	shutil.move(tmpMakefileName, makefileName)
+	return (var is None)
+
+
+def addEmptyModuleLineInMakefile():
+	var = getVariableValueInMakefile(modulesVariableName)
+	if var is None:
+		addOrChangeVariableInMakefile(modulesVariableName, initialValueOfModulesVariable)
+
+def toggleVariableInMakefile(varName, activeValue="1"):
+	var = getVariableValueInMakefile(varName)
+	if var is None:
+		addOrChangeVariableInMakefile(varName, activeValue)
+		print "[INFO] " + varName + " option activated."
+	else:
+		delVariableInMakefile(varName)
+		print "[INFO] " + varName + " option discarded."
+
+
+def createMakefileIfNotPresent():
+	if os.path.exists(referenceMakefileName) == False:
+		print "[ERROR] '" + referenceMakefileName + "'  not found. Terminating."
+		return
+		
+	if os.path.exists(makefileName):
+		print "[INFO] Makefile found. Using current Makefile."
+	else:
+		print "[INFO] Makefile not found. Creating Makefile."
+		shutil.copy(referenceMakefileName, makefileName)
+	addEmptyModuleLineInMakefile()
+
+
+def getPrjNames():
+	res = []
+	dirList = os.listdir(prjDir)
+	for foo in dirList:
+		if os.path.isdir(os.path.join(prjDir, foo)) == True and foo[0]!='.':
+			res.append(foo)
+	return res
+
+
+def printListPrj():
+	print "[INFO] List all existing projects ('a' = active , '-' = inactive)"
+
+	createMakefileIfNotPresent()
+
+	listPrj = {}
+	foundModuleLine = False
+
+	for foo in getPrjNames():
+		listPrj[foo] = '-'
+
+	modulesValue = getVariableValueInMakefile(modulesVariableName)
+	if modulesValue is None:
+		print "[ERROR] a \"MODULE=\" line is missing in the Makefile file. "
+		print "[ERROR] Makefile may be incorrect. Use the -r option to reset Makefile from scratch"
+		return
+
+	debugValue = getVariableValueInMakefile(debugVariableName)
+	if debugValue is not None:
+		print "DEBUG option activated"
+
+	verboseValue = getVariableValueInMakefile(verboseVariableName)
+	if verboseValue is not None:
+		print "VERBOSE option activated"
+
+	for prjName in re.split('\s+', modulesValue):
+		if prjName in listPrj:
+			listPrj[prjName] = 'a'
+
+	print "Projects List:"
+	for k, v in listPrj.iteritems():
+		print " ", v, " ", k
+
+
+def reset():
+	print "[INFO] Reset Makefile (default active project(s): " + initialValueOfModulesVariable + ")"
+
+	createMakefileIfNotPresent()
+
+	# Run 'make clean'
+	os.system('make clean')
+
+	print "[INFO] Done."
+
+
+def addPrj(prjName):
+	print "[INFO] Activating project '" + prjName + "'"
+	
+	createMakefileIfNotPresent()
+	if not(prjName in getPrjNames()):
+		print "[WARNING] Project '" + prjName + "' does not exist. Command ignored."
+		return
+
+	modulesValue = getVariableValueInMakefile(modulesVariableName)
+	if modulesValue is None:
+		print "[ERROR] a \"MODULE=\" line is missing in the Makefile file. "
+		print "[ERROR] Makefile may be incorrect. Use the -r option to reset Makefile from scratch"
+		return
+
+	newModulesValue = (modulesValue.rstrip('\n') + " ").replace(prjName + " ", "") + prjName
+	addOrChangeVariableInMakefile(modulesVariableName, newModulesValue)
+
+	# Touch configuration files
+	os.utime(configurationLoaderPath, None)
+	dirList = os.listdir(projectsConfigurationLoadersPath)
+	for foo in dirList:
+		if(configurationLoaderPattern.match(foo)):
+			filename = os.path.join(projectsConfigurationLoadersPath, foo)
+			os.utime(filename, None)
+
+	# Run 'make clean'
+	os.system('make clean')
+
+	print "[SUCCESS] project '" + prjName + "' is active"
+
+
+def delPrj(prjName):
+	print "[INFO] Ignoring project '" + prjName + "'"
+
+	createMakefileIfNotPresent()
+	if not(prjName in getPrjNames()):
+		print "[WARNING] Project '" + prjName + "' does not exist. Command ignored."
+		return
+
+	modulesValue = getVariableValueInMakefile(modulesVariableName)
+	if modulesValue is None:
+		print "[ERROR] a \"MODULE=\" line is missing in the Makefile file. "
+		print "[ERROR] Makefile may be incorrect. Use the -r option to reset Makefile from scratch"
+		return
+
+	newModulesValue = modulesValue.rstrip('\n').replace(prjName, "")
+	addOrChangeVariableInMakefile(modulesVariableName, newModulesValue)
+
+	# Run 'make clean'
+	os.system('make clean')
+
+	print "[SUCCESS] project '" + prjName + "' is inactive"
+
+
+
+#if not sys.argv[1:]:
+#	print "[Error] Argument is missing."
+#	print "Help is avalaible with -h or --help option"
+#	return
+
+usage = "%prog [options]"
+parser = OptionParser(usage=usage)
+parser.add_option("-l", "--listPrj", action="store_true", dest="listPrj", default=False,
+		help="List all existing projects (both active and inactive)")
+parser.add_option("-a", "--add", dest="addPrj", help="Activate a project", default="none")
+parser.add_option("-i", "--ignore", dest="delPrj", help="Ignore a project", default="none")
+parser.add_option("-r", "--reset", action="store_true", dest="reset",
+		help="Reset Makefile.")
+parser.add_option("-D", "--toggle-debug", action="store_true", dest="toggleDebug", default=False,
+		help="Active or not the DEBUG option, in Makefile")
+parser.add_option("-V", "--toggle-verbose", action="store_true", dest="toggleVerbose", default=False,
+		help="Active or not the VERBOSE option, in Makefile")
+
+(options, args) = parser.parse_args()
+
+try:
+	if options.listPrj == True:
+		printListPrj()
+		sys.exit(-1)
+
+	if options.reset == True:
+		reset()
+		sys.exit(-1)
+
+	if options.toggleDebug == True:
+		createMakefileIfNotPresent()
+		toggleVariableInMakefile(debugVariableName)
+		sys.exit(-1)
+
+	if options.toggleVerbose == True:
+		createMakefileIfNotPresent()
+		toggleVariableInMakefile(verboseVariableName)
+		sys.exit(-1)
+
+	if options.addPrj != "none":
+		addPrj(options.addPrj)
+		sys.exit(-1)
+
+	if options.delPrj != "none":
+		delPrj(options.delPrj)
+		sys.exit(-1)
+
+
+	print "[ERROR] Argument is missing or incorrect."
+	print "Help is avalaible with -h or --help option"
+
+# except IOError as err: -- python 2.3+ only
+except (IOError):
+	print "[ERROR] I/O Error (you may retry once)."
+	print "[ERROR] Please check your version is up-to-date."
+#	print "[ERROR] error message : ", err	-- err is defined above, by require python 2.3+
