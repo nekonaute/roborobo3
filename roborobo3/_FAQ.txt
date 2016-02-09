@@ -36,10 +36,11 @@ A: You may be running a simulation with a very large number of robots, and your 
 Q: How to add a new arena/robot/sensorlayout/...?
 A: (a) if you want to modify an existing environment, first check the properties file in the config/ directory ; (b) if you want to draw a new arena or redefined the sensor layout, check existing example in the data/ directory (the properties file should tell you which one are used). When creating/modifying an image, the only -- very important -- rule is to use 32-bits uncompressed (BMP) image.
 
-Q: Why use BMP files (over PNG)?
+Q: Why use BMP files (over JPEG or PNG)?
 A: As of roborobo version 3, roborobo only supports BMP images (while previous versions supported PNG). The reason is that there is a bug in SDL2_image, that prevent to load *exactly* the pixel values of the image, hence provoking problems with masks and images. This is caused by the automatic embedded calibration applied when SDL2_image's IMG_Load(...) function is called. Until this bug is solved, there will be no PNG support, and SDL2_image won't be required. cf.:
 	- https://forums.libsdl.org/viewtopic.php?t=10013&sid=34e8ef7cf74074039495037c1a077025
 	- http://stackoverflow.com/questions/24987165/sdl2-sdl-image-strange-png-behavior-with-rgb-values
+As for JPEG: JPEG is a method for lossy compression. Roborobo needs the image encoding to be without loss.
 
 Q: I am running roborobo remotely, typically on a cluster. Roborobo either hangs at startup (''connect localhost port xxxx: connection time out'') or crashes (segmentation fault).
 A: First, check you have been running headless roborobo (value of gBatchMode in the properties file). If it still fails, it is most probably due to video initialization -- SDL tries to initialize the video, even if it wont be used. This can cause a problem, especially when exporting the display is not possible (slow connection, bad configuration, closed ports... -- this problem will also impact other X-based application, e.g. try ''xeyes''.). To avoid this: connect to the remote server such that exporting X is not an option (ie. use *always* the ''ssh'' command without any options -- *not* ''ssh -X'' or ''ssh -Y''). This will force SDL to bypass the video initialization. Note that if aalib is installed and SDL is able to use it, any display from roborobo will be done in nice ascii art within the very terminal. If this does not solve the problem, then try changing, or reconfiguring, your terminal application, and/or type ''export TERM=xterm'' in the console.
@@ -48,7 +49,7 @@ Q: No makefile method seem to work.
 A: The basic makefile method is really... basic. And should work everywhere, except with Mac OSX due to a different SDL installation location. The modular makefile method was tested successfully in linux with GNU Make, in freeBSD with BSD Make, and under Windows with Cygwin/Mingw (with GNU Make). Possible problems: (a) check dependencies. SDL must be installed (b) running Mac OSX? Use Xcode project (c) uh... a bug, may be? Did you try 'make clean' before compiling again?
 
 Q: Roborobo compiles but at run-time i get the following error: '[CORRUPT] The configuration (nameofproject)ConfigurationLoader isn't known by the ConfigurationLoader', why?
-A: Most likely, you did not compile the project mentionned. Activate this project with the 'makefile-manager' script (see _INSTALL.TXT)
+A: Most likely, you did not compile the project mentionned. Activate this project with the 'makefile-manager' script (see _INSTALL.TXT or type './makefile-manager -h')
 
 Q: How to compile using make with a debug option?
 A: Under Linux, type 'DEBUG=true make'
@@ -127,7 +128,7 @@ Q: What are the dependencies?
 A: As of roborobo.3, only SDL2, boost (headers only) are required. Previous versions (<3) use SDL1.2, SDL1.2_image and boost (headers only)
 
 Q: Should I use g++ (or gcc) or clang++?
-A: both works. Dont forget to edit the Makefile to set the right compiler.
+A: both works. Dont forget to edit the Makefile.Modular to set the right compiler, and re-generate a Makefile with the ./makefile-manager script.
 
 Q: I want to re-create a project with Xcode 7 (or later):
 A: Let's go for step-by-step quick list:

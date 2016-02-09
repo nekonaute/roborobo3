@@ -17,11 +17,13 @@
 - BOOST (headers)
 
 2. Build and run:
+
 - Linux:
 	- open a terminal, and enter the following commands:
-	- "./makefile-manager -l"
+	- "./makefile-manager -l" (this step is optional as a default Makefile exists)
 	- "make" (or, if you have multiple processors: "make -jXX", with XX=nb_of_processors)
 	- "./roborobo -l config/default-wander_bigrobots.properties"
+
 - MacOSX: use XCode project
 	- create symbolic links to config/, data/ and /logs directories into the build directory where roborobo binary is created.
 		- in order to know where the build directory is:
@@ -77,7 +79,7 @@ You basically two options:
 =-=-=-=
 
 makefile-manager is a script that generates a makefile with only the project(s) you want to compile.
-"./makefile-manager" creates a default makefile.  
+"./makefile-manager" creates a default makefile from your preferences (see help) and using the template Makefile.modular file.
 "./makefile-manager -h" displays usage help.
 
 Quick start: in the console, enter the following commands (set-up makefile, compile, and execute)
@@ -85,10 +87,13 @@ Quick start: in the console, enter the following commands (set-up makefile, comp
     $ make  
     $ ./roborobo
 
-Two default projects are activated (BasicProject and DemoMedea) for you to test roborobo.
+Four default projects are activated (TemplateBoids, TemplateMedea, TemplateRandomwalk and TemplateWander) for you to test roborobo.
 
 Remarks:
-- note that makefile-manager uses Makefile.modular to create a local Makefile. You should not need to edit this, but if you want to change the compiler used (default: g++), do it there.
+- note that makefile-manager uses Makefile.modular to create a Makefile file.
+- if you want to change from using gcc to clang, edit the Makefile.modular and regenerate a Makefile with the makefile-manager script.
+- if you want to add a new project, use the makefile-manager script.
+- DO NOT edit the Makefile file as it will be overwritten next time you use makefile-manager
 - to speed up compilation on multicore systems, you may want to use "make -j<nb_of_cores>" instead of "make"
 
 =-=-=-=

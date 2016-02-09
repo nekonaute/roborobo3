@@ -87,28 +87,31 @@ The paper is available on Arxiv: http://arxiv.org/abs/1304.2888
 
 ** VERY QUICK START **
 
-Check the TemplateWander and TemplateRandomwalk projects. Everything you need is there.
+Check the Template* projects in prj/ (start with TemplateRandomwalk, then TemplateBoids). Everything you need is there.
 Launch with:
-- for TemplateWander: ./roborobo -l config/template_wander_bigrobots.properties
-- for TemplateRandomwalk: ./roborobo -l config/template_randomwalk.properties
+- for TemplateRandomwalk: './roborobo -l config/template_wander_bigrobots.properties' or './roborobo -l config/template_wander_smallrobots.properties'
+- for TemplateBoids: ./roborobo -l config/template_boids.properties
 
-TemplateRandomwalk contains a lot of comments and example of code.
+Both projects contain a lot of comments and example of code.
 
-If you want to start coding, I would suggest you do not modify existing code and keep it for reference. To create a new project, that is quite easy. Let's assume you want to clone the TemplateRandomwalk project:
+If you want to start coding, I suggest you do not modify existing code and keep it for reference. To create a new project, that is quite easy. Let's assume you want to clone the TemplateRandomwalk project. The following shows how to clone an existing project, then to compile and run the new project:
+
 STEP 1: cloning a project
     <from roborobo root directory>
     cd prj/
     python clone_project.py TemplateRandomwalk MyOwnProject
+
 STEP 2: creating a configuration file ("properties" file)
     <from roborobo root directory>
     cd config/
     cp template_randomwalk.properties myownproject.properties
     <then edit myownproject.properties to change ConfigurationLoaderObjectName parameter value to: "MyOwnProjectConfigurationLoader">
+
 STEP 3: re-compile and run.
     Linux:
         ./makefile-manager -a MyOwnProject
         make clean
-        make
+        make  (or 'make -jXX' if you have XX cores on your computer. Will compile faster.)
         ./roborobo -l config/myownproject.properties
     Mac OS X with Xcode:
         add missing files to the project:
@@ -119,9 +122,10 @@ STEP 3: re-compile and run.
         clean and build
         run
 
-That's it.
+That's it. You can start to code.
 
-** QUICK OVERVIEW **
+
+** ROBOROBO: A QUICK OVERVIEW **
 
 The philosophy is that in the standard case, the designer should be able to code the agent behavior (the ''Controller'') and to access both the world and agents states in a seperate fashion (''World'' and ''Agent'' observers). The world and agents observers are run before the actual agent behavioral update, meaning that the observers do observe a ''stable'' snapshot of the environment. Then, agent behavioral update are performed in turn-based fashion (ie. asynchroneous), to deal with possible collision. While roborobo is turn-based, the update order of robots is randomized between each updates of the world (to avoid deleterious effects due to ordering).
 
@@ -149,15 +153,6 @@ About the simulation update method scheme:
 		- in practical, neither controlarchitecture or observers should contain general agent-related information. All should be stored in the worldmodel.
 
 The best way to learn is to practice. Clone an existing project and toy with it. See next paragraph to start playing.
-
-
-** QUICK START : SETTING UP A NEW PROJECT **
-
-- clone an existing project with the ./prj/clone_project.py python script.
-- (Linux:) update your makefile with the ./makefile-manager script.
-- (MacOSX:) update XCode project to include the newly created files.
-- create a dedicated properties file in the ./config/ directory.
-- (Linux and MacOSX): build, then run roborobo with your newly created properties file as parameter (program parameter: "-l config/<mypropertiesfile.properties>").
 
 
 ** METHODOLOGY GUIDELINES **
@@ -203,5 +198,6 @@ Some image files are available by default in the data subdirectory. Here's a qui
 - agent*: a 32x32 robot image, with 8 sensors (khepera-like)
 - miniagent*: a 5x5 robot image, with 8 sensors (sensor belt)
 
+When creating an image, be very very careful about the values of pixels.
 
 [-n].

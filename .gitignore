@@ -1,3 +1,4 @@
 *.o
 logs/
 roborobo
+.DS_Store
