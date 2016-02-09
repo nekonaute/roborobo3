@@ -1,4 +1,5 @@
-*.o
+# contains patterns to be ignored, or exact names (start with '!')
+*.[oa]
 logs/
-roborobo
+!roborobo3/roborobo
 .DS_Store
