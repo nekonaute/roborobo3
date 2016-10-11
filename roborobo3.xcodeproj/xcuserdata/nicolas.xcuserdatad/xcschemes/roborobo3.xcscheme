@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/nicolas/Desktop/__local/Development/C++/roborobo3/roborobo3"
+      customWorkingDirectory = "/Users/nicolas/Desktop/__Dropbox/Dropbox/Corailbox/code/Repositories/git/roborobo3/roborobo3"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
@@ -73,11 +73,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_boids.properties"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_medea.properties"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_wander_bigrobots.properties"

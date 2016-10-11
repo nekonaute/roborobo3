@@ -678,7 +678,8 @@ void TemplateMedeaController::loadNewGenome()
 {
     if ( _wm->isAlive() || gEnergyRefill )  // ( gEnergyRefill == true ) enables revive
     {
-        logCurrentState();
+        if ( _wm->isAlive() )
+            logCurrentState(); // TODO: 2016-05-30n - check modif pour amaury
         
         // note: at this point, agent got energy, whether because it was revived or because of remaining energy.
         

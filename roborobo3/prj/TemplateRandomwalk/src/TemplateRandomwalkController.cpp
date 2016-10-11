@@ -207,7 +207,7 @@ void TemplateRandomwalkController::monitorSensoryInformation()
                     std::cout << " touched robot #" << gWorld->getRobot(targetRobotId) << ", at distance " << std::setw(4) << distance << ".\n";
                     
                     // Distance to target , orientation wrt target, target absolute orientation, target LED values
-                    // distance to target is approximated through sensor ray length before contact.
+                    // Distance to target is approximated through sensor ray length before contact.
                     
                     double tgtOrientation = gWorld->getRobot(targetRobotId)->getWorldModel()->_agentAbsoluteOrientation;
                     double delta_orientation = - ( srcOrientation - tgtOrientation );
