@@ -51,6 +51,10 @@ void TemplateRandomwalkController::step()
     //_wm->_desiredRotationalVelocity = rotationalSpeed;
     //_wm->setEnergyRequestValue(0);
     
+    // Check config file for max. translational speed and delta speed (both should be 2 pixels/step, hence value is in [-2,+2])
+    // Check config file for max. rotational speed (should be 30deg/step, hence value is in [-30,+30])
+
+    
     _wm->_desiredTranslationalValue =
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_F)  * _params[0] +
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_R)  * _params[1] +
