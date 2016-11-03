@@ -160,37 +160,47 @@ void TemplateMedeaController::step()
 
 void TemplateMedeaController::stepBehaviour()
 {
-    _wm->updateLandmarkSensor(); // update with closest landmark
+
+    // WHAT FOLLOWS IS AN EXAMPLE OF LOADING A NN-CONTROLER WITH A FULL-FLEDGE SENSORY INPUT INFORMATION
+    // Rewrite to match your own extended input scheme, if needed.
+    // Note that you may tune it on/off using gExtendedSensoryInputs defined in the properties file.
+    // When modifying this code, dont forget to update the initialization in the resetRobot() method
+    // Example:
+    //      - you may want to distinguish between robot's groups (if more than 1)
+    //      - you may want to restrict the number of objects that can be identified (if not all possible objects are in use)
+    //      - you may want to compress inputs (e.g. binary encoding instead of one-input-per-object-type.
+    //      - (...)
+    //
+    // In the following, sensory inputs for each sensor are ordered (and filled in) as follow:
+    // - N range sensors
+    //      - distance to obstacle (max if nothing)
+    //      IF extendedInputs is True:
+    //          - [0...N_physicalobjecttypes] Is it an object of type i? (0: no, 1: yes) -- type: 0 (round), 1 (energy item), 2 (gate), 3 (switch), ...? (cf. PhysicalObjectFactory)
+    //          - is it a robot? (1 or 0)
+    //          - is it from the same group? (1 or 0)
+    //          - relative orientation wrt. current robot (relative orientation or 0 if not a robot)
+    //          - is it a wall? (ie. a non-distinguishible something) (1 or 0)
+    // - floor sensor, red value
+    // - floor sensor, green value
+    // - floor sensor, blue value
+    // - relative direction to the closest landmark
+    // - distance to the closest landmark
+    // - normalized energy level (if any)
+    //
+    // => number of sensory inputs: N * rangeSensors + 6, with rangeSensors varying from 1 to many, if extended sensory inputs are on.
+
     
     // ---- Build inputs ----
     
-    std::vector<double>* inputs = new std::vector<double>(_nbInputs);
-    int inputToUse = 0;
+    std::vector<double> inputs;
     
     // distance sensors
     for(int i  = 0; i < _wm->_cameraSensorsNb; i++)
     {
-        (*inputs)[inputToUse] = _wm->getDistanceValueFromCameraSensor(i) / _wm->getCameraSensorMaximumDistanceValue(i);
-        inputToUse++;
+        inputs.push_back( _wm->getDistanceValueFromCameraSensor(i) / _wm->getCameraSensorMaximumDistanceValue(i) );
         
         if ( gExtendedSensoryInputs ) // EXTENDED SENSORY INPUTS: code provided as example, should be rewritten to suit your need.
         {
-            // WHAT FOLLOWS IS AN EXAMPLE OF EXTENDED SENSORY INPUTS
-            // Rewrite to match your own extended input scheme, if needed.
-            // You may tune it on/off using gExtendedSensoryInputs defined in the properties file.
-            // When modifying this code, dont forget to update the initialization in the resetRobot() method
-            // Example:
-            //      - you may want to distinguish between robot's groups (if more than 1)
-            //      - you may want to restrict the number of objects that can be identified (if not all possible objects are in use)
-            //      - you may want to compress inputs (e.g. binary encoding instead of one-input-per-object-type.
-            //      - (...)
-            //
-            // In the following
-            //      - inputs[N_physicalobjecttypes]: 0 or 1 is active, other are set to zero.
-            //      - inputs[2]: (a) is it a robot? (b) is it from the same group? (c) what is its relative orientation wrt. current robot
-            //      - inputs[1]: is it a wall (=1), or nothing (=0)
-            //      Comment: from 0 (nothing) to 2 (robot, same group) active inputs.
-            
             int objectId = _wm->getObjectIdFromCameraSensor(i);
             
             // input: physical object? which type?
@@ -200,10 +210,9 @@ void TemplateMedeaController::stepBehaviour()
                 for ( int i = 0 ; i != nbOfTypes ; i++ )
                 {
                     if ( i == gPhysicalObjects[objectId - gPhysicalObjectIndexStartOffset]->getType() )
-                        (*inputs)[inputToUse] = 1; // match
+                        inputs.push_back( 1 ); // match
                     else
-                        (*inputs)[inputToUse] = 0;
-                    inputToUse++;
+                        inputs.push_back( 0 );
                 }
             }
             else
@@ -212,8 +221,7 @@ void TemplateMedeaController::stepBehaviour()
                 int nbOfTypes = PhysicalObjectFactory::getNbOfTypes();
                 for ( int i = 0 ; i != nbOfTypes ; i++ )
                 {
-                    (*inputs)[inputToUse] = 0;
-                    inputToUse++;
+                    inputs.push_back( 0 );
                 }
             }
             
@@ -221,19 +229,17 @@ void TemplateMedeaController::stepBehaviour()
             if ( Agent::isInstanceOf(objectId) )
             {
                 // this is an agent
-                (*inputs)[inputToUse] = 1;
-                inputToUse++;
+                inputs.push_back( 1 );
                 
                 // same group?
                 if ( gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->getGroupId() == _wm->getGroupId() )
                 {
-                    (*inputs)[inputToUse] = 1; // match: same group
+                    inputs.push_back( 1 ); // match: same group
                 }
                 else
                 {
-                    (*inputs)[inputToUse] = 0; // not the same group
+                    inputs.push_back( 0 ); // not the same group
                 }
-                inputToUse++;
                 
                 // relative orientation? (ie. angle difference wrt. current agent)
                 double srcOrientation = _wm->_agentAbsoluteOrientation;
@@ -244,61 +250,45 @@ void TemplateMedeaController::stepBehaviour()
                 else
                     if ( delta_orientation <= -180.0 )
                         delta_orientation = - ( - 360.0 - delta_orientation );
-                (*inputs)[inputToUse] = delta_orientation/180.0;
-                inputToUse++;
-                
-                /* //todelete
-                 // ----- DEBUG::SANDBOX
-                 std::cout << "src.orientation: " <<  srcOrientation
-                 << "° ; tgt.orientation: " << tgtOrientation
-                 << "° ; delta orientation: " << delta_orientation
-                 << " <==> " << delta_orientation/180.0 << "°"
-                 << std::endl;
-                 // ----- DEBUG::SANDBOX.
-                 */
+                inputs.push_back( delta_orientation/180.0 );
             }
             else
             {
-                (*inputs)[inputToUse] = 0; // not an agent...
-                inputToUse++;
-                (*inputs)[inputToUse] = 0; // ...therefore no match wrt. group.
-                inputToUse++;
-                /*
-                 (*inputs)[inputToUse] = 0; // ...and no orientation.
-                 inputToUse++;
-                 */
+                inputs.push_back( 0 ); // not an agent...
+                inputs.push_back( 0 ); // ...therefore no match wrt. group.
+                inputs.push_back( 0 ); // ...and no orientation.
             }
             
             // input: wall or empty?
             if ( objectId >= 0 && objectId < gPhysicalObjectIndexStartOffset ) // not empty, but cannot be identified: this is a wall.
-                (*inputs)[inputToUse] = 1;
+                inputs.push_back( 1 );
             else
-                (*inputs)[inputToUse] = 0; // nothing. (objectId=-1)
-            inputToUse++;
+                inputs.push_back( 0 ); // nothing. (objectId=-1)
         }
     }
     
     // floor sensor
-    (*inputs)[inputToUse++] = (double)_wm->getGroundSensor_redValue()/255.0;
-    (*inputs)[inputToUse++] = (double)_wm->getGroundSensor_greenValue()/255.0;
-    (*inputs)[inputToUse++] = (double)_wm->getGroundSensor_blueValue()/255.0;
+    inputs.push_back( (double)_wm->getGroundSensor_redValue()/255.0 );
+    inputs.push_back( (double)_wm->getGroundSensor_greenValue()/255.0 );
+    inputs.push_back( (double)_wm->getGroundSensor_blueValue()/255.0 );
     
-    // landmark (targeted landmark depends on g_skill)
-    (*inputs)[inputToUse++] = _wm->getLandmarkDirectionAngleValue();
-    (*inputs)[inputToUse++] = _wm->getLandmarkDistanceValue();
+    // landmark (closest landmark)
+    _wm->updateLandmarkSensor(); // update with closest landmark
+    inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
+    inputs.push_back( _wm->getLandmarkDistanceValue() );
 
     
     // energy level
     if ( gEnergyLevel )
     {
-        (*inputs)[inputToUse++] = _wm->getEnergyLevel() / gEnergyMax;
+        inputs.push_back( _wm->getEnergyLevel() / gEnergyMax );
     }
     
     // ---- compute and read out ----
     
     nn->setWeigths(_parameters); // create NN
     
-    nn->setInputs(*inputs);
+    nn->setInputs(inputs);
     
     nn->step();
     
@@ -318,7 +308,6 @@ void TemplateMedeaController::stepBehaviour()
     _wm->_desiredTranslationalValue = _wm->_desiredTranslationalValue * gMaxTranslationalSpeed;
     _wm->_desiredRotationalVelocity = _wm->_desiredRotationalVelocity * gMaxRotationalSpeed;
     
-    delete (inputs);
 }
 
 
