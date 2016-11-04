@@ -188,7 +188,7 @@ void TemplateMedeaController::stepBehaviour()
     // - normalized energy level (if any)
     //
     // => number of sensory inputs: N * rangeSensors + 6, with rangeSensors varying from 1 to many, if extended sensory inputs are on.
-
+    
     
     // ---- Build inputs ----
     

@@ -80,7 +80,7 @@ std::string gCompileDate = __DATE__;
 
 
 std::string gPropertiesFilename = "config/template_wander_bigrobots.properties";
-std::string gCurrentBuildInfo   = "Lutetia build (roborobo^3 w/ SDL2)";  // display through "-v[ersion]" command line option -- check/set value in config.h
+std::string gCurrentBuildInfo   = "Tokyo build (roborobo^3 w/ SDL2)";  // display through "-v[ersion]" command line option -- check/set value in config.h
 // start development: 2009
 // Bristol build -- june 2010
 // Krakow build -- sept 2010
@@ -1731,7 +1731,7 @@ bool loadProperties( std::string __propertiesFilename )
 	out << "# PROPERTIES FILE DUMP " << std::endl;
 	out << "# =-=-=-=-=-=-=-=-=-=-=" << std::endl;
 	out << "#" << std::endl;
-	out << "# =-= Roborobo^2 " << std::endl;
+	out << "# =-= Roborobo^3 " << std::endl;
 	out << "# =-= Official version tag    : " << gVersion << std::endl;
 	out << "# =-= Current build name      : " << gCurrentBuildInfo << std::endl;
 	out << "# =-= Compilation version tag : " << gCompileDate << " - " << gCompileTime << std::endl;
@@ -1802,7 +1802,6 @@ void initRoborobo()
 
 bool runRoborobo(int __maxIt) // default parameter is -1 (infinite)
 {
-	//While the user hasn't quit
 	bool quit = false;
 	int currentIt = 0;
 	while( quit == false && ( currentIt < __maxIt || __maxIt == -1 ) )
