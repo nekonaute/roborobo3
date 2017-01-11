@@ -15,7 +15,7 @@ class SandboxEESharedData : TemplateMedeaSharedData {
     // cf. super class for many parameter values.
     // Add here parameters that are specific to current implementation.
     
-};
+}; 
 
 
 #endif
