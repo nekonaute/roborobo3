@@ -515,18 +515,29 @@ void TemplateMedeaController::selectFirstGenome()
     }
 }
 
-bool TemplateMedeaController::storeGenome(std::vector<double> genome, int senderId, int senderBirthdate, float sigma)
+bool TemplateMedeaController::storeGenome(std::vector<double> genome, int senderId, int senderBirthdate, float sigma, float fitness) // fitness is optional (default: 0)
 {
-    std::map<int,int>::const_iterator it = _birthdateList.find(senderBirthdate);
-    
-    if ( !_isListening || ( it != _birthdateList.end() && _birthdateList[senderId] == senderBirthdate ) ) // this agent is not listening OR this exact agent's genome is already stored.
-        return false;
+    if ( !_isListening )
+    {
+        return false; // current agent is not listening: do nothing.
+    }
     else
     {
-        _genomesList[senderId] = genome;
-        _sigmaList[senderId] = sigma;
-        _birthdateList[senderId] = senderBirthdate;
-        return true;
+        std::map<int,int>::const_iterator it = _birthdateList.find(senderBirthdate);
+    
+        if ( it != _birthdateList.end() && _birthdateList[senderId] == senderBirthdate ) // this exact agent's genome is already stored. Exact means: same robot, same generation.
+        {
+            _fitnessValuesList[senderId] = fitness; // update with most recent fitness (IMPLEMENTATION CHOICE) [!n]
+            return false;
+        }
+        else
+        {
+            _genomesList[senderId] = genome;
+            _sigmaList[senderId] = sigma;
+            _birthdateList[senderId] = senderBirthdate;
+            _fitnessValuesList[senderId] = fitness;
+            return true;
+        }
     }
 }
 
@@ -705,7 +716,7 @@ void TemplateMedeaController::broadcastGenome()
                     
                 }
                 
-                bool success = targetRobotController->storeGenome(_currentGenome, _wm->getId(), _birthdate, sigmaSendValue); // other agent stores my genome. Contaminant stragegy.
+                bool success = targetRobotController->storeGenome(_currentGenome, _wm->getId(), _birthdate, sigmaSendValue, _wm->_fitnessValue); // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
                 
                 if ( success == true )
                     _nbGenomeTransmission++;
@@ -858,6 +869,7 @@ void TemplateMedeaController::logCurrentState()
     ",dist," + std::to_string( getEuclidianDistance( _Xinit, _Yinit, _wm->getXReal(), _wm->getYReal() ) ) +
     ",sumOfDist," + std::to_string( _dSumTravelled ) +
     ",groupId," + std::to_string(_wm->getGroupId()) +
+    ",fitnessValue," + std::to_string(_wm->_fitnessValue) + 
     "\n";
     gLogManager->write(sLog);
     gLogManager->flush();

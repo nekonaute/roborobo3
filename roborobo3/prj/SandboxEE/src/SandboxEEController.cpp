@@ -53,6 +53,8 @@ void SandboxEEController::performVariation()
 double SandboxEEController::getFitness()
 {
     // nothing to do
+    // if relevant, use _wm->_fitnessValue.
+    // Note that in case of multiple encounters with the same robot (same id, same "birthdate"), the most recent fitness value is stored.
     return -1;
 }
 

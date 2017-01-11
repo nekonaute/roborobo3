@@ -26,7 +26,7 @@ class TemplateMedeaController : public Controller
 protected:
     int _iteration;
     int _birthdate; // evaluation when this controller was initialized.
-    
+        
     bool _isListening;
     int _notListeningDelay;
     int _listeningDelay;
@@ -70,6 +70,7 @@ protected:
     std::map<int, std::vector<double> > _genomesList;
     std::map<int, float > _sigmaList;
     std::map<int,int> _birthdateList; // store the birthdate of the received controllers (useful for monitoring).
+    std::map<int, float> _fitnessValuesList;
     std::vector<double> _currentGenome;
     float _currentSigma;
     
@@ -86,7 +87,7 @@ protected:
     double _Yinit;
     double _dSumTravelled;
     
-    bool storeGenome(std::vector<double> genome, int senderId, int senderBirthdate, float sigma);
+    bool storeGenome(std::vector<double> genome, int senderId, int senderBirthdate, float sigma, float fitness=0);
     void resetRobot();
     void initController(); // called by resetRobot
     
