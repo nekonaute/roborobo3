@@ -10,6 +10,7 @@ Pre-amble:
 Also:
 - The following is valid only if <sourcename> is the prefix for directory name, filenames and class names.
 	- e.g. TemplateWander, TemplateMedea and TemplateBoids are valid wrt. these contraints. Any other projects may, or may not, be valid. (that said, chance are they are valid)
+	- it also works for SandboxEE, which is a good starting point for embodied evolution implementations.
 - If you are using Xcode on MacOS X, do not forget to update the project content.
 
 =-=-=
