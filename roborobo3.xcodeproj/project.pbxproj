@@ -21,6 +21,11 @@
 		3705F0861BC66E3B001A016D /* TemplateWanderAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3705F07B1BC66E3B001A016D /* TemplateWanderAgentObserver.cpp */; };
 		3705F0871BC66E3B001A016D /* TemplateWanderController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3705F07C1BC66E3B001A016D /* TemplateWanderController.cpp */; };
 		3705F0881BC66E3B001A016D /* TemplateWanderWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3705F07D1BC66E3B001A016D /* TemplateWanderWorldObserver.cpp */; };
+		3721AD591E261BD300522603 /* SandboxEEConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3721AD581E261BD300522603 /* SandboxEEConfigurationLoader.cpp */; };
+		3721AD671E261BEC00522603 /* SandboxEEAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3721AD631E261BEC00522603 /* SandboxEEAgentObserver.cpp */; };
+		3721AD681E261BEC00522603 /* SandboxEEController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3721AD641E261BEC00522603 /* SandboxEEController.cpp */; };
+		3721AD691E261BEC00522603 /* SandboxEESharedData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3721AD651E261BEC00522603 /* SandboxEESharedData.cpp */; };
+		3721AD6A1E261BEC00522603 /* SandboxEEWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3721AD661E261BEC00522603 /* SandboxEEWorldObserver.cpp */; };
 		3739761B1BCEAA2F00A007BF /* TemplateRandomwalkConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3739761A1BCEAA2F00A007BF /* TemplateRandomwalkConfigurationLoader.cpp */; };
 		373976271BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976241BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp */; };
 		373976281BCFAED500A007BF /* TemplateRandomwalkController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976251BCFAED500A007BF /* TemplateRandomwalkController.cpp */; };
@@ -113,6 +118,16 @@
 		3705F08D1BC67B7C001A016D /* template_wander_bigrobots.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = template_wander_bigrobots.properties; sourceTree = "<group>"; };
 		3705F08E1BC67B7C001A016D /* template_wander_smallrobots.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = template_wander_smallrobots.properties; sourceTree = "<group>"; };
 		3705F08F1BC67B7C001A016D /* test.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.properties; sourceTree = "<group>"; };
+		3721AD581E261BD300522603 /* SandboxEEConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SandboxEEConfigurationLoader.cpp; sourceTree = "<group>"; };
+		3721AD5A1E261BE100522603 /* SandboxEEConfigurationLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxEEConfigurationLoader.h; sourceTree = "<group>"; };
+		3721AD5D1E261BEC00522603 /* SandboxEEAgentObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxEEAgentObserver.h; sourceTree = "<group>"; };
+		3721AD5E1E261BEC00522603 /* SandboxEEController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxEEController.h; sourceTree = "<group>"; };
+		3721AD601E261BEC00522603 /* SandboxEESharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxEESharedData.h; sourceTree = "<group>"; };
+		3721AD611E261BEC00522603 /* SandboxEEWorldObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SandboxEEWorldObserver.h; sourceTree = "<group>"; };
+		3721AD631E261BEC00522603 /* SandboxEEAgentObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SandboxEEAgentObserver.cpp; sourceTree = "<group>"; };
+		3721AD641E261BEC00522603 /* SandboxEEController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SandboxEEController.cpp; sourceTree = "<group>"; };
+		3721AD651E261BEC00522603 /* SandboxEESharedData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SandboxEESharedData.cpp; sourceTree = "<group>"; };
+		3721AD661E261BEC00522603 /* SandboxEEWorldObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SandboxEEWorldObserver.cpp; sourceTree = "<group>"; };
 		3739761A1BCEAA2F00A007BF /* TemplateRandomwalkConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateRandomwalkConfigurationLoader.cpp; sourceTree = "<group>"; };
 		3739761C1BCEAA6200A007BF /* TemplateRandomwalkConfigurationLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateRandomwalkConfigurationLoader.h; sourceTree = "<group>"; };
 		3739761D1BCF8D1F00A007BF /* template_randomwalk.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = template_randomwalk.properties; sourceTree = "<group>"; };
@@ -125,7 +140,6 @@
 		3739762A1BD0EC6200A007BF /* _FAQ.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _FAQ.txt; path = roborobo3/_FAQ.txt; sourceTree = "<group>"; };
 		3739762B1BD0EC6200A007BF /* _INSTALL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _INSTALL.txt; path = roborobo3/_INSTALL.txt; sourceTree = "<group>"; };
 		3739762C1BD0EC6200A007BF /* _README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _README.txt; path = roborobo3/_README.txt; sourceTree = "<group>"; };
-		37A688151DCB8B9900938C4A /* SensoryInformation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SensoryInformation.h; sourceTree = "<group>"; };
 		37BA26161BC3C782002DF5DC /* roborobo3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = roborobo3; sourceTree = BUILT_PRODUCTS_DIR; };
 		37BA26211BC3C7A9002DF5DC /* SDL2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2.framework; path = ../../../../../../../Library/Frameworks/SDL2.framework; sourceTree = "<group>"; };
 		37BA262A1BC3D014002DF5DC /* Elman.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Elman.h; sourceTree = "<group>"; };
@@ -274,7 +288,6 @@
 				3705F06D1BC66E3B001A016D /* TemplateMedeaController.h */,
 				3705F06E1BC66E3B001A016D /* TemplateMedeaSharedData.h */,
 				3705F06F1BC66E3B001A016D /* TemplateMedeaWorldObserver.h */,
-				37A688151DCB8B9900938C4A /* SensoryInformation.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -333,6 +346,37 @@
 			);
 			name = config;
 			path = roborobo3/config;
+			sourceTree = "<group>";
+		};
+		3721AD5B1E261BEC00522603 /* SandboxEE */ = {
+			isa = PBXGroup;
+			children = (
+				3721AD5C1E261BEC00522603 /* include */,
+				3721AD621E261BEC00522603 /* src */,
+			);
+			path = SandboxEE;
+			sourceTree = "<group>";
+		};
+		3721AD5C1E261BEC00522603 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				3721AD5D1E261BEC00522603 /* SandboxEEAgentObserver.h */,
+				3721AD5E1E261BEC00522603 /* SandboxEEController.h */,
+				3721AD601E261BEC00522603 /* SandboxEESharedData.h */,
+				3721AD611E261BEC00522603 /* SandboxEEWorldObserver.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		3721AD621E261BEC00522603 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				3721AD631E261BEC00522603 /* SandboxEEAgentObserver.cpp */,
+				3721AD641E261BEC00522603 /* SandboxEEController.cpp */,
+				3721AD651E261BEC00522603 /* SandboxEESharedData.cpp */,
+				3721AD661E261BEC00522603 /* SandboxEEWorldObserver.cpp */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 		3739761E1BCFAED500A007BF /* TemplateRandomwalk */ = {
@@ -540,6 +584,7 @@
 		37BA26591BC3D014002DF5DC /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				3721AD5A1E261BE100522603 /* SandboxEEConfigurationLoader.h */,
 				3705F0561BC66E03001A016D /* TemplateBoidsConfigurationLoader.h */,
 				3705F0571BC66E03001A016D /* TemplateMedeaConfigurationLoader.h */,
 				3705F0581BC66E03001A016D /* TemplateWanderConfigurationLoader.h */,
@@ -570,6 +615,7 @@
 				3705F05F1BC66E3B001A016D /* TemplateBoids */,
 				3705F06A1BC66E3B001A016D /* TemplateMedea */,
 				3705F0751BC66E3B001A016D /* TemplateWander */,
+				3721AD5B1E261BEC00522603 /* SandboxEE */,
 			);
 			name = prj;
 			path = roborobo3/prj;
@@ -651,6 +697,7 @@
 		37BA26FB1BC3D014002DF5DC /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				3721AD581E261BD300522603 /* SandboxEEConfigurationLoader.cpp */,
 				37BA26FE1BC3D014002DF5DC /* ConfigurationLoader.cpp */,
 				37BA27001BC3D014002DF5DC /* EnergyItem.cpp */,
 				37BA27011BC3D014002DF5DC /* GateObject.cpp */,
@@ -741,11 +788,14 @@
 				37BA27381BC3D014002DF5DC /* Agent.cpp in Sources */,
 				37BA27361BC3D014002DF5DC /* Properties.cpp in Sources */,
 				37BA27391BC3D014002DF5DC /* AgentObserver.cpp in Sources */,
+				3721AD671E261BEC00522603 /* SandboxEEAgentObserver.cpp in Sources */,
 				37BA274D1BC3D014002DF5DC /* WorldObserver.cpp in Sources */,
 				37BA27321BC3D014002DF5DC /* NeuralNetwork.cpp in Sources */,
+				3721AD691E261BEC00522603 /* SandboxEESharedData.cpp in Sources */,
 				3705F0881BC66E3B001A016D /* TemplateWanderWorldObserver.cpp in Sources */,
 				3705F07E1BC66E3B001A016D /* TemplateBoidsAgentObserver.cpp in Sources */,
 				37BA273E1BC3D014002DF5DC /* Geometry.cpp in Sources */,
+				3721AD681E261BEC00522603 /* SandboxEEController.cpp in Sources */,
 				3705F07F1BC66E3B001A016D /* TemplateBoidsController.cpp in Sources */,
 				37BA27561BC3D014002DF5DC /* PhysicalObjectFactory.cpp in Sources */,
 				3705F0831BC66E3B001A016D /* TemplateMedeaController.cpp in Sources */,
@@ -753,6 +803,7 @@
 				37BA27371BC3D014002DF5DC /* StringUtils.cpp in Sources */,
 				3705F0871BC66E3B001A016D /* TemplateWanderController.cpp in Sources */,
 				37BA27401BC3D014002DF5DC /* InspectorAgent.cpp in Sources */,
+				3721AD6A1E261BEC00522603 /* SandboxEEWorldObserver.cpp in Sources */,
 				3705F05D1BC66E21001A016D /* TemplateMedeaConfigurationLoader.cpp in Sources */,
 				37BA274C1BC3D014002DF5DC /* WorldModel.cpp in Sources */,
 				3705F0801BC66E3B001A016D /* TemplateBoidsSharedData.cpp in Sources */,
@@ -778,6 +829,7 @@
 				373976271BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp in Sources */,
 				3705F0861BC66E3B001A016D /* TemplateWanderAgentObserver.cpp in Sources */,
 				37BA273D1BC3D014002DF5DC /* ExtendedProperties.cpp in Sources */,
+				3721AD591E261BD300522603 /* SandboxEEConfigurationLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

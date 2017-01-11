@@ -5,11 +5,11 @@
 
 #include "Observers/AgentObserver.h"
 #include "Observers/WorldObserver.h"
-#include "TemplateMedea/include/TemplateMedeaWorldObserver.h"
-#include "TemplateMedea/include/TemplateMedeaController.h"
+#include "SandboxEE/include/SandboxEEWorldObserver.h"
+#include "SandboxEE/include/SandboxEEController.h"
 #include "World/World.h"
 
-TemplateMedeaWorldObserver::TemplateMedeaWorldObserver( World* world ) : WorldObserver( world )
+SandboxEEWorldObserver::SandboxEEWorldObserver( World* world ) : WorldObserver( world )
 {
     _world = world;
     
@@ -66,16 +66,16 @@ TemplateMedeaWorldObserver::TemplateMedeaWorldObserver( World* world ) : WorldOb
     _generationCount = -1;
 }
 
-TemplateMedeaWorldObserver::~TemplateMedeaWorldObserver()
+SandboxEEWorldObserver::~SandboxEEWorldObserver()
 {
     // nothing to do.
 }
 
-void TemplateMedeaWorldObserver::reset()
+void SandboxEEWorldObserver::reset()
 {
 }
 
-void TemplateMedeaWorldObserver::step()
+void SandboxEEWorldObserver::step()
 {
     _generationItCount++;
     
@@ -93,7 +93,7 @@ void TemplateMedeaWorldObserver::step()
 }
 
 
-void TemplateMedeaWorldObserver::updateEnvironment()
+void SandboxEEWorldObserver::updateEnvironment()
 {
     // example: moving landmarks
     /*
@@ -106,7 +106,7 @@ void TemplateMedeaWorldObserver::updateEnvironment()
     */
 }
 
-void TemplateMedeaWorldObserver::updateMonitoring()
+void SandboxEEWorldObserver::updateMonitoring()
 {
     // * Log at end of each generation
 
@@ -136,14 +136,14 @@ void TemplateMedeaWorldObserver::updateMonitoring()
     }    
 }
 
-void TemplateMedeaWorldObserver::monitorPopulation( bool localVerbose )
+void SandboxEEWorldObserver::monitorPopulation( bool localVerbose )
 {
     // * monitoring: count number of active agents.
     
     int activeCount = 0;
     for ( int i = 0 ; i != gNumberOfRobots ; i++ )
     {
-        if ( (dynamic_cast<TemplateMedeaController*>(gWorld->getRobot(i)->getController()))->getWorldModel()->isAlive() == true )
+        if ( (dynamic_cast<SandboxEEController*>(gWorld->getRobot(i)->getController()))->getWorldModel()->isAlive() == true )
             activeCount++;
     }
     

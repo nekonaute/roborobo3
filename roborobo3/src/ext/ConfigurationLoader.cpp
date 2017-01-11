@@ -5,6 +5,7 @@
 #include "Config/TemplateBoidsConfigurationLoader.h"
 #include "Config/TemplateMedeaConfigurationLoader.h"
 #include "Config/TemplateRandomwalkConfigurationLoader.h"
+#include "Config/SandboxEEConfigurationLoader.h"
 //###DO-NOT-DELETE-THIS-LINE###TAG:INCLUDE###//
 
 
@@ -46,6 +47,12 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 	else if (configurationLoaderObjectName == "TemplateRandomwalkConfigurationLoader" )
 	{
 		return new TemplateRandomwalkConfigurationLoader();
+	}
+#endif
+#if defined PRJ_SANDBOXEE || !defined MODULAR
+	else if (configurationLoaderObjectName == "SandboxEEConfigurationLoader" )
+	{
+		return new SandboxEEConfigurationLoader();
 	}
 #endif
     //###DO-NOT-DELETE-THIS-LINE###TAG:SWITCH###//

@@ -4,22 +4,22 @@
  */
 
 
-#ifndef TEMPLATEMEDEAAGENTOBSERVER_H
-#define TEMPLATEMEDEAAGENTOBSERVER_H
+#ifndef SANDBOXEEAGENTOBSERVER_H
+#define SANDBOXEEAGENTOBSERVER_H
 
 #include "RoboroboMain/common.h"
 #include "RoboroboMain/roborobo.h"
 #include "Observers/AgentObserver.h"
 #include "WorldModels/RobotWorldModel.h"
-#include "TemplateMedea/include/TemplateMedeaSharedData.h"
+#include "SandboxEE/include/SandboxEESharedData.h"
 
 #include <iomanip>
 
-class TemplateMedeaAgentObserver : public AgentObserver
+class SandboxEEAgentObserver : public AgentObserver
 {
 	public:
-		TemplateMedeaAgentObserver(RobotWorldModel *wm);
-		~TemplateMedeaAgentObserver();
+		SandboxEEAgentObserver(RobotWorldModel *wm);
+		~SandboxEEAgentObserver();
 
 		void reset();
 		void step();

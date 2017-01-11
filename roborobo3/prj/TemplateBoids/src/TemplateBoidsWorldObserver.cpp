@@ -1,6 +1,6 @@
 /**
  * @author Nicolas Bredeche <nicolas.bredeche@upmc.fr>
- * NNlib: Leo Cazenille <leo.cazenille@upmc.fr>
+ *
  */
 
 #include "Observers/AgentObserver.h"
