@@ -12,7 +12,7 @@
 class SensoryInformation
 {
 
-private:
+protected:
     
     //double absoluteOrientation; // wrt North (aka: up-screen)
 

@@ -22,12 +22,11 @@
 
 class TemplateMedeaWorldObserver : public WorldObserver
 {
-private:
+protected:
     void updateEnvironment();
     void updateMonitoring();
     void monitorPopulation( bool localVerbose = true );
     
-protected:
     int _generationCount;
     int _generationItCount;
     

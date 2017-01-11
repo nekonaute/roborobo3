@@ -22,7 +22,7 @@
 	- open a terminal, and enter the following commands:
 	- "./makefile-manager -l" (this step is optional as a default Makefile exists)
 	- "make" (or, if you have multiple processors: "make -jXX", with XX=nb_of_processors)
-	- "./roborobo -l config/default-wander_bigrobots.properties"
+	- "./roborobo -l config/template_wander_bigrobots.properties"
 
 - MacOSX: use XCode project
 	- create symbolic links to config/, data/ and /logs directories into the build directory where roborobo binary is created.

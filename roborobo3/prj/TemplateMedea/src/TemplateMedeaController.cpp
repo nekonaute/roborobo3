@@ -68,7 +68,7 @@ void TemplateMedeaController::reset()
 }
 
 
-void TemplateMedeaController::step()
+void TemplateMedeaController::step() // handles control decision and evolution (but: actual movement is done in roborobo's main loop)
 {
     _iteration++;
     
@@ -80,7 +80,8 @@ void TemplateMedeaController::step()
     
     if ( _wm->isAlive() )
     {
-        stepBehaviour();
+        stepController();
+        updateFitness();
     }
     else
     {
@@ -158,9 +159,9 @@ void TemplateMedeaController::step()
 // ################ ######################## ################
 
 
-void TemplateMedeaController::stepBehaviour()
-{
-
+std::vector<double> TemplateMedeaController::getInputs(){
+    
+    
     // WHAT FOLLOWS IS AN EXAMPLE OF LOADING A NN-CONTROLER WITH A FULL-FLEDGE SENSORY INPUT INFORMATION
     // Rewrite to match your own extended input scheme, if needed.
     // Note that you may tune it on/off using gExtendedSensoryInputs defined in the properties file.
@@ -189,8 +190,7 @@ void TemplateMedeaController::stepBehaviour()
     //
     // => number of sensory inputs: N * rangeSensors + 6, with rangeSensors varying from 1 to many, if extended sensory inputs are on.
     
-    
-    // ---- Build inputs ----
+
     
     std::vector<double> inputs;
     
@@ -267,6 +267,7 @@ void TemplateMedeaController::stepBehaviour()
         }
     }
     
+    
     // floor sensor
     inputs.push_back( (double)_wm->getGroundSensor_redValue()/255.0 );
     inputs.push_back( (double)_wm->getGroundSensor_greenValue()/255.0 );
@@ -276,7 +277,7 @@ void TemplateMedeaController::stepBehaviour()
     _wm->updateLandmarkSensor(); // update with closest landmark
     inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
     inputs.push_back( _wm->getLandmarkDistanceValue() );
-
+    
     
     // energy level
     if ( gEnergyLevel )
@@ -284,9 +285,17 @@ void TemplateMedeaController::stepBehaviour()
         inputs.push_back( _wm->getEnergyLevel() / gEnergyMax );
     }
     
+    return inputs;
+}
+
+void TemplateMedeaController::stepController()
+{
+
     // ---- compute and read out ----
     
-    nn->setWeigths(_parameters); // create NN
+    nn->setWeigths(_parameters); // set-up NN
+    
+    std::vector<double> inputs = getInputs(); // Build list of inputs (check properties file for extended/non-extended input values
     
     nn->setInputs(inputs);
     
@@ -313,6 +322,8 @@ void TemplateMedeaController::stepBehaviour()
 
 void TemplateMedeaController::createNN()
 {
+    setIOcontrollerSize(); // compute #inputs and #outputs
+    
     if ( nn != NULL ) // useless: delete will anyway check if nn is NULL or not.
         delete nn;
     
@@ -408,6 +419,29 @@ void TemplateMedeaController::stepEvolution()
     }
 }
 
+void TemplateMedeaController::performVariation( float localMutationRate )
+{
+    if ( TemplateMedeaSharedData::gIndividualMutationRate > rand()/RAND_MAX ) // global mutation rate (whether this genome will get any mutation or not) - default: always
+    {
+        switch ( TemplateMedeaSharedData::gMutationOperator )
+        {
+            case 0:
+                mutateUniform();
+                break;
+            case 1:
+                mutateGaussian(localMutationRate); // original MEDEA [ppsn2010], as used before year 2015
+                break;
+            case 2:
+                mutateGaussian(TemplateMedeaSharedData::gSigma); // fixed mutation rate
+                break;
+            default:
+                std::cerr << "[ERROR] unknown variation method (gMutationOperator = " << TemplateMedeaSharedData::gMutationOperator << ")\n";
+                exit(-1);
+        }
+    }
+    else
+        _sigmaList[localMutationRate]; // nothing to do.
+}
 
 void TemplateMedeaController::selectRandomGenome()
 {
@@ -423,10 +457,8 @@ void TemplateMedeaController::selectRandomGenome()
         
         _currentGenome = (*it).second;
         
-        // ## mutation scheme :: start
-        
-        // modified medea
-        if ( TemplateMedeaSharedData::gIndividualMutationRate > rand()/RAND_MAX )
+        //performVariation((*it).first);
+        if ( TemplateMedeaSharedData::gIndividualMutationRate > rand()/RAND_MAX ) // global mutation rate (whether this genome will get any mutation or not) - default: always
         {
             switch ( TemplateMedeaSharedData::gMutationOperator )
             {
@@ -434,18 +466,19 @@ void TemplateMedeaController::selectRandomGenome()
                     mutateUniform();
                     break;
                 case 1:
-                    mutate(_sigmaList[(*it).first]); // vanilla MEDEA, used before year 2015
+                    mutateGaussian(_sigmaList[(*it).first]); // original MEDEA [ppsn2010], as used before year 2015
                     break;
                 case 2:
-                    mutate(TemplateMedeaSharedData::gSigma);
+                    mutateGaussian(TemplateMedeaSharedData::gSigma); // fixed mutation rate
                     break;
+                default:
+                    std::cerr << "[ERROR] unknown variation method (gMutationOperator = " << TemplateMedeaSharedData::gMutationOperator << ")\n";
+                    exit(-1);
             }
         }
         else
-            _sigmaList[(*it).first];
+            _sigmaList[_sigmaList[(*it).first]]; // nothing to do.
         
-        // ## mutation scheme :: end
-
         setNewGenomeStatus(true);
         
         _birthdate = gWorld->getIterations();
@@ -466,7 +499,7 @@ void TemplateMedeaController::selectFirstGenome()
     {
         _currentGenome = (*_genomesList.begin()).second;
         
-        mutate(_sigmaList[(*_genomesList.begin()).first]);
+        mutateGaussian(_sigmaList[(*_genomesList.begin()).first]);
         
         setNewGenomeStatus(true);
         
@@ -498,7 +531,7 @@ bool TemplateMedeaController::storeGenome(std::vector<double> genome, int sender
 }
 
 
-void TemplateMedeaController::mutate( float sigma) // mutate within bounds.
+void TemplateMedeaController::mutateGaussian( float sigma) // mutate within bounds.
 {
     _genome.clear();
     
@@ -555,11 +588,13 @@ void TemplateMedeaController::mutateUniform() // mutate within bounds.
 }
 
 
-void TemplateMedeaController::resetRobot()
+void TemplateMedeaController::setIOcontrollerSize()
 {
+    // wrt inputs
+    
     _nbInputs = 0;
     
-    if ( gExtendedSensoryInputs ) // EXTENDED SENSORY INPUTS: code provided as example, should be rewritten to suit your need.
+    if ( gExtendedSensoryInputs ) // EXTENDED SENSORY INPUTS: code provided as example, can be rewritten to suit your need.
     {
         _nbInputs = ( PhysicalObjectFactory::getNbOfTypes()+3+1 ) * _wm->_cameraSensorsNb; // nbOfTypes + ( isItAnAgent? + isItSameGroupId? + agentAngleDifference?) + isItAWall?
     }
@@ -570,17 +605,29 @@ void TemplateMedeaController::resetRobot()
     if ( gLandmarks.size() > 0 )
         _nbInputs += 2; // incl. landmark (angle,dist)
     
+    // wrt outputs
+    
     _nbOutputs = 2;
+    
     if ( TemplateMedeaSharedData::gEnergyRequestOutput )
         _nbOutputs += 1; // incl. energy request
-    
+}
+
+void TemplateMedeaController::initController()
+{
     _nbHiddenLayers = TemplateMedeaSharedData::gNbHiddenLayers;
-    
     _nbNeuronsPerHiddenLayer = new std::vector<unsigned int>(_nbHiddenLayers);
     for(unsigned int i = 0; i < _nbHiddenLayers; i++)
         (*_nbNeuronsPerHiddenLayer)[i] = TemplateMedeaSharedData::gNbNeuronsPerHiddenLayer;
     
     createNN();
+}
+
+
+void TemplateMedeaController::resetRobot()
+{
+    
+    initController();
     
     unsigned int const nbGene = computeRequiredNumberOfWeights();
     
@@ -601,6 +648,10 @@ void TemplateMedeaController::resetRobot()
     _currentGenome = _genome;
     setNewGenomeStatus(true);
     _genomesList.clear();
+    
+    // reset fitness (optional)
+    
+    resetFitness();
     
 }
 
@@ -663,6 +714,22 @@ void TemplateMedeaController::broadcastGenome()
     }
 }
 
+void TemplateMedeaController::performSelection()
+{
+    switch ( TemplateMedeaSharedData::gSelectionMethod )
+    {
+        case 0:
+            selectRandomGenome();
+            break;
+        case 1:
+            selectFirstGenome();
+            break;
+        default:
+            std::cerr << "[ERROR] unknown selection method (gSelectionMethod = " << TemplateMedeaSharedData::gSelectionMethod << ")\n";
+            exit(-1);
+    }
+}
+
 void TemplateMedeaController::loadNewGenome()
 {
     if ( _wm->isAlive() || gEnergyRefill )  // ( gEnergyRefill == true ) enables revive
@@ -676,18 +743,7 @@ void TemplateMedeaController::loadNewGenome()
         {
             // case: 1+ genome(s) imported, random pick.
             
-            switch ( TemplateMedeaSharedData::gSelectionMethod )
-            {
-                case 0:
-                    selectRandomGenome();
-                    break;
-                case 1:
-                    selectFirstGenome();
-                    break;
-                default:
-                    std::cerr << "[ERROR] unknown selection method (gSelectionMethod = " << TemplateMedeaSharedData::gSelectionMethod << ")\n";
-                    exit(-1);
-            }
+            performSelection();
             
             //logCurrentState();
             
@@ -806,3 +862,21 @@ void TemplateMedeaController::logCurrentState()
     gLogManager->write(sLog);
     gLogManager->flush();
 }
+
+double TemplateMedeaController::getFitness()
+{
+    // nothing to do
+    return -1;
+}
+
+void TemplateMedeaController::resetFitness()
+{
+    // nothing to do
+}
+
+
+void TemplateMedeaController::updateFitness()
+{
+    // nothing to do
+}
+

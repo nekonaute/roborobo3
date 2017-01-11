@@ -25,7 +25,7 @@ Q: roborobo does not compile.
 A: did you read _INSTALL.TXT ?
 
 Q: roborobo compiles, but fails at run time.
-A: did you read _INSTALL.TXT ? If yes, continue.
+A: did you read _INSTALL.TXT ? If yes, see next questions.
 
 Q: roborobo segmentation fault just after the simulation starts (instantly after the windows is displayed, or a few seconds after).
 A: You may be using a corrupted background image. For example, you expect the colors are either obstacle=(0,0,0) and empty=(255,255,255), but you have a (255,255,254) pixel somewhere. When the robot proximity sensors hits this pixel, a callback is sent to a non-existing object. 
@@ -40,13 +40,13 @@ Q: Why use BMP files (over JPEG or PNG)?
 A: As of roborobo version 3, roborobo only supports BMP images (while previous versions supported PNG). The reason is that there is a bug in SDL2_image, that prevent to load *exactly* the pixel values of the image, hence provoking problems with masks and images. This is caused by the automatic embedded calibration applied when SDL2_image's IMG_Load(...) function is called. Until this bug is solved, there will be no PNG support, and SDL2_image won't be required. cf.:
 	- https://forums.libsdl.org/viewtopic.php?t=10013&sid=34e8ef7cf74074039495037c1a077025
 	- http://stackoverflow.com/questions/24987165/sdl2-sdl-image-strange-png-behavior-with-rgb-values
-As for JPEG: JPEG is a method for lossy compression. Roborobo needs the image encoding to be without loss.
+As for JPEG: JPEG uses a method with lossy compression. Roborobo needs the image encoding to be without loss.
 
 Q: I am running roborobo remotely, typically on a cluster. Roborobo either hangs at startup (''connect localhost port xxxx: connection time out'') or crashes (segmentation fault).
 A: First, check you have been running headless roborobo (value of gBatchMode in the properties file). If it still fails, it is most probably due to video initialization -- SDL tries to initialize the video, even if it wont be used. This can cause a problem, especially when exporting the display is not possible (slow connection, bad configuration, closed ports... -- this problem will also impact other X-based application, e.g. try ''xeyes''.). To avoid this: connect to the remote server such that exporting X is not an option (ie. use *always* the ''ssh'' command without any options -- *not* ''ssh -X'' or ''ssh -Y''). This will force SDL to bypass the video initialization. Note that if aalib is installed and SDL is able to use it, any display from roborobo will be done in nice ascii art within the very terminal. If this does not solve the problem, then try changing, or reconfiguring, your terminal application, and/or type ''export TERM=xterm'' in the console.
 
 Q: No makefile method seem to work.
-A: The basic makefile method is really... basic. And should work everywhere, except with Mac OSX due to a different SDL installation location. The modular makefile method was tested successfully in linux with GNU Make, in freeBSD with BSD Make, and under Windows with Cygwin/Mingw (with GNU Make). Possible problems: (a) check dependencies. SDL must be installed (b) running Mac OSX? Use Xcode project (c) uh... a bug, may be? Did you try 'make clean' before compiling again?
+A: The basic makefile method is really... basic. And should work everywhere, except with Mac OSX where using Xcode is suggested. The modular makefile method was tested successfully in linux with GNU Make, in freeBSD with BSD Make, and under Windows with Cygwin/Mingw (with GNU Make). Possible problems: (a) check dependencies. SDL must be installed (b) running Mac OSX? Use Xcode project (c) uh... a bug, may be? Did you try 'make clean' before compiling again?
 
 Q: Roborobo compiles but at run-time i get the following error: '[CORRUPT] The configuration (nameofproject)ConfigurationLoader isn't known by the ConfigurationLoader', why?
 A: Most likely, you did not compile the project mentionned. Activate this project with the 'makefile-manager' script (see _INSTALL.TXT or type './makefile-manager -h')
@@ -83,7 +83,7 @@ A: You really should consider to stick with your project. Mostly because your de
 
 Q: But I really want to modify roborobo's core!
 A:
-  - Case 1, you downloaded roborobo and use it for personnal purpose: do what you want, but dont expect future release to be backward compatible... If you want to correct a well-identified bug, please contact me :-)
+  - Case 1, you downloaded roborobo and use it for personnal purpose: do what you want, but dont expect future release to be compatible with your personal version of roborobo... If you want to correct a well-identified bug, please contact me :-)
   - Case 2, we are working on a joint project: NO! YOU ARE NOT GOING TO MODIFY THE CORE! At least not before you ask me! If you spot a bug, i'd be delighted to know about it and most happy if you send me a patch. But i'd really like to apply the patch by myself to double-check and approve it. Sorry for being paranoid, but we all depend on this code. Of course, you can always do your own fork version of roborobo and modify whatever you want to modify - but bear in mind that converging back to the ''official'' version is going to be *very* painful. Very *very*.
 
 Q: I need to get/set new parameters on the properties file. How do i implement the read/write methods?
@@ -97,7 +97,7 @@ Q: How can I modify the dynamics of my robot, apply external forces, etc.?
 A: a WorldInterface implements the influence of robot dynamics (hardware and context-dependant) (check _README.TXT). Then, you have to inherit from the WorldInterface to implement your own dynamics.
 
 Q: Is it possible to speed up roborobo?
-A: Yes. Avoid using a past version of roborobo (ver.1 used to be with two O(n^2) algorithms). You should run it without vizualization (gDisplayMode=2 in the config file, or with ''d'' key in the GUI), and use ''{mini}agent-mask-edgesOnly'' as the robot mask (in the config file). You may want to add a new property also, ''gAgentDisplayImageFilename'' with value ''{mini}agent-mask'', to keep rendering as before.
+A: Yes. Avoid using a past version of roborobo (ver.1 used to feature at least two O(n^2) algorithms). You should run it without vizualization (gDisplayMode=2 in the config file, or with ''d'' key in the GUI), and use ''{mini}agent-mask-edgesOnly'' as the robot mask (in the config file). You may want to add a new property also, ''gAgentDisplayImageFilename'' with value ''{mini}agent-mask'', to keep rendering as before.
 
 Q: How to record trajectories from agent(s)?
 A: It can be done in three ways: (1) within the GUI, use the 't' or shift+'t' command (see help); (2) within the config file, set 'gTrajectoryMonitor=true' (and, optionaly, 'gTrajectoryMonitorMode=1 or 2'); (3) within the code, explicitly calling the following methods: (a) gTrajectoryMonitorImage = load_image( gEnvironmentImageFilename ); (b) updateTrajectoriesMonitor() and (c) saveTrajectoryImage(). In all cases, an image will be saved in the logs directory. This trajectory tracking code use very little computing power (<10% slow down).
@@ -153,4 +153,6 @@ A: Let's go for step-by-step quick list:
 	     - don't forget to delete the main.cpp file created for the project (roborobo already got one)
 Troubleshooting:
 - error "Mach-O Linker Error on Xcode": caused by duplicated sources -- probably two main.cpp files (don't forget to delete the one created by Xcode)
+
+-n
 

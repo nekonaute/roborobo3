@@ -23,7 +23,7 @@ using namespace Neural;
 
 class TemplateMedeaController : public Controller
 {
-private:
+protected:
     int _iteration;
     int _birthdate; // evaluation when this controller was initialized.
     
@@ -47,10 +47,13 @@ private:
     void selectRandomGenome();
     void selectFirstGenome();
     
-    void mutate(float sigma);
+    void mutateGaussian(float sigma);
     void mutateUniform();
     
-    void stepBehaviour();
+    std::vector<double> getInputs();
+    void setIOcontrollerSize();
+    
+    void stepController();
     void stepEvolution();
     
     void broadcastGenome();
@@ -85,8 +88,16 @@ private:
     
     bool storeGenome(std::vector<double> genome, int senderId, int senderBirthdate, float sigma);
     void resetRobot();
+    void initController(); // called by resetRobot
     
     void logCurrentState();
+    
+    void performSelection();
+    void performVariation( float localMutationRate = 0.0 );
+    
+    double getFitness();
+    void resetFitness( );
+    void updateFitness();
     
 public:
     
