@@ -5,12 +5,12 @@
 
 
 
-#ifndef SANDBOXEESHAREDDATA_H
-#define SANDBOXEESHAREDDATA_H
+#ifndef TEMPLATEVANILLAEESHAREDDATA_H
+#define TEMPLATEVANILLAEESHAREDDATA_H
 
-#include "TemplateMedea/include/TemplateMedeaSharedData.h"
+#include "TemplateEE/include/TemplateEESharedData.h"
 
-class SandboxEESharedData : TemplateMedeaSharedData {
+class TemplateVanillaEESharedData : TemplateEESharedData {
     
     // cf. super class for many parameter values.
     // Add here parameters that are specific to current implementation.

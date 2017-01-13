@@ -4,32 +4,32 @@
  */
 
 
-#include "SandboxEE/include/SandboxEEAgentObserver.h"
+#include "TemplateEE/include/TemplateEEAgentObserver.h"
 #include "World/World.h"
 #include "Utilities/Misc.h"
 #include "RoboroboMain/roborobo.h"
-#include "SandboxEE/include/SandboxEEController.h"
+#include "TemplateEE/include/TemplateEEController.h"
 #include <cmath>
-#include "SandboxEE/include/SandboxEEWorldObserver.h"
+#include "TemplateEE/include/TemplateEEWorldObserver.h"
 #include <string>
 
-SandboxEEAgentObserver::SandboxEEAgentObserver( RobotWorldModel *wm )
+TemplateEEAgentObserver::TemplateEEAgentObserver( RobotWorldModel *wm )
 {
     _wm = (RobotWorldModel*)wm;
     
 }
 
-SandboxEEAgentObserver::~SandboxEEAgentObserver()
+TemplateEEAgentObserver::~TemplateEEAgentObserver()
 {
     // nothing to do.
 }
 
-void SandboxEEAgentObserver::reset()
+void TemplateEEAgentObserver::reset()
 {
     // nothing to do.
 }
 
-void SandboxEEAgentObserver::step()
+void TemplateEEAgentObserver::step()
 {
     // * update energy if needed
     if ( gEnergyLevel && _wm->isAlive() )

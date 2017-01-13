@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -76,10 +76,6 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-l config/template_medea.properties"
-            isEnabled = "NO">
-         </CommandLineArgument>
-         <CommandLineArgument
             argument = "-l config/template_wander_bigrobots.properties"
             isEnabled = "NO">
          </CommandLineArgument>
@@ -92,7 +88,11 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "-l config/sandbox_medea.properties"
+            argument = "-l config/template_medea.properties"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-l config/template_vanillaEE.properties"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

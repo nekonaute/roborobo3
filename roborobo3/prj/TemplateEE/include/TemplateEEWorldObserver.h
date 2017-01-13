@@ -4,22 +4,19 @@
  */
 
 
-
-
-
-#ifndef TEMPLATEMEDEAWORLDOBSERVER_H
-#define TEMPLATEMEDEAWORLDOBSERVER_H
+#ifndef TEMPLATEEEWORLDOBSERVER_H
+#define TEMPLATEEEWORLDOBSERVER_H
 
 #include "RoboroboMain/common.h"
 #include "RoboroboMain/roborobo.h"
 #include "Observers/Observer.h"
 #include "Observers/WorldObserver.h"
 #include "WorldModels/RobotWorldModel.h"
-#include "TemplateMedea/include/TemplateMedeaSharedData.h"
- 
+#include "TemplateEE/include/TemplateEESharedData.h"
+
 //class World;
 
-class TemplateMedeaWorldObserver : public WorldObserver
+class TemplateEEWorldObserver : public WorldObserver
 {
 protected:
     void updateEnvironment();
@@ -30,8 +27,8 @@ protected:
     int _generationItCount;
     
 public:
-    TemplateMedeaWorldObserver(World *world);
-    ~TemplateMedeaWorldObserver();
+    TemplateEEWorldObserver(World *world);
+    ~TemplateEEWorldObserver();
     
     void reset();
     void step();

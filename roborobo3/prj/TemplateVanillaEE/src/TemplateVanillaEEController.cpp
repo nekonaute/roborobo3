@@ -3,8 +3,8 @@
  *
  */
 
-#include "TemplateMedea/include/TemplateMedeaController.h"
-#include "TemplateMedea/include/TemplateMedeaWorldObserver.h"
+#include "TemplateVanillaEE/include/TemplateVanillaEEController.h"
+#include "TemplateVanillaEE/include/TemplateVanillaEEWorldObserver.h"
 
 #include "World/World.h"
 #include "Utilities/Misc.h"
@@ -17,42 +17,42 @@
 
 using namespace Neural;
 
-TemplateMedeaController::TemplateMedeaController( RobotWorldModel *wm ) : TemplateEEController( wm )
+TemplateVanillaEEController::TemplateVanillaEEController( RobotWorldModel *wm ) : TemplateEEController( wm )
 {
     // superclass constructor called before this baseclass constructor.
 }
 
-TemplateMedeaController::~TemplateMedeaController()
+TemplateVanillaEEController::~TemplateVanillaEEController()
 {
     // superclass destructor automatically called after this baseclass destructor.
 }
 
-void TemplateMedeaController::stepController()
+void TemplateVanillaEEController::stepController()
 {
     TemplateEEController::stepController();
 }
 
-void TemplateMedeaController::initController()
+void TemplateVanillaEEController::initController()
 {
     TemplateEEController::initController();
 }
 
-void TemplateMedeaController::performSelection()
+void TemplateVanillaEEController::performSelection()
 {
     TemplateEEController::performSelection();
 }
 
-void TemplateMedeaController::performVariation()
+void TemplateVanillaEEController::performVariation()
 {
     TemplateEEController::performVariation();
 }
 
-void TemplateMedeaController::broadcastGenome()
+void TemplateVanillaEEController::broadcastGenome()
 {
     TemplateEEController::broadcastGenome();
 }
 
-double TemplateMedeaController::getFitness()
+double TemplateVanillaEEController::getFitness()
 {
     // nothing to do
     // if relevant, use _wm->_fitnessValue.
@@ -60,18 +60,18 @@ double TemplateMedeaController::getFitness()
     return -1;
 }
 
-void TemplateMedeaController::resetFitness()
+void TemplateVanillaEEController::resetFitness()
 {
     // nothing to do
 }
 
 
-void TemplateMedeaController::updateFitness()
+void TemplateVanillaEEController::updateFitness()
 {
     // nothing to do
 }
 
-void TemplateMedeaController::logCurrentState()
+void TemplateVanillaEEController::logCurrentState()
 {
     TemplateEEController::logCurrentState();
 }

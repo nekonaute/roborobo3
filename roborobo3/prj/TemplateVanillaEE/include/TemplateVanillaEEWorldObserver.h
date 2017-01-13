@@ -7,19 +7,19 @@
 
 
 
-#ifndef SANDBOXEEWORLDOBSERVER_H
-#define SANDBOXEEWORLDOBSERVER_H
+#ifndef TEMPLATEVANILLAEEWORLDOBSERVER_H
+#define TEMPLATEVANILLAEEWORLDOBSERVER_H
 
 #include "RoboroboMain/common.h"
 #include "RoboroboMain/roborobo.h"
 #include "Observers/Observer.h"
 #include "Observers/WorldObserver.h"
 #include "WorldModels/RobotWorldModel.h"
-#include "SandboxEE/include/SandboxEESharedData.h"
+#include "TemplateVanillaEE/include/TemplateVanillaEESharedData.h"
  
 //class World;
 
-class SandboxEEWorldObserver : public WorldObserver
+class TemplateVanillaEEWorldObserver : public WorldObserver
 {
 protected:
     void updateEnvironment();
@@ -30,8 +30,8 @@ protected:
     int _generationItCount;
     
 public:
-    SandboxEEWorldObserver(World *world);
-    ~SandboxEEWorldObserver();
+    TemplateVanillaEEWorldObserver(World *world);
+    ~TemplateVanillaEEWorldObserver();
     
     void reset();
     void step();

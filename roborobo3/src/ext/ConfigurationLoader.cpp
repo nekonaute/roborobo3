@@ -3,9 +3,9 @@
 
 #include "Config/TemplateWanderConfigurationLoader.h"
 #include "Config/TemplateBoidsConfigurationLoader.h"
-#include "Config/TemplateMedeaConfigurationLoader.h"
 #include "Config/TemplateRandomwalkConfigurationLoader.h"
-#include "Config/SandboxEEConfigurationLoader.h"
+#include "Config/TemplateVanillaEEConfigurationLoader.h"
+#include "Config/TemplateMedeaConfigurationLoader.h"
 //###DO-NOT-DELETE-THIS-LINE###TAG:INCLUDE###//
 
 
@@ -37,22 +37,22 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 		return new TemplateBoidsConfigurationLoader();
 	}
 #endif
-#if defined PRJ_TEMPLATEMEDEA || !defined MODULAR
-	else if (configurationLoaderObjectName == "TemplateMedeaConfigurationLoader" )
-	{
-		return new TemplateMedeaConfigurationLoader();
-	}
-#endif
 #if defined PRJ_TEMPLATERANDOMWALK || !defined MODULAR
 	else if (configurationLoaderObjectName == "TemplateRandomwalkConfigurationLoader" )
 	{
 		return new TemplateRandomwalkConfigurationLoader();
 	}
 #endif
-#if defined PRJ_SANDBOXEE || !defined MODULAR
-	else if (configurationLoaderObjectName == "SandboxEEConfigurationLoader" )
+#if defined PRJ_TEMPLATEVANILLAEE || !defined MODULAR
+	else if (configurationLoaderObjectName == "TemplateVanillaEEConfigurationLoader" )
 	{
-		return new SandboxEEConfigurationLoader();
+		return new TemplateVanillaEEConfigurationLoader();
+	}
+#endif
+#if defined PRJ_TEMPLATEMEDEA || !defined MODULAR
+	else if (configurationLoaderObjectName == "TemplateMedeaConfigurationLoader" )
+	{
+		return new TemplateMedeaConfigurationLoader();
 	}
 #endif
     //###DO-NOT-DELETE-THIS-LINE###TAG:SWITCH###//

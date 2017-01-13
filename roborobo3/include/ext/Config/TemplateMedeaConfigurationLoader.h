@@ -1,12 +1,11 @@
 /*
- * MedeaConfigurationLoader.h
+ * TemplateMedeaConfigurationLoader.h
  */
 
 #ifndef TEMPLATEMEDEACONFIGURATIONLOADER_H
 #define TEMPLATEMEDEACONFIGURATIONLOADER_H
 
 #include "Config/ConfigurationLoader.h"
-
 
 class TemplateMedeaConfigurationLoader : public ConfigurationLoader
 {
