@@ -55,7 +55,9 @@ protected:
     std::vector<double> getInputs();
     void setIOcontrollerSize();
     
+    virtual void initController(); // called by resetRobot
     virtual void stepController();
+    
     void stepEvolution();
     
     virtual void broadcastGenome();
@@ -91,9 +93,7 @@ protected:
     double _dSumTravelled;
     
     bool storeGenome(std::vector<double> genome, int senderId, int senderBirthdate, float sigma, float fitness=0);
-    void resetRobot();
-    
-    virtual void initController(); // called by resetRobot
+    void reset();
     
     virtual void logCurrentState();
     
@@ -101,7 +101,7 @@ protected:
     virtual void performVariation();
     
     virtual double getFitness();
-    virtual void resetFitness( );
+    virtual void resetFitness();
     virtual void updateFitness();
     
 public:

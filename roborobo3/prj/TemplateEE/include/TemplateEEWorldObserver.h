@@ -19,9 +19,9 @@
 class TemplateEEWorldObserver : public WorldObserver
 {
 protected:
-    void updateEnvironment();
-    void updateMonitoring();
-    void monitorPopulation( bool localVerbose = true );
+    virtual void updateEnvironment();
+    virtual void updateMonitoring();
+    virtual void monitorPopulation( bool localVerbose = true );
     
     int _generationCount;
     int _generationItCount;
@@ -30,10 +30,10 @@ public:
     TemplateEEWorldObserver(World *world);
     ~TemplateEEWorldObserver();
     
-    void reset();
-    void step();
+    virtual void reset();
+    virtual void step();
     
-    int getGenerationItCount() { return _generationItCount; }
+    virtual  int getGenerationItCount() { return _generationItCount; }
 
 };
 

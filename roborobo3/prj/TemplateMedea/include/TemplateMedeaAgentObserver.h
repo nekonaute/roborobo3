@@ -12,18 +12,15 @@
 #include "Observers/AgentObserver.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "TemplateMedea/include/TemplateMedeaSharedData.h"
+#include "TemplateEE/include/TemplateEEAgentObserver.h"
 
 #include <iomanip>
 
-class TemplateMedeaAgentObserver : public AgentObserver
+class TemplateMedeaAgentObserver : public TemplateEEAgentObserver
 {
 	public:
-		TemplateMedeaAgentObserver(RobotWorldModel *wm);
+        TemplateMedeaAgentObserver( RobotWorldModel *wm );
 		~TemplateMedeaAgentObserver();
-
-		void reset();
-		void step();
-
 };
 
 #endif

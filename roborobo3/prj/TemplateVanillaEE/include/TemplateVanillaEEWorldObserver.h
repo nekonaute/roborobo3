@@ -16,28 +16,15 @@
 #include "Observers/WorldObserver.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "TemplateVanillaEE/include/TemplateVanillaEESharedData.h"
- 
+#include "TemplateEE/include/TemplateEEWorldObserver.h"
+
 //class World;
 
-class TemplateVanillaEEWorldObserver : public WorldObserver
+class TemplateVanillaEEWorldObserver : public TemplateEEWorldObserver
 {
-protected:
-    void updateEnvironment();
-    void updateMonitoring();
-    void monitorPopulation( bool localVerbose = true );
-    
-    int _generationCount;
-    int _generationItCount;
-    
 public:
     TemplateVanillaEEWorldObserver(World *world);
     ~TemplateVanillaEEWorldObserver();
-    
-    void reset();
-    void step();
-    
-    int getGenerationItCount() { return _generationItCount; }
-
 };
 
 #endif

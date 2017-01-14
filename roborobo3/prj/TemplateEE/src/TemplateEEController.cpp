@@ -30,7 +30,7 @@ TemplateEEController::TemplateEEController( RobotWorldModel *wm )
     
     _currentSigma = TemplateEESharedData::gSigmaRef;
     
-    resetRobot();
+    reset();
     
     // behaviour
     
@@ -136,7 +136,7 @@ void TemplateEEController::step() // handles control decision and evolution (but
                     _notListeningDelay = -1; // agent will not be able to be active anymore
                     _wm->setRobotLED_colorValues(0, 0, 255); // is not listening
                     
-                    resetRobot(); // destroy then create a new NN
+                    reset(); // destroy then create a new NN
                     
                     _wm->setAlive(false);
                 }
@@ -158,7 +158,7 @@ std::vector<double> TemplateEEController::getInputs(){
     // WHAT FOLLOWS IS AN EXAMPLE OF LOADING A NN-CONTROLER WITH A FULL-FLEDGE SENSORY INPUT INFORMATION
     // Rewrite to match your own extended input scheme, if needed.
     // Note that you may tune it on/off using gExtendedSensoryInputs defined in the properties file.
-    // When modifying this code, dont forget to update the initialization in the resetRobot() method
+    // When modifying this code, dont forget to update the initialization in the reset() method
     // Example:
     //      - you may want to distinguish between robot's groups (if more than 1)
     //      - you may want to restrict the number of objects that can be identified (if not all possible objects are in use)
@@ -616,12 +616,10 @@ void TemplateEEController::initController()
 }
 
 
-void TemplateEEController::resetRobot()
+void TemplateEEController::reset()
 {
-    
     initController();
     resetFitness();
-    
 }
 
 
@@ -771,7 +769,7 @@ void TemplateEEController::loadNewGenome()
                 gLogManager->write(sLog);
                 gLogManager->flush();
                 
-                resetRobot(); // destroy then create a new NN
+                reset(); // destroy then create a new NN
                 
                 _wm->setAlive(false); // inactive robot *must* import a genome from others (ie. no restart).
                 

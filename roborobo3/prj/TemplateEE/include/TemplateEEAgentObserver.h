@@ -21,8 +21,8 @@ class TemplateEEAgentObserver : public AgentObserver
 		TemplateEEAgentObserver(RobotWorldModel *wm);
 		~TemplateEEAgentObserver();
 
-		void reset();
-		void step();
+		virtual void reset();
+		virtual void step();
 
 };
 

@@ -34,7 +34,7 @@ AgentObserver* TemplateMedeaConfigurationLoader::make_AgentObserver(RobotWorldMo
 
 Controller* TemplateMedeaConfigurationLoader::make_Controller(RobotWorldModel* wm)
 {
-	return new TemplateMedeaController(wm);
+    return new TemplateMedeaController(wm);
 }
 
 #endif

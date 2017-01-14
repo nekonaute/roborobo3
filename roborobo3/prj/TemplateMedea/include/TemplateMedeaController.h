@@ -15,7 +15,6 @@
 #include "WorldModels/RobotWorldModel.h"
 #include "TemplateMedea/include/TemplateMedeaAgentObserver.h"
 #include <neuralnetworks/NeuralNetwork.h>
-
 #include "TemplateEE/include/TemplateEEController.h"
 
 #include <iomanip>

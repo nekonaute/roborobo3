@@ -12,18 +12,14 @@
 #include "Observers/AgentObserver.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "TemplateVanillaEE/include/TemplateVanillaEESharedData.h"
-
 #include <iomanip>
+#include "TemplateEE/include/TemplateEEAgentObserver.h"
 
-class TemplateVanillaEEAgentObserver : public AgentObserver
+class TemplateVanillaEEAgentObserver : public TemplateEEAgentObserver
 {
 	public:
 		TemplateVanillaEEAgentObserver(RobotWorldModel *wm);
 		~TemplateVanillaEEAgentObserver();
-
-		void reset();
-		void step();
-
 };
 
 #endif

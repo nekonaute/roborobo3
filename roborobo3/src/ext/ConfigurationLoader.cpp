@@ -4,6 +4,7 @@
 #include "Config/TemplateWanderConfigurationLoader.h"
 #include "Config/TemplateBoidsConfigurationLoader.h"
 #include "Config/TemplateRandomwalkConfigurationLoader.h"
+#include "Config/TemplateEEConfigurationLoader.h"
 #include "Config/TemplateVanillaEEConfigurationLoader.h"
 #include "Config/TemplateMedeaConfigurationLoader.h"
 //###DO-NOT-DELETE-THIS-LINE###TAG:INCLUDE###//
@@ -42,6 +43,12 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 	{
 		return new TemplateRandomwalkConfigurationLoader();
 	}
+#endif
+#if defined PRJ_TEMPLATEEE || !defined MODULAR
+    else if (configurationLoaderObjectName == "TemplateEEConfigurationLoader" )
+    {
+        return new TemplateEEConfigurationLoader();
+    }
 #endif
 #if defined PRJ_TEMPLATEVANILLAEE || !defined MODULAR
 	else if (configurationLoaderObjectName == "TemplateVanillaEEConfigurationLoader" )
