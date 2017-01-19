@@ -6,7 +6,7 @@
 // Contact: nicolas.bredeche(at)upmc.fr / niko(at)factorycity.com                                //
 // http://factorycity.com // http://pages.isir.upmc.fr/~bredeche                                 //
 //                                                                                               //
-// 2008-2016 (started 20081216, version 3: 20160122)                                             //
+// 2008-2017 (started 20081216, version 3: 20160122)                                             //
 // current version: (see gVersion value)                                                         //
 //                                                                                               //
 // People involved, at some point or another, in roborobo:                                       //
@@ -67,7 +67,7 @@
 
 // =-=-=-=-=
 
-long int gVersion  = 20160122;
+long int gVersion  = 20170114;
 std::string gLogCommentText  = "(under development)"; //
 
 std::string gStartTime = getCurrentTimeAsReadableString();
@@ -198,6 +198,10 @@ int gRobotIndexStartOffset = 0xFFFFF;
 //Screen attributes
 int gScreenWidth = 0;
 int gScreenHeight = 0;
+
+//screen dimensions
+int gScreenDisplayWidth = -1;
+int gScreenDisplayHeight = -1;
 
 //The robot dimensions (default)
 int gRobotWidth=0;
@@ -1356,7 +1360,23 @@ bool loadProperties( std::string __propertiesFilename )
 		returnValue = false;
 	}
 	
-	if ( gProperties.hasProperty("gSensorRange") )
+    if ( gProperties.hasProperty("gScreenDisplayHeight") )
+        convertFromString<int>(gScreenDisplayHeight, gProperties.getProperty("gScreenDisplayHeight"), std::dec);
+    else
+    {
+        std::cerr << "[INFO] gScreenDisplayHeight not defined, using gScreenDisplayHeight value.\n";
+        gScreenDisplayHeight = gScreenHeight;
+    }
+    
+    if ( gProperties.hasProperty("gScreenDisplayWidth") )
+        convertFromString<int>(gScreenDisplayWidth, gProperties.getProperty("gScreenDisplayWidth"), std::dec);
+    else
+    {
+        std::cerr << "[INFO] gScreenDisplayWidth not defined, using gScreenDisplayWidth value.\n";
+        gScreenDisplayWidth = gScreenWidth;
+    }
+
+    if ( gProperties.hasProperty("gSensorRange") )
 		convertFromString<int>(gSensorRange, gProperties.getProperty("gSensorRange"), std::dec);
 	else
 	{

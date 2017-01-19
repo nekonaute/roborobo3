@@ -56,7 +56,6 @@ double TemplateMedeaController::getFitness()
 {
     // nothing to do
     // if relevant, use _wm->_fitnessValue.
-    // Note that in case of multiple encounters with the same robot (same id, same "birthdate"), genome is stored only once, and last known fitness value is stored (i.e. updated at each encounter).
     return -1;
 }
 

@@ -39,8 +39,43 @@ void TemplateVanillaEEController::initController()
 
 void TemplateVanillaEEController::performSelection()
 {
-    TemplateEEController::performSelection();
+    //TemplateEEController::performSelection();
+    
+    float bestFitnessValue = 0;
+    std::pair<int,int> bestId;
+
+    int i = 0;
+    for (std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValuesList.begin(); fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt, i++)
+    {
+        if ( i == 0 )
+        {
+            bestFitnessValue = (*fitnessesIt).second;
+            bestId = (*fitnessesIt).first;
+        }
+        else
+            if ( (*fitnessesIt).second > bestFitnessValue )
+            {
+                bestFitnessValue = (*fitnessesIt).second;
+                bestId = (*fitnessesIt).first;
+            }
+    }
+
+    _birthdate = gWorld->getIterations();
+    
+    _currentGenome = _genomesList[bestId];
+    _currentSigma = _sigmaList[bestId];
+    
+    setNewGenomeStatus(true);
+    
+    // Logging: track descendance
+    std::string sLog = std::string("");
+    sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
+    gLogManager->write(sLog);
+    gLogManager->flush();
+    
+    
 }
+
 
 void TemplateVanillaEEController::performVariation()
 {
@@ -54,21 +89,18 @@ void TemplateVanillaEEController::broadcastGenome()
 
 double TemplateVanillaEEController::getFitness()
 {
-    // nothing to do
-    // if relevant, use _wm->_fitnessValue.
-    // Note that in case of multiple encounters with the same robot (same id, same "birthdate"), genome is stored only once, and last known fitness value is stored (i.e. updated at each encounter).
-    return -1;
+    return _wm->_fitnessValue;
 }
 
 void TemplateVanillaEEController::resetFitness()
 {
-    // nothing to do
+    _wm->_fitnessValue = 0;
 }
 
 
 void TemplateVanillaEEController::updateFitness()
 {
-    // nothing to do
+    // nothing to do -- updating is performed in AgentObserver (automatic event when energy item are captured)
 }
 
 void TemplateVanillaEEController::logCurrentState()

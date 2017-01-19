@@ -30,8 +30,6 @@ TemplateEEController::TemplateEEController( RobotWorldModel *wm )
     
     _currentSigma = TemplateEESharedData::gSigmaRef;
     
-    reset();
-    
     // behaviour
     
     _iteration = 0;
@@ -47,7 +45,10 @@ TemplateEEController::TemplateEEController( RobotWorldModel *wm )
     if ( gEnergyLevel )
         _wm->setEnergyLevel(gEnergyInit);
     
-    _wm->updateLandmarkSensor(); // wrt closest landmark
+    if ( gLandmarks.size() > 0 )
+        _wm->updateLandmarkSensor(); // wrt closest landmark
+    
+    reset();
     
     _wm->setAlive(true);
     _wm->setRobotLED_colorValues(255, 0, 0);
@@ -267,9 +268,12 @@ std::vector<double> TemplateEEController::getInputs(){
     inputs.push_back( (double)_wm->getGroundSensor_blueValue()/255.0 );
     
     // landmark (closest landmark)
-    _wm->updateLandmarkSensor(); // update with closest landmark
-    inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
-    inputs.push_back( _wm->getLandmarkDistanceValue() );
+    if ( gLandmarks.size() > 0 )
+    {
+        _wm->updateLandmarkSensor(); // update with closest landmark
+        inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
+        inputs.push_back( _wm->getLandmarkDistanceValue() );
+    }
     
     
     // energy level
@@ -362,22 +366,22 @@ unsigned int TemplateEEController::computeRequiredNumberOfWeights()
 void TemplateEEController::stepEvolution()
 {
     
-    // * broadcasting genome : robot broadcasts its genome to all neighbors (contact-based wrt proximity sensors)
-    
-    if ( _wm->isAlive() == true && gRadioNetwork )  	// only if agent is active (ie. not just revived) and deltaE>0.
-    {
-        broadcastGenome();
-    }
-    
-    // * lifetime ended: replace genome (if possible)
     if( gWorld->getIterations() > 0 && gWorld->getIterations() % TemplateEESharedData::gEvaluationTime == 0 )
                     //dynamic_cast<TemplateEEWorldObserver*>(gWorld->getWorldObserver())->getGenerationItCount() == 0 )  //todelete
     {
+        // * lifetime ended: replace genome (if possible)
         loadNewGenome();
         _nbGenomeTransmission = 0;
     }
     else
     {
+        // * broadcasting genome : robot broadcasts its genome to all neighbors (contact-based wrt proximity sensors)
+        // note: no broadcast if last iteration before replacement -- this is enforced as roborobo update method is random-asynchroneous. This means that robots broadcasting may transmit genomes to robot already at the next generation depending on the update ordering (should be avoided).
+        if ( _wm->isAlive() == true && gRadioNetwork )  	// only if agent is active (ie. not just revived) and deltaE>0.
+        {
+            broadcastGenome();
+        }
+
         _dSumTravelled = _dSumTravelled + getEuclidianDistance( _wm->getXReal(), _wm->getYReal(), _Xinit, _Yinit ); //remark: incl. squareroot.
     }
     
@@ -389,10 +393,10 @@ void TemplateEEController::stepEvolution()
         sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",genome,";
         if ( _wm->isAlive() )
         {
-            for(unsigned int i=0; i<_genome.size(); i++)
+            for(unsigned int i=0; i<_currentGenome.size(); i++)
             {
-                sLog += std::to_string(_genome[i]);
-                if ( i < _genome.size()-1 )
+                sLog += std::to_string(_currentGenome[i]);
+                if ( i < _currentGenome.size()-1 )
                     sLog += ",";
             }
         }
@@ -408,7 +412,7 @@ void TemplateEEController::stepEvolution()
     if ( getNewGenomeStatus() ) // check for new NN parameters
     {
         _parameters.clear();
-        _parameters = _genome;
+        _parameters = _currentGenome;
         setNewGenomeStatus(false);
     }
 }
@@ -439,8 +443,8 @@ void TemplateEEController::performVariation()
 void TemplateEEController::selectRandomGenome() // if called, assume genomeList.size()>0
 {
     int randomIndex = rand()%_genomesList.size();
-    
-    std::map<int, std::vector<double> >::iterator it = _genomesList.begin();
+
+    std::map<std::pair<int,int>, std::vector<double> >::iterator it = _genomesList.begin();
     while (randomIndex !=0 )
     {
         it ++;
@@ -455,7 +459,7 @@ void TemplateEEController::selectRandomGenome() // if called, assume genomeList.
     
     // Logging: track descendance
     std::string sLog = std::string("");
-    sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first) + "::" + std::to_string(_birthdateList[(*_genomesList.begin()).first]) + "\n";
+    sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
     gLogManager->write(sLog);
     gLogManager->flush();
 }
@@ -470,13 +474,16 @@ void TemplateEEController::selectFirstGenome()  // if called, assume genomeList.
     
     // Logging: track descendance
     std::string sLog = std::string("");
-    sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first) + "::" + std::to_string(_birthdateList[(*_genomesList.begin()).first]) + "\n";
+    sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
     gLogManager->write(sLog);
     gLogManager->flush();
-    
 }
 
-bool TemplateEEController::storeGenome(std::vector<double> genome, int senderId, int senderBirthdate, float sigma, float fitness) // fitness is optional (default: 0)
+/* manage storage of a genome received from a neighbour
+ *
+ * Note that in case of multiple encounters with the same robot (same id, same "birthdate"), genome is stored only once, and last known fitness value is stored (i.e. updated at each encounter).
+ */
+bool TemplateEEController::storeGenome(std::vector<double> genome, std::pair<int,int> senderId, float sigma, float fitness) // fitness is optional (default: 0)
 {
     if ( !_isListening )
     {
@@ -484,9 +491,15 @@ bool TemplateEEController::storeGenome(std::vector<double> genome, int senderId,
     }
     else
     {
-        std::map<int,int>::const_iterator it = _birthdateList.find(senderBirthdate);
+        std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(senderId);
     
-        if ( it != _birthdateList.end() && _birthdateList[senderId] == senderBirthdate ) // this exact agent's genome is already stored. Exact means: same robot, same generation.
+        /*
+        _genomesList[senderId] = genome;
+        _sigmaList[senderId] = sigma;
+        _fitnessValuesList[senderId] = fitness;
+        */
+        
+        if ( it != _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
         {
             _fitnessValuesList[senderId] = fitness; // update with most recent fitness (IMPLEMENTATION CHOICE) [!n]
             return false;
@@ -495,7 +508,6 @@ bool TemplateEEController::storeGenome(std::vector<double> genome, int senderId,
         {
             _genomesList[senderId] = genome;
             _sigmaList[senderId] = sigma;
-            _birthdateList[senderId] = senderBirthdate;
             _fitnessValuesList[senderId] = fitness;
             return true;
         }
@@ -505,8 +517,6 @@ bool TemplateEEController::storeGenome(std::vector<double> genome, int senderId,
 
 void TemplateEEController::mutateGaussian(float sigma) // mutate within bounds.
 {
-    _genome.clear();
-    
     _currentSigma = sigma;
     
     for (unsigned int i = 0 ; i != _currentGenome.size() ; i++ )
@@ -534,29 +544,22 @@ void TemplateEEController::mutateGaussian(float sigma) // mutate within bounds.
                 value = _maxValue - range + (overflow-range);
         }
         
-        _genome.push_back(value);
+        _currentGenome[i] = value;
     }
-    
-    _currentGenome = _genome;
     
 }
 
 
 void TemplateEEController::mutateUniform() // mutate within bounds.
 {
-    _genome.clear();
-    
     for (unsigned int i = 0 ; i != _currentGenome.size() ; i++ )
     {
         float randomValue = float(rand()%100) / 100.0; // in [0,1[
         double range = _maxValue - _minValue;
         double value = randomValue * range + _minValue;
         
-        _genome.push_back(value);
+        _currentGenome[i] = value;
     }
-    
-    _currentGenome = _genome;
-    
 }
 
 
@@ -599,22 +602,31 @@ void TemplateEEController::initController()
     if ( gVerbose )
         std::cout << std::flush ;
     
-    _genome.clear();
+    _currentGenome.clear();
     
     // Intialize genome
     
     for ( unsigned int i = 0 ; i != nbGene ; i++ )
     {
-        _genome.push_back((double)(rand()%TemplateEESharedData::gNeuronWeightRange)/(TemplateEESharedData::gNeuronWeightRange/2)-1.0); // weights: random init between -1 and +1
+        _currentGenome.push_back((double)(rand()%TemplateEESharedData::gNeuronWeightRange)/(TemplateEESharedData::gNeuronWeightRange/2)-1.0); // weights: random init between -1 and +1
     }
     
-    // initialize robot
-    
-    _currentGenome = _genome;
     setNewGenomeStatus(true);
-    _genomesList.clear();
+    
+    clearReservoir(); // will contain the genomes received from other robots
 }
 
+
+void TemplateEEController::clearReservoir()
+{
+    //std::cout << "[DEBUG] genomesList for agent #" << _wm->getId() << "::" << getBirthdate() << ", at time " << gWorld->getIterations() << "\n";
+    //for ( std::map<std::pair<int,int>, std::vector<double> >::iterator it = _genomesList.begin() ; it != _genomesList.end() ; it++ )
+    //    std::cout << "[DEBUG] " << (*it).first.first << "::" << (*it).first.second << "\n";
+    
+    _genomesList.clear(); // empty the list of received genomes
+    _sigmaList.clear();
+    _fitnessValuesList.clear();
+}
 
 void TemplateEEController::reset()
 {
@@ -674,10 +686,10 @@ void TemplateEEController::broadcastGenome()
             
             if ( targetRobotController->isListening() )
             {
-                bool success = targetRobotController->storeGenome(_currentGenome, _wm->getId(), _birthdate, _currentSigma, _wm->_fitnessValue); // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
+                bool success = targetRobotController->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, _wm->_fitnessValue); // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
                 
                 if ( success == true )
-                    _nbGenomeTransmission++;
+                    _nbGenomeTransmission++; // count unique transmissions (ie. nb of different genomes stored).
             }
         }
     }
@@ -715,7 +727,7 @@ void TemplateEEController::loadNewGenome()
             
             performSelection();
             performVariation();
-            _genomesList.clear(); // empty the list of received genomes
+            clearReservoir();
             
             //logCurrentState();
             
@@ -821,7 +833,7 @@ void TemplateEEController::logCurrentState()
     std::string sLog = "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) +
     ",age," + std::to_string(gWorld->getIterations()-_birthdate) +
     ",energy," +  std::to_string(_wm->getEnergyLevel()) +
-    ",genomeList," + std::to_string(_genomesList.size()) +
+    ",genomesListSize," + std::to_string(_genomesList.size()) +
     ",sigma," + std::to_string(_currentSigma) +
     ",x_init," + std::to_string(_wm->getXReal()) +
     ",y_init," + std::to_string(_wm->getYReal()) +
@@ -842,6 +854,9 @@ double TemplateEEController::getFitness()
     return -1;
 }
 
+/*
+ * note: resetFitness is first called by the Controller's constructor.
+ */
 void TemplateEEController::resetFitness()
 {
     // nothing to do

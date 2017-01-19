@@ -87,6 +87,13 @@ void RobotWorldModel::updateLandmarkSensor( int __landmarkId )
 
 void RobotWorldModel::updateLandmarkSensor()
 {
+    if ( gLandmarks.size() == 0 )
+    {
+        std::cout << "[ERROR] There is no landmark to consider in RobotWorldModel::updateLandmarkSensor(). Exiting." << std::endl;
+        exit (-1);
+    }
+
+    
     double distanceToClosestLandmark = 0.0;
     
     // * find closest landmark and compute orientation to it

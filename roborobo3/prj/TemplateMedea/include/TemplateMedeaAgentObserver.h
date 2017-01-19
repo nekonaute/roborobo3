@@ -21,6 +21,8 @@ class TemplateMedeaAgentObserver : public TemplateEEAgentObserver
 	public:
         TemplateMedeaAgentObserver( RobotWorldModel *wm );
 		~TemplateMedeaAgentObserver();
+
+        virtual void step();
 };
 
 #endif

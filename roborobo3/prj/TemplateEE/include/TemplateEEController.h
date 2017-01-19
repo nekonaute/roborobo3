@@ -70,12 +70,14 @@ protected:
     bool getNewGenomeStatus() { return _isNewGenome; }
     void setNewGenomeStatus( bool __status ) { _isNewGenome = __status; }
     
-    // evolutionary engine
-    std::vector<double> _genome; // todo: accessing
-    std::map<int, std::vector<double> > _genomesList;
-    std::map<int, float > _sigmaList;
-    std::map<int,int> _birthdateList; // store the birthdate of the received controllers (useful for monitoring).
-    std::map<int, float> _fitnessValuesList;
+    // incoming genomes reservoir
+    
+    std::map< std::pair<int,int>, std::vector<double> > _genomesList;
+    std::map< std::pair<int,int>, float > _sigmaList;
+    std::map< std::pair<int,int>, float > _fitnessValuesList;
+    
+    // current genome
+    
     std::vector<double> _currentGenome;
     float _currentSigma;
     
@@ -92,8 +94,10 @@ protected:
     double _Yinit;
     double _dSumTravelled;
     
-    bool storeGenome(std::vector<double> genome, int senderId, int senderBirthdate, float sigma, float fitness=0);
+    bool storeGenome(std::vector<double> genome, std::pair<int,int> senderId, float sigma, float fitness=0);
     void reset();
+    
+    void clearReservoir(); // clear genomesList, sigmaList, fitnessesList and birthdayList
     
     virtual void logCurrentState();
     

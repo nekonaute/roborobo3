@@ -37,7 +37,6 @@ EnergyItem::EnergyItem( int __id ) : CircleObject( __id ) // should only be call
             std::cerr << "[MISSING] Physical Object #" << _id << " (EnergyItem) missing default energy mode (integer, >=0). Assume default (" << gEnergyItemDefaultMode << ").\n";
         energyMode = gEnergyItemDefaultMode;
     }
-
 }
 
 void EnergyItem::step()

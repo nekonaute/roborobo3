@@ -19,7 +19,8 @@ TemplateBoidsController::TemplateBoidsController( RobotWorldModel *wm )
     
     _iteration = 0;
     
-    _wm->updateLandmarkSensor();
+    if ( gLandmarks.size() > 0 )
+        _wm->updateLandmarkSensor();
     
     _wm->setAlive(true);
     _wm->setRobotLED_colorValues(255, 0, 0);

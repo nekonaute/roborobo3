@@ -148,6 +148,8 @@ extern int gEnergyItemDefaultMode; // 0,1,2,... cf. EnergyItem class.
 //Screen attributes
 extern int gScreenWidth;
 extern int gScreenHeight;
+extern int gScreenDisplayWidth;
+extern int gScreenDisplayHeight;
 extern int gScreenBPP; // bits per pixel color (32 bits)
 extern int gFramesPerSecond; // frame rate
 

@@ -31,15 +31,6 @@ void TemplateEEAgentObserver::reset()
 
 void TemplateEEAgentObserver::step()
 {
-    // * update energy if needed
-    if ( gEnergyLevel && _wm->isAlive() )
-    {
-        _wm->substractEnergy(1);
-        assert( _wm->getEnergyLevel() >= 0 );
-        if ( _wm->getEnergyLevel() == 0 )
-            _wm->setAlive(false);
-    }
-    
     // * send callback messages to objects touched or walked upon.
     
     // through distance sensors

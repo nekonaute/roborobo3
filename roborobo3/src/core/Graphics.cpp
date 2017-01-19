@@ -117,7 +117,7 @@ bool initSDL(Uint32 flags) // parameter is optional (default: SDL_HWSURFACE | SD
         gScreenWindow = SDL_CreateWindow("Roborobo^3",
                                      //SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,
                                      SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                     gScreenWidth, gScreenHeight,
+                                     gScreenDisplayWidth, gScreenDisplayHeight,
                                      flags);
     }
 

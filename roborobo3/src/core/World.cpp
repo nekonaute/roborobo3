@@ -227,9 +227,9 @@ void World::updateWorld(const Uint8 *__keyboardStates)
 			robots[shuffledIndex[i]]->unregisterRobot();
 		}
 
-		// move agent
-		robots[shuffledIndex[i]]->move();
-			
+        // move agent
+        robots[shuffledIndex[i]]->move();
+        
         // register robot (remark: always register is fine with small robots and/or high density)
         robots[shuffledIndex[i]]->registerRobot();
         robotRegistry[shuffledIndex[i]]=true;

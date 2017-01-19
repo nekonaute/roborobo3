@@ -20,6 +20,8 @@ void PhysicalObject::init()
 	std::stringstream out;
 	out << getId();
     
+    regrowTime = 0;
+    
     s = "physicalObject[";
 	s += out.str();
 	s += "].regrowTimeMax";

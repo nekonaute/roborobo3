@@ -240,7 +240,7 @@ void CircleObject::registerObject()
 
 void CircleObject::unregisterObject()
 {
-    //  draw footprint
+    //  clear footprint
     
     Uint32 color = SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE );
     
@@ -255,7 +255,7 @@ void CircleObject::unregisterObject()
         }
     }
     
-    // draw object
+    // clear object
     
     color = SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE );
     
