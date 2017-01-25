@@ -47,6 +47,7 @@ public:
     static int gListeningStateDelay;    // -1: infinite ; 0: no delay ; >0: delay (ignored if gNotListeningStateDelay=-1)
     
     static bool gLogGenome;
+    static bool gLogGenomeSnapshot;   // log only if it%gEvaluationTime*gSnapshotsFrequency=0
     
     static double gIndividualMutationRate;
     

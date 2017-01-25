@@ -40,6 +40,7 @@ int TemplateEESharedData::gNotListeningStateDelay = 0;    // -1: infinite ; 0: n
 int TemplateEESharedData::gListeningStateDelay = -1;      // -1: infinite ; 0: no delay ; >0: delay (ignored if gNotListeningStateDelay=-1)
 
 bool TemplateEESharedData::gLogGenome = false;
+bool TemplateEESharedData::gLogGenomeSnapshot = false;
 
 double TemplateEESharedData::gIndividualMutationRate = 1.0;
 

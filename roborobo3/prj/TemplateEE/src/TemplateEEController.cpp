@@ -49,6 +49,7 @@ TemplateEEController::TemplateEEController( RobotWorldModel *wm )
         _wm->updateLandmarkSensor(); // wrt closest landmark
     
     reset();
+    resetFitness();
     
     _wm->setAlive(true);
     _wm->setRobotLED_colorValues(255, 0, 0);
@@ -372,6 +373,7 @@ void TemplateEEController::stepEvolution()
         // * lifetime ended: replace genome (if possible)
         loadNewGenome();
         _nbGenomeTransmission = 0;
+        resetFitness();
     }
     else
     {
@@ -386,7 +388,7 @@ void TemplateEEController::stepEvolution()
     }
     
     // log the genome (only at the second iteration during snapshot time)
-    if ( TemplateEESharedData::gLogGenome && gWorld->getIterations() % ( TemplateEESharedData::gEvaluationTime * TemplateEESharedData::gSnapshotsFrequency ) == 1 )
+    if ( TemplateEESharedData::gLogGenomeSnapshot && gWorld->getIterations() % ( TemplateEESharedData::gEvaluationTime * TemplateEESharedData::gSnapshotsFrequency ) == 1 )
     {
         // Logging: full genome
         std::string sLog = std::string("");
@@ -631,7 +633,6 @@ void TemplateEEController::clearReservoir()
 void TemplateEEController::reset()
 {
     initController();
-    resetFitness();
 }
 
 
@@ -717,7 +718,7 @@ void TemplateEEController::loadNewGenome()
     if ( _wm->isAlive() || gEnergyRefill )  // ( gEnergyRefill == true ) enables revive
     {
         if ( _wm->isAlive() )
-            logCurrentState(); // TODO: 2016-05-30n - check modif pour amaury
+            logCurrentState();
         
         // note: at this point, agent got energy, whether because it was revived or because of remaining energy.
         
@@ -755,6 +756,7 @@ void TemplateEEController::loadNewGenome()
                 sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",genome,";
                 
                 /*
+                 // write genome (takes a lot of disk space)
                  for(unsigned int i=0; i<_genome.size(); i++)
                  {
                  sLog += std::to_string(_genome[i]) + ",";

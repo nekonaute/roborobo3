@@ -29,6 +29,8 @@ class TemplateMedeaController : public TemplateEEController
         TemplateMedeaController(RobotWorldModel *wm);
         ~TemplateMedeaController();
     
+        double getFitness();
+
     protected:
     
         void initController();
@@ -39,7 +41,6 @@ class TemplateMedeaController : public TemplateEEController
     
         void broadcastGenome();
     
-        double getFitness();
         void resetFitness();
         void updateFitness();
 

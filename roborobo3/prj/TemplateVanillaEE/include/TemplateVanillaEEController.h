@@ -29,6 +29,8 @@ class TemplateVanillaEEController : public TemplateEEController
         TemplateVanillaEEController(RobotWorldModel *wm);
         ~TemplateVanillaEEController();
     
+        double getFitness();
+
     protected:
     
         void initController();
@@ -39,7 +41,6 @@ class TemplateVanillaEEController : public TemplateEEController
     
         void broadcastGenome();
     
-        double getFitness();
         void resetFitness();
         void updateFitness();
 

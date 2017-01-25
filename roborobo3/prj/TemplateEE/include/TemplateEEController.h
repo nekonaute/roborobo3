@@ -104,7 +104,6 @@ protected:
     virtual void performSelection();
     virtual void performVariation();
     
-    virtual double getFitness();
     virtual void resetFitness();
     virtual void updateFitness();
     
@@ -118,6 +117,9 @@ public:
     int getBirthdate() { return _birthdate; }
     
     bool isListening() { return _isListening; }
+    
+    virtual double getFitness();
+
     
 };
 

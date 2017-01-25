@@ -25,6 +25,11 @@ class TemplateVanillaEEWorldObserver : public TemplateEEWorldObserver
 public:
     TemplateVanillaEEWorldObserver(World *world);
     ~TemplateVanillaEEWorldObserver();
+    
+    virtual void step();
+
+protected:    
+    virtual void monitorPopulation( bool localVerbose = true );
 };
 
 #endif

@@ -151,6 +151,7 @@
 		376C24601E28BBA800E70850 /* TemplateMedeaController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateMedeaController.cpp; sourceTree = "<group>"; };
 		376C24611E28BBA800E70850 /* TemplateMedeaSharedData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateMedeaSharedData.cpp; sourceTree = "<group>"; };
 		376C24621E28BBA800E70850 /* TemplateMedeaWorldObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateMedeaWorldObserver.cpp; sourceTree = "<group>"; };
+		37A569C11E38AB2100B983FF /* template_vanillaEE.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template_vanillaEE.properties; sourceTree = "<group>"; };
 		37A9F91A1E28AA7E00006059 /* TemplateVanillaEEConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateVanillaEEConfigurationLoader.cpp; sourceTree = "<group>"; };
 		37A9F91D1E28AA9600006059 /* TemplateVanillaEEConfigurationLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEConfigurationLoader.h; sourceTree = "<group>"; };
 		37BA26161BC3C782002DF5DC /* roborobo3 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = roborobo3; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -318,6 +319,7 @@
 		3705F0891BC67B7C001A016D /* config */ = {
 			isa = PBXGroup;
 			children = (
+				37A569C11E38AB2100B983FF /* template_vanillaEE.properties */,
 				3705F08A1BC67B7C001A016D /* benchmark.properties */,
 				3705F08B1BC67B7C001A016D /* template_boids.properties */,
 				3705F08C1BC67B7C001A016D /* template_medea.properties */,

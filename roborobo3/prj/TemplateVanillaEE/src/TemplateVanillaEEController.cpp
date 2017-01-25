@@ -72,8 +72,6 @@ void TemplateVanillaEEController::performSelection()
     sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
     gLogManager->write(sLog);
     gLogManager->flush();
-    
-    
 }
 
 

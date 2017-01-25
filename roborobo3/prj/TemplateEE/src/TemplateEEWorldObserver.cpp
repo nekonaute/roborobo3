@@ -45,6 +45,7 @@ TemplateEEWorldObserver::TemplateEEWorldObserver( World* world ) : WorldObserver
     gProperties.checkAndGetPropertyValue("gListeningStateDelay",&TemplateEESharedData::gListeningStateDelay,true);
     
     gProperties.checkAndGetPropertyValue("gLogGenome",&TemplateEESharedData::gLogGenome,false);
+    gProperties.checkAndGetPropertyValue("gLogGenomeSnapshot",&TemplateEESharedData::gLogGenomeSnapshot,false);
     
     gProperties.checkAndGetPropertyValue("gIndividualMutationRate",&TemplateEESharedData::gIndividualMutationRate,false);
 
