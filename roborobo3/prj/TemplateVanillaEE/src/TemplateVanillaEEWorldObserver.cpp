@@ -23,10 +23,12 @@ void TemplateVanillaEEWorldObserver::step()
 {
     TemplateEEWorldObserver::step();
     
+    /*
     if( gWorld->getIterations() > 0 && gWorld->getIterations() % TemplateEESharedData::gEvaluationTime == 0 )
     {
-        std::cout << "GENERATION!\n";
+        std::cout << "[DEBUG] new generation.\n";
     }
+    */
 
 }
 

@@ -1709,7 +1709,7 @@ bool loadProperties( std::string __propertiesFilename )
 		//returnValue = false;
 	}
 
-    if ( gLogDirectoryname_commandlineargument == true ) // command line argument overrules properties file
+    if ( gLogDirectoryname_commandlineargument == false ) // ignore if command line argument => overrules any properties file entry
     {
         if ( gProperties.hasProperty("gLogDirectoryname") )
             gLogDirectoryname = gProperties.getProperty("gLogDirectoryname");
@@ -1718,7 +1718,7 @@ bool loadProperties( std::string __propertiesFilename )
             gLogDirectoryname = "logs/";
             gProperties.setProperty("gLogDirectoryname",gLogDirectoryname);
             
-            std::cout << "[WARNING] No default gLogDirectoryname string value. Log data will be written in \"" << gLogDirectoryname << "\"\n";
+            std::cout << "[INFO] No default gLogDirectoryname string value. Log data will be written in \"" << gLogDirectoryname << "\"\n";
             //returnValue = false;
         }
     }
