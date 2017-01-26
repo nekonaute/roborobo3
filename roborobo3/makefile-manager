@@ -31,7 +31,7 @@ makefileVariablePattern = "[ \t]*=[ \t]*([^\n]*)"
 debugVariableName = "DEBUG"
 verboseVariableName = "VERBOSE"
 modulesVariableName = "MODULES"
-initialValueOfModulesVariable = "TemplateRandomwalk TemplateBoids TemplateMedea TemplateWander"
+initialValueOfModulesVariable = "TemplateRandomwalk TemplateBoids TemplateMedea TemplateWander TemplateEE TemplateVanillaEE"
 configurationLoaderPattern = re.compile(".*ConfigurationLoader.cpp")
 
 
