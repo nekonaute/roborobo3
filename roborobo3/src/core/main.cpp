@@ -56,6 +56,7 @@ static void usage(char* argv0)
 	std::cout << "         roborobo will exit if the target directory does not exist." << std::endl;
 	std::cout << "         default properties file is \"" << gPropertiesFilename << "\"" << std::endl;
 	std::cout << "    s: do not verbose messages in console." << std::endl;
+    std::cout << "    b: batch mode (no display, fastest mode)." << std::endl;
 
 	std::cout << std::endl;
 }
@@ -178,6 +179,12 @@ int main(int argc, char* argv[])
                 return -1;
                 break;
             
+            case 'b':
+                gBatchMode = true;
+                gDisplayMode = 2;
+                gBatchMode_commandlineargument = true;
+                break;
+
             case '?':
                 //std::cout << "[INFO] Unknown argument \"" << (char)optopt << "\" detected, and ignored." << std::endl;
                 break;
@@ -188,7 +195,7 @@ int main(int argc, char* argv[])
                 break;
         }
         
-        c = getopt (argc, argv, "vhsl:o:");
+        c = getopt (argc, argv, "vhsbl:o:");
     }
     
     /**/

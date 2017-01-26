@@ -103,7 +103,7 @@ bool initSDL(Uint32 flags) // parameter is optional (default: SDL_HWSURFACE | SD
     
     if ( gBatchMode )
     {
-            gDisplayMode = 0;
+            gDisplayMode = 2;
     }
 	
     //Initialize all SDL subsystems

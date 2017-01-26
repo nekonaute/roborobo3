@@ -111,6 +111,7 @@ LogManager *gLogManager = NULL;
 
 bool gVerbose_commandlineargument =             false; // set to true if given as command line argument (priority over properties file)
 bool gLogDirectoryname_commandlineargument =    false; // set to true only if given as command line argument (priority over properties file)
+bool gBatchMode_commandlineargument = false; // set to true only if given as command line argument (priority over properties file)
 std::string gLogDirectoryname =                 "logs";
 std::string gLogFilename =						"datalog.txt";
 std::string gLogFullFilename =                  ""; // cf. the initLog method
@@ -1428,17 +1429,22 @@ bool loadProperties( std::string __propertiesFilename )
 			//returnValue = false; // not critical
 		}	
 
-	s = gProperties.getProperty("gBatchMode");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
-		gBatchMode = true;
-	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
-			gBatchMode = false;
-		else
-		{
-			std::cerr << "[CORRUPT] gBatchMode should be boolean (\"true\" or \"false\").\n";
-			returnValue = false;
-		}
+    if ( gBatchMode_commandlineargument == false )
+    {
+        s = gProperties.getProperty("gBatchMode");
+        if ( s == "true" || s == "True" || s == "TRUE" )
+            gBatchMode = true;
+        else
+            if ( s == "false" || s == "False" || s == "FALSE" )
+                gBatchMode = false;
+            else
+            {
+                std::cerr << "[CORRUPT] gBatchMode should be boolean (\"true\" or \"false\").\n";
+                returnValue = false;
+            }
+    }
+    else
+        std::cout << "[INFO] gBatchMode value set as command-line paramater.\n";
 		
 	s = gProperties.getProperty("gTrajectoryMonitor");
 	if ( s == "true" || s == "True" || s == "TRUE" )
@@ -1586,6 +1592,8 @@ bool loadProperties( std::string __propertiesFilename )
                 returnValue = false;
             }
     }
+    else
+        std::cout << "[INFO] gVerbose value set as command-line paramater.\n";
 	
 	s = gProperties.getProperty("gRadioNetwork");
 	if ( s == "true" || s == "True" || s == "TRUE" ) 
@@ -1722,6 +1730,8 @@ bool loadProperties( std::string __propertiesFilename )
             //returnValue = false;
         }
     }
+    else
+        std::cout << "[INFO] gLogDirectoryname value set as command-line paramater.\n";
     
 	if ( gProperties.hasProperty("gGroundSensorImageFilename") )
 		gGroundSensorImageFilename = gProperties.getProperty("gGroundSensorImageFilename");

@@ -37,7 +37,7 @@ for i in range(nbrep):
 	
 	createdir(dirname)
 	
-	command = "nohup ./roborobo -l " + propertiesfile + " -o " + dirname + " 1> " + dirname + "/output.stdout 2> " + dirname + "/output.stderr &"
+	command = "env SDL_VIDEODRIVER=dummy nohup ./roborobo -b -l " + propertiesfile + " -o " + dirname + " 1> " + dirname + "/output.stdout 2> " + dirname + "/output.stderr &"
 	
 	if debug == False:
 		os.system(command)

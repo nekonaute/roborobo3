@@ -52,6 +52,7 @@ extern int gTrajectoryMonitorMode;
 extern std::string gLogCommentText; // user comment that will be written in the log file (e.g. description of experimental setup)
 extern bool gVerbose_commandlineargument;
 extern bool gLogDirectoryname_commandlineargument;
+extern bool gBatchMode_commandlineargument;
 extern std::string gLogDirectoryname;
 extern std::string gLogFilename;
 extern std::string gLogFullFilename;
