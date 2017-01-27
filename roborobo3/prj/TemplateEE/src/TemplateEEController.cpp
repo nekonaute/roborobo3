@@ -864,7 +864,6 @@ void TemplateEEController::resetFitness()
     // nothing to do
 }
 
-
 void TemplateEEController::updateFitness()
 {
     // nothing to do

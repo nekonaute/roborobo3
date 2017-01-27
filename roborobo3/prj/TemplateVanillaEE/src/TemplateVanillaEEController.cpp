@@ -20,6 +20,7 @@ using namespace Neural;
 TemplateVanillaEEController::TemplateVanillaEEController( RobotWorldModel *wm ) : TemplateEEController( wm )
 {
     // superclass constructor called before this baseclass constructor.
+    resetFitness(); // superconstructor calls parent method.
 }
 
 TemplateVanillaEEController::~TemplateVanillaEEController()

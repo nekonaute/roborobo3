@@ -9,6 +9,8 @@
 #include "TemplateVanillaEE/include/TemplateVanillaEEController.h"
 #include "World/World.h"
 
+#include <float.h> // for DBL_MAX
+
 TemplateVanillaEEWorldObserver::TemplateVanillaEEWorldObserver( World* world ) : TemplateEEWorldObserver( world )
 {
     // superclass constructor called before
@@ -38,6 +40,8 @@ void TemplateVanillaEEWorldObserver::monitorPopulation( bool localVerbose )
     
     int activeCount = 0;
     double sumOfFitnesses = 0;
+    double minFitness = DBL_MAX;
+    double maxFitness = -DBL_MAX;
     
     for ( int i = 0 ; i != gNumberOfRobots ; i++ )
     {
@@ -47,6 +51,10 @@ void TemplateVanillaEEWorldObserver::monitorPopulation( bool localVerbose )
         {
             activeCount++;
             sumOfFitnesses += ctl->getFitness() ;
+            if ( ctl->getFitness() < minFitness )
+                minFitness = ctl->getFitness();
+            if ( ctl->getFitness() > maxFitness )
+                maxFitness = ctl->getFitness();
         }
     }
     
@@ -55,6 +63,9 @@ void TemplateVanillaEEWorldObserver::monitorPopulation( bool localVerbose )
         std::cout << "[gen:" << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << ";it:" << gWorld->getIterations() << ";pop:" << activeCount << ";avgFitness:" << sumOfFitnesses/activeCount << "]\n";
     }
     
+    // display lightweight logs for easy-parsing
+    std::cout << "log," << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << "," << gWorld->getIterations() << "," << activeCount << "," << minFitness << "," << maxFitness << "," << sumOfFitnesses/activeCount << "\n";
+
     // Logging, population-level: alive
     std::string sLog = std::string("") + std::to_string(gWorld->getIterations()) + ",pop,alive," + std::to_string(activeCount) + "\n";
     gLogManager->write(sLog);

@@ -111,7 +111,9 @@ void TemplateEEWorldObserver::updateMonitoring()
 {
     // * Log at end of each generation
 
-    if( gWorld->getIterations() % TemplateEESharedData::gEvaluationTime == 1 || gWorld->getIterations() % TemplateEESharedData::gEvaluationTime == TemplateEESharedData::gEvaluationTime-1 ) // beginning(+1) *and* end of generation. ("==1" is required to monitor the outcome of the first iteration)
+    //if( gWorld->getIterations() % TemplateEESharedData::gEvaluationTime == 1 || gWorld->getIterations() % TemplateEESharedData::gEvaluationTime == TemplateEESharedData::gEvaluationTime-1 ) // beginning(+1) *and* end of generation. ("==1" is required to monitor the outcome of the first iteration)
+    // log at end of generation.
+    if( gWorld->getIterations() % TemplateEESharedData::gEvaluationTime == TemplateEESharedData::gEvaluationTime-1 )
     {
         monitorPopulation();
     }
@@ -155,6 +157,8 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
     
     // Logging, population-level: alive
     std::string sLog = std::string("") + std::to_string(gWorld->getIterations()) + ",pop,alive," + std::to_string(activeCount) + "\n";
+    
     gLogManager->write(sLog);
     gLogManager->flush();
+    
 }

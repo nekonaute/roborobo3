@@ -20,6 +20,7 @@ using namespace Neural;
 TemplateMedeaController::TemplateMedeaController( RobotWorldModel *wm ) : TemplateEEController( wm )
 {
     // superclass constructor called before this baseclass constructor.
+    resetFitness(); // not used
 }
 
 TemplateMedeaController::~TemplateMedeaController()
