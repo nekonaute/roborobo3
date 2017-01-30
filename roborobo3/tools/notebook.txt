@@ -1,0 +1,30 @@
+bp:
+-.energyItems are now correctly displayed and registered
+-.remain: fitness function, selectBestIndividual (or whatever)
+-.bug corrected: clearreservoir()
+-.senderId not complete (should be: #robot_id + #birthdate)
+-._genome vs. _currentGenome ...??? => _currentGenome seulement
+-.check: genomeList contient les indivs de la gen précédente. Implement: lors de la generation ou un robot se renouvelle, il ne peut transmettre son génome. (permet de gerer le mode de mise a jour de roborobo async/random)
+-.command-line: batch mode.
+-.libcaca ou aalib (résolu: video_driver=dummy)
+-.vitesse de rotation plus rapide? => non
+-.pas le bon resetFitness dans le constructeur. résolu.
+
+--
+
+Objectifs:
+1. observer la dynamique d'un run.
+	entrées: x, y
+	sorties: 
+		tracé avec une seule courbe
+		fichier PDF
+		
+2. observer la dynamique d'un ensemble de runs aux paramètres identiques.
+	entrées: fichier1, fichier2, ... --- éventuellement: prefix rep?
+	sorties
+		tracé avec des boxplots
+		fichier PDF
+
+Rq:
+- intégrer les deux scripts (si un seul fichier alors (1) sinon (2))
+- pour (2): automatiser la prise en compte des fichiers (prefix, sous-rep, ?)

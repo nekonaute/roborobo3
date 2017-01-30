@@ -44,7 +44,7 @@ void quit(int signal)
 static void usage(char* argv0)
 {
 	std::cout << std::endl << "Roborobo! Command line help:" << std::endl << std::endl;
-	std::cout << "  usage  : " << argv0 << " [-h] [-v] [-l <propertiesfilename>] [-o <path_to_log_files>] [-s]" << std::endl << std::endl;
+	std::cout << "  usage  : " << argv0 << " [-h] [-v] [-l <propertiesfilename>] [-o <path_to_log_files>] [-s] [-b]" << std::endl << std::endl;
 	std::cout << "  options:" << std::endl;
 	std::cout << "    h: print this help message." << std::endl;
 	std::cout << "    v: print current version number." << std::endl;

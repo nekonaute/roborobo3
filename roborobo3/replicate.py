@@ -7,6 +7,9 @@ import time
 
 debug = False   # if True: shell command are not issued, but displayed.
 
+def getTimestamp():
+    return datetime.datetime.now().strftime("%Y%m%d_%H%M")
+
 def createdir(directory):
 	if not os.path.exists(directory):
         	if debug == False:
@@ -28,7 +31,7 @@ else:
 	else:
 		suffix = "exp"
 
-prefix = "./logs/"+datetime.datetime.now().strftime("%Y%m%d_%H%M")
+prefix = "./logs/"+getTimestamp()
 
 for i in range(nbrep):
 	print "[INFO] Starting replicate #",i
