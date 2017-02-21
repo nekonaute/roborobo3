@@ -47,7 +47,7 @@ A: SDL needs to set up the video. You may change this by using a dummy video dri
 A: [DEPRECATED, used to be for SDL1.2, but some info may still apply] First, check you have been running headless roborobo (value of gBatchMode in the properties file). If it still fails, it is most probably due to video initialization -- SDL tries to initialize the video, even if it wont be used. This can cause a problem, especially when exporting the display is not possible (slow connection, bad configuration, closed ports... -- this problem will also impact other X-based application, e.g. try ''xeyes''.). To avoid this: connect to the remote server such that exporting X is not an option (ie. use *always* the ''ssh'' command without any options -- *not* ''ssh -X'' or ''ssh -Y''). This will force SDL to bypass the video initialization. Note that if aalib is installed and SDL is able to use it, any display from roborobo will be done in nice ascii art within the very terminal. If this does not solve the problem, then try changing, or reconfiguring, your terminal application, and/or type ''export TERM=xterm'' in the console.
 
 Q: No makefile method seem to work.
-A: The basic makefile method is really... basic. And should work everywhere, except with Mac OSX where using Xcode is suggested. The modular makefile method was tested successfully in linux with GNU Make, in freeBSD with BSD Make, and under Windows with Cygwin/Mingw (with GNU Make). Possible problems: (a) check dependencies. SDL must be installed (b) running Mac OSX? Use Xcode project (c) uh... a bug, may be? Did you try 'make clean' before compiling again?
+A: The basic makefile method is really... basic. And should work everywhere, except with Mac OSX where using Xcode is suggested. The modular makefile method was tested successfully in linux with GNU Make, in freeBSD with BSD Make, and under Windows with Cygwin/Mingw (with GNU Make). Possible problems: (a) try 'make clean' before compiling again (b) check dependencies. SDL must be installed (c) running Mac OSX? Use Xcode project.
 
 Q: Roborobo compiles but at run-time i get the following error: '[CORRUPT] The configuration (nameofproject)ConfigurationLoader isn't known by the ConfigurationLoader', why?
 A: Most likely, you did not compile the project mentionned. Activate this project with the 'makefile-manager' script (see _INSTALL.TXT or type './makefile-manager -h')
@@ -113,7 +113,7 @@ A: (if your code is not responsible for these:) SDL is responsible for them. Act
 Q: I understand that logged image files beginning with "robotsId_(...)" display the location and id of each robot. But the image is just black!
 A: The image is not just black, though it can look quite dark if you have few robots (<1000). Zoom in. Robot’s id are counted from 1, ie. robot with id = 0 is display as red=0,green=0,blue=1. This is pretty close to black, isn’t it. A way to make it clearer: use GIMP or Photoshop to change black to white — this will reveal the non black dots.
 
-Q: [deprecated?] I use Xcode on MacOSX. When roborobo is launched from Xcode, I got some strange reports related to non-existing command-line parameters. Why?
+Q: [deprecated] I use Xcode on MacOSX. When roborobo is launched from Xcode, I got some strange reports related to non-existing command-line parameters. Why?
 A: Xcode may add additional parameters to the command line. This is caused if you checked the ''Allow debugging when using document Versions Browser'' box, that can be found in: Product=>Scheme=>Edit Scheme=>Run roborobo.app=>Options. Solution: uncheck this box. Note that this did not occur in roborobo builds anterior to Sept. 17, 2014 as only the first argument was parsed.
 
 Q: I generate a lot of log files. Raw text files and BMP image files takes a awful lot of disk space! What can I do?
@@ -154,6 +154,9 @@ A: Let's go for step-by-step quick list:
 	     - don't forget to delete the main.cpp file created for the project (roborobo already got one)
 Troubleshooting:
 - error "Mach-O Linker Error on Xcode": caused by duplicated sources -- probably two main.cpp files (don't forget to delete the one created by Xcode)
+
+Q: I use Xcode. I have some strange error when compiling: "linker command failed with exit code 1". It seems to point to a source that is already registered in my project, but which is not compiled...?
+A: This is usually due to the source file being in your project tab (the left window of Xcode), but not registered as source to be compiler. To change that, click on the project name (upper-left), then select ''Roborobo3'' as target (not as project), then ''Build phases'', then ''Compile Sources''. Note that this is a common error when cloning a project and adding the source files to Xcode project.
 
 -n
 

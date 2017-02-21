@@ -111,6 +111,11 @@ def cloneProject(source,target):
     # create new project structure (target) from previous project (source)
 
     print ("\n### Creating new project (\""+target+"\") from previous project (\""+source+"\") ###\n")
+
+    if source[-1:] == "/":
+	source = source[:-1]
+    if target[-1:] == "/":
+	target = target[:-1]
     
     copy(source, target)
     
@@ -189,7 +194,14 @@ def cloneProject(source,target):
     print "\t\t\"./roborobo -l Config/<yourconfigurationfile>.properties\""
     print "\tXcode on Mac"
     print "\t\tAdd new files to project"
+    print "\t\tIf necessary, add filenames to list of sources to compile"
+    print "\t\t\t1. click on projet name (project navigator window, upper-left)"
+    print "\t\t\t2. select roborobo3 as target, not project (project/target list window, drop-down list)"
+    print "\t\t\t4. select the \'build phases\' tab"
+    print "\t\t\t5. go to the \'compile sources\' list"
+    print "\t\t\t6. add the new files, if needed"
     print "\t\tRun with new configuration file as argument"
+    print "\t\t\tClick on project name (top bar), then \'edit schemes\'"
     print "\n"
     print ""
 
