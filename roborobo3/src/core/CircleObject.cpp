@@ -42,6 +42,26 @@ CircleObject::CircleObject( int __id ) : PhysicalObject( __id ) // a unique and 
     
     int tries = 0;
     bool randomLocation = false;
+
+    if ( x == -1.0 || y == -1.0 )
+    {
+        tries = tries + findRandomLocation();
+        randomLocation = true;
+    }
+    else
+    {
+        if ( canRegister() == false )  // i.e. user-defined location, but cannot register. Pick random.
+        {
+            std::cerr << "[CRITICAL] cannot use user-defined initial location (" << x << "," << y << ") for physical object #" << getId() << " (localization failed). EXITING.";
+            exit(-1);
+        }
+        randomLocation = false;
+    }
+    
+    /*
+     
+     [!n] DEPRECATED as of 2017-02-22 - to delete after 10 days.
+     
     bool userdefinedlocation = false;
     
     if ( x == -1.0 || y == -1.0 )
@@ -69,6 +89,7 @@ CircleObject::CircleObject( int __id ) : PhysicalObject( __id ) // a unique and 
             randomLocation = true;
         }
     }
+    */
     
     if ( gVerbose )
     {
@@ -82,8 +103,6 @@ CircleObject::CircleObject( int __id ) : PhysicalObject( __id ) // a unique and 
                 std::cout << " try]";
             else
                 std::cout << " tries]";
-            if ( userdefinedlocation == true )
-                std::cout << " [user-defined location overridden]";
             std::cout << "\n";
         }
     }

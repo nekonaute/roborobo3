@@ -136,6 +136,17 @@ int gFramesPerSecond = 60; // frame rate
 
 int gLocationFinderMaxNbOfTrials = 100; 
 
+int gPhysicalObjectsInitAreaX = 0;
+int gPhysicalObjectsInitAreaY = 0;
+int gPhysicalObjectsInitAreaWidth = -1;
+int gPhysicalObjectsInitAreaHeight = -1;
+
+int gAgentsInitAreaX = 0;
+int gAgentsInitAreaY = 0;
+int gAgentsInitAreaWidth = -1;
+int gAgentsInitAreaHeight = -1;
+
+
 bool gRobotDisplayFocus = false;
 
 ConfigurationLoader *gConfigurationLoader = NULL;
@@ -1278,6 +1289,72 @@ bool loadProperties( std::string __propertiesFilename )
 		std::cerr << "[MISSING] gPhysicalObjectDefaultRegrowTimeMax value is missing. Assume value is -1 (instant regrow, if applicable).\n";
 		gPhysicalObjectDefaultRegrowTimeMax = -1;
 	}
+    
+    if ( gProperties.hasProperty("gPhysicalObjectsInitAreaX") )
+        convertFromString<int>(gPhysicalObjectsInitAreaX, gProperties.getProperty("gPhysicalObjectsInitAreaX"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gPhysicalObjectsInitAreaX value is missing. Assume value is 10.\n";
+        gPhysicalObjectsInitAreaX = 10;
+    }
+
+    if ( gProperties.hasProperty("gPhysicalObjectsInitAreaY") )
+        convertFromString<int>(gPhysicalObjectsInitAreaY, gProperties.getProperty("gPhysicalObjectsInitAreaY"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gPhysicalObjectsInitAreaY value is missing. Assume value is 10.\n";
+        gPhysicalObjectsInitAreaY = 10;
+    }
+
+    if ( gProperties.hasProperty("gPhysicalObjectsInitAreaWidth") )
+        convertFromString<int>(gPhysicalObjectsInitAreaWidth, gProperties.getProperty("gPhysicalObjectsInitAreaWidth"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gPhysicalObjectsInitAreaWidth value is missing. Assume value is gAreaWidth-10.\n";
+        gPhysicalObjectsInitAreaWidth = -1;  // initialized when gAreaWidth is known
+    }
+    
+    if ( gProperties.hasProperty("gPhysicalObjectsInitAreaHeight") )
+        convertFromString<int>(gPhysicalObjectsInitAreaHeight, gProperties.getProperty("gPhysicalObjectsInitAreaHeight"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gPhysicalObjectsInitAreaHeight value is missing. Assume value is gAreaHeight-10.\n";
+        gPhysicalObjectsInitAreaHeight = -1;  // initialized when gAreaHeight is known
+    }
+    
+    
+    if ( gProperties.hasProperty("gAgentsInitAreaX") )
+        convertFromString<int>(gAgentsInitAreaX, gProperties.getProperty("gAgentsInitAreaX"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gAgentsInitAreaX value is missing. Assume value is 0.\n";
+        gAgentsInitAreaX = 0;
+    }
+    
+    if ( gProperties.hasProperty("gAgentsInitAreaY") )
+        convertFromString<int>(gAgentsInitAreaY, gProperties.getProperty("gAgentsInitAreaY"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gAgentsInitAreaY value is missing. Assume value is 0.\n";
+        gAgentsInitAreaY = 0;
+    }
+    
+    if ( gProperties.hasProperty("gAgentsInitAreaWidth") )
+        convertFromString<int>(gAgentsInitAreaWidth, gProperties.getProperty("gAgentsInitAreaWidth"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gAgentsInitAreaWidth value is missing. Assume value is gAreaWidth-10.\n";
+        gAgentsInitAreaWidth = -1;  // initialized when gAreaWidth is known to gAreaWidth-10
+    }
+    
+    if ( gProperties.hasProperty("gAgentsInitAreaHeight") )
+        convertFromString<int>(gAgentsInitAreaHeight, gProperties.getProperty("gAgentsInitAreaHeight"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gAgentsInitAreaHeight value is missing. Assume value is gAreaHeight-10.\n";
+        gAgentsInitAreaHeight = -1;  // initialized when gAreaHeight is known to gAreaHeight-10
+    }
+
     
     gProperties.checkAndGetPropertyValue("gExtendedSensoryInputs",&gExtendedSensoryInputs,false);
     

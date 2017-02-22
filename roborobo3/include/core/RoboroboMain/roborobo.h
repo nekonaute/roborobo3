@@ -170,6 +170,18 @@ extern int gInspectorAgentYStart;
 // max nb of trials when looking for a location for a physical object or a robot
 extern int gLocationFinderMaxNbOfTrials;
 
+// area where objects can be randomly located (ie. not a constraint over explicit location)
+extern int gPhysicalObjectsInitAreaX;
+extern int gPhysicalObjectsInitAreaY;
+extern int gPhysicalObjectsInitAreaWidth;
+extern int gPhysicalObjectsInitAreaHeight;
+
+// area where agents can be randomly located (ie. not a constraint over explicit location)
+extern int gAgentsInitAreaX;
+extern int gAgentsInitAreaY;
+extern int gAgentsInitAreaWidth;
+extern int gAgentsInitAreaHeight;
+
 extern bool gKeyUp, gKeyDown, gKeyRight, gKeyLeft;
 extern bool gFullScreenMode;
 extern bool gNiceRendering;

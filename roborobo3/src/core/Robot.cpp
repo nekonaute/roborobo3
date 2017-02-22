@@ -177,9 +177,13 @@ void Robot::reset()
 		
 			// pick random coordinate
 			
-			x = (int)(ranf() * (double)(gAreaWidth - (2 * gRobotWidth))) + gRobotWidth;
-			y = (int)(ranf() * (double)(gAreaHeight - (2 * gRobotHeight))) + gRobotHeight;
-			
+            x = (int)(ranf() * (double)(gAgentsInitAreaWidth - (2 * gRobotWidth))) + gRobotWidth + gAgentsInitAreaX;
+            y = (int)(ranf() * (double)(gAgentsInitAreaHeight - (2 * gRobotHeight))) + gRobotHeight + gAgentsInitAreaY;
+            
+            // [!n] deprecated as of 2017-02-22. Delete after 10 days.
+            //x = (int)(ranf() * (double)(gAreaWidth - (2 * gRobotWidth))) + gRobotWidth;
+            //y = (int)(ranf() * (double)(gAreaHeight - (2 * gRobotHeight))) + gRobotHeight;
+            
 			// check for agents superposition - ie. if picked position is valid vs. already located agents.
 			for ( int i = 0 ; i != _wm->getId() ; i++ )
 			{

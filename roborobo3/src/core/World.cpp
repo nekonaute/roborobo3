@@ -85,6 +85,32 @@ void World::initWorld()
 		std::cout << "[CRITICAL] cannot load image files." << std::endl;
 		exit(-1);
 	}
+
+    // * set or test are for initial position of agents and objects
+    
+    if ( gPhysicalObjectsInitAreaWidth == -1 )
+        gPhysicalObjectsInitAreaWidth = gAreaWidth - 20;
+    if ( gPhysicalObjectsInitAreaHeight == -1 )
+        gPhysicalObjectsInitAreaHeight = gAreaHeight - 20;
+    if ( gAgentsInitAreaWidth == -1 )
+        gAgentsInitAreaWidth = gAreaWidth;
+    if ( gAgentsInitAreaHeight == -1 )
+        gAgentsInitAreaHeight = gAreaHeight;
+    
+    if (
+        gPhysicalObjectsInitAreaX < 0 || gPhysicalObjectsInitAreaX > gAreaWidth ||
+        gPhysicalObjectsInitAreaY < 0 || gPhysicalObjectsInitAreaY > gAreaHeight ||
+        gPhysicalObjectsInitAreaWidth <= 0 || gPhysicalObjectsInitAreaWidth > gPhysicalObjectsInitAreaX + gAreaWidth ||
+        gPhysicalObjectsInitAreaHeight <= 0 || gPhysicalObjectsInitAreaHeight > gPhysicalObjectsInitAreaY + gAreaHeight ||
+        gAgentsInitAreaX < 0 || gAgentsInitAreaX > gAreaWidth ||
+        gAgentsInitAreaY < 0 || gAgentsInitAreaY > gAreaHeight ||
+        gAgentsInitAreaWidth < 0 || gAgentsInitAreaWidth > gAgentsInitAreaX + gAreaWidth ||
+        gAgentsInitAreaHeight < 0 || gAgentsInitAreaHeight > gAgentsInitAreaY + gAreaHeight
+        )
+    {
+        std::cerr << "[ERROR] Incorrect values for *InitArea* parameters for agents and/or objects.\n";
+        exit(-1);
+    }
     
     // * initialize landmarks
     
@@ -357,10 +383,13 @@ bool World::loadFiles()
 		returnValue = false;
 	}
 	
+    // set area width&height dimension
+    
 	gAreaWidth = gForegroundImage->w;
 	gAreaHeight = gForegroundImage->h;
 
 	// set transparency color
+    
 	SDL_SetColorKey( gRobotMaskImage, SDL_TRUE, SDL_MapRGBA( gRobotMaskImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) );
    	SDL_SetColorKey( gRobotDisplayImage, SDL_TRUE, SDL_MapRGBA( gRobotMaskImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) );
 

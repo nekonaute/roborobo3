@@ -141,8 +141,11 @@ int PhysicalObject::findRandomLocation( )
     int tries = 0;
     
     do {
-        x = (rand() % (gAreaWidth-20)) + 10;
-        y = (rand() % (gAreaHeight-20)) + 10;
+        x = ( rand() % ( gPhysicalObjectsInitAreaWidth  ) ) + gPhysicalObjectsInitAreaX;
+        y = ( rand() % ( gPhysicalObjectsInitAreaHeight ) ) + gPhysicalObjectsInitAreaY;
+        
+        //x = (rand() % (gAreaWidth-20)) + 10;  // deprecated
+        //y = (rand() % (gAreaHeight-20)) + 10; // deprecated
         
         _position = Point2d(x,y);
         
@@ -151,7 +154,6 @@ int PhysicalObject::findRandomLocation( )
         
         tries++;
     } while ( canRegister() == false && tries < gLocationFinderMaxNbOfTrials );
-    
     
     if ( tries == gLocationFinderMaxNbOfTrials )
     {

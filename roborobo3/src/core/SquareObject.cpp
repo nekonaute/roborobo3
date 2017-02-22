@@ -66,32 +66,20 @@ SquareObject::SquareObject( int __id ) : PhysicalObject( __id ) // a unique and 
     
     int tries = 0;
     bool randomLocation = false;
-    bool userdefinedlocation = false;
     
     if ( x == -1.0 || y == -1.0 )
     {
-        x = (rand() % (gAreaWidth-20)) + 10;
-        y = (rand() % (gAreaHeight-20)) + 10;
-        _xCenterPixel = x;
-        _yCenterPixel = y;
+        tries = tries + findRandomLocation();
         randomLocation = true;
-        tries++;
     }
     else
-        userdefinedlocation = true;
-    
-    if ( canRegister() == false )
     {
-        if ( userdefinedlocation == true )
+        if ( canRegister() == false )  // i.e. user-defined location, but cannot register. Pick random.
         {
             std::cerr << "[CRITICAL] cannot use user-defined initial location (" << x << "," << y << ") for physical object #" << getId() << " (localization failed). EXITING.";
             exit(-1);
         }
-        else
-        {
-            tries = tries + findRandomLocation();
-            randomLocation = true;
-        }
+        randomLocation = false;
     }
     
     if ( gVerbose )

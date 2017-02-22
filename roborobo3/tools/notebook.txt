@@ -10,6 +10,9 @@ bp:
 -.vitesse de rotation plus rapide? => non
 -.pas le bon resetFitness dans le constructeur. résolu.
 -.script python pour graphes
+- gPhysicalObjectsInitAreaWidth&Height: il faut initialiser lorsque gArea* sont connus
+- gAgentsInitArea*: a faire dans le chargement ptis
+- g*InitArea: tester la consistance lorsque gArea* sont connus
 
 ---
 
