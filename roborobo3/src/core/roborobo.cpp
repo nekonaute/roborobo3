@@ -282,6 +282,9 @@ SDL_Surface *gRobotDisplayImage = NULL;
 SDL_Surface *gRobotSpecsImage = NULL;
 SDL_Surface *gTrajectoryMonitorImage = NULL;
 SDL_Surface *gGroundSensorImage = NULL;
+SDL_Surface *gGroundSensorImageBackup = NULL;
+
+bool gGroundSensorImage_restoreOriginal = true;
 
 // SDL event handler
 SDL_Event gEvent; //The event structure
@@ -312,6 +315,7 @@ void clean_up()
 	if ( gBackgroundImage != NULL )
 		SDL_FreeSurface( gBackgroundImage );
 	SDL_FreeSurface( gGroundSensorImage );
+    SDL_FreeSurface( gGroundSensorImageBackup );
     
     if ( gTrajectoryMonitor )
     {
@@ -1355,6 +1359,7 @@ bool loadProperties( std::string __propertiesFilename )
         gAgentsInitAreaHeight = -1;  // initialized when gAreaHeight is known to gAreaHeight-10
     }
 
+    gProperties.checkAndGetPropertyValue("gGroundSensorImage_restoreOriginal",&gGroundSensorImage_restoreOriginal,false);
     
     gProperties.checkAndGetPropertyValue("gExtendedSensoryInputs",&gExtendedSensoryInputs,false);
     

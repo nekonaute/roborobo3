@@ -10,10 +10,10 @@ bp:
 -.vitesse de rotation plus rapide? => non
 -.pas le bon resetFitness dans le constructeur. résolu.
 -.script python pour graphes
-- gPhysicalObjectsInitAreaWidth&Height: il faut initialiser lorsque gArea* sont connus
-- gAgentsInitArea*: a faire dans le chargement ptis
-- g*InitArea: tester la consistance lorsque gArea* sont connus
-
+-.définir une region pour la position initiale des agents
+-.définir une region pour la position initiale des objects
+-.gGroundSensorImage_restoreOriginal: option pour permettre de remettre la valeur de la groundsensorimage a l'origine lors de réécriture (ou non, ie. du blanc). Remarque: si faux, les objets ne sont positionnables que dans les régions de pixels blancs.
+	
 ---
 
 Show the origin of selection pressure (envt vs obj) depends on the pressure to survival
@@ -27,4 +27,4 @@ Possible outcome: lifetime duration may ease the burden of survival in a non-lin
 candidates:
 - popsize
 - lifetime
-- 
+- ...

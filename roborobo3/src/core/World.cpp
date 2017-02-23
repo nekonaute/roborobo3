@@ -310,7 +310,8 @@ bool World::loadFiles()
 	// Load the ground type image
 	
     gGroundSensorImage = load_image( gGroundSensorImageFilename );
-	
+    gGroundSensorImageBackup = load_image( gGroundSensorImageFilename ); // backup for rewriting original values
+    
     // Managing problems with loading files (agent mask and specs)
     
     if( gRobotMaskImage == NULL )

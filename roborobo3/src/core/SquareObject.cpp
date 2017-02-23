@@ -220,7 +220,7 @@ void SquareObject::registerObject()
 	{
 		for (Sint16 yColor = _yCenterPixel - Sint16(_solid_h/2) ; yColor < _yCenterPixel + Sint16 (_solid_h/2); yColor ++)
         {
-            putPixel32_secured(gEnvironmentImage, xColor, yColor,  color);//color);
+            putPixel32_secured(gEnvironmentImage, xColor, yColor,  color);
         }
     }
 }
@@ -235,7 +235,13 @@ void SquareObject::unregisterObject()
     {
         for (Sint16 yColor = _yCenterPixel - Sint16(_soft_h/2) ; yColor < _yCenterPixel + Sint16 (_soft_h/2); yColor ++)
         {
-            putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+            if ( gGroundSensorImage_restoreOriginal == true )
+            {
+                color = getPixel32_secured( gGroundSensorImageBackup, xColor, yColor);
+                putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+            }
+            else
+                putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
         }
     }
     

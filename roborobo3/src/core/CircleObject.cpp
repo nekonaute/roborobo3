@@ -213,7 +213,12 @@ bool CircleObject::canRegister()
             {
                 Uint32 pixel = getPixel32_secured( gGroundSensorImage, xColor, yColor);
                 Uint32 pixel2 = getPixel32_secured( gEnvironmentImage, xColor, yColor);
-                if ( pixel != SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) || pixel2 != SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
+                //if ( pixel != SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) || pixel2 != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
+                if (
+                        pixel2 != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ||
+                        ( gGroundSensorImage_restoreOriginal == true  && pixel != getPixel32_secured( gGroundSensorImageBackup, xColor, yColor ) ) || // case: ground as initialized or rewritten (i.e. white)
+                        ( gGroundSensorImage_restoreOriginal == false && pixel != SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ) // case: only white ground
+                   )
                     return false; // collision!
             }
         }
@@ -269,7 +274,13 @@ void CircleObject::unregisterObject()
         {
             if ((sqrt ( pow (xColor-_xCenterPixel,2) + pow (yColor - _yCenterPixel,2))) < _footprintRadius)
             {
-                putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+                if ( gGroundSensorImage_restoreOriginal == true )
+                {
+                    color = getPixel32_secured( gGroundSensorImageBackup, xColor, yColor);
+                    putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+                }
+                else
+                    putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
             }
         }
     }
