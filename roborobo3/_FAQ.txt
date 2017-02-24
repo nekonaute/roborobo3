@@ -158,5 +158,8 @@ Troubleshooting:
 Q: I use Xcode. I have some strange error when compiling: "linker command failed with exit code 1". It seems to point to a source that is already registered in my project, but which is not compiled...?
 A: This is usually due to the source file being in your project tab (the left window of Xcode), but not registered as source to be compiler. To change that, click on the project name (upper-left), then select ''Roborobo3'' as target (not as project), then ''Build phases'', then ''Compile Sources''. Note that this is a common error when cloning a project and adding the source files to Xcode project.
 
+Q: I am using some python script from the tools sub-directory (or wherever) and I get an error with the message ending with "raise ValueError, 'unknown locale: %s' % localename" and "ValueError: unknown locale: UTF-8". (Ubuntu or MacOS).
+A: Your script tries to import matplotlib and the LC_ALL environment variable is not properly defined. Solution: type "export LC_ALL=$LANG" in the terminal before running your python script (or put it in your login profile). Testing can be done by launching python interactive, then "import locale" then "locale.getdefaultlocale()" (raises the same error).
+
 -n
 
