@@ -13,7 +13,9 @@ bp:
 -.définir une region pour la position initiale des agents
 -.définir une region pour la position initiale des objects
 -.gGroundSensorImage_restoreOriginal: option pour permettre de remettre la valeur de la groundsensorimage a l'origine lors de réécriture (ou non, ie. du blanc). Remarque: si faux, les objets ne sont positionnables que dans les régions de pixels blancs.
-	
+- enable include of pties files within pties file.
+- set up different environment for benchmark.
+-.create maze environment (use: http://www.mazegenerator.net/ )
 ---
 
 Show the origin of selection pressure (envt vs obj) depends on the pressure to survival
