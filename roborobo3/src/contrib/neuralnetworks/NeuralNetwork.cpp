@@ -46,7 +46,7 @@ std::string NeuralNetwork::getDescription() const {
 	return _description;
 }
 
-void NeuralNetwork::setWeigths(std::vector<double>& weights) {
+void NeuralNetwork::setWeights(std::vector<double>& weights) {
 	_weights = weights;
 	_haveWeightsChanged = true;
 }

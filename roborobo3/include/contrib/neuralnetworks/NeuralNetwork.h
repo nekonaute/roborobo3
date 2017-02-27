@@ -91,7 +91,7 @@ namespace Neural {
 			/** 
 			 * Mutator for weights
 			 */
-			virtual void setWeigths(std::vector<double>& weights);
+			virtual void setWeights(std::vector<double>& weights);
 
 			/**
 			 * Accessor for the input values

@@ -291,7 +291,7 @@ void TemplateEEController::stepController()
 
     // ---- compute and read out ----
     
-    nn->setWeigths(_parameters); // set-up NN
+    nn->setWeights(_parameters); // set-up NN
     
     std::vector<double> inputs = getInputs(); // Build list of inputs (check properties file for extended/non-extended input values
     
