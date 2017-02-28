@@ -218,3 +218,33 @@ bool PhysicalObject::isInstanceOf ( int index ) // static
         return false;
 }
 
+
+/*
+ Given an object not registered in the environment, tries to re-register at once.
+ Return false (and do nothing) if not possible at desired location.
+ Exit if function is called when it should not -- calling this function can be critical, including registering multiple instances of the same object, thus breaking consistency.
+*/
+bool PhysicalObject::triggerRegrow()
+{
+    if ( regrow == true )  // exit if object is already registered in the environment
+    {
+        std::cerr << "[CRITICAL] physical object #" << getId() << ": attempt to call triggerRegrow() method while object already exists in the environment. EXITING.\n";
+        exit(-1);
+    }
+    
+    if ( canRegister() == false ) // check is position is free.
+    {
+        return false;
+    }
+    else
+    {
+        regrowTime = gPhysicalObjectDefaultRegrowTimeMax;
+        _visible = true;
+        regrow = false;
+        registerObject();
+        if ( gDisplayMode <= 1 )
+            display();
+    }
+    
+    return true;
+}

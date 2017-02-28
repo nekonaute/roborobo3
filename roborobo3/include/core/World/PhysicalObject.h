@@ -77,6 +77,8 @@ public :
     virtual void display() = 0;
     virtual void hide() = 0;
     
+    bool triggerRegrow();
+    
     int getType() { return type; }
 
     static bool isInstanceOf ( int index );
