@@ -16,6 +16,14 @@ bp:
 - enable include of pties files within pties file.
 - set up different environment for benchmark.
 -.create maze environment (use: http://www.mazegenerator.net/ )
+- change name "GroundSensor" to "Footprint"
+- consider Controller vs. WM
+- vanillaEE: check if random selection when multiple 1st-rank
+
+---
+
+mencoder mf://*.bmp -mf fps=10 -ovc xvid -xvidencopts bitrate=10000 -o output.avi
+
 ---
 
 Show the origin of selection pressure (envt vs obj) depends on the pressure to survival

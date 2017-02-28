@@ -114,8 +114,9 @@ CircleObject::CircleObject( int __id ) : PhysicalObject( __id ) // a unique and 
             display();
     }
     
-    regrow = false;
+    registered = true;
 }
+
 
 void CircleObject::display() // display on screen (called in the step() method if gDisplayMode=0 and _visible=true)
 {

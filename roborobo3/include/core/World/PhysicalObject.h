@@ -30,7 +30,7 @@ protected :
     
     int regrowTimeMax; // max iterations before object re-appear - load from properties file.
     int regrowTime; // iterations before object re-appear
-    bool regrow;  // is currently regrowing? (ie. hidden)
+    bool registered;  // is it scheduled for regrowing? (ie. hidden)
     bool relocate; // relocate object when re-appear
     bool overwrite; // write object even if another object/robot will be overwritten.
     

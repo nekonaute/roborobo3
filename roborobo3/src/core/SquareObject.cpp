@@ -105,7 +105,7 @@ SquareObject::SquareObject( int __id ) : PhysicalObject( __id ) // a unique and 
             display();
     }
     
-    regrow = false;
+    registered = true;
 }
 
 void SquareObject::display() // display on screen (called in the step() method if gDisplayMode=0 and _visible=true)

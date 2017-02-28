@@ -166,7 +166,7 @@ int PhysicalObject::findRandomLocation( )
 
 void PhysicalObject::stepPhysicalObject()
 {
-    if ( regrow == true && regrowTime != -1 )
+    if ( registered == false && regrowTime != -1 )
     {
         if ( regrowTime > 0 )
         {
@@ -178,7 +178,7 @@ void PhysicalObject::stepPhysicalObject()
             {
                 findRandomLocation(); // exit on fail.
                 _visible = true;
-                regrow = false;
+                registered = true;
                 registerObject();
                 if ( gDisplayMode <= 1 )
                     display();
@@ -188,7 +188,7 @@ void PhysicalObject::stepPhysicalObject()
                 if ( canRegister() == true || overwrite == true )
                 {
                     _visible = true;
-                    regrow = false;
+                    registered = true;
                     registerObject();
                     if ( gDisplayMode <= 1 )
                         display();
@@ -226,7 +226,7 @@ bool PhysicalObject::isInstanceOf ( int index ) // static
 */
 bool PhysicalObject::triggerRegrow()
 {
-    if ( regrow == true )  // exit if object is already registered in the environment
+    if ( registered == true )  // exit if object is already registered in the environment
     {
         std::cerr << "[CRITICAL] physical object #" << getId() << ": attempt to call triggerRegrow() method while object already exists in the environment. EXITING.\n";
         exit(-1);
@@ -240,7 +240,7 @@ bool PhysicalObject::triggerRegrow()
     {
         regrowTime = gPhysicalObjectDefaultRegrowTimeMax;
         _visible = true;
-        regrow = false;
+        registered = true;
         registerObject();
         if ( gDisplayMode <= 1 )
             display();
