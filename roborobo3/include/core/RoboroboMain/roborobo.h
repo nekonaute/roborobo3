@@ -66,7 +66,7 @@ extern std::string gRobotSpecsImageFilename;
 extern std::string gForegroundImageFilename;
 extern std::string gEnvironmentImageFilename;
 extern std::string gBackgroundImageFilename;
-extern std::string gGroundSensorImageFilename;
+extern std::string gfootprintImageFilename;
 extern std::string gConfigFilename;
 
 // general purpose
@@ -217,10 +217,10 @@ extern SDL_Surface *gTrajectoryMonitorImage; // this image is used when monitori
 
 extern std::vector< std::vector<int> > gRobotMaskData; // list of inanimate objects - (x,y) from a (0,0) reference.
 
-extern SDL_Surface *gGroundSensorImage;  // gGroundSensorImage
-extern SDL_Surface *gGroundSensorImageBackup;  // gGroundSensorImageBackup - used to conserve initial image value.
+extern SDL_Surface *gfootprintImage;  // gfootprintImage
+extern SDL_Surface *gfootprintImageBackup;  // gfootprintImageBackup - used to conserve initial image value.
 
-extern bool gGroundSensorImage_restoreOriginal; // If true, then any object footprint that disappears is replaced by the original ground values. Otherwise: write white pixels.
+extern bool gfootprintImage_restoreOriginal; // If true, then any object footprint that disappears is replaced by the original ground values. Otherwise: write white pixels.
                                                 // Also impact localisation of new objects. if true: new objects can be localized on non-empty ground values. If false: new objects can only be localized on empty (=white) pixels
 
 // general purpose

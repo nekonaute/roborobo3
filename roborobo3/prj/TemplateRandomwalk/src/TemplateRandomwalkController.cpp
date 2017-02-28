@@ -147,7 +147,7 @@ void TemplateRandomwalkController::monitorSensoryInformation()
         std::cout << "Energy Requested (if asked) : " << std::setw(4) << _wm->getEnergyRequestValue() << "" << std::endl;
         
         // Floor sensor
-        //      - read from gGroundSensorImage (see gGroundSensorImageFilename file)
+        //      - read from gfootprintImage (see gfootprintImageFilename file)
         //      - typical use: gradient written on the floor, region marker. Could also be used for pheronome.
         
         double floorSensor_redValue = (double)_wm->getGroundSensor_redValue()/255.0;
@@ -174,7 +174,7 @@ void TemplateRandomwalkController::monitorSensoryInformation()
         //      - Objects and walls are different.
         //          - Walls are fixed, and loaded from gEnvironmentImage (see gEnvironmentImageFilename file)
         //          - There are several types of objects. Check children of object PhysicalObject.
-        //          - Note that PhysicalObjects can have a tangible part (see gEnvironmentImage) and an intangible part (see gGroundSensorImage. The intangible part can be spotted with the floorSensor.
+        //          - Note that PhysicalObjects can have a tangible part (see gEnvironmentImage) and an intangible part (see gfootprintImage. The intangible part can be spotted with the floorSensor.
         //          - Some PhysicalObject are active and react to the robot actions (e.g. disappear, give energy, ...)
         //          - examples of use of a PhysicalObject:
         //              - a tangible object onto which the robot can crash. It is seen through distance sensors.

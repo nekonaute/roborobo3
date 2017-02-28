@@ -198,7 +198,7 @@ gEnvironmentImageFilename  		: the environment description image.
 									(!) use png to avoid pixel exact color loss
 									note that the sensor beam lenght parameter is set in the config file.
 gBackgroundImageFilename  		: this image is purely decorative. Change parralax factor for faster scrolling (if screen size is smaller that environment/foreground size).
-gGroundSensorImageFilename      : this image specifies the footprint value that will be sensed by the ground sensor.
+gfootprintImageFilename      : this image specifies the footprint value that will be sensed by the ground sensor.
 
 Some image files are available by default in the data subdirectory. Here's a quick summary (but you may add anything you like):
 - maxirobot*: a 32x32 robot image, with 8 sensors (similar to an e-puck or khepera robot)

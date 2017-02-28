@@ -186,9 +186,9 @@ bool SquareObject::canRegister()
     {
         for (Sint16 yColor = _yCenterPixel - Sint16(_soft_h/2) ; yColor < _yCenterPixel + Sint16 (_soft_h/2); yColor ++)
         {
-            Uint32 pixel = getPixel32_secured( gGroundSensorImage, xColor, yColor);
+            Uint32 pixel = getPixel32_secured( gfootprintImage, xColor, yColor);
             Uint32 pixel2 = getPixel32_secured( gEnvironmentImage, xColor, yColor);
-            if ( pixel != SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) || pixel2 != SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
+            if ( pixel != SDL_MapRGBA( gfootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) || pixel2 != SDL_MapRGBA( gfootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
                 return false; // collision!
         }
     }
@@ -202,13 +202,13 @@ void SquareObject::registerObject()
     
     //  draw footprint
     
-    Uint32 color = SDL_MapRGBA( gGroundSensorImage->format, (Uint8)((id_converted & 0xFF0000)>>16), (Uint8)((id_converted & 0xFF00)>>8), (Uint8)(id_converted & 0xFF), SDL_ALPHA_OPAQUE );
+    Uint32 color = SDL_MapRGBA( gfootprintImage->format, (Uint8)((id_converted & 0xFF0000)>>16), (Uint8)((id_converted & 0xFF00)>>8), (Uint8)(id_converted & 0xFF), SDL_ALPHA_OPAQUE );
     
     for (Sint16 xColor = _xCenterPixel - Sint16(_soft_w/2) ; xColor < _xCenterPixel + Sint16(_soft_w/2) ; xColor++)
     {
         for (Sint16 yColor = _yCenterPixel - Sint16(_soft_h/2) ; yColor < _yCenterPixel + Sint16 (_soft_h/2); yColor ++)
         {
-            putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+            putPixel32_secured(gfootprintImage, xColor, yColor,  color);
         }
     }
     
@@ -229,19 +229,19 @@ void SquareObject::unregisterObject()
 {
     //  draw footprint
     
-    Uint32 color = SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE );
+    Uint32 color = SDL_MapRGBA( gfootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE );
     
     for (Sint16 xColor = _xCenterPixel - Sint16(_soft_w/2) ; xColor < _xCenterPixel + Sint16(_soft_w/2) ; xColor++)
     {
         for (Sint16 yColor = _yCenterPixel - Sint16(_soft_h/2) ; yColor < _yCenterPixel + Sint16 (_soft_h/2); yColor ++)
         {
-            if ( gGroundSensorImage_restoreOriginal == true )
+            if ( gfootprintImage_restoreOriginal == true )
             {
-                color = getPixel32_secured( gGroundSensorImageBackup, xColor, yColor);
-                putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+                color = getPixel32_secured( gfootprintImageBackup, xColor, yColor);
+                putPixel32_secured(gfootprintImage, xColor, yColor,  color);
             }
             else
-                putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+                putPixel32_secured(gfootprintImage, xColor, yColor,  color);
         }
     }
     

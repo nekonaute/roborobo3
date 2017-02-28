@@ -301,7 +301,7 @@ void Robot::reset()
 	}
     
     for ( int i = 0 ; i < 3 ; i++ )
-        _wm->_groundSensorValue[i] = 0; // floor sensor value (taken from gGroundSensorImage)
+        _wm->_groundSensorValue[i] = 0; // floor sensor value (taken from gfootprintImage)
 	
 	// Initialize agent observer and Behavior Control Architecture
 
@@ -648,8 +648,8 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 	}
     
 	Uint8 r, g, b;
-	Uint32 pixel = getPixel32( gGroundSensorImage, _wm->_xReal+0.5, _wm->_yReal+0.5);
-	SDL_GetRGB(pixel,gGroundSensorImage->format,&r,&g,&b); 
+	Uint32 pixel = getPixel32( gfootprintImage, _wm->_xReal+0.5, _wm->_yReal+0.5);
+	SDL_GetRGB(pixel,gfootprintImage->format,&r,&g,&b); 
 	_wm->_groundSensorValue[0] = r;
 	_wm->_groundSensorValue[1] = g;
 	_wm->_groundSensorValue[2] = b;

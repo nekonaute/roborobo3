@@ -212,13 +212,13 @@ bool CircleObject::canRegister()
         {
             if ((sqrt ( pow (xColor-_xCenterPixel,2) + pow (yColor - _yCenterPixel,2))) < _footprintRadius)
             {
-                Uint32 pixel = getPixel32_secured( gGroundSensorImage, xColor, yColor);
+                Uint32 pixel = getPixel32_secured( gfootprintImage, xColor, yColor);
                 Uint32 pixel2 = getPixel32_secured( gEnvironmentImage, xColor, yColor);
-                //if ( pixel != SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) || pixel2 != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
+                //if ( pixel != SDL_MapRGBA( gfootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) || pixel2 != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
                 if (
                         pixel2 != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ||
-                        ( gGroundSensorImage_restoreOriginal == true  && pixel != getPixel32_secured( gGroundSensorImageBackup, xColor, yColor ) ) || // case: ground as initialized or rewritten (i.e. white)
-                        ( gGroundSensorImage_restoreOriginal == false && pixel != SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ) // case: only white ground
+                        ( gfootprintImage_restoreOriginal == true  && pixel != getPixel32_secured( gfootprintImageBackup, xColor, yColor ) ) || // case: ground as initialized or rewritten (i.e. white)
+                        ( gfootprintImage_restoreOriginal == false && pixel != SDL_MapRGBA( gfootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ) // case: only white ground
                    )
                     return false; // collision!
             }
@@ -234,7 +234,7 @@ void CircleObject::registerObject()
     
     //  draw footprint
     
-    Uint32 color = SDL_MapRGBA( gGroundSensorImage->format, (Uint8)((id_converted & 0xFF0000)>>16), (Uint8)((id_converted & 0xFF00)>>8), (Uint8)(id_converted & 0xFF), SDL_ALPHA_OPAQUE );
+    Uint32 color = SDL_MapRGBA( gfootprintImage->format, (Uint8)((id_converted & 0xFF0000)>>16), (Uint8)((id_converted & 0xFF00)>>8), (Uint8)(id_converted & 0xFF), SDL_ALPHA_OPAQUE );
     
     for (Sint16 xColor = _xCenterPixel - Sint16(_footprintRadius) ; xColor < _xCenterPixel + Sint16(_footprintRadius) ; xColor++)
     {
@@ -242,7 +242,7 @@ void CircleObject::registerObject()
         {
             if ((sqrt ( pow (xColor-_xCenterPixel,2) + pow (yColor - _yCenterPixel,2))) < _footprintRadius)
             {
-                putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+                putPixel32_secured(gfootprintImage, xColor, yColor,  color);
             }
         }
     }
@@ -267,7 +267,7 @@ void CircleObject::unregisterObject()
 {
     //  clear footprint
     
-    Uint32 color = SDL_MapRGBA( gGroundSensorImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE );
+    Uint32 color = SDL_MapRGBA( gfootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE );
     
     for (Sint16 xColor = _xCenterPixel - Sint16(_footprintRadius) ; xColor < _xCenterPixel + Sint16(_footprintRadius) ; xColor++)
     {
@@ -275,13 +275,13 @@ void CircleObject::unregisterObject()
         {
             if ((sqrt ( pow (xColor-_xCenterPixel,2) + pow (yColor - _yCenterPixel,2))) < _footprintRadius)
             {
-                if ( gGroundSensorImage_restoreOriginal == true )
+                if ( gfootprintImage_restoreOriginal == true )
                 {
-                    color = getPixel32_secured( gGroundSensorImageBackup, xColor, yColor);
-                    putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+                    color = getPixel32_secured( gfootprintImageBackup, xColor, yColor);
+                    putPixel32_secured(gfootprintImage, xColor, yColor,  color);
                 }
                 else
-                    putPixel32_secured(gGroundSensorImage, xColor, yColor,  color);
+                    putPixel32_secured(gfootprintImage, xColor, yColor,  color);
             }
         }
     }

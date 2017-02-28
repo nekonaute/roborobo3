@@ -13,16 +13,16 @@ bp:
 -.définir une region pour la position initiale des agents
 -.définir une region pour la position initiale des objects
 -.gGroundSensorImage_restoreOriginal: option pour permettre de remettre la valeur de la groundsensorimage a l'origine lors de réécriture (ou non, ie. du blanc). Remarque: si faux, les objets ne sont positionnables que dans les régions de pixels blancs.
-- enable include of pties files within pties file.
-- set up different environment for benchmark.
 -.create maze environment (use: http://www.mazegenerator.net/ )
-- change name "GroundSensor" to "Footprint"
-- consider Controller vs. WM
-- vanillaEE: check if random selection when multiple 1st-rank
+- [?] change name "GroundSensor" to "Footprint"
+- [-] set up different environment for benchmark.
+- [=] enable include of pties files within pties file.
+- [-] consider Controller vs. WM
+- [+] vanillaEE: check if random selection when multiple 1st-rank
 
----
 
-mencoder mf://*.bmp -mf fps=10 -ovc xvid -xvidencopts bitrate=10000 -o output.avi
+
+
 
 ---
 

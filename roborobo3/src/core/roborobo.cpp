@@ -122,7 +122,7 @@ std::string gRobotSpecsImageFilename =			"data/agent-specs.png";
 std::string gForegroundImageFilename =			"data/foreground.png";   // MANDATORY: use png (avoid jpg approximation)
 std::string gEnvironmentImageFilename =			"data/environment.png";
 std::string gBackgroundImageFilename =			"data/background.png";			
-std::string gGroundSensorImageFilename =		"data/ground.png";
+std::string gfootprintImageFilename =		"data/ground.png";
 
 //general purpose
 
@@ -281,10 +281,10 @@ SDL_Surface *gRobotMaskImage = NULL;
 SDL_Surface *gRobotDisplayImage = NULL;
 SDL_Surface *gRobotSpecsImage = NULL;
 SDL_Surface *gTrajectoryMonitorImage = NULL;
-SDL_Surface *gGroundSensorImage = NULL;
-SDL_Surface *gGroundSensorImageBackup = NULL;
+SDL_Surface *gfootprintImage = NULL;
+SDL_Surface *gfootprintImageBackup = NULL;
 
-bool gGroundSensorImage_restoreOriginal = true;
+bool gfootprintImage_restoreOriginal = true;
 
 // SDL event handler
 SDL_Event gEvent; //The event structure
@@ -314,8 +314,8 @@ void clean_up()
     
 	if ( gBackgroundImage != NULL )
 		SDL_FreeSurface( gBackgroundImage );
-	SDL_FreeSurface( gGroundSensorImage );
-    SDL_FreeSurface( gGroundSensorImageBackup );
+	SDL_FreeSurface( gfootprintImage );
+    SDL_FreeSurface( gfootprintImageBackup );
     
     if ( gTrajectoryMonitor )
     {
@@ -616,8 +616,8 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 					}
 
 					// virtual floor sensor
-                    inspectorSensorValue = getPixel32( gGroundSensorImage, xTmp, yTmp);
-                    SDL_GetRGB(inspectorSensorValue,gGroundSensorImage->format,&r,&g,&b);
+                    inspectorSensorValue = getPixel32( gfootprintImage, xTmp, yTmp);
+                    SDL_GetRGB(inspectorSensorValue,gfootprintImage->format,&r,&g,&b);
 
                     int value = ((int)r)*256*256 + ((int)g)*256 + (int)b;
                     
@@ -792,7 +792,7 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
 				if ( gNiceRendering )
 					SDL_FillRect( gScreen, &gScreen->clip_rect, SDL_MapRGBA( gScreen->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen if no background image
 				else
-					apply_surface( 0, 0, gGroundSensorImage, gScreen, &gCamera );
+					apply_surface( 0, 0, gfootprintImage, gScreen, &gCamera );
 
 			if ( gNiceRendering ) 
 				apply_surface( 0, 0, gForegroundImage, gScreen, &gCamera );
@@ -1359,7 +1359,7 @@ bool loadProperties( std::string __propertiesFilename )
         gAgentsInitAreaHeight = -1;  // initialized when gAreaHeight is known to gAreaHeight-10
     }
 
-    gProperties.checkAndGetPropertyValue("gGroundSensorImage_restoreOriginal",&gGroundSensorImage_restoreOriginal,false);
+    gProperties.checkAndGetPropertyValue("gfootprintImage_restoreOriginal",&gfootprintImage_restoreOriginal,false);
     
     gProperties.checkAndGetPropertyValue("gExtendedSensoryInputs",&gExtendedSensoryInputs,false);
     
@@ -1815,11 +1815,11 @@ bool loadProperties( std::string __propertiesFilename )
     else
         std::cout << "[INFO] gLogDirectoryname value set as command-line paramater.\n";
     
-	if ( gProperties.hasProperty("gGroundSensorImageFilename") )
-		gGroundSensorImageFilename = gProperties.getProperty("gGroundSensorImageFilename");
+	if ( gProperties.hasProperty("gfootprintImageFilename") )
+		gfootprintImageFilename = gProperties.getProperty("gfootprintImageFilename");
 	else
 	{
-		std::cerr << "[MISSING] gGroundSensorImageFilename string value is missing.\n";
+		std::cerr << "[MISSING] gfootprintImageFilename string value is missing.\n";
 		returnValue = false;
 	}
 	
