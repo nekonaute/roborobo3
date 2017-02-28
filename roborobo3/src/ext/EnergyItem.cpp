@@ -62,7 +62,7 @@ void EnergyItem::isWalked( int __idAgent )
     {
         case 0: // give all
             gWorld->getRobot(__idAgent)->getWorldModel()->addEnergy( maxEnergyLevel );
-            regrowTime = regrowTimeMax; // time to regrow is proportionate to energy taken
+            regrowTime = regrowTimeMax;
             break;
             
         case 1: // give what is asked, fixed respawn delay
@@ -82,6 +82,7 @@ void EnergyItem::isWalked( int __idAgent )
             break;
 
         case 3: // give nothing
+            regrowTime = regrowTimeMax;
             break;
     }
 
