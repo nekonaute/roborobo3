@@ -167,7 +167,7 @@ A: There are many ways, and the answer is out-of-scope from this FAQ. Anyway, wi
     mencoder mf://*.bmp -mf fps=10 -ovc xvid -xvidencopts bitrate=10000 -o output.avi
 
 Q: Roborobo sometimes generate a *lot* of data.
-A: Yep. The BMP files takes a lot, you may want to create less of them (change parameters in the properties file) or to compress them (e.g. convert to JPG). You can also make a video out of them. The datalog files also are quite big. You can zip/tgz them.
+A: Yep. The BMP files takes a lot, you may want to create less of them (change parameters in the properties file) or to compress them (e.g. convert to JPG). You can also make a video out of them. The datalog files also are quite big. You can zip/tgz them, and you can also change the code to generate less data.
 
 -n
 
