@@ -2,7 +2,7 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-= ROBOROBO.3=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-=- 2008-2016 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=- 2008-2017 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 -=-=-=-= nicolas.bredeche(at)upmc.fr -=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -30,15 +30,16 @@ Roborobo! is a fast and simple 2D mobile robot simulator written in C++ loosely 
 Some random bits of information:
 - Robot position and mouvement are real-valued (ie. precise)
 - Collision is performed on a pixel-based information for fast speed (ie. fast but not precise)
-- Robot-robot collision can be switched off (faster, less accurate)
-- both GUI mode and batch mode are available. Note that batch mode is the fastest mode (gBatchMode=true, gVerbose=false).
-- only one external dependencies: SDL library (multi-platform fast 2D library).
-- most parameters are to be found in the config subdirectory (e.g. default.properties)
+- both GUI mode and batch mode are available. Note that batch mode is the fastest mode (gBatchMode=true, gVerbose=false). It also makes it possible to run roborobo "headless", which is useful if you use a cluster of computers.
+- only one external dependencies: SDL library (multi-platform fast 2D library), and the boost librairy, header-only.
+- most parameters are to be found in the config/ subdirectory (e.g. default.properties)
 - full environment and robot specifications can set up directly with an image editor (check data directories). E.g. Robot proximity sensor positions are set up in the robot image. 
-- the very first version of roborobo! can be found here: http://neuronik.free.fr/nemelith/?p=67 (it is quite different as it was first a game sort-of experience, eventhough i already had roborobo! in mind). An included html help file describes the overall idea behind parameterization through image files (some modifications may have occured since then).
 - you can specify a properties file as command line option (see "./roborobo -h" for help)
 - you can easily clone project with the clone_project.py script in the prj/ directory. 
-- by defaut, two demos are available: random walker and environment-driven evolutionary robotics (mEDEA algorithm [Bredeche, Montanier, PPSN 2009]).
+- you can activate/deactivate existing projects for compilation with the makefile_manager script.
+- you can launch many replicates of roborobo with the replicate.py script. (useful for running large-scale experiments, e.g. for clusters)
+- by defaut, several demos are available: random walker, boids collective behaviours, embodied evolution and environment-driven embodied evolutionary robotics (improved mEDEA algorithm [Bredeche, Montanier, PPSN 2009]).
+- the very first version of roborobo! can be found here: http://neuronik.free.fr/nemelith/?p=67 (it is quite different as it was first a game sort-of experience, eventhough i already had roborobo! in mind). An included html help file describes the overall idea behind parameterization through image files (some modifications may have occured since then). It uses SDL1.2.
 
 ==== HISTORY ====
 
@@ -87,14 +88,18 @@ The paper is available on Arxiv: http://arxiv.org/abs/1304.2888
 
 ** VERY QUICK START **
 
-Check the Template* projects in prj/ (start with TemplateRandomwalk, then TemplateBoids). Everything you need is there.
-Launch with:
-- for TemplateRandomwalk: './roborobo -l config/template_wander_bigrobots.properties' or './roborobo -l config/template_wander_smallrobots.properties'
-- for TemplateBoids: ./roborobo -l config/template_boids.properties
+Check the Template* projects in prj/ (start with TemplateRandomwalk, then TemplateBoids). Everything you need is there. The code is meant to illustrate how it worksand contains a lot of comments.
+Check also the config/ directory, which contains "properties" files, used to launch a particular instance of roborobo. It specifies both parameters and project classes to be used.
+A typical command to launch roborobo is: './roborobo -l config/boids.properties'
 
-Both projects contain a lot of comments and example of code.
+If you want to start coding:
+1. clone a project (go to prj/, use the clone_project.py script)
+2. create your own config file (go to config/, copy an existing file)
+3. add your project to the Makefile (use makefile_manager script)
+4. compile ('make')
+5. run ('./roborobo -l config/myconfigurationfile.properties')
 
-If you want to start coding, I suggest you do not modify existing code and keep it for reference. To create a new project, that is quite easy. Let's assume you want to clone the TemplateRandomwalk project. The following shows how to clone an existing project, then to compile and run the new project:
+Detailed example, based on cloning the TemplateRandomWalk project:
 
 STEP 1: cloning a project
     <from roborobo root directory>
@@ -107,7 +112,7 @@ STEP 2: creating a configuration file ("properties" file)
     cp template_randomwalk.properties myownproject.properties
     <then edit myownproject.properties to change ConfigurationLoaderObjectName parameter value to: "MyOwnProjectConfigurationLoader">
 
-STEP 3: re-compile and run.
+STEP 3-4-5: activate your project, then compile and run.
     Linux:
         ./makefile-manager -a MyOwnProject
         make clean
@@ -118,6 +123,7 @@ STEP 3: re-compile and run.
             - all files in prj/MyOwnProject
             - src/ext/MyOwnProjectConfigurationLoader.cpp
             - include/ext/config/MyOwnProjectConfigurationLoader.h
+it may also be necessary to register your files to be compiled. To do so: click on the project name (upper-left), then select ''Roborobo3'' as target (not as project), then ''Build phases'', then ''Compile Sources''.
         add new configuration file (edit scheme, add and select "-l config/myownproject.properties" as argument passed on launch -- remove other arguments).
         clean and build
         run
@@ -158,20 +164,20 @@ The best way to learn is to practice. Clone an existing project and toy with it.
 ** METHODOLOGY GUIDELINES **
 
 - Any new project should start, *and be limited to*, a specific sub-directory in prj/, with both an include/ and src/ sub-directories. E.g. ./prj/MyProject/[include&src].
-- Observers should be understood as "deals with everything that happens inbetween two lifetimes" while Behavior should be understood as "everything that happens during lifetime".
+- Observers should be understood as "deals with everything that happens inbetween two lifetimes" while Controller should be understood as "everything that happens during lifetime". Another way to consider it is that Observers perform actions that would be done by a human supervisor or any other external devices (e.g.: move the robots/objects, monitor current state) while the Controller implements the robot's decision making apparatus.
 
-A last remark: roborobo! is not exactly the paragon of Clean Coding philosophy as it was originaly, and still is, a single-coder-in-a-very-big-hurry "short" term project. While I tried to keep the code clean, there are several do-as-i-say-not-as-i-do features (lack of accessing methods, etc.). Hence, roborobo! may not be the best starting point for developping your homebrew robot simulator. However, it can still be pretty useful if you just intend to extend it for a particular application (e.g. a specific swarm mobile robotics environment and simulation), and it has proven to be quite useful for several published works in the last few years, from several authors and places (Paris, Orsay, Nancy, Amsterdam, Trondheim, Barcelona, etc.).
+A last remark: roborobo! is not exactly the paragon of Clean Coding philosophy as it was originaly, and still is, a single-coder-in-a-very-big-hurry "short" term project (though I admit it escaped my grasp). While I tried to keep the code clean, there are several do-as-i-say-not-as-i-do features (lack of accessing methods, etc.). Hence, roborobo! may not be the best starting point for developping your homebrew robot simulator. However, it can still be pretty useful if you just intend to extend it for a particular application (e.g. a specific swarm mobile robotics environment and simulation), and it has proven to be quite useful for several published works in the last few years, from several authors and places (Paris, Orsay, Nancy, Amsterdam, Trondheim, Barcelona, Edinburgh, etc.).
 
 
 ** DIRECTORY STRUCTURE **
 
 - prj    : project locations, each project is indenpendant, and may be seen as a special instance of roborobo - parameterized through ConfigurationLoader and .properties file.
-- core   : core roborobo! code. Contains the elementary elements for running roborobo.
-- ext    : derived class and extensions for roborobo! code, which may be of global interest. It contains addition to roborobo core, including all code that can be factorised from projects (ie. re-usable code, such as e.g. neural nets, logger), as well as project specific code.
-- contrib: imported code with useful features.
 - log    : log files.
 - data   : contains image files.
 - config : contains properties files.
+- core   : core roborobo! code. Contains the elementary elements for running roborobo.
+- ext    : derived class and extensions for roborobo! code, which may be of global interest. It contains addition to roborobo core, including all code that can be factorised from projects (ie. re-usable code, such as e.g. neural nets, logger), as well as project specific code.
+- contrib: imported code with useful features.
 
 
 ** CONTENT OF ./DATA/ : IMAGES OF ROBOTS AND ENVIRONMENT **
@@ -195,8 +201,8 @@ gBackgroundImageFilename  		: this image is purely decorative. Change parralax f
 gGroundSensorImageFilename      : this image specifies the footprint value that will be sensed by the ground sensor.
 
 Some image files are available by default in the data subdirectory. Here's a quick summary (but you may add anything you like):
-- agent*: a 32x32 robot image, with 8 sensors (khepera-like)
-- miniagent*: a 5x5 robot image, with 8 sensors (sensor belt)
+- maxirobot*: a 32x32 robot image, with 8 sensors (similar to an e-puck or khepera robot)
+- minirobot*: a 5x5 robot image, with 8, 12 or 16 sensors (sensor belt)
 
 When creating an image, be very very careful about the values of pixels.
 
