@@ -66,7 +66,7 @@ extern std::string gRobotSpecsImageFilename;
 extern std::string gForegroundImageFilename;
 extern std::string gEnvironmentImageFilename;
 extern std::string gBackgroundImageFilename;
-extern std::string gfootprintImageFilename;
+extern std::string gFootprintImageFilename;
 extern std::string gConfigFilename;
 
 // general purpose

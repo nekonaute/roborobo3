@@ -309,8 +309,8 @@ bool World::loadFiles()
 
 	// Load the ground type image
 	
-    gfootprintImage = load_image( gfootprintImageFilename );
-    gfootprintImageBackup = load_image( gfootprintImageFilename ); // backup for rewriting original values
+    gfootprintImage = load_image( gFootprintImageFilename );
+    gfootprintImageBackup = load_image( gFootprintImageFilename ); // backup for rewriting original values
     
     // Managing problems with loading files (agent mask and specs)
     

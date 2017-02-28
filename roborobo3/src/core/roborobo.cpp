@@ -122,7 +122,7 @@ std::string gRobotSpecsImageFilename =			"data/agent-specs.png";
 std::string gForegroundImageFilename =			"data/foreground.png";   // MANDATORY: use png (avoid jpg approximation)
 std::string gEnvironmentImageFilename =			"data/environment.png";
 std::string gBackgroundImageFilename =			"data/background.png";			
-std::string gfootprintImageFilename =		"data/ground.png";
+std::string gFootprintImageFilename =		"data/ground.png";
 
 //general purpose
 
@@ -1815,11 +1815,11 @@ bool loadProperties( std::string __propertiesFilename )
     else
         std::cout << "[INFO] gLogDirectoryname value set as command-line paramater.\n";
     
-	if ( gProperties.hasProperty("gfootprintImageFilename") )
-		gfootprintImageFilename = gProperties.getProperty("gfootprintImageFilename");
+	if ( gProperties.hasProperty("gFootprintImageFilename") )
+		gFootprintImageFilename = gProperties.getProperty("gFootprintImageFilename");
 	else
 	{
-		std::cerr << "[MISSING] gfootprintImageFilename string value is missing.\n";
+		std::cerr << "[MISSING] gFootprintImageFilename string value is missing.\n";
 		returnValue = false;
 	}
 	

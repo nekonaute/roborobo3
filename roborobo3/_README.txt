@@ -186,10 +186,10 @@ Environments and robots are all described as images.
 
 >>>>IMPORTANT: USE ONLY 32-bits BMP IMAGES!<<<<
 
-gAgentMaskFilename				: the agent as how it is displayed and used for collision.
-gAgentSpecsFilename				: the agent specification regarding proximity sensor (location and orientation).
-gForegroundImageFilename 		: the environment decorative image, ie. only used for displaying -- should more or less match environment image.
-gEnvironmentImageFilename  		: the environment description image. 
+gRobotMaskImageFilename				: the robot as how it is displayed and used for collision.
+gRobotSpecsImageFilename			: the robot specification regarding proximity sensor (location and orientation).
+
+gEnvironmentImageFilename  		: the environment description image.
 									R component is unused
 									G component is used to determine agent #G starting position (if more than one pixel with same G value, choose the most upper-left), 
 									B component is used to determine object type.
@@ -197,12 +197,15 @@ gEnvironmentImageFilename  		: the environment description image.
 									R=255 means "no obstacle", G=255 means nothing, ie.: pure white means "no obstacle"
 									(!) use png to avoid pixel exact color loss
 									note that the sensor beam lenght parameter is set in the config file.
+gFootprintImageFilename      : this image specifies the footprint RGB value that will be sensed by the ground sensor.
+
+gForegroundImageFilename 		: the environment decorative image, ie. only used for displaying -- should more or less match environment image.
 gBackgroundImageFilename  		: this image is purely decorative. Change parralax factor for faster scrolling (if screen size is smaller that environment/foreground size).
-gfootprintImageFilename      : this image specifies the footprint value that will be sensed by the ground sensor.
 
 Some image files are available by default in the data subdirectory. Here's a quick summary (but you may add anything you like):
 - maxirobot*: a 32x32 robot image, with 8 sensors (similar to an e-puck or khepera robot)
 - minirobot*: a 5x5 robot image, with 8, 12 or 16 sensors (sensor belt)
+- ...and several environments
 
 When creating an image, be very very careful about the values of pixels.
 

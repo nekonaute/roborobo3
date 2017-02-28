@@ -147,7 +147,7 @@ void TemplateRandomwalkController::monitorSensoryInformation()
         std::cout << "Energy Requested (if asked) : " << std::setw(4) << _wm->getEnergyRequestValue() << "" << std::endl;
         
         // Floor sensor
-        //      - read from gfootprintImage (see gfootprintImageFilename file)
+        //      - read from gfootprintImage (see gFootprintImageFilename file)
         //      - typical use: gradient written on the floor, region marker. Could also be used for pheronome.
         
         double floorSensor_redValue = (double)_wm->getGroundSensor_redValue()/255.0;
