@@ -309,8 +309,8 @@ bool World::loadFiles()
 
 	// Load the ground type image
 	
-    gfootprintImage = load_image( gFootprintImageFilename );
-    gfootprintImageBackup = load_image( gFootprintImageFilename ); // backup for rewriting original values
+    gFootprintImage = load_image( gFootprintImageFilename );
+    gFootprintImageBackup = load_image( gFootprintImageFilename ); // backup for rewriting original values
     
     // Managing problems with loading files (agent mask and specs)
     
@@ -360,14 +360,14 @@ bool World::loadFiles()
 	}
 	
 	//If there was a problem in loading the ground type image
-    if(  gfootprintImage == NULL )
+    if(  gFootprintImage == NULL )
     {
 		std::cerr << "Could not load ground image\n";
         returnValue = false;    
     }
 	else
     {
-        if( ( gfootprintImage->w != gForegroundImage->w ) || ( gfootprintImage->h != gForegroundImage->h ) )
+        if( ( gFootprintImage->w != gForegroundImage->w ) || ( gFootprintImage->h != gForegroundImage->h ) )
         {
             std::cerr << "Ground image dimensions do not match that of the foreground image\n";
             returnValue = false;

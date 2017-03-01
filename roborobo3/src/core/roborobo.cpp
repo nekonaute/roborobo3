@@ -281,10 +281,10 @@ SDL_Surface *gRobotMaskImage = NULL;
 SDL_Surface *gRobotDisplayImage = NULL;
 SDL_Surface *gRobotSpecsImage = NULL;
 SDL_Surface *gTrajectoryMonitorImage = NULL;
-SDL_Surface *gfootprintImage = NULL;
-SDL_Surface *gfootprintImageBackup = NULL;
+SDL_Surface *gFootprintImage = NULL;
+SDL_Surface *gFootprintImageBackup = NULL;
 
-bool gfootprintImage_restoreOriginal = true;
+bool gFootprintImage_restoreOriginal = true;
 
 // SDL event handler
 SDL_Event gEvent; //The event structure
@@ -314,8 +314,8 @@ void clean_up()
     
 	if ( gBackgroundImage != NULL )
 		SDL_FreeSurface( gBackgroundImage );
-	SDL_FreeSurface( gfootprintImage );
-    SDL_FreeSurface( gfootprintImageBackup );
+	SDL_FreeSurface( gFootprintImage );
+    SDL_FreeSurface( gFootprintImageBackup );
     
     if ( gTrajectoryMonitor )
     {
@@ -616,8 +616,8 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 					}
 
 					// virtual floor sensor
-                    inspectorSensorValue = getPixel32( gfootprintImage, xTmp, yTmp);
-                    SDL_GetRGB(inspectorSensorValue,gfootprintImage->format,&r,&g,&b);
+                    inspectorSensorValue = getPixel32( gFootprintImage, xTmp, yTmp);
+                    SDL_GetRGB(inspectorSensorValue,gFootprintImage->format,&r,&g,&b);
 
                     int value = ((int)r)*256*256 + ((int)g)*256 + (int)b;
                     
@@ -792,7 +792,7 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
 				if ( gNiceRendering )
 					SDL_FillRect( gScreen, &gScreen->clip_rect, SDL_MapRGBA( gScreen->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen if no background image
 				else
-					apply_surface( 0, 0, gfootprintImage, gScreen, &gCamera );
+					apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
 
 			if ( gNiceRendering ) 
 				apply_surface( 0, 0, gForegroundImage, gScreen, &gCamera );
@@ -1359,7 +1359,7 @@ bool loadProperties( std::string __propertiesFilename )
         gAgentsInitAreaHeight = -1;  // initialized when gAreaHeight is known to gAreaHeight-10
     }
 
-    gProperties.checkAndGetPropertyValue("gfootprintImage_restoreOriginal",&gfootprintImage_restoreOriginal,false);
+    gProperties.checkAndGetPropertyValue("gFootprintImage_restoreOriginal",&gFootprintImage_restoreOriginal,false);
     
     gProperties.checkAndGetPropertyValue("gExtendedSensoryInputs",&gExtendedSensoryInputs,false);
     
