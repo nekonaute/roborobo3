@@ -42,25 +42,57 @@ void TemplateVanillaEEController::performSelection()
 {
     //TemplateEEController::performSelection();
     
-    float bestFitnessValue = 0;
     std::pair<int,int> bestId;
 
-    int i = 0;
-    for (std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValuesList.begin(); fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt, i++)
+    std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValuesList.begin();
+
+    float bestFitnessValue = (*fitnessesIt).second;
+    bestId = (*fitnessesIt).first;
+
+    ++fitnessesIt;
+
+    int nbSimilar = 0;
+    
+    for ( int i = 1 ; fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt, i++)
     {
-        if ( i == 0 )
+        if ( (*fitnessesIt).second >= bestFitnessValue )
         {
-            bestFitnessValue = (*fitnessesIt).second;
-            bestId = (*fitnessesIt).first;
-        }
-        else
             if ( (*fitnessesIt).second > bestFitnessValue )
             {
                 bestFitnessValue = (*fitnessesIt).second;
                 bestId = (*fitnessesIt).first;
+                nbSimilar = 0;
             }
+            else
+            {
+                nbSimilar++;
+            }
+        }
     }
 
+    if ( nbSimilar > 0 ) // >1 genomes have the same fitness best value. Pick randomly among them
+    {
+        int count = 0;
+        int randomPick = rand() % ( nbSimilar + 1 );
+        
+        if ( randomPick != 0 ) // not already stored (i.e. not the first one)
+        {
+            fitnessesIt = _fitnessValuesList.begin();
+            for ( int i = 0 ; ; ++fitnessesIt, i++)
+            {
+                if ( (*fitnessesIt).second == bestFitnessValue )
+                {
+                    if ( count == randomPick )
+                    {
+                        bestId = (*fitnessesIt).first;
+                        break;
+                    }
+                    count++;
+                }
+            }
+        }
+    }
+    
     _birthdate = gWorld->getIterations();
     
     _currentGenome = _genomesList[bestId];

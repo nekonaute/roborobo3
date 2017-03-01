@@ -19,10 +19,7 @@ bp:
 - [=] enable include of pties files within pties file.
 - [-] consider Controller vs. WM
 - [+] vanillaEE: check if random selection when multiple 1st-rank
-
-
-
-
+	count when is equal to best, if n>1, pick random(n) from first.
 
 ---
 

@@ -696,7 +696,7 @@ void TemplateEEController::broadcastGenome()
     }
 }
 
-void TemplateEEController::performSelection()
+void TemplateEEController::performSelection() // called only if at least 1 genome was stored.
 {
     switch ( TemplateEESharedData::gSelectionMethod )
     {
