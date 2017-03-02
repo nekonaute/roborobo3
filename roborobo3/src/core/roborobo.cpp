@@ -67,7 +67,7 @@
 
 // =-=-=-=-=
 
-long int gVersion  = 20170114;
+long int gVersion  = 20170301;
 std::string gLogCommentText  = "(under development)"; //
 
 std::string gStartTime = getCurrentTimeAsReadableString();
@@ -122,7 +122,7 @@ std::string gRobotSpecsImageFilename =			"data/agent-specs.png";
 std::string gForegroundImageFilename =			"data/foreground.png";   // MANDATORY: use png (avoid jpg approximation)
 std::string gEnvironmentImageFilename =			"data/environment.png";
 std::string gBackgroundImageFilename =			"data/background.png";			
-std::string gFootprintImageFilename =		"data/ground.png";
+std::string gFootprintImageFilename =           "data/ground.png";
 
 //general purpose
 
@@ -1004,48 +1004,51 @@ void updateMonitor(const Uint8* __keyboardStates)
 
 bool loadProperties( std::string __propertiesFilename )
 {
-
 	bool returnValue = true;
 
 	std::ifstream in(__propertiesFilename.c_str());
-	
-    if ( !in.is_open() ) // WAS: if ( in == NULL )
-		return false;
-	gProperties.load(in);
-	in.close();
-
-	// =-=-=-=-=-=
     
-    /*
-     
-    //todelete: 2014-09-17, deprecated
-     
-    // Load properties given directly in the command line parameters (if any)
-    for(size_t i = 0; i < gRemainingCommandLineParameters.size(); i++)
+    // * check main file for imports
+    
+    if ( !in.is_open() )
+        return false;
+    std::string target("import(");
+    bool import = false;
+    while (in)
     {
-        std::string line = gRemainingCommandLineParameters[i];
-        size_t equalPos = line.find("=");
-        if(equalPos != std::string::npos)
+        std::string line;
+        getline(in, line);
+        if (line.compare(0, target.length(), target) == 0)
         {
-            line.erase(0, line.find_first_not_of("\t "));
-            equalPos = line.find('=');
-            std::string propertyName = line.substr(0, equalPos);
-            if (propertyName.find('\t') != line.npos || propertyName.find(' ') != line.npos)
-                propertyName.erase(propertyName.find_first_of("\t "));
-            if ( gProperties.hasProperty(propertyName) )
+            std::string importFilename;
+            importFilename = line.substr(target.size(),line.size()-target.size()-1);
+            std::ifstream in2(importFilename.c_str());
+            if ( !in2.is_open() )
             {
-                gProperties.load(line);
-                std::cerr << "[WARNING] configuration property \"" << propertyName << "\" is already set in configuration file. Overloading it anyway, with value \"" << gProperties.getProperty(propertyName) << "\".\n";
+                std::cout << "[ERROR] Failed to import properties from file " << importFilename << std::endl;
+                return false;
             }
             else
-            {
-                gProperties.load(line);
-            }
+                std::cout << "[INFO] Import properties from file: " << importFilename << std::endl;
+            gProperties.load(in2);
+            in2.close();
+            import = true;
         }
     }
-    */
+    if ( import == true )
+    {
+        std::cout << "[REMARK] imported property values are register first, but may be overwritten if redefined." << std::endl;
+    }
     
-    // =-=-=-=-=-=
+    in.clear();
+    in.seekg(0, std::ios::beg); // reposition to beginning -- so as to avoid to call in.close();
+    
+    // * handle main file content
+    
+    if ( !in.is_open() )
+		return false;
+	gProperties.load(in);
+    in.close();
     
     // Load properties given in the config file
 	
