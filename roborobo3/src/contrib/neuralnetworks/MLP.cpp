@@ -18,10 +18,10 @@ using namespace Neural;
 MLP::MLP(std::vector<double>& weights,
 		unsigned int nbInputs,
 		unsigned int nbOutputs,
-		bool activeBiais,
-		bool onlyUseBiaisForFirstHiddenLayer,
-		double biaisValue) :
-		LayeredNeuralNetwork(weights, nbInputs, nbOutputs, activeBiais, onlyUseBiaisForFirstHiddenLayer, biaisValue) {
+		bool activeBias,
+		bool onlyUseBiasForFirstHiddenLayer,
+		double biasValue) :
+		LayeredNeuralNetwork(weights, nbInputs, nbOutputs, activeBias, onlyUseBiasForFirstHiddenLayer, biasValue) {
 	// ...
 }
 
@@ -30,10 +30,10 @@ MLP::MLP(std::vector<double>& weights,
 		unsigned int nbInputs,
 		unsigned int nbOutputs,
 		std::vector<unsigned int>& nbNeuronsPerLayer,
-		bool activeBiais,
-		bool onlyUseBiaisForFirstHiddenLayer,
-		double biaisValue) :
-		LayeredNeuralNetwork(weights, nbInputs, nbOutputs, nbNeuronsPerLayer, activeBiais, onlyUseBiaisForFirstHiddenLayer, biaisValue) {
+		bool activeBias,
+		bool onlyUseBiasForFirstHiddenLayer,
+		double biasValue) :
+		LayeredNeuralNetwork(weights, nbInputs, nbOutputs, nbNeuronsPerLayer, activeBias, onlyUseBiasForFirstHiddenLayer, biasValue) {
 	// ...
 }
 
@@ -67,9 +67,9 @@ void MLP::step() {
 //	if(_nbNeuronsPerLayer[_nbNeuronsPerLayer.size() - 1] == 0)
 //		throw NeuralNetworkException("nbNeuronsPerLayer has an incorrect number of output neurons (output layer)");
 
-//	unsigned int nbBiais = 0;
-//	if(_activeBiais)
-//		nbBiais = 1;
+//	unsigned int nbBias = 0;
+//	if(_activeBias)
+//		nbBias = 1;
 
 	for(unsigned int k = 0; k < _nbNeuronsPerLayer.size() - 1; k++) {
 
@@ -83,11 +83,11 @@ void MLP::step() {
 			}
 		}
 
-		// Do computation of the biais
-		if(_activeBiais && (k==0 || !_onlyUseBiaisForFirstHiddenLayer))
+		// Do computation of the bias
+		if(_activeBias && (k==0 || !_onlyUseBiasForFirstHiddenLayer))
 			for(unsigned int j = 0; j < nbOutputs; j++)
 				//tmp[j] += tanh(_weights[weightsIndice++]) * .08;
-				tmp[j] += tanh(_weights[weightsIndice++]) * _biaisValue;
+				tmp[j] +=  _biasValue * _weights[weightsIndice++];
 
 		// Tanh activation function
 		for(unsigned int i = 0; i < nbOutputs; i++)
@@ -102,18 +102,18 @@ void MLP::step() {
 
 unsigned int MLP::computeRequiredNumberOfWeights() {
 	unsigned int res = 0;
-	unsigned int nbBiais = 0;
-	if(_activeBiais)
-		nbBiais = 1;
+	unsigned int nbBias = 0;
+	if(_activeBias)
+		nbBias = 1;
 
 	if(_nbNeuronsPerLayer.size() <= 2) {
-		return (_nbInputs + nbBiais) * _nbOutputs;
+		return (_nbInputs + nbBias) * _nbOutputs;
 	} else {
-		res += (_nbInputs + nbBiais) * _nbNeuronsPerLayer[1];
-		if(_onlyUseBiaisForFirstHiddenLayer)
-			nbBiais = 0;
+		res += (_nbInputs + nbBias) * _nbNeuronsPerLayer[1];
+		if(_onlyUseBiasForFirstHiddenLayer)
+			nbBias = 0;
 		for(size_t i = 1; i < _nbNeuronsPerLayer.size() - 1; i++) {
-			res += (_nbNeuronsPerLayer[i] + nbBiais) * _nbNeuronsPerLayer[i + 1];
+			res += (_nbNeuronsPerLayer[i] + nbBias) * _nbNeuronsPerLayer[i + 1];
 		}
 		return res;
 	}

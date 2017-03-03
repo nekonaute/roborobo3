@@ -17,10 +17,10 @@ using namespace Neural;
 Elman::Elman(std::vector<double>& weights,
 		unsigned int nbInputs,
 		unsigned int nbOutputs,
-		bool activeBiais,
-		bool onlyUseBiaisForFirstHiddenLayer,
-		double biaisValue) :
-		MLP(weights, nbInputs, nbOutputs, activeBiais, onlyUseBiaisForFirstHiddenLayer, biaisValue) {
+		bool activeBias,
+		bool onlyUseBiasForFirstHiddenLayer,
+		double biasValue) :
+		MLP(weights, nbInputs, nbOutputs, activeBias, onlyUseBiasForFirstHiddenLayer, biasValue) {
 	initLastOutputs();
 }
 
@@ -29,10 +29,10 @@ Elman::Elman(std::vector<double>& weights,
 		unsigned int nbInputs,
 		unsigned int nbOutputs,
 		std::vector<unsigned int>& nbNeuronsPerLayer,
-		bool activeBiais,
-		bool onlyUseBiaisForFirstHiddenLayer,
-		double biaisValue) :
-		MLP(weights, nbInputs, nbOutputs, nbNeuronsPerLayer, activeBiais, onlyUseBiaisForFirstHiddenLayer, biaisValue) {
+		bool activeBias,
+		bool onlyUseBiasForFirstHiddenLayer,
+		double biasValue) :
+		MLP(weights, nbInputs, nbOutputs, nbNeuronsPerLayer, activeBias, onlyUseBiasForFirstHiddenLayer, biasValue) {
 	initLastOutputs();
 }
 
@@ -57,7 +57,7 @@ std::string Elman::toString() const {
 	ss << "nn(";
 
 	ss << _nbInputs;
-	if(_activeBiais)
+	if(_activeBias)
 		ss << "(+1)";
 
 	for(size_t i = 1; i < _nbNeuronsPerLayer.size(); i++) {
@@ -67,7 +67,7 @@ std::string Elman::toString() const {
 		int nbConnexions = _nbNeuronsPerLayer[i - 1];
 		if(i != _nbNeuronsPerLayer.size() - 1)
 			nbConnexions += _nbNeuronsPerLayer[i];
-		if(_activeBiais && !_onlyUseBiaisForFirstHiddenLayer)
+		if(_activeBias && !_onlyUseBiasForFirstHiddenLayer)
 			++nbConnexions;
 		ss << nbConnexions;
 		ss << "]";
@@ -104,18 +104,18 @@ void Elman::step() {
 	if(_nbNeuronsPerLayer.size() != _lastOutputs.size() + 2 )
 		throw NeuralNetworkException("lastOutputs has an incorrect number of entries");
 
-	unsigned int nbBiais = 0;
-	if(_activeBiais)
-		nbBiais = 1;
+	unsigned int nbBias = 0;
+	if(_activeBias)
+		nbBias = 1;
 
 	for(unsigned int k = 0; k < _nbNeuronsPerLayer.size() - 1; k++) {
 
 		// Verify that the number of weights is correct
 		unsigned int const remainingWeights = (int)(_weights.size() - weightsIndice);
-		if(remainingWeights < prec.size() + nbBiais) {
+		if(remainingWeights < prec.size() + nbBias) {
 			std::stringstream ss;
 			ss << "remainingWeights = " << remainingWeights <<  
-					" but at least " << prec.size() + nbBiais << " weights are needed...";
+					" but at least " << prec.size() + nbBias << " weights are needed...";
 			throw NeuralNetworkException(ss.str());
 		}
 
@@ -129,10 +129,10 @@ void Elman::step() {
 			}
 		}
 
-		// Do computation of the biais
-		if(_activeBiais && (k==0 || !_onlyUseBiaisForFirstHiddenLayer))
+		// Do computation of the bias
+		if(_activeBias && (k==0 || !_onlyUseBiasForFirstHiddenLayer))
 			for(unsigned int j = 0; j < nbOutputs; j++)
-				tmp[j] += tanh(_weights[weightsIndice++]) * _biaisValue;
+				tmp[j] += _biasValue * _weights[weightsIndice++];
 
 		// Do computation using last outputs of this layer
 		if(k < _nbNeuronsPerLayer.size() - 2)

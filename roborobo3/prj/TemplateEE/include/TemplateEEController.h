@@ -36,7 +36,7 @@ protected:
     std::vector<double> _parameters;
     std::string _nnType;
     std::vector<int> _nbHiddenNeuronsPerLayer;
-    std::vector<int> _nbBiaisNeuronsPerLayer;
+    std::vector<int> _nbBiasNeuronsPerLayer;
     NeuralNetwork* nn;
     
     void createNN();

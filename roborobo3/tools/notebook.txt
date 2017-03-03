@@ -14,12 +14,12 @@ bp:
 -.définir une region pour la position initiale des objects
 -.gGroundSensorImage_restoreOriginal: option pour permettre de remettre la valeur de la groundsensorimage a l'origine lors de réécriture (ou non, ie. du blanc). Remarque: si faux, les objets ne sont positionnables que dans les régions de pixels blancs.
 -.create maze environment (use: http://www.mazegenerator.net/ )
-- [?] change name "GroundSensor" to "Footprint"
+-.[?] change name "GroundSensor" to "Footprint"
+-.[+] vanillaEE: check if random selection when multiple 1st-rank
+-.[-] consider Controller vs. WM --> WM contains only information about robot state. (no mofif)
 - [-] set up different environment for benchmark.
 - [=] enable include of pties files within pties file.
-- [-] consider Controller vs. WM
-- [+] vanillaEE: check if random selection when multiple 1st-rank
-	count when is equal to best, if n>1, pick random(n) from first.
+- [+] MLP/Elman: tmp[j] += tanh(_weights[weightsIndice++]) * _biaisValue;
 
 ---
 

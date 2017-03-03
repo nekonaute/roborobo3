@@ -31,16 +31,16 @@ namespace Neural {
 			/** Number of neurons per layer */
 			std::vector<unsigned int> _nbNeuronsPerLayer;
 
-			/** Says if we want biais neurons */
-			bool _activeBiais;
+			/** Says if we want bias neurons */
+			bool _activeBias;
 
-			/** Says if we want the biais neurons to be apply to all hidden layers or just to the
+			/** Says if we want the bias neurons to be apply to all hidden layers or just to the
 			 *	first one.
 			 */
-			bool _onlyUseBiaisForFirstHiddenLayer;
+			bool _onlyUseBiasForFirstHiddenLayer;
 
-			/** Values of biais neurons (typically 1) */
-			double _biaisValue;
+			/** Values of bias neurons (typically 1) */
+			double _biasValue;
 
 
 		public :
@@ -48,8 +48,8 @@ namespace Neural {
 			// -+-+-  Constructors/Destructors  -+-+- //
 
 			virtual ~LayeredNeuralNetwork();
-			LayeredNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, bool activeBiais = false, bool onlyUseBiaisForFirstHiddenLayer = false, double biaisValue = 1.0);
-			LayeredNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, std::vector<unsigned int>& nbNeuronsPerLayer, bool activeBiais = false, bool onlyUseBiaisForFirstHiddenLayer = false, double biaisValue = 1.0);
+			LayeredNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, bool activeBias = false, bool onlyUseBiasForFirstHiddenLayer = false, double biasValue = 1.0);
+			LayeredNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, std::vector<unsigned int>& nbNeuronsPerLayer, bool activeBias = false, bool onlyUseBiasForFirstHiddenLayer = false, double biasValue = 1.0);
 			/** Deep Copy constructor */
 			LayeredNeuralNetwork(LayeredNeuralNetwork const& other);
 
@@ -57,19 +57,19 @@ namespace Neural {
 			// -+-+-  Accessors/Mutators  -+-+- //
 
 			/**
-			 * Accessor for activeBiais
+			 * Accessor for activeBias
 			 */
-			bool getActiveBiais() const;
+			bool getActiveBias() const;
 
 			/**
-			* Accessor for onlyUseBiaisForFirstHiddenLayer
+			* Accessor for onlyUseBiasForFirstHiddenLayer
 			*/
-			bool getOnlyUseBiaisForFirstHiddenLayer() const;
+			bool getOnlyUseBiasForFirstHiddenLayer() const;
 
 			/**
-			* Accessor for biaisValue
+			* Accessor for biasValue
 			*/
-			double getBiaisValue() const;
+			double getBiasValue() const;
 
 
 			// -+-+-  Main Methods  -+-+- //

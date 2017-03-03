@@ -41,8 +41,8 @@ namespace Neural {
 
 			// -+-+-  Constructors/Destructors  -+-+- //
 
-			Elman(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, bool activeBiais = false, bool onlyUseBiaisForFirstHiddenLayer = false, double biaisValue = 1.0);
-			Elman(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, std::vector<unsigned int>& nbNeuronsPerLayer, bool activeBiais = false, bool onlyUseBiaisForFirstHiddenLayer = false, double biaisValue = 1.0);
+			Elman(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, bool activeBias = false, bool onlyUseBiasForFirstHiddenLayer = false, double biasValue = 1.0);
+			Elman(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, std::vector<unsigned int>& nbNeuronsPerLayer, bool activeBias = false, bool onlyUseBiasForFirstHiddenLayer = false, double biasValue = 1.0);
 			/** Deep Copy constructor */
 			Elman(Elman const& other);
 			virtual ~Elman();
