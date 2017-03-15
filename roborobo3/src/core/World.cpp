@@ -135,7 +135,7 @@ void World::initWorld()
     
     for ( int i = 0 ; i != gRobotWidth ; i++ ) 
         for ( int j = 0 ; j != gRobotHeight ; j++ )
-            if ( getPixel32( gRobotMaskImage , i , j) != SDL_MapRGBA( gForegroundImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
+            if ( getPixel32( gRobotMaskImage , i , j) != SDL_MapRGBA( gRobotMaskImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
             {
                 nbPointsInMask++;
             }
@@ -149,7 +149,7 @@ void World::initWorld()
     int currentIndex = 0;
     for ( int i = 0 ; i != gRobotWidth ; i++ ) 
         for ( int j = 0 ; j != gRobotHeight ; j++ )
-            if ( getPixel32( gRobotMaskImage , i , j) != SDL_MapRGBA( gForegroundImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
+            if ( getPixel32( gRobotMaskImage , i , j) != SDL_MapRGBA( gRobotMaskImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
             {
                 gRobotMaskData[currentIndex][0]=i;
                 gRobotMaskData[currentIndex][1]=j;
@@ -287,17 +287,17 @@ bool World::loadFiles()
 
     // Load the foreground image (active borders)
     
-    gForegroundImage = load_image( gForegroundImageFilename );   // RECOMMENDED: png rather than jpeg (pb with transparency otw)
+    gForegroundImage = load_image( gForegroundImageFilename );
 	if ( gForegroundImageFilename.compare(gForegroundImageFilename.length()-3, 3, "jpg", 0, 3) == 0 )
 	{
-		std::cerr << "foreground: PNG format is *mandatory* (JPG may feature transparency problems due to compression with loss)\n";
+		std::cerr << "foreground: BMP format is *mandatory*\n";
 		returnValue = false;
 	}
 	
     gEnvironmentImage = load_image( gEnvironmentImageFilename );
 	if ( gEnvironmentImageFilename.compare(gEnvironmentImageFilename.length()-3, 3, "jpg", 0, 3) == 0 )
 	{
-		std::cerr << "environment: PNG format is *mandatory* (JPG may feature transparency problems due to compression with loss)\n";
+		std::cerr << "environment: BMP format is *mandatory*\n";
 		returnValue = false;
     }
 	
@@ -352,7 +352,7 @@ bool World::loadFiles()
 		std::cout << "warning: could not load background image (will proceed anyway)\n";
 	}
 	
-	// mandatory: image dimensions must be more than 1024x768 (otw: screen underfitting)
+	// mandatory: image dimensions must be more than display screen dimensions (otw: underfitting)
 	if ( gForegroundImage->w < gScreenWidth || gForegroundImage->h < gScreenHeight )
 	{
 		std::cerr << "foreground image dimensions must be " << gScreenWidth << "x" << gScreenHeight << " or higher (given: " << gForegroundImage->w << "x" << gForegroundImage->h << ") \n";

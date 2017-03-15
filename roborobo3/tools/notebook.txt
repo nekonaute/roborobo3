@@ -1,26 +1,27 @@
 bp:
--.energyItems are now correctly displayed and registered
--.remain: fitness function, selectBestIndividual (or whatever)
--.bug corrected: clearreservoir()
--.senderId not complete (should be: #robot_id + #birthdate)
--._genome vs. _currentGenome ...??? => _currentGenome seulement
--.check: genomeList contient les indivs de la gen précédente. Implement: lors de la generation ou un robot se renouvelle, il ne peut transmettre son génome. (permet de gerer le mode de mise a jour de roborobo async/random)
--.command-line: batch mode.
--.libcaca ou aalib (résolu: video_driver=dummy)
--.vitesse de rotation plus rapide? => non
--.pas le bon resetFitness dans le constructeur. résolu.
--.script python pour graphes
--.définir une region pour la position initiale des agents
--.définir une region pour la position initiale des objects
--.gGroundSensorImage_restoreOriginal: option pour permettre de remettre la valeur de la groundsensorimage a l'origine lors de réécriture (ou non, ie. du blanc). Remarque: si faux, les objets ne sont positionnables que dans les régions de pixels blancs.
--.create maze environment (use: http://www.mazegenerator.net/ )
+-.[ ] energyItems are now correctly displayed and registered
+-.[ ] remain: fitness function, selectBestIndividual (or whatever)
+-.[ ] bug corrected: clearreservoir()
+-.[ ] senderId not complete (should be: #robot_id + #birthdate)
+-.[ ] _genome vs. _currentGenome ...??? => _currentGenome seulement
+-.[ ] check: genomeList contient les indivs de la gen précédente. Implement: lors de la generation ou un robot se renouvelle, il ne peut transmettre son génome. (permet de gerer le mode de mise a jour de roborobo async/random)
+-.[ ] command-line: batch mode.
+-.[ ] libcaca ou aalib (résolu: video_driver=dummy)
+-.[ ] vitesse de rotation plus rapide? => non
+-.[ ] pas le bon resetFitness dans le constructeur. résolu.
+-.[ ] script python pour graphes
+-.[ ] définir une region pour la position initiale des agents
+-.[ ] définir une region pour la position initiale des objects
+-.[ ] gGroundSensorImage_restoreOriginal: option pour permettre de remettre la valeur de la groundsensorimage a l'origine lors de réécriture (ou non, ie. du blanc). Remarque: si faux, les objets ne sont positionnables que dans les régions de pixels blancs.
+-.[ ] create maze environment (use: http://www.mazegenerator.net/ )
 -.[?] change name "GroundSensor" to "Footprint"
 -.[+] vanillaEE: check if random selection when multiple 1st-rank
 -.[-] consider Ctlrs vs. WM --> WM contains only info about robot state (no modif)
 -.[=] enable include of pties files within pties file.
 -.[+] MLP/Elman: tmp[j] += tanh(_weights[weightsIndice++]) * _biaisValue;
+-.[=] save to PNG, added sdl2_image dependency
 - [-] set up different environment for benchmark.
--.save to PNG, added sdl2_image dependency
+- [=] fusionner foreground/backgroung?
 
 ---
 
