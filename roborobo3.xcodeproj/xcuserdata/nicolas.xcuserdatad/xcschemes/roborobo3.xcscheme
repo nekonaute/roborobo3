@@ -89,11 +89,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_medea.properties"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_vanillaEE.properties"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

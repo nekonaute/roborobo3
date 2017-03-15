@@ -16,10 +16,11 @@ bp:
 -.create maze environment (use: http://www.mazegenerator.net/ )
 -.[?] change name "GroundSensor" to "Footprint"
 -.[+] vanillaEE: check if random selection when multiple 1st-rank
--.[-] consider Controller vs. WM --> WM contains only information about robot state. (no mofif)
+-.[-] consider Ctlrs vs. WM --> WM contains only info about robot state (no modif)
+-.[=] enable include of pties files within pties file.
+-.[+] MLP/Elman: tmp[j] += tanh(_weights[weightsIndice++]) * _biaisValue;
 - [-] set up different environment for benchmark.
-- [=] enable include of pties files within pties file.
-- [+] MLP/Elman: tmp[j] += tanh(_weights[weightsIndice++]) * _biaisValue;
+-.save to PNG, added sdl2_image dependency
 
 ---
 
@@ -35,3 +36,9 @@ candidates:
 - popsize
 - lifetime
 - ...
+
+---
+
+revert to latest "official" commit:
+git fetch --all
+git reset --hard origin/master

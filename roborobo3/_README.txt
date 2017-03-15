@@ -31,7 +31,7 @@ Some random bits of information:
 - Robot position and mouvement are real-valued (ie. precise)
 - Collision is performed on a pixel-based information for fast speed (ie. fast but not precise)
 - both GUI mode and batch mode are available. Note that batch mode is the fastest mode (gBatchMode=true, gVerbose=false). It also makes it possible to run roborobo "headless", which is useful if you use a cluster of computers.
-- only one external dependencies: SDL library (multi-platform fast 2D library), and the boost librairy, header-only.
+- only two external dependencies: SDL2 and SDL2_image library (multi-platform fast 2D library), and the boost librairy, header-only.
 - most parameters are to be found in the config/ subdirectory (e.g. default.properties)
 - full environment and robot specifications can set up directly with an image editor (check data directories). E.g. Robot proximity sensor positions are set up in the robot image. 
 - you can specify a properties file as command line option (see "./roborobo -h" for help)
@@ -200,7 +200,7 @@ gEnvironmentImageFilename  		: the environment description image.
 gFootprintImageFilename      : this image specifies the footprint RGB value that will be sensed by the ground sensor.
 
 gForegroundImageFilename 		: the environment decorative image, ie. only used for displaying -- should more or less match environment image.
-gBackgroundImageFilename  		: this image is purely decorative. Change parralax factor for faster scrolling (if screen size is smaller that environment/foreground size).
+gBackgroundImageFilename  		: this image is purely decorative. Possible use as a decorative image for the footprint
 
 Some image files are available by default in the data subdirectory. Here's a quick summary (but you may add anything you like):
 - maxirobot*: a 32x32 robot image, with 8 sensors (similar to an e-puck or khepera robot)

@@ -74,6 +74,7 @@
 		37BA27581BC3D014002DF5DC /* RoundObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA27061BC3D014002DF5DC /* RoundObject.cpp */; };
 		37BA27591BC3D014002DF5DC /* SwitchObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA27071BC3D014002DF5DC /* SwitchObject.cpp */; };
 		37C810401E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37C8103F1E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp */; };
+		37E870AA1E799B20003D6DD8 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E870A91E799B20003D6DD8 /* SDL2_image.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -240,6 +241,7 @@
 		37BA27071BC3D014002DF5DC /* SwitchObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchObject.cpp; sourceTree = "<group>"; };
 		37C8103F1E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateMedeaConfigurationLoader.cpp; sourceTree = "<group>"; };
 		37C810411E28AF2700A71E6F /* TemplateMedeaConfigurationLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateMedeaConfigurationLoader.h; sourceTree = "<group>"; };
+		37E870A91E799B20003D6DD8 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../../../../../Volumes/SDL2_image/SDL2_image.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -248,6 +250,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37BA26231BC3C7A9002DF5DC /* SDL2.framework in Frameworks */,
+				37E870AA1E799B20003D6DD8 /* SDL2_image.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,6 +468,7 @@
 				37BA26D71BC3D014002DF5DC /* src */,
 				3705F0891BC67B7C001A016D /* config */,
 				37BA26211BC3C7A9002DF5DC /* SDL2.framework */,
+				37E870A91E799B20003D6DD8 /* SDL2_image.framework */,
 				37BA26171BC3C782002DF5DC /* Products */,
 			);
 			sourceTree = "<group>";

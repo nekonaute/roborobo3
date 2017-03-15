@@ -40,6 +40,7 @@ extern std::string gCompileTime;
 extern std::string gCompileDate;
 
 extern bool gVideoRecording;
+extern bool gOutputImageFormat;
 
 extern bool gTrajectoryMonitor;
 extern int gTrajectoryMonitorMode;

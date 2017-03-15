@@ -37,7 +37,7 @@
 //                                                                                               //
 // * Projects acknowledgements                                                                   //
 //  http://factorycity.com                                                                       //
-//  Symbrion EU project, grant agreement 216342 (EU FET Proactive Intiative)                     //
+//  Symbrion EU project, grant agreement 216342 (2008-2013) (EU FET Proactive Intiative)         //
 //  Grid'5000 experimental testbed ( https://www.grid5000.fr )                                   //
 //  BQR UPMC (2012-2013)                                                                         //
 //  DREAM EU H2020 PROJECT, grant agreement 640891 (2015-2018) - http://robotsthatdream.org      //
@@ -96,6 +96,7 @@ std::string gCurrentBuildInfo   = "Tokyo build (roborobo^3 w/ SDL2)";  // displa
 ExtendedProperties gProperties;
 
 bool gVideoRecording = false;
+bool gOutputImageFormat = false; // default: PNG. (if True: BMP)
 
 
 bool gTrajectoryMonitor = false;
@@ -1554,6 +1555,19 @@ bool loadProperties( std::string __propertiesFilename )
 			std::cerr << "[WARNING] gVideoRecording is missing or corrupt (default is \"false\").\n";
 			//returnValue = false;
 		}
+    
+    s = gProperties.getProperty("gOutputImageFormat");
+    if ( s == "BMP" || s == "bmp" )
+        gOutputImageFormat = true;
+    else
+        if ( s == "PNG" || s == "png" )
+            gOutputImageFormat = false;
+        else
+        {
+            std::cerr << "[WARNING] gOutputImageFormat is missing or unknown (default is PNG).\n";
+            gOutputImageFormat = false;
+            //returnValue = false;
+        }
     
 	s = gProperties.getProperty("gRobotLEDdisplay");
 	if ( s == "true" || s == "True" || s == "TRUE" )

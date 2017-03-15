@@ -186,9 +186,13 @@ bool SquareObject::canRegister()
     {
         for (Sint16 yColor = _yCenterPixel - Sint16(_soft_h/2) ; yColor < _yCenterPixel + Sint16 (_soft_h/2); yColor ++)
         {
-            Uint32 pixel = getPixel32_secured( gFootprintImage, xColor, yColor);
-            Uint32 pixel2 = getPixel32_secured( gEnvironmentImage, xColor, yColor);
-            if ( pixel != SDL_MapRGBA( gFootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) || pixel2 != SDL_MapRGBA( gFootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
+            Uint32 pixelFootprint = getPixel32_secured( gFootprintImage, xColor, yColor);
+            Uint32 pixelEnvironment = getPixel32_secured( gEnvironmentImage, xColor, yColor);
+            if (
+                pixelEnvironment != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ||
+                ( gFootprintImage_restoreOriginal == true  && pixelFootprint != getPixel32_secured( gFootprintImageBackup, xColor, yColor ) ) || // case: ground as initialized or rewritten (i.e. white)
+                ( gFootprintImage_restoreOriginal == false && pixelFootprint != SDL_MapRGBA( gFootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ) // case: only white ground
+                )
                 return false; // collision!
         }
     }

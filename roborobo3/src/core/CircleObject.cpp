@@ -58,39 +58,6 @@ CircleObject::CircleObject( int __id ) : PhysicalObject( __id ) // a unique and 
         randomLocation = false;
     }
     
-    /*
-     
-     [!n] DEPRECATED as of 2017-02-22 - to delete after 10 days.
-     
-    bool userdefinedlocation = false;
-    
-    if ( x == -1.0 || y == -1.0 )
-    {
-        x = (rand() % (gAreaWidth-20)) + 10;
-        y = (rand() % (gAreaHeight-20)) + 10;
-        _xCenterPixel = x;
-        _yCenterPixel = y;
-        randomLocation = true;
-        tries++;
-    }
-    else
-        userdefinedlocation = true;
-    
-    if ( canRegister() == false )
-    {
-        if ( userdefinedlocation == true )
-        {
-            std::cerr << "[CRITICAL] cannot use user-defined initial location (" << x << "," << y << ") for physical object #" << getId() << " (localization failed). EXITING.";
-            exit(-1);
-        }
-        else
-        {
-            tries = tries + findRandomLocation();
-            randomLocation = true;
-        }
-    }
-    */
-    
     if ( gVerbose )
     {
         std::cout << "[INFO] Physical Object #" << getId() << " (of super type CircleObject) positioned at ( "<< std::setw(5) << _xCenterPixel << " , " << std::setw(5) << _yCenterPixel << " ) -- ";
@@ -212,13 +179,12 @@ bool CircleObject::canRegister()
         {
             if ((sqrt ( pow (xColor-_xCenterPixel,2) + pow (yColor - _yCenterPixel,2))) < _footprintRadius)
             {
-                Uint32 pixel = getPixel32_secured( gFootprintImage, xColor, yColor);
-                Uint32 pixel2 = getPixel32_secured( gEnvironmentImage, xColor, yColor);
-                //if ( pixel != SDL_MapRGBA( gFootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) || pixel2 != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
+                Uint32 pixelFootprint = getPixel32_secured( gFootprintImage, xColor, yColor);
+                Uint32 pixelEnvironment = getPixel32_secured( gEnvironmentImage, xColor, yColor);
                 if (
-                        pixel2 != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ||
-                        ( gFootprintImage_restoreOriginal == true  && pixel != getPixel32_secured( gFootprintImageBackup, xColor, yColor ) ) || // case: ground as initialized or rewritten (i.e. white)
-                        ( gFootprintImage_restoreOriginal == false && pixel != SDL_MapRGBA( gFootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ) // case: only white ground
+                        pixelEnvironment != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ||
+                        ( gFootprintImage_restoreOriginal == true  && pixelFootprint != getPixel32_secured( gFootprintImageBackup, xColor, yColor ) ) || // case: ground as initialized or rewritten (i.e. white)
+                        ( gFootprintImage_restoreOriginal == false && pixelFootprint != SDL_MapRGBA( gFootprintImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ) // case: only white ground
                    )
                     return false; // collision!
             }

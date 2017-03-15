@@ -16,7 +16,7 @@ Q: What is the licence under which roborobo is distributed?
 A: Creative Commons, BY SA — http://creativecommons.org/licenses/by-sa/4.0/
 
 Q: What it the current version of roborobo and what is the main difference with previous version?
-A: This is version 3. It uses SDL2, while older versions used SDL1.2. It is also better in every way (ah!). If you want to use SDL1.2, use roborobo version 2 - though I would strongly recommend using the latest version. Roborobo is extensively used on both Mac OS X and Linux (Ubuntu) on a daily basis.
+A: This is version 3. It uses SDL2 (and SDL2_image), while older versions used SDL1.2. It is also better in every way (ah!). If you want to use SDL1.2, use roborobo version 2 - though I would strongly recommend using the latest version. Roborobo is extensively used on both Mac OS X and Linux (Ubuntu) on a daily basis.
 
 Q: I want to start coding now!
 A: check _README.txt, Section "DEVELOPER'S QUICK START", paragraph "VERY QUICK START". This includes entry points to tutorials, and how to create/clone a new project from an existing one.
@@ -40,7 +40,8 @@ Q: Why use BMP files (over JPEG or PNG)?
 A: As of roborobo version 3, roborobo only supports BMP images (while previous versions supported PNG). The reason is that there is a bug in SDL2_image, that prevent to load *exactly* the pixel values of the image, hence provoking problems with masks and images. This is caused by the automatic embedded calibration applied when SDL2_image's IMG_Load(...) function is called. Until this bug is solved, there will be no PNG support, and SDL2_image won't be required. cf.:
 	- https://forums.libsdl.org/viewtopic.php?t=10013&sid=34e8ef7cf74074039495037c1a077025
 	- http://stackoverflow.com/questions/24987165/sdl2-sdl-image-strange-png-behavior-with-rgb-values
-As for JPEG: JPEG uses a method with lossy compression. Roborobo needs the image encoding to be without loss.
+Note, however, that (by default) dumping images is done in PNG format (smaller size). This can be changed using "gOutputImageFormat" to "BMP" (no value or any other value means PNG will be used).
+    As for JPEG: JPEG uses a method with lossy compression. Roborobo needs the image encoding to be without loss.
 
 Q: I am running roborobo remotely, typically on a cluster. Roborobo either hangs at startup (''connect localhost port xxxx: connection time out'') or crashes (segmentation fault) or do not find any suitable video driver ("cannot initialize SDL: Failed to connect to the Mir Server").
 A: [short answer] check python script "replicate.py". This may be what you are looking for.
@@ -48,7 +49,7 @@ A: [longer answer] SDL needs to set up the video. You may change this by using a
 A: [DEPRECATED, used to be for SDL1.2, but some info may still apply] First, check you have been running headless roborobo (value of gBatchMode in the properties file). If it still fails, it is most probably due to video initialization -- SDL tries to initialize the video, even if it wont be used. This can cause a problem, especially when exporting the display is not possible (slow connection, bad configuration, closed ports... -- this problem will also impact other X-based application, e.g. try ''xeyes''.). To avoid this: connect to the remote server such that exporting X is not an option (ie. use *always* the ''ssh'' command without any options -- *not* ''ssh -X'' or ''ssh -Y''). This will force SDL to bypass the video initialization. Note that if aalib is installed and SDL is able to use it, any display from roborobo will be done in nice ascii art within the very terminal. If this does not solve the problem, then try changing, or reconfiguring, your terminal application, and/or type ''export TERM=xterm'' in the console.
 
 Q: No makefile method seem to work.
-A: The basic makefile method is really... basic. And should work everywhere, except with Mac OSX where using Xcode is suggested. The modular makefile method was tested successfully in linux with GNU Make, in freeBSD with BSD Make, and under Windows with Cygwin/Mingw (with GNU Make). Possible problems: (a) try 'make clean' before compiling again (b) check dependencies. SDL must be installed (c) running Mac OSX? Use Xcode project.
+A: The basic makefile method is really... basic. And should work everywhere, except with Mac OSX where using Xcode is suggested. The modular makefile method was tested successfully in linux with GNU Make, in freeBSD with BSD Make, and under Windows with Cygwin/Mingw (with GNU Make). Possible problems: (a) try 'make clean' before compiling again (b) check dependencies. SDL2 and SDL2_image must be installed (check _INSTALL.txt) (c) running Mac OSX? Use Xcode project.
 
 Q: Roborobo compiles but at run-time i get the following error: '[CORRUPT] The configuration (nameofproject)ConfigurationLoader isn't known by the ConfigurationLoader', why?
 A: Most likely, you did not compile the project mentionned. Activate this project with the 'makefile-manager' script (see _INSTALL.TXT or type './makefile-manager -h')

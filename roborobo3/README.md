@@ -5,7 +5,7 @@ Roborobo! is a fast and simple 2D mobile robot simulator written in C++ loosely 
 
 As of October 2015, Roborobo3 is the only supported version. 
 
-Depencies: SDL2, boost (headers)
+Depencies: SDL2, SDL2_image boost (headers)
 Platforms: Linux-based, MacOSX (and possibly Windows)
 Author: nicolas.bredeche(at)upmc.fr
 

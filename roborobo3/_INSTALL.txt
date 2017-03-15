@@ -14,6 +14,7 @@
 
 1. Install dependencies:
 - SDL2 (developper)
+- SDL2_image (developper)
 - BOOST (headers only)
 
 2. Build and run:
@@ -42,10 +43,17 @@ Preabmle: note that roborobo is used daily on MacOS systems and quite a bunch of
 
 **MacOS X**
 
-- First, a suggestion: use homebrew for package management (http://brew.sh/)
 - install Boost-libraries
-- install SDL2 (example of location: http://www.libsdl.org/ and http://www.libsdl.org/projects/)
+- install SDL2 (http://www.libsdl.org/ and http://www.libsdl.org/projects/)
+- install SDL2_image (http://www.libsdl.org/ and http://www.libsdl.org/projects/)
 - use the Xcode project (Xcode 7 or later)
+
+Hint:
+1. use homebrew for package management (http://brew.sh/), incl. for installing Boost-libraries
+2. Lazyfoo's SDL tutorials page provides nice tutorial to install the SDL libraries.
+    SDL2: http://lazyfoo.net/tutorials/SDL/01_hello_SDL/index.php
+    SDL2_image: http://lazyfoo.net/tutorials/SDL/06_extension_libraries_and_loading_other_image_formats/mac/index.php
+    Also, don't forget to add the SDL frameworks to you project.
 
 It should compile and run OK. 
 - If it fails at compilation, be sure to have your libraries installed.
@@ -62,11 +70,12 @@ It should compile and run OK.
 **Linux: Ubuntu, Debian**
 
 Dependencies:
-- install Boost and SDL2 (using apt-get, synaptic, or any package installation manager)
+- install Boost, SDL2 and SDL2-image (using apt-get, synaptic, or any package installation manager)
 	Example with Ubuntu 16.04 LTS (as of 2017-02-28):
 		sudo apt-get update
 		sudo apt-get install libsdl2-2.0
         sudo apt-get install libsdl2-dev
+        sudo apt-get install libsdl2-image-dev
 		sudo apt-get install libboost-all-dev
 
 Compile&run:

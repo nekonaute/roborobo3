@@ -23,9 +23,16 @@ void saveImage ( SDL_Surface *image, std::string __prefix, std::string __comment
 	if ( __comment != "" )
 		sLog += "_" + __comment;
 	
-	sLog += ".bmp";
-	
-	SDL_SaveBMP(image,sLog.c_str());
+    if ( gOutputImageFormat == true )
+    {
+        sLog += ".bmp";
+        SDL_SaveBMP(image,sLog.c_str()); // dependance: SDL only
+    }
+    else
+    {
+        sLog += ".png";
+        IMG_SavePNG(image,sLog.c_str()); // dependance: SDL+SDL_image
+    }
 }
 
 void saveTrajectoryImage ( std::string __comment )
