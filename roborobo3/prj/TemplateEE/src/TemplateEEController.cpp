@@ -45,7 +45,7 @@ TemplateEEController::TemplateEEController( RobotWorldModel *wm )
     if ( gEnergyLevel )
         _wm->setEnergyLevel(gEnergyInit);
     
-    if ( gLandmarks.size() > 0 )
+    if ( gNbOfLandmarks > 0 )
         _wm->updateLandmarkSensor(); // wrt closest landmark
     
     reset();
@@ -269,7 +269,7 @@ std::vector<double> TemplateEEController::getInputs(){
     inputs.push_back( (double)_wm->getGroundSensor_blueValue()/255.0 );
     
     // landmark (closest landmark)
-    if ( gLandmarks.size() > 0 )
+    if ( gNbOfLandmarks > 0 )
     {
         _wm->updateLandmarkSensor(); // update with closest landmark
         inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
@@ -579,7 +579,7 @@ void TemplateEEController::setIOcontrollerSize()
     _nbInputs += _wm->_cameraSensorsNb + 3; // proximity sensors + ground sensor (3 values)
     if ( gEnergyLevel )
         _nbInputs += 1; // incl. energy level
-    if ( gLandmarks.size() > 0 )
+    if ( gNbOfLandmarks > 0 )
         _nbInputs += 2; // incl. landmark (angle,dist)
     
     // wrt outputs
@@ -673,7 +673,7 @@ void TemplateEEController::broadcastGenome()
     {
         int targetIndex = _wm->getObjectIdFromCameraSensor(i);
         
-        if ( targetIndex >= gRobotIndexStartOffset && targetIndex < gRobotIndexStartOffset+gNumberOfRobots )   // sensor ray bumped into a robot : communication is possible
+        if ( targetIndex >= gRobotIndexStartOffset && targetIndex < gRobotIndexStartOffset+gNbOfRobots )   // sensor ray bumped into a robot : communication is possible
         {
             targetIndex = targetIndex - gRobotIndexStartOffset; // convert image registering index into robot id.
             

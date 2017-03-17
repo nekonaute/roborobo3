@@ -13,7 +13,7 @@
 #include "RoboroboMain/roborobo.h"
 
 extern int gScreenshotIndex;
-extern int gRobotTrackerIndex; 
+extern int gEnvironmentScreenshotIndex; 
 extern int gTrajectoryImageIndex;
 
 bool initSDL(Uint32 flags = 0); // parameter is optional (default: SDL_HWSURFACE | SDL_DOUBLEBUF)
@@ -63,8 +63,9 @@ void toggle_fullscreen();
 
 SDL_Surface *load_image( std::string filename );
 
-void saveScreenshot( std::string __comment = "");
-void saveRobotTrackerIndex( std::string __comment = "" );
+void saveRenderScreenshot( std::string __comment = "");
+void saveEnvironmentScreenshot( std::string __comment = "" );
+void saveFootprintScreenshot( std::string __comment = "" );
 
 void saveTrajectoryImage( std::string __comment = "" );
 

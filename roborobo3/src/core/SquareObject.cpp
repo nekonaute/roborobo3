@@ -101,14 +101,12 @@ SquareObject::SquareObject( int __id ) : PhysicalObject( __id ) // a unique and 
     if ( _visible )
     {
         registerObject();
-        if ( gDisplayMode <= 1 )
-            display();
     }
     
     registered = true;
 }
 
-void SquareObject::display() // display on screen (called in the step() method if gDisplayMode=0 and _visible=true)
+void SquareObject::show() // display on screen (called in the step() method if gDisplayMode=0 and _visible=true)
 {
     //  draw footprint
     
@@ -116,25 +114,25 @@ void SquareObject::display() // display on screen (called in the step() method i
     Uint8 g = 0xF0;
     Uint8 b = 0xF0;
 
-    Uint32 color = SDL_MapRGBA(gBackgroundImage->format,r,g,b,SDL_ALPHA_OPAQUE);
+    Uint32 color = SDL_MapRGBA(gScreen->format,r,g,b,SDL_ALPHA_OPAQUE);
     
     for (Sint16 xColor = _xCenterPixel - Sint16(_soft_w/2) ; xColor < _xCenterPixel + Sint16(_soft_w/2) ; xColor++)
     {
         for (Sint16 yColor = _yCenterPixel - Sint16(_soft_h/2) ; yColor < _yCenterPixel + Sint16 (_soft_h/2); yColor ++)
         {
-            putPixel32_secured(gBackgroundImage, xColor, yColor,  color);
+            putPixel32_secured(gScreen, xColor, yColor,  color);
         }
     }
     
     // draw object
     
-    color = SDL_MapRGBA(gBackgroundImage->format,_displayColorRed,_displayColorGreen,_displayColorBlue,SDL_ALPHA_OPAQUE);
+    color = SDL_MapRGBA(gScreen->format,_displayColorRed,_displayColorGreen,_displayColorBlue,SDL_ALPHA_OPAQUE);
     
 	for (Sint16 xColor = _xCenterPixel - Sint16(_solid_w/2) ; xColor < _xCenterPixel + Sint16(_solid_w/2) ; xColor++)
 	{
 		for (Sint16 yColor = _yCenterPixel - Sint16(_solid_h/2) ; yColor < _yCenterPixel + Sint16 (_solid_h/2); yColor ++)
 		{
-            putPixel32(gBackgroundImage, xColor, yColor,  color);
+            putPixel32(gScreen, xColor, yColor,  color);
 		}
 	}
 }
@@ -147,13 +145,13 @@ void SquareObject::hide()
     Uint8 g = 0xFF;
     Uint8 b = 0xFF;
     
-    Uint32 color = SDL_MapRGBA(gBackgroundImage->format,r,g,b,SDL_ALPHA_OPAQUE);
+    Uint32 color = SDL_MapRGBA(gScreen->format,r,g,b,SDL_ALPHA_OPAQUE);
     
     for (Sint16 xColor = _xCenterPixel - Sint16(_soft_w/2) ; xColor < _xCenterPixel + Sint16(_soft_w/2) ; xColor++)
     {
         for (Sint16 yColor = _yCenterPixel - Sint16(_soft_h/2) ; yColor < _yCenterPixel + Sint16 (_soft_h/2); yColor ++)
         {
-            putPixel32_secured(gBackgroundImage, xColor, yColor,  color);
+            putPixel32_secured(gScreen, xColor, yColor,  color);
         }
     }
     
@@ -163,7 +161,7 @@ void SquareObject::hide()
 	{
 		for (Sint16 yColor = _yCenterPixel - Sint16(_solid_h/2) ; yColor < _yCenterPixel + Sint16 (_solid_h/2); yColor ++)
 		{
-            putPixel32(gBackgroundImage, xColor, yColor,  color);
+            putPixel32(gScreen, xColor, yColor,  color);
 		}
 	}
 }

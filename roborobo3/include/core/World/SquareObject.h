@@ -33,7 +33,7 @@ public :
     bool canRegister(); // test if register object is possible (use both shape or footprints)
     void registerObject(); // register object in the world (write images)
     void unregisterObject(); // unregister object in the world (write blank pixels)
-    void display(); // wrt. screen-rendering
+    void show(); // wrt. screen-rendering
     void hide();    // wrt. screen-rendering
     
 };

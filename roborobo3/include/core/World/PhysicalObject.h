@@ -74,8 +74,10 @@ public :
     virtual void isTouched( int __idAgent ) = 0; // callback, triggered by agent
     virtual void isWalked( int __idAgent ) = 0; // callback, triggered by agent
     
-    virtual void display() = 0;
+    virtual void show() = 0;
     virtual void hide() = 0;
+    
+    bool isVisible() { return _visible; }
     
     bool triggerRegrow();
     

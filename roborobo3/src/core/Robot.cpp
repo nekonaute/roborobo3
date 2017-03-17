@@ -20,8 +20,8 @@ Robot::Robot( World *__world )
 
 	_wm->_world = __world;
 
-	_wm->_id = gNumberOfRobots;
-	gNumberOfRobots++;
+	_wm->_id = gNbOfRobots;
+	gNbOfRobots++;
 	
 	//Process agent specification (ie. IR/US/laser sensors)
 	

@@ -123,7 +123,7 @@ void Agent::set_camera()
 
 bool Agent::isInstanceOf ( int index ) // static
 {
-    if ( index >= gRobotIndexStartOffset && index < gRobotIndexStartOffset+gNumberOfRobots )
+    if ( index >= gRobotIndexStartOffset && index < gRobotIndexStartOffset+gNbOfRobots )
         return true;
     else
         return false;

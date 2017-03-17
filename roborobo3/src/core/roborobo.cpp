@@ -172,7 +172,7 @@ bool gInspectorAgent = false; // is there an inspector agent?
 int gMaxIt = 0; // note: value *must* be defined in the properties file. ("-1" (ie. infinite) is a nice default setting).
 
 int gNbOfLandmarks = 0;
-std::vector<LandmarkObject> gLandmarks;
+std::vector<LandmarkObject*> gLandmarks;
 
 int gNbOfPhysicalObjects = 0;
 int gPhysicalObjectDefaultType = 0;
@@ -200,7 +200,7 @@ bool gEnergyRefill = false;
 double gEnergyItemDefaultInit = 100;
 int gEnergyItemDefaultMode = 0;
 
-int gNumberOfRobots = 0;
+int gNbOfRobots = 0;
 int gRobotIndexFocus = 0;
 
 int gNumberOfRobotGroups = 1;
@@ -483,7 +483,7 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 			{
 				// save screenshot
 
-				saveScreenshot();
+				saveRenderScreenshot();
 			
 				if ( gVerbose )
 					std::cout << "Screenshot saved." << std::endl;
@@ -600,7 +600,7 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 						//       that it is not within the perceptual range of any other agents (speed up simulation).
 						
 						int radiusMax = gRobotWidth > gRobotHeight ? ( gRobotWidth + 1 ) / 2 : ( gRobotHeight + 1 ) / 2; // assume an upper bound for dimension.
-						for ( int i = 0 ; i != gNumberOfRobots ; i++ ) // test for agents proximity based on localization 
+						for ( int i = 0 ; i != gNbOfRobots ; i++ ) // test for agents proximity based on localization 
 						{
 						  int x = (int)(gWorld->getRobot(i)->getWorldModel()->getXReal());
 						  int y = (int)(gWorld->getRobot(i)->getWorldModel()->getYReal());
@@ -718,9 +718,9 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 		if ( keyboardStates[ SDL_SCANCODE_TAB ] )
 		{
 			if ( keyboardStates[ SDL_SCANCODE_RSHIFT ] || keyboardStates[ SDL_SCANCODE_LSHIFT ] )
-				gRobotIndexFocus = ( (gRobotIndexFocus-1) + gNumberOfRobots )  % gNumberOfRobots;
+				gRobotIndexFocus = ( (gRobotIndexFocus-1) + gNbOfRobots )  % gNbOfRobots;
 			else
-				gRobotIndexFocus = (gRobotIndexFocus+1) % gNumberOfRobots;
+				gRobotIndexFocus = (gRobotIndexFocus+1) % gNbOfRobots;
 			
 			if ( gVerbose )
 				std::cout << "Agent #" << gRobotIndexFocus << " is selected." << std::endl;
@@ -787,58 +787,75 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
 				gWorld->getRobot(gRobotIndexFocus)->set_camera();
 
 			//Show the background image and foreground image (active borders) [note: this is what costs a lot wrt. computation time]
-			if ( gBackgroundImage != NULL && gNiceRendering )
-				apply_surface( 0, 0, gBackgroundImage, gScreen, &gCamera );
-			else
-				if ( gNiceRendering )
-					SDL_FillRect( gScreen, &gScreen->clip_rect, SDL_MapRGBA( gScreen->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen if no background image
-				else
-					apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
-
-			if ( gNiceRendering ) 
-				apply_surface( 0, 0, gForegroundImage, gScreen, &gCamera );
-			else
-				apply_surface( 0, 0, gEnvironmentImage, gScreen, &gCamera );
-
-            if ( gWorld->getIterations() == 1 )
+            if ( gNiceRendering )
             {
-                saveScreenshot("firstIteration_environment");
-            }
-            else
-            {
-                if ( gWorld->getIterations() == gMaxIt-1 )
+                if ( gBackgroundImage != NULL )
                 {
-                    saveScreenshot("lastIteration_environment");
+                    apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
+                    //apply_surface( 0, 0, gBackgroundImage, gScreen, &gCamera ); //!n
+                }
+                else
+                    SDL_FillRect( gScreen, &gScreen->clip_rect, SDL_MapRGBA( gScreen->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen
+                apply_surface( 0, 0, gForegroundImage, gScreen, &gCamera );
+            }
+			else
+            {
+				apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
+				apply_surface( 0, 0, gEnvironmentImage, gScreen, &gCamera );
+            }
+            
+            if ( gNiceRendering ) // + ( gDisplayMode != 2 || gSnapshot...? || gVideoRecording...? )   // !n
+            {
+                // Show landmark(s) on the screen
+                for ( int i = 0 ; i != gNbOfLandmarks ; i++ )
+                {
+                    if ( gLandmarks[i]->isVisible() )
+                    {
+                        gLandmarks[i]->show();
+                    }
+                }
+                
+                // Show object(s) on the screen
+                {
+                    for ( int i = 0 ; i != gNbOfPhysicalObjects ; i++ )
+                    {
+                        if ( gPhysicalObjects[i]->isVisible() )
+                        {
+                            gPhysicalObjects[i]->show();
+                        }
+                    }
+                }
+
+                // Show agent(s) on the screen
+                for ( int i = 0 ; i != gNbOfRobots ; i++ )
+                {
+                    if ( gWorld->isRobotRegistered(i) )
+                        gWorld->getRobot(i)->unregisterRobot(); // remove agent from memory so as to correctly cast sensors (otw: may see itself)
+                    
+                    gWorld->getRobot(i)->show(); // show sensor rays.
+                    
+                    // re-registering agents (post-display)
+                    if ( gWorld->isRobotRegistered(i) )
+                        gWorld->getRobot(i)->registerRobot();
                 }
             }
-			
-            //Show agents on the screen
-			for ( int i = 0 ; i != gNumberOfRobots ; i++ )
-			{
-				if ( gWorld->isRobotRegistered(i) )
-					gWorld->getRobot(i)->unregisterRobot(); // remove agent from memory so as to correctly cast sensors (otw: may see itself)
-				
-				gWorld->getRobot(i)->show(); // show sensor rays.
-				
-				// re-registering agents (post-display)
-				if ( gWorld->isRobotRegistered(i) )
-					gWorld->getRobot(i)->registerRobot();
-			}
-            
             
             // * Snapshots: take screenshots of first and ~ultimate iteration
             
             if ( gWorld->getIterations() == 1 )
             {
-                saveScreenshot("firstIteration");
-                saveRobotTrackerIndex("firstIteration");
+                saveRenderScreenshot("firstIteration");
+                saveEnvironmentScreenshot("firstIteration");
+                saveFootprintScreenshot("firstIteration");
+                
             }
             else
             {
                 if ( gWorld->getIterations() == gMaxIt-1 )
                 {
-                    saveScreenshot("lastIteration");
-                    saveRobotTrackerIndex("lastIteration");
+                    saveRenderScreenshot("lastIteration");
+                    saveEnvironmentScreenshot("lastIteration");
+                    saveFootprintScreenshot("lastIteration");
                 }
             }
 
@@ -864,7 +881,7 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
 			
 			// video capture (sync with screen update)
 			if ( gVideoRecording == true )
-				saveScreenshot("movie");
+				saveRenderScreenshot("movie");
 	}
     
     if ( gWorld->getIterations() == 1 )
@@ -2054,7 +2071,7 @@ void initTrajectoriesMonitor()
 void updateTrajectoriesMonitor()
 {
     int indexStart = 0;
-    int indexStop = gNumberOfRobots;
+    int indexStop = gNbOfRobots;
     
     if ( gTrajectoryMonitorMode == 1 ) // exception: monitor only agent with focus
     {   

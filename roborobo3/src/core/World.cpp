@@ -71,8 +71,8 @@ World::World()
 
 World::~World()
 {
-	for ( int i = 0 ; i != gNumberOfRobots ; i++ )
-		if ( robots[i] != NULL ) delete robots[i];
+	for ( int i = 0 ; i != gNbOfRobots ; i++ )
+		if ( gRobots[i] != NULL ) delete gRobots[i];
 	
 	delete _worldObserver;
 }
@@ -116,8 +116,7 @@ void World::initWorld()
     
     for ( int i = 0 ; i != gNbOfLandmarks ; i++)
     {
-        LandmarkObject landmarkObject;
-        gLandmarks.push_back(landmarkObject);
+        gLandmarks.push_back(new LandmarkObject());
     }
     
     // * initialize physical objects
@@ -166,7 +165,7 @@ void World::initWorld()
     
 	_worldObserver->reset();
 
-    for ( int i = 0 ; i != gNumberOfRobots ; i++ )
+    for ( int i = 0 ; i != gNbOfRobots ; i++ )
 		robotRegistry[i]=false;
 }
 
@@ -175,11 +174,11 @@ void World::resetWorld()
 	gRobotIndexFocus = 0;
 	_iterations = 0;
 	
-	for ( int i = 0 ; i != gNumberOfRobots ; i++ )
+	for ( int i = 0 ; i != gNbOfRobots ; i++ )
 	{
-		robots[i]->unregisterRobot();
-		robots[i]->reset();
-		robots[i]->registerRobot();
+		gRobots[i]->unregisterRobot();
+		gRobots[i]->reset();
+		gRobots[i]->registerRobot();
 		robotRegistry[i]=true;
 	}
 }
@@ -187,78 +186,72 @@ void World::resetWorld()
 
 void World::updateWorld(const Uint8 *__keyboardStates)
 {
-    // update physical object, if any
-    for( std::vector<PhysicalObject*>::iterator it = gPhysicalObjects.begin(); it != gPhysicalObjects.end(); ++it )
+    // Remark: objects and agents are updated *in random order* so as to avoid "effect" order (e.g. low index agents moves first).
+    //    This is very important to avoid possible nasty effect from ordering such as "agents with low indexes moves first"
+    //    outcome: among many iterations, the effect of ordering is reduced.
+    //    This means that roborobo is turn-based, with stochastic update ordering within one turn
+
+    
+    // * update physical object, if any (in random order)
+    
+    int shuffledObjectIndex[gNbOfPhysicalObjects];
+    for ( int i = 0 ; i < gNbOfPhysicalObjects ; i++ )
+        shuffledObjectIndex[i] = i;
+    std::random_shuffle(&shuffledObjectIndex[0], &shuffledObjectIndex[gNbOfPhysicalObjects]);
+    for ( int i = 0 ; i < gNbOfPhysicalObjects ; i++ )
+        gPhysicalObjects[shuffledObjectIndex[i]]->step();
+    
+    // * update landmark object, if any
+	
+    for (std::vector<LandmarkObject*>::iterator it = gLandmarks.begin(); it < gLandmarks.end() ; it++ )
 	{
 		(*it)->step();
 	}
     
-    // update landmark object, if any
-	for (std::vector<LandmarkObject>::iterator it = gLandmarks.begin(); it < gLandmarks.end() ; it++ )
-	{
-		it->step();
-	}
-    
-	// update world level observer
-	_worldObserver->step();
-
+	// * update world level observer
+	
+    _worldObserver->step();
 
     // * update agents
-    // Remark: agents are updated *in random order* so as to avoid "effect" order (e.g. low index agents moves first).
-	// => create an array that contains shuffled indexes. Used afterwards for randomly update agents.
-	//    This is very important to avoid possible nasty effect from ordering such as "agents with low indexes moves first"
-	//    outcome: among many iterations, the effect of ordering is reduced.
-	//    This means that roborobo is turn-based, with stochastic update ordering within one turn
 	
-    int shuffledIndex[gNumberOfRobots];
+    int shuffledRobotIndex[gNbOfRobots];
+    for ( int i = 0 ; i < gNbOfRobots ; i++ )
+        shuffledRobotIndex[i] = i;
+    std::random_shuffle(&shuffledRobotIndex[0], &shuffledRobotIndex[gNbOfRobots]);
     
-    for ( int i = 0 ; i < gNumberOfRobots ; i++ )
-        shuffledIndex[i] = i;
-	
-    for ( int i = 0 ; i < gNumberOfRobots-1 ; i++ ) // exchange randomly indexes with one other
-    {
-        int r = i + (rand() % (gNumberOfRobots-i)); // Random remaining position.
-        int tmp = shuffledIndex[i];
-        shuffledIndex[i] = shuffledIndex[r];
-        shuffledIndex[r] = tmp;
-    }
-
 	// update agent level observers
-	for ( int i = 0 ; i != gNumberOfRobots ; i++ )
-		robots[i]->callObserver();
-
-
-	// * update world and agents
+	for ( int i = 0 ; i != gNbOfRobots ; i++ )
+		gRobots[shuffledRobotIndex[i]]->callObserver();
 
 	// controller step
-	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
+	for ( int i = 0 ; i < gNbOfRobots ; i++ )
 	{
 		if ( __keyboardStates == NULL )
-			robots[shuffledIndex[i]]->stepBehavior();
+			gRobots[shuffledRobotIndex[i]]->stepBehavior();
 		else
 		{
-			if ( shuffledIndex[i] == gRobotIndexFocus )
-				robots[shuffledIndex[i]]->stepBehavior(__keyboardStates);
+			if ( shuffledRobotIndex[i] == gRobotIndexFocus )
+				gRobots[shuffledRobotIndex[i]]->stepBehavior(__keyboardStates);
 			else
-				robots[shuffledIndex[i]]->stepBehavior();
+				gRobots[shuffledRobotIndex[i]]->stepBehavior();
 		}
 	}
 
-	// * move the agent -- apply (limited) physics
-	for ( int i = 0 ; i < gNumberOfRobots ; i++ )
+	// move the agent -- apply (limited) physics
+	for ( int i = 0 ; i < gNbOfRobots ; i++ )
 	{
 		// unregister itself (otw: own sensor may see oneself)
-		if ( robotRegistry[shuffledIndex[i]] )
+		if ( robotRegistry[shuffledRobotIndex[i]] )
 		{
-			robots[shuffledIndex[i]]->unregisterRobot();
+			gRobots[shuffledRobotIndex[i]]->unregisterRobot();
 		}
 
         // move agent
-        robots[shuffledIndex[i]]->move();
+        gRobots[shuffledRobotIndex[i]]->move();
         
         // register robot (remark: always register is fine with small robots and/or high density)
-        robots[shuffledIndex[i]]->registerRobot();
-        robotRegistry[shuffledIndex[i]]=true;
+        gRobots[shuffledRobotIndex[i]]->registerRobot();
+        robotRegistry[shuffledRobotIndex[i]]=true;
     }
     
     gLogManager->flush();
@@ -417,7 +410,7 @@ bool World::loadFiles()
 
 Robot* World::getRobot( int index )
 {
-	return robots[index];
+	return gRobots[index];
 }
 
 bool World::isRobotRegistered( int index )
@@ -434,14 +427,14 @@ void World::deleteRobot (int index )
 	agents[__agentIndex]->unregisterRobot();
 	agents.erase(agents.begin() + __agentIndex);
 	robotRegistry.erase(robotRegistry.begin() + __agentIndex);
-	gNumberOfRobots --;
+	gNbOfRobots --;
 	_agentsVariation = true;
     */
 }
 
 void World::addRobot(Robot *robot)
 {
-	robots.push_back(robot);
+	gRobots.push_back(robot);
 	robotRegistry.push_back(true);
 	_agentsVariation = true;
 }
@@ -449,12 +442,14 @@ void World::addRobot(Robot *robot)
 void World::deleteLandmark (int __index )
 {
 	gLandmarks.erase(gLandmarks.begin() + __index );
+    gNbOfLandmarks--;
 }
 
-//void World::addLandmark( LandmarkObject* objectToAdd )
-//{
-//	gLandmarks.push_back(objectToAdd);
-//}
+void World::addLandmark( LandmarkObject* objectToAdd )
+{
+	gLandmarks.push_back(objectToAdd);
+    gNbOfLandmarks++;
+}
 
 int World::getIterations()
 {
@@ -468,6 +463,6 @@ WorldObserver* World::getWorldObserver()
 
 int World::getNbOfRobots()
 {
-	return (int)robots.size();
+	return (int)gRobots.size();
 }
 

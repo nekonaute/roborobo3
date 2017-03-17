@@ -115,17 +115,17 @@ void TemplateRandomwalkController::monitorSensoryInformation()
         //      - example of use: magnetic compass, detection of direction to specific zone, etc.
         //      - closest landmark can be computed automatically (see below, last part)
         
-        if ( gLandmarks.size() > 0 )
+        if ( gNbOfLandmarks > 0 )
         {
             // All landmarks (if any)
             
-            for ( size_t i = 0 ; i != gLandmarks.size() ; i++ )
+            for ( size_t i = 0 ; i != gNbOfLandmarks ; i++ )
             {
                 Point2d posRobot(_wm->getXReal(),_wm->getYReal());
                 Point2d closestPoint;
                 
-                double distanceToLandmark = getEuclidianDistance (posRobot,gLandmarks[0].getPosition());
-                double diffAngleToClosestLandmark = getAngleToTarget(posRobot,_wm->_agentAbsoluteOrientation,gLandmarks[i].getPosition());
+                double distanceToLandmark = getEuclidianDistance (posRobot,gLandmarks[0]->getPosition());
+                double diffAngleToClosestLandmark = getAngleToTarget(posRobot,_wm->_agentAbsoluteOrientation,gLandmarks[i]->getPosition());
                 
                 std::cout << "Landmark " << i << " is at distance " << distanceToLandmark << ", angle = " << diffAngleToClosestLandmark << "\n";
             }

@@ -107,7 +107,7 @@ void TemplateBoidsWorldObserver::monitorPopulation( bool localVerbose )
     // * monitoring: count number of active agents.
     
     int activeCount = 0;
-    for ( int i = 0 ; i != gNumberOfRobots ; i++ )
+    for ( int i = 0 ; i != gNbOfRobots ; i++ )
     {
         if ( (dynamic_cast<TemplateBoidsController*>(gWorld->getRobot(i)->getController()))->getWorldModel()->isAlive() == true )
             activeCount++;

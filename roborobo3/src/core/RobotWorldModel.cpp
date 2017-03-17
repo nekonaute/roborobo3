@@ -54,14 +54,14 @@ void RobotWorldModel::initCameraSensors ( int nbSensors )
 
 void RobotWorldModel::updateLandmarkSensor( int __landmarkId )
 {
-    if ( (size_t)__landmarkId > gLandmarks.size() )
+    if ( (size_t)__landmarkId > gNbOfLandmarks )
     {
         std::cout << "[ERROR] Landmark " << __landmarkId << " does not exist in RobotWorldModel::updateLandmarkSensor(landmarkId). Exiting." << std::endl;
         exit (-1);
     }
     
     Point2d posRobot(_xReal,_yReal);
-    Point2d landmarkCoordinates = gLandmarks[__landmarkId].getPosition();
+    Point2d landmarkCoordinates = gLandmarks[__landmarkId]->getPosition();
     
     double distanceToLandmark = getEuclidianDistance (posRobot,landmarkCoordinates);
     double diffAngleToLandmark = getAngleToTarget(posRobot,_agentAbsoluteOrientation,landmarkCoordinates);
@@ -87,7 +87,7 @@ void RobotWorldModel::updateLandmarkSensor( int __landmarkId )
 
 void RobotWorldModel::updateLandmarkSensor()
 {
-    if ( gLandmarks.size() == 0 )
+    if ( gNbOfLandmarks == 0 )
     {
         std::cout << "[ERROR] There is no landmark to consider in RobotWorldModel::updateLandmarkSensor(). Exiting." << std::endl;
         exit (-1);
@@ -100,17 +100,17 @@ void RobotWorldModel::updateLandmarkSensor()
     
     double diffAngleToClosestLandmark;
     
-    if ( gLandmarks.size() > 0 )
+    if ( gNbOfLandmarks > 0 )
     {
         Point2d posRobot(_xReal,_yReal);
         Point2d closestPoint;
 
-        distanceToClosestLandmark = getEuclidianDistance (posRobot,gLandmarks[0].getPosition());
+        distanceToClosestLandmark = getEuclidianDistance (posRobot,gLandmarks[0]->getPosition());
         int iClosest = 0;
         
-        for ( unsigned int i = 1 ; i < gLandmarks.size() ; i++ )
+        for ( unsigned int i = 1 ; i < gNbOfLandmarks ; i++ )
         {
-            double distance = getEuclidianDistance (posRobot,gLandmarks[i].getPosition());
+            double distance = getEuclidianDistance (posRobot,gLandmarks[i]->getPosition());
             
             if ( distance < distanceToClosestLandmark )
             {
@@ -119,7 +119,7 @@ void RobotWorldModel::updateLandmarkSensor()
             }
         }
         
-        closestPoint = gLandmarks[iClosest].getPosition();
+        closestPoint = gLandmarks[iClosest]->getPosition();
         diffAngleToClosestLandmark = getAngleToTarget(posRobot,_agentAbsoluteOrientation,closestPoint);
     }
     else

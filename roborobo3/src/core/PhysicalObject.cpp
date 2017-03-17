@@ -180,8 +180,6 @@ void PhysicalObject::stepPhysicalObject()
                 _visible = true;
                 registered = true;
                 registerObject();
-                if ( gDisplayMode <= 1 )
-                    display();
             }
             else
             {
@@ -190,8 +188,6 @@ void PhysicalObject::stepPhysicalObject()
                     _visible = true;
                     registered = true;
                     registerObject();
-                    if ( gDisplayMode <= 1 )
-                        display();
                 }
             }
         }
@@ -204,8 +200,6 @@ void PhysicalObject::stepPhysicalObject()
             {
                 registerObject();
             }
-            if ( gRefreshUserDisplay )
-                display();
         }
     }
 }
@@ -242,8 +236,6 @@ bool PhysicalObject::triggerRegrow()
         _visible = true;
         registered = true;
         registerObject();
-        if ( gDisplayMode <= 1 )
-            display();
     }
     
     return true;

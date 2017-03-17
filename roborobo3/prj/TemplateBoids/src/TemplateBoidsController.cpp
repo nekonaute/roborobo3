@@ -19,7 +19,7 @@ TemplateBoidsController::TemplateBoidsController( RobotWorldModel *wm )
     
     _iteration = 0;
     
-    if ( gLandmarks.size() > 0 )
+    if ( gNbOfLandmarks > 0 )
         _wm->updateLandmarkSensor();
     
     _wm->setAlive(true);

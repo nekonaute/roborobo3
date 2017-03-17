@@ -11,8 +11,9 @@
 #include "Utilities/Misc.h"
 
 
-int gScreenshotIndex = 0; // numbering screenshot (used by saveScreenshot(...))
-int gRobotTrackerIndex = 0;
+int gRenderScreenshotIndex = 0; // numbering screenshots
+int gEnvironmentScreenshotIndex = 0;
+int gFootprintScreenshotIndex = 0;
 int gTrajectoryFileIndex = 0; // numbering trajectory images (used by saveTrajectoryImage(...))
 
 
@@ -77,33 +78,48 @@ void saveTrajectoryImage ( std::string __comment )
     }
 }
 
-void saveScreenshot(std::string __comment) // parameter is optional
+void saveRenderScreenshot( std::string __comment) // parameter is optional
 {
-    std::string screenShotIndexStr = convertToString(gScreenshotIndex);
+    std::string screenShotIndexStr = convertToString(gRenderScreenshotIndex);
     
     while( screenShotIndexStr.length() < 6 )
     {
         screenShotIndexStr =  "0" + screenShotIndexStr;
     }
     
-    saveImage(gScreen,"screenshot",screenShotIndexStr+"_"+__comment);
+    saveImage(gScreen,"screenshot_render",screenShotIndexStr+"_"+__comment);
 
-    gScreenshotIndex++;
+    gRenderScreenshotIndex++;
 }
 
-void saveRobotTrackerIndex( std::string __comment) // parameter is optional
+void saveEnvironmentScreenshot( std::string __comment) // parameter is optional
 {
-    std::string robotTrackerIndexStr = convertToString(gRobotTrackerIndex);
+    std::string str = convertToString(gEnvironmentScreenshotIndex);
     
-    while( robotTrackerIndexStr.length() < 6 )
+    while( str.length() < 6 )
     {
-        robotTrackerIndexStr =  "0" + robotTrackerIndexStr;
+        str =  "0" + str;
     }
     
-    saveImage(gEnvironmentImage,"robotsId",robotTrackerIndexStr+"_"+__comment);
+    saveImage(gEnvironmentImage,"screenshot_environment",str+"_"+__comment);
     
-	gRobotTrackerIndex++;
+	gEnvironmentScreenshotIndex++;
 }
+
+void saveFootprintScreenshot( std::string __comment) // parameter is optional
+{
+    std::string str = convertToString(gFootprintScreenshotIndex);
+    
+    while( str.length() < 6 )
+    {
+        str =  "0" + str;
+    }
+    
+    saveImage(gFootprintImage,"screenshot_footprint",str+"_"+__comment);
+    
+    gFootprintScreenshotIndex++;
+}
+
 
 bool initSDL(Uint32 flags) // parameter is optional (default: SDL_HWSURFACE | SDL_DOUBLEBUF)
 {

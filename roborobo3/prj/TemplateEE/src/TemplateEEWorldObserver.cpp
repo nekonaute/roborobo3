@@ -99,10 +99,10 @@ void TemplateEEWorldObserver::updateEnvironment()
     // example: moving landmarks
     /*
     if ( gWorld->getIterations() % 2000 == 0 )
-        for ( int i = 0 ; i != gLandmarks.size() ; i++ )
+        for ( int i = 0 ; i != gNbOfLandmarks ; i++ )
         {
             Point2d* position = new Point2d( 200+rand()%(gAreaWidth-400) , 200+rand()%(gAreaHeight-400) );
-            gLandmarks[i].setPosition(*position);
+            gLandmarks[i]->setPosition(*position);
         }
     */
 }
@@ -144,7 +144,7 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
     // * monitoring: count number of active agents.
     
     int activeCount = 0;
-    for ( int i = 0 ; i != gNumberOfRobots ; i++ )
+    for ( int i = 0 ; i != gNbOfRobots ; i++ )
     {
         if ( (dynamic_cast<TemplateEEController*>(gWorld->getRobot(i)->getController()))->getWorldModel()->isAlive() == true )
             activeCount++;

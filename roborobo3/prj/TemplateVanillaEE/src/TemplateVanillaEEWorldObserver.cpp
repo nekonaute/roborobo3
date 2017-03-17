@@ -43,7 +43,7 @@ void TemplateVanillaEEWorldObserver::monitorPopulation( bool localVerbose )
     double minFitness = DBL_MAX;
     double maxFitness = -DBL_MAX;
     
-    for ( int i = 0 ; i != gNumberOfRobots ; i++ )
+    for ( int i = 0 ; i != gNbOfRobots ; i++ )
     {
         TemplateVanillaEEController *ctl = dynamic_cast<TemplateVanillaEEController*>(gWorld->getRobot(i)->getController());
         

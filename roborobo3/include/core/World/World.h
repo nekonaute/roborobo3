@@ -24,7 +24,7 @@ class World
 {
 	protected:
 
-		std::vector<Robot*> robots;
+		std::vector<Robot*> gRobots;
 		std::vector<bool> robotRegistry;
         //This array tracks agents which are registered (ie. drawn) in the foreground image. Note that in the current implementation, tracking registered agent could be remove (in practical, agents are always registered, except for the very brief moment when an agent moves (unregister=>move=>register). The historical reason for this was that in previous implementation some agents could avoid registering whenever agent-agent collision was known to be impossible. However, this method was later shown to provide no speed-up when many small agents are considered. Also, gain is marginal for smaller number of robots.
 
@@ -59,7 +59,7 @@ class World
 		void addRobot(Robot *robot);
 		
 		void deleteLandmark(int __index );
-		//void addLandmark(LandmarkObject* objectToAdd);
+		void addLandmark(LandmarkObject* objectToAdd);
 	
 		int getIterations();
 		WorldObserver* getWorldObserver();

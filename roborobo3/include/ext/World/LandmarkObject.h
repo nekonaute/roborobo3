@@ -69,9 +69,11 @@ class LandmarkObject
     int getState() { return _state; }
     void setState( int state ) { _state = state; }
     
+    bool isVisible() { return _visible; }
+    
     virtual void step();
     
-    virtual void display();
+    virtual void show();
     virtual void hide();
 	
 };

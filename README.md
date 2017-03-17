@@ -5,7 +5,7 @@ Roborobo is a fast and simple 2D mobile robot simulator written in C++ loosely b
 
 This is version 3 of Roborobo.
 
-Roborobo only dependencies are: Boost (header-only) and SDL2. Roborobo is used on a daily basis on Linux and MacOS X. It was also tested on various systems, including RaspberryPi, Pandora, MS Windows, Linux in Virtual Box and several Linux-based clusters. 
+Roborobo only dependencies are: Boost (header-only), SDL2 and SL2_image. Roborobo is used on a daily basis on Linux and MacOS X. It was also tested on various systems, including RaspberryPi, Pandora, MS Windows, Linux in Virtual Box and several Linux-based clusters. 
 
 Installation
 ============

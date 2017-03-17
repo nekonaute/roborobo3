@@ -21,7 +21,10 @@ bp:
 -.[+] MLP/Elman: tmp[j] += tanh(_weights[weightsIndice++]) * _biaisValue;
 -.[=] save to PNG, added sdl2_image dependency
 - [-] set up different environment for benchmark.
-- [=] fusionner foreground/backgroung?
+-.[-] unifier la méthode de rendu visuel des objets/landmarks/agents dans gScreen
+-.[=] changement de la méthode de shuffle dans World::updateWorld()
+- [+] supprimer EnergyItem
+- [+] supprimer gBackgroundImage?
 
 ---
 

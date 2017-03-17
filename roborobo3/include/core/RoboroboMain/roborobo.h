@@ -93,7 +93,7 @@ class World;
 extern World *gWorld;				// pointer to the World
 
 extern int	gInitialNumberOfRobots;			// number of robots that should be created at start-up
-extern int	gNumberOfRobots;	    // actual number of robots existing in the simulation right now
+extern int	gNbOfRobots;	    // actual number of robots existing in the simulation right now
 extern int	gRobotIndexFocus;		// focused robot id.
 
 extern int gNumberOfRobotGroups;     // number of different robot types/families (default: 1)
@@ -118,7 +118,7 @@ extern bool gInspectorAgent;		// defines if there *actually* is an inspector age
 extern int gMaxIt;
 
 extern int gNbOfLandmarks;
-extern std::vector<LandmarkObject> gLandmarks; // list of inanimate objects (landmarks).
+extern std::vector<LandmarkObject*> gLandmarks; // list of inanimate objects (landmarks).
 
 extern int gNbOfPhysicalObjects;
 extern int gPhysicalObjectDefaultType;
