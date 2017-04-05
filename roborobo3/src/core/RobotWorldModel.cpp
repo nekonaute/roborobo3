@@ -63,7 +63,7 @@ void RobotWorldModel::updateLandmarkSensor( int __landmarkId )
     Point2d posRobot(_xReal,_yReal);
     Point2d landmarkCoordinates = gLandmarks[__landmarkId]->getPosition();
     
-    double distanceToLandmark = getEuclidianDistance (posRobot,landmarkCoordinates);
+    double distanceToLandmark = getEuclideanDistance (posRobot,landmarkCoordinates);
     double diffAngleToLandmark = getAngleToTarget(posRobot,_agentAbsoluteOrientation,landmarkCoordinates);
 
     setLandmarkDirectionAngleValue( diffAngleToLandmark / 180.0 );
@@ -105,12 +105,12 @@ void RobotWorldModel::updateLandmarkSensor()
         Point2d posRobot(_xReal,_yReal);
         Point2d closestPoint;
 
-        distanceToClosestLandmark = getEuclidianDistance (posRobot,gLandmarks[0]->getPosition());
+        distanceToClosestLandmark = getEuclideanDistance (posRobot,gLandmarks[0]->getPosition());
         int iClosest = 0;
         
         for ( unsigned int i = 1 ; i < gNbOfLandmarks ; i++ )
         {
-            double distance = getEuclidianDistance (posRobot,gLandmarks[i]->getPosition());
+            double distance = getEuclideanDistance (posRobot,gLandmarks[i]->getPosition());
             
             if ( distance < distanceToClosestLandmark )
             {

@@ -147,6 +147,7 @@ int gAgentsInitAreaY = 0;
 int gAgentsInitAreaWidth = -1;
 int gAgentsInitAreaHeight = -1;
 
+bool gMovableObjects = false;
 
 bool gRobotDisplayFocus = false;
 
@@ -257,7 +258,6 @@ int backup_gDisplayMode = 0;
 
 int  gDisplayMode=0;
 int  gFastDisplayModeSpeed = 60;//500;
-bool gRefreshUserDisplay = true;
 
 bool gUserCommandMode=false;
 
@@ -345,8 +345,7 @@ void displayHelp()
 
 		std::cout << " >>>> Keys:" << std::endl;
 		std::cout << "       h : help! (ie. this text)" << std::endl;
-		std::cout << "       r : refresh on-screen rendering (no impact on simulation)" << std::endl;
-
+		
 		std::cout << "       n : radio network communication on/off" << std::endl;
 		std::cout << "       d : set display mode - (1) default-60-fps; (2) fast; (3) fastest-no-display. (shift+d: inverse)" << std::endl;
 		std::cout << "       v : verbose on/off (console)" << std::endl;
@@ -424,21 +423,6 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 		if ( gVerbose )
 			std::cout << "Display mode is now " << gDisplayMode << std::endl;
 
-        if ( gDisplayMode <= 1 )
-            gRefreshUserDisplay = true;
-        
-		SDL_Delay(PAUSE_COMMAND);
-	}
-
-	if (keyboardStates[ SDL_SCANCODE_R ])
-	{
-        if ( gDisplayMode <= 1 )
-        {
-            gRefreshUserDisplay = true;
-            if ( gVerbose )
-                std::cout << "Refresh screen." << std::endl;
-        }
-			
 		SDL_Delay(PAUSE_COMMAND);
 	}
 
@@ -1765,6 +1749,17 @@ bool loadProperties( std::string __propertiesFilename )
             convertFromString<int>(gTrajectoryMonitorMode, gProperties.getProperty("gTrajectoryMonitorMode"), std::dec);
     }
 
+    s = gProperties.getProperty("gMovableObjects");
+    if ( s == "true" || s == "True" || s == "TRUE" )
+        gMovableObjects = true;
+    else
+        if ( s == "false" || s == "False" || s == "FALSE" )
+            gMovableObjects = false;
+        else
+        {
+            std::cerr << "[WARNING] gMovableObjects is missing or corrupt (default is \"false\").\n";
+            //returnValue = false;
+        }
 
 	if ( gProperties.hasProperty("gRobotMaskImageFilename") )
 		gRobotMaskImageFilename = gProperties.getProperty("gRobotMaskImageFilename");
@@ -2048,11 +2043,6 @@ void closeRoborobo()
     if ( seconds > 1 )
         std::cout << "s";
     std::cout << "." << std::endl << std::endl;
-}
-
-void resetRoboroboWorld()
-{
-	gWorld->resetWorld();
 }
 
 void initTrajectoriesMonitor()

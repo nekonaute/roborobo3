@@ -32,26 +32,26 @@ class Point2d
 		double y;
 };
 
-// return euclidian distance btw two 2D points
-inline double getEuclidianDistance(double x1, double y1, double x2, double y2)
+// return euclidean distance btw two 2D points
+inline double getEuclideanDistance(double x1, double y1, double x2, double y2)
 {
 	return sqrt( ( x1 - x2 ) * ( x1 - x2 ) + ( y1 - y2 ) * ( y1 - y2 ) );
 }
 
-// return the square of the euclidian distance btw two 2D points.
+// return the square of the euclidean distance btw two 2D points.
 // hint: comparing squared values is faster than using squareroot...
-inline double getSquaredEuclidianDistance(double x1, double y1, double x2, double y2)
+inline double getSquaredEuclideanDistance(double x1, double y1, double x2, double y2)
 {
 	return ( ( x1 - x2 ) * ( x1 - x2 ) + ( y1 - y2 ) * ( y1 - y2 ) );
 }
 
-// return euclidian distance btw two 2D points of type Point2d
-inline double getEuclidianDistance(Point2d p1, Point2d p2)
+// return euclidean distance btw two 2D points of type Point2d
+inline double getEuclideanDistance(Point2d p1, Point2d p2)
 {
 	return sqrt( pow(p1.x-p2.x,2) + pow(p1.y-p2.y,2));
 }
 
-double getSquaredEuclidianDistance(double x1, double y1, double x2, double y2);
+double getSquaredEuclideanDistance(double x1, double y1, double x2, double y2);
 
 
 // return distance and orientation of targetPt wrt. refPt+orientation (takes into account refPt orientation)

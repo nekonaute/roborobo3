@@ -169,7 +169,7 @@ void Robot::reset()
         randomPick = false;
 	}
 	else
-	{	
+	{
 		bool success;
 
 		do {
@@ -179,11 +179,7 @@ void Robot::reset()
 			
             x = (int)(ranf() * (double)(gAgentsInitAreaWidth - (2 * gRobotWidth))) + gRobotWidth + gAgentsInitAreaX;
             y = (int)(ranf() * (double)(gAgentsInitAreaHeight - (2 * gRobotHeight))) + gRobotHeight + gAgentsInitAreaY;
-            
-            // [!n] deprecated as of 2017-02-22. Delete after 10 days.
-            //x = (int)(ranf() * (double)(gAreaWidth - (2 * gRobotWidth))) + gRobotWidth;
-            //y = (int)(ranf() * (double)(gAreaHeight - (2 * gRobotHeight))) + gRobotHeight;
-            
+           
 			// check for agents superposition - ie. if picked position is valid vs. already located agents.
 			for ( int i = 0 ; i != _wm->getId() ; i++ )
 			{
@@ -215,10 +211,8 @@ void Robot::reset()
 					// check if empty
 					if ( color != ((255<<16)+(255<<8)+255) ) // r=robot, g=obstacle/object, b=unused
 					{
-						//std::cout << "faux: " << i << "," << j << " - " << ((r<<16)+(g<<8)+b) << std::endl; //<< " - " << (int)r << " " << (int)g << " " << (int)b << std::endl;
 						success = false;
 					}
-					//else std::cout << "ok!: "  << j << "," << j << " - " << ((r<<16)+(g<<8)+b) << std::endl; //<< " - " << (int)r << " " << (int)g << " " << (int)b << std::endl;
 				}
 			}
 
@@ -234,6 +228,7 @@ void Robot::reset()
     }
 
 	setCoordReal(x,y);
+    setCoord(x,y);
 
     //Initialize coordinate and displacement
 	_xDelta = 0;
@@ -304,8 +299,6 @@ void Robot::reset()
         _wm->_groundSensorValue[i] = 0; // floor sensor value (taken from gFootprintImage)
 	
 	// Initialize agent observer and Behavior Control Architecture
-
-
   
 	_agentObserver->reset();
 	_controller->reset();
@@ -846,62 +839,6 @@ void Robot::setCoordReal (int __x, int __y) // agent is centered on point
 void Robot::traceRayRGB(SDL_Surface * image, int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b)
 {
     drawLine( image, x1, y1, x2, y2, r, g, b );
-    
-    /*
-    // Method used before 2015-10-26 -- (slightly) more accurate, but (marginally) slower (approx.: 0.9*new_method)
-    // Kept here for the record -- can be deleted in 2016.
-    
-    Uint32 color =SDL_MapRGBA( image->format, r, g, b, SDL_ALPHA_OPAQUE );
-     
-	if ( abs(x1-x2) > abs (y1-y2) )
-	{
-		int it;
-		
-		double dy = double(y1-y2) / double(x1-x2);
-        
-		if ( (x1-x2) < 0 )
-		{
-			it=1;
-		}
-		else
-		{
-			it=-1;
-			dy=-dy;
-		}
-		
-		double yReal = y1;
-		
-		for ( int x = x1 ; x != x2 ; x = x + it )
-		{
-			putPixel32_secured( image, x, (int)(yReal+0.5) , color );
-			yReal += dy;
-		}
-	}
-	else
-	{
-		int it;
-		
-		double dx = double(x1-x2) / double(y1-y2);
-        
-		if ( (y1-y2) < 0 )
-		{
-			it=1;
-		}
-		else
-		{
-			it=-1;
-			dx=-dx;
-		}
-		
-		double xReal = x1;
-		
-		for ( int y = y1 ; y != y2 ; y = y + it )
-		{
-			putPixel32_secured( image, (int)(xReal+0.5), y , color );
-			xReal += dx;
-		}
-	}
-    */
 }
 
 /**
@@ -926,84 +863,6 @@ int Robot::castSensorRay(SDL_Surface * image, double x1, double y1, double *x2pt
             return __maxValue;
         else
             return gSensorRange;
-    
-    /*
-    // Method used before 2015-10-26 -- (slightly) more accurate, but (marginally) slower (approx.: 0.9*new_method)
-    // Kept here for the record -- can be deleted in 2016.
-     
-	double x2 = *x2pt;
-	double y2 = *y2pt;
-	
-	bool isCollision = false; // check collision btw sensor ray and object.
-	
-	if ( std::abs(x1-x2) > std::abs (y1-y2) )
-	{
-		int it;
-		
-		double dy = (y1-y2) / (x1-x2);
-        
-		if ( (x1-x2) < 0 )
-		{
-			it=1;
-		}
-		else
-		{
-			it=-1;
-			dy=-dy;
-		}
-		
-		double yReal = y1;
-		
-		for ( int x = (int)(x1+0.5) ; x != (int)(x2+0.5) ; x = x + it )
-		{
-			if ( getPixel32 ( image, x, (int)(yReal+0.5) ) != SDL_MapRGBA( image->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
-			{
-				*x2pt = (double)x;
-				*y2pt = yReal;
-				isCollision = true;
-				break;
-			}
-			yReal += dy;
-		}
-	}
-	else
-	{
-		int it;
-		
-		double dx = (x1-x2) / (y1-y2);
-        
-		if ( (y1-y2) < 0 )
-		{
-			it=1;
-		}
-		else
-		{
-			it=-1;
-			dx=-dx;
-		}
-		
-		double xReal = x1;
-		
-		for ( int y = (int)(y1+0.5) ; y != (int)(y2+0.5) ; y = y + it )
-		{
-			if ( getPixel32 ( image, (int)(xReal+0.5), y ) != SDL_MapRGBA( image->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
-			{
-				*x2pt = xReal;
-				*y2pt = (double)y;
-				isCollision = true;
-				break;
-			}
-			xReal += dx;
-		}
-	}
-    
-	if ( isCollision == false && __maxValue != -1 )
-		return __maxValue;
-	else
-		return sqrt ( ( x1 - *x2pt ) * ( x1 - *x2pt ) + ( y1 - *y2pt ) * ( y1 - *y2pt ) );
-    // should be equal to gSensorRange; // no hit
-     
-    */
 }
 
 

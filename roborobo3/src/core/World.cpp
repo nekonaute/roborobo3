@@ -169,21 +169,6 @@ void World::initWorld()
 		robotRegistry[i]=false;
 }
 
-void World::resetWorld()
-{
-	gRobotIndexFocus = 0;
-	_iterations = 0;
-	
-	for ( int i = 0 ; i != gNbOfRobots ; i++ )
-	{
-		gRobots[i]->unregisterRobot();
-		gRobots[i]->reset();
-		gRobots[i]->registerRobot();
-		robotRegistry[i]=true;
-	}
-}
-
-
 void World::updateWorld(const Uint8 *__keyboardStates)
 {
     // Remark: objects and agents are updated *in random order* so as to avoid "effect" order (e.g. low index agents moves first).
@@ -257,11 +242,7 @@ void World::updateWorld(const Uint8 *__keyboardStates)
     gLogManager->flush();
     
 	_iterations++;
-    
-    if ( gRefreshUserDisplay == true )
-    {
-        gRefreshUserDisplay = false;
-    }
+
 }
 
 

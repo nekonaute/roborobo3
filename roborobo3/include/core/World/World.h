@@ -44,7 +44,6 @@ class World
 		//bool loadProperties( std::string __propertiesFilename );
 
 		void initWorld();
-		void resetWorld();
 		void updateWorld(const Uint8 *__keyboardStates = NULL);
 		
 		Robot* getRobot( int index );

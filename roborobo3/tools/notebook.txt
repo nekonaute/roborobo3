@@ -23,8 +23,10 @@ bp:
 - [-] set up different environment for benchmark.
 -.[-] unifier la méthode de rendu visuel des objets/landmarks/agents dans gScreen
 -.[=] changement de la méthode de shuffle dans World::updateWorld()
-- [+] supprimer EnergyItem
-- [+] supprimer gBackgroundImage?
+- [-] Relevance of gRefreshUserDisplay?
+- [+] revoir EnergyItem
+- [+] supprimer gBackgroundImage...?
+- [=] random=>Mersenne-Twister
 
 ---
 

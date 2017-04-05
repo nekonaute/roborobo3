@@ -77,7 +77,6 @@ extern int gRandomSeed;				// random seed. Default value (="-1") means time base
 extern bool gVerbose;				// trigger console verbose on/off
 extern bool gBatchMode;				// trigger no display / no verbose mode.
 extern int  gDisplayMode;			// [0]: 60fps standard display speed, [1]: ignore some refresh (see gFastDisplayModeSpeed value), [2]: fastest, but no display)
-extern bool gRefreshUserDisplay;    // used to force refresh of screen (only for the user's eyes in displayMode =0 or =1
 
 extern int backup_gDisplayMode;
 
@@ -100,6 +99,8 @@ extern int gNumberOfRobotGroups;     // number of different robot types/families
 
 extern int gPhysicalObjectIndexStartOffset; // used for encoding the physical object's index into the environment image. (less than gRobotIndexStartOffset)
 extern int gRobotIndexStartOffset; // used for encoding the robot's index into the environment image.
+
+extern bool gMovableObjects; // enable physics for moving (some) objects
 
 extern bool gRobotDisplayFocus;  // make focused robot more visible
 
@@ -256,7 +257,6 @@ bool loadProperties( std::string __propertiesFilename );
 void initRoborobo();
 bool runRoborobo( int __maxIt = -1);
 void closeRoborobo();
-void resetRoboroboWorld();
 
 void initTrajectoriesMonitor();
 void updateTrajectoriesMonitor();
