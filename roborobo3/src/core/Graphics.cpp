@@ -11,6 +11,7 @@
 #include "Utilities/Misc.h"
 
 
+int gScreenshotIndex = 0;
 int gRenderScreenshotIndex = 0; // numbering screenshots
 int gEnvironmentScreenshotIndex = 0;
 int gFootprintScreenshotIndex = 0;
@@ -34,6 +35,40 @@ void saveImage ( SDL_Surface *image, std::string __prefix, std::string __comment
         sLog += ".png";
         IMG_SavePNG(image,sLog.c_str()); // dependance: SDL+SDL_image
     }
+}
+
+void saveScreenshot ( std::string __comment )
+{
+    // preparing
+    
+    SDL_Surface  *screenshot = NULL;
+    screenshot = SDL_CreateRGBSurface (
+                                    0, // flags (unused)
+                                    gScreenWidth,
+                                    gScreenHeight,
+                                    32,
+                                    0x00FF0000,
+                                    0x0000FF00,
+                                    0x000000FF,
+                                    0xFF000000);
+    
+    std::string screenShotIndexStr = convertToString(gScreenshotIndex);
+    
+    while( screenShotIndexStr.length() < 6 )
+    {
+        screenShotIndexStr =  "0" + screenShotIndexStr;
+    }
+
+    // rendering
+    
+    std::cout << "NOT IMPLEMENTED - WORK IN PROGRESS!" << std::endl;
+    
+    // saving
+    
+    saveImage(screenshot,"screenshot_",screenShotIndexStr+"_"+__comment);
+    
+    gScreenshotIndex++;
+    delete screenshot;
 }
 
 void saveTrajectoryImage ( std::string __comment )

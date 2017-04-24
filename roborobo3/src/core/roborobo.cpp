@@ -102,9 +102,6 @@ bool gOutputImageFormat = false; // default: PNG. (if True: BMP)
 bool gTrajectoryMonitor = false;
 int gTrajectoryMonitorMode = 0;
 
-//std::vector<std::string> gRemainingCommandLineParameters;    //todelete: 2014-09-17, deprecated
-
-
 //filenames
 
 std::ofstream gLogFile;
@@ -326,9 +323,8 @@ void clean_up()
     }
 
 	if ( inspectorAgent != NULL ) delete(inspectorAgent);
-
-    //Quit SDL
-    //SDL_Quit();
+    
+    delete gWorld;
 }
 
 
@@ -934,7 +930,7 @@ void initLogging()
 	gLogFile << "# LOG DATA " << std::endl;
 	gLogFile << "# =-=-=-=-=-=-=-=-=-=-=" << std::endl;
 	gLogFile << "#" << std::endl;
-	gLogFile << "# =-= Roborobo^2 " << std::endl;
+	gLogFile << "# =-= Roborobo^3 " << std::endl;
 	gLogFile << "# =-= Official version tag    : " << gVersion << std::endl;
 	gLogFile << "# =-= Current build name      : " << gCurrentBuildInfo << std::endl;
 	gLogFile << "# =-= Compilation version tag : " << gCompileDate << " - " << gCompileTime << std::endl;

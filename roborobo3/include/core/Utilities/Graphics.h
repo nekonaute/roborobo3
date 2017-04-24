@@ -13,6 +13,7 @@
 #include "RoboroboMain/roborobo.h"
 
 extern int gScreenshotIndex;
+extern int gRenderScreenshotIndex;
 extern int gEnvironmentScreenshotIndex; 
 extern int gTrajectoryImageIndex;
 
@@ -63,6 +64,7 @@ void toggle_fullscreen();
 
 SDL_Surface *load_image( std::string filename );
 
+void saveScreenshot( std::string __comment = "");
 void saveRenderScreenshot( std::string __comment = "");
 void saveEnvironmentScreenshot( std::string __comment = "" );
 void saveFootprintScreenshot( std::string __comment = "" );

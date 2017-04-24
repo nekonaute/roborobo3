@@ -20,13 +20,20 @@ bp:
 -.[=] enable include of pties files within pties file.
 -.[+] MLP/Elman: tmp[j] += tanh(_weights[weightsIndice++]) * _biaisValue;
 -.[=] save to PNG, added sdl2_image dependency
-- [-] set up different environment for benchmark.
 -.[-] unifier la méthode de rendu visuel des objets/landmarks/agents dans gScreen
 -.[=] changement de la méthode de shuffle dans World::updateWorld()
-- [-] Relevance of gRefreshUserDisplay?
+-.[=] replace [s|g]etNewGenomeStatus by mapGenotypeToPhenotype() ...? => no, but added mapGenotypeToPhenotype().
+-.[-] Relevance of gRefreshUserDisplay? => deleted
+- [-] set up different environment for benchmark.
 - [+] revoir EnergyItem
 - [+] supprimer gBackgroundImage...?
 - [=] random=>Mersenne-Twister
+- [=] putPixel32_secured vs putPixel32
+- [=] CircleObject::canRegister() et registerObject: implement as robots (ie. circle, not disk)
+- [+] [@Laura] cf. updateDisplay() pour faire un saveRenderScreenshot modulable (ou autre nom)
+- [+] [@Theotime] Mais disons que y’a pas mal de trucs qui dépendent du timestamp même si on change la valeur par défaut, comme outputFilename et dans saveImage()
+		=> search gStartTime
+- BREAKPOINT: code pour laura (saveSnapshot) en cours d'implémentation
 
 ---
 

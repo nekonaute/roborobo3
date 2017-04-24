@@ -413,10 +413,15 @@ void TemplateEEController::stepEvolution()
     
     if ( getNewGenomeStatus() ) // check for new NN parameters
     {
-        _parameters.clear();
-        _parameters = _currentGenome;
+        mapGenotypeToPhenotype();
         setNewGenomeStatus(false);
     }
+}
+
+void TemplateEEController::mapGenotypeToPhenotype()
+{
+    _parameters.clear();
+    _parameters = _currentGenome;
 }
 
 void TemplateEEController::performVariation()

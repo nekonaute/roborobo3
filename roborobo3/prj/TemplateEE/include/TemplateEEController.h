@@ -101,6 +101,8 @@ protected:
     
     virtual void logCurrentState();
     
+    virtual void mapGenotypeToPhenotype();
+    
     virtual void performSelection();
     virtual void performVariation();
     

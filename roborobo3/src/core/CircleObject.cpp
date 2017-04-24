@@ -113,7 +113,7 @@ void CircleObject::show() // display on screen (called in the step() method if g
 		{
 			if ((sqrt ( pow (xColor-_xCenterPixel,2) + pow (yColor - _yCenterPixel,2))) < _radius)
 			{
-                putPixel32(gScreen, xColor, yColor,  color);
+                putPixel32_secured(gScreen, xColor, yColor,  color);
 			}
 		}
 	}
@@ -148,7 +148,7 @@ void CircleObject::hide()
 		{
 			if ((sqrt ( pow (xColor-_xCenterPixel,2) + pow (yColor - _yCenterPixel,2))) < _radius)
 			{
-                putPixel32(gScreen, xColor, yColor,  color);
+                putPixel32_secured(gScreen, xColor, yColor,  color);
 			}
 		}
 	}
