@@ -11,22 +11,18 @@
 #define WORLD_H
 
 #include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-#include "Agents/Robot.h"
+//#include "RoboroboMain/roborobo.h"
+//#include "Agents/Robot.h"
 
-#include "Utilities/Misc.h"
+//#include "Utilities/Misc.h"
 
-#include "Observers/WorldObserver.h"
-
+class WorldObserver;
 class Robot;
+class LandmarkObject;
 
 class World
 {
 	protected:
-
-		std::vector<Robot*> gRobots;
-		std::vector<bool> robotRegistry;
-        //This array tracks agents which are registered (ie. drawn) in the foreground image. Note that in the current implementation, tracking registered agent could be remove (in practical, agents are always registered, except for the very brief moment when an agent moves (unregister=>move=>register). The historical reason for this was that in previous implementation some agents could avoid registering whenever agent-agent collision was known to be impossible. However, this method was later shown to provide no speed-up when many small agents are considered. Also, gain is marginal for smaller number of robots.
 
 		int _iterations;
 

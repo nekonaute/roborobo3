@@ -7,8 +7,30 @@
  */
 
 #include "Config/GlobalConfigurationLoader.h"
-
 #include "Agents/Robot.h"
+
+
+//#include "RoboroboMain/common.h"
+//#include "RoboroboMain/roborobo.h"
+#include "Agents/Agent.h"
+
+//#include "Utilities/Graphics.h"
+
+//#include "Controllers/Controller.h"
+//#include "Observers/Observer.h"
+//#include "Observers/WorldObserver.h"
+//#include "WorldModels/RobotWorldModel.h"
+
+//#include "WorldModels/RobotWorldModel.h"
+#include "World/World.h"
+
+// *** begin: add new includes here ***
+
+//#include "Observers/Observer.h"
+//#include "Observers/AgentObserver.h"
+
+//#include "Agents/Agent.h"
+
 
 #include "Utilities/Graphics.h"
 

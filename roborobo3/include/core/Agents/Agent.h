@@ -11,10 +11,9 @@
 #define AGENT_H 
 
 #include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-#include "Utilities/Graphics.h"
+//#include "RoboroboMain/roborobo.h"
+//#include "Utilities/Graphics.h"
 
-//The dot
 class Agent
 {
     protected:

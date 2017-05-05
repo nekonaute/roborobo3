@@ -5,6 +5,16 @@
 
 #include "TemplateRandomwalk/include/TemplateRandomwalkController.h"
 
+//#include "RoboroboMain/common.h"
+//#include "RoboroboMain/roborobo.h"
+
+//#include "WorldModels/RobotWorldModel.h"
+
+//#include "Agents/Agent.h"
+//#include "Agents/Robot.h"
+
+#include "World/World.h"
+
 // Sensor Id
 // (L)eft, (R)ight, (B)ack, (F)ront
 // FFFL is a front sensor, pointing very slightly to the left (15°).

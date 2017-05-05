@@ -14,6 +14,8 @@
 #include "Utilities/LogManager.h"
 #include "World/LandmarkObject.h"
 
+#include "Agents/Robot.h"
+
 #include "World/PhysicalObjectFactory.h"
 #include "World/PhysicalObject.h"
 
@@ -91,9 +93,8 @@ extern long int gVersion;
 class World;
 extern World *gWorld;				// pointer to the World
 
-class Robot;
-extern std::vector<Robot*> gRobots2;
-extern std::vector<bool> gRobot2Registry;
+extern std::vector<Robot*> gRobots;
+extern std::vector<bool> gRobotsRegistry;
 
 extern int	gInitialNumberOfRobots;			// number of robots that should be created at start-up
 extern int	gNbOfRobots;	    // actual number of robots existing in the simulation right now

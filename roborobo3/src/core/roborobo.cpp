@@ -298,8 +298,8 @@ Timer fps;
 int timetag=-1;
 Timer timeWatch;
 
-std::vector<Robot*> gRobots2;
-std::vector<bool> gRobot2Registry;
+std::vector<Robot*> gRobots;
+std::vector<bool> gRobotsRegistry;
 
 
 

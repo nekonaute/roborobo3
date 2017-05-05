@@ -9,9 +9,6 @@
 #ifndef SQUAREOBJECT_H
 #define SQUAREOBJECT_H
 
-#include "RoboroboMain/common.h"
-#include "Utilities/Geometry.h"
-
 #include "World/PhysicalObject.h"
 
 class SquareObject : public PhysicalObject

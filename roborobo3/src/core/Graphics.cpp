@@ -10,7 +10,6 @@
 #include "Utilities/Graphics.h"
 #include "Utilities/Misc.h"
 
-
 int gSnapshotIndex = 0;
 int gRenderScreenshotIndex = 0; // numbering screenshots
 int gEnvironmentScreenshotIndex = 0;
@@ -82,7 +81,7 @@ void saveSnapshot ( std::string __comment )
             }
         }
     }
-    
+    */
     if ( true )
     {
         // Show object(s) on the screen
@@ -96,17 +95,17 @@ void saveSnapshot ( std::string __comment )
             }
         }
     }
-    
+
     if ( true )
     {
         // Show agent(s) on the screen
         for ( int i = 0 ; i != gNbOfRobots ; i++ )
         {
             // Show agent(s) on the screen
-            // gRobots[i]->show(); // show sensor rays. ==> DELETE SENSOR RAY!
+            gRobots[i]->show(); // show sensor rays. ==> DELETE SENSOR RAY!
         }
     }
-    */
+    
     // saving
     
     saveImage(gSnapshot,"snapshot_",snapshotIndexStr+"_"+__comment);

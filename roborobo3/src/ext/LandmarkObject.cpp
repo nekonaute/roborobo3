@@ -4,6 +4,8 @@
 #include "Utilities/Misc.h"
 
 #include "World/World.h"
+#include "Utilities/Geometry.h"
+#include "Utilities/Graphics.h"
 
 #include <iomanip>
 

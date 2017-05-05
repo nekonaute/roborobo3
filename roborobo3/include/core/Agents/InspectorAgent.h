@@ -11,8 +11,6 @@
 #ifndef INSPECTORAGENT_H
 #define INSPECTORAGENT_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
 #include "Agents/Agent.h"
 
 //The dot

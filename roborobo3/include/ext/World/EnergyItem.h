@@ -9,9 +9,6 @@
 #ifndef ENERGYITEM_H
 #define ENERGYITEM_H
 
-#include "RoboroboMain/common.h"
-#include "Utilities/Geometry.h"
-
 #include "World/CircleObject.h"
 
 class EnergyItem : public CircleObject

@@ -10,30 +10,36 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
+//#include "RoboroboMain/common.h"
+//#include "RoboroboMain/roborobo.h"
 #include "Agents/Agent.h"
 
-#include "Utilities/Graphics.h"
+//#include "Utilities/Graphics.h"
 
-#include "Controllers/Controller.h"
-#include "Observers/Observer.h"
-#include "Observers/WorldObserver.h"
-#include "WorldModels/RobotWorldModel.h"
+//#include "Controllers/Controller.h"
+//#include "Observers/Observer.h"
+//#include "Observers/WorldObserver.h"
+//#include "WorldModels/RobotWorldModel.h"
 
-#include "WorldModels/RobotWorldModel.h"
-#include "World/World.h"
+//#include "WorldModels/RobotWorldModel.h"
+//#include "World/World.h"
 
 // *** begin: add new includes here ***
 
-#include "Observers/Observer.h"
-#include "Observers/AgentObserver.h"
+//#include "Observers/Observer.h"
+//#include "Observers/AgentObserver.h"
 
-#include "Agents/Agent.h"
+//#include "Agents/Agent.h"
 
 // *** end ***
 
 
+class World;
+class Controller;
+class AgentObserver;
+class Agent;
+class RobotWorldModel;
+class WorldObserver;
 class World;
 
 class Robot : public Agent

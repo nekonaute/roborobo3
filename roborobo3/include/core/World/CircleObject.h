@@ -9,9 +9,6 @@
 #ifndef CIRCLEOBJECT_H
 #define CIRCLEOBJECT_H
 
-#include "RoboroboMain/common.h"
-#include "Utilities/Geometry.h"
-
 #include "World/PhysicalObject.h"
 
 class CircleObject : public PhysicalObject

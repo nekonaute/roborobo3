@@ -11,8 +11,9 @@
 #ifndef ROBOTAGENTWORLDMODEL_H
 #define ROBOTAGENTWORLDMODEL_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
+//#include "RoboroboMain/roborobo.h"
+extern double gEnergyMax;
+extern int gSensorRange;
 
 #include "WorldModels/WorldModel.h"
 
