@@ -7,6 +7,7 @@
  *
  */
 
+#include "RoboroboMain/roborobo.h"
 #include "Utilities/Graphics.h"
 #include "Utilities/Misc.h"
 

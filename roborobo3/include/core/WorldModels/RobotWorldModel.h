@@ -17,8 +17,10 @@ extern int gSensorRange;
 
 #include "WorldModels/WorldModel.h"
 
-#include <boost/multi_array.hpp>
-#include <iomanip>
+#include "RoboroboMain/common.h"
+
+//#include <boost/multi_array.hpp>
+//#include <iomanip>
 
 class World;
 

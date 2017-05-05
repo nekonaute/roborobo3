@@ -37,6 +37,12 @@
 #include <math.h> 
 #include <assert.h>
 #include <sstream>
+#include <iomanip>
+
+// boost header
+
+#include <boost/multi_array.hpp>
+
 
 // --- --- --- --- ---
 

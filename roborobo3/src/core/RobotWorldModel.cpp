@@ -9,7 +9,8 @@
 
 #include "WorldModels/RobotWorldModel.h"
 
-#include "World/World.h"
+#include "RoboroboMain/roborobo.h"
+//#include "World/World.h"
 
 RobotWorldModel::RobotWorldModel() : _cameraSensors ( boost::extents[12][7] )
 {

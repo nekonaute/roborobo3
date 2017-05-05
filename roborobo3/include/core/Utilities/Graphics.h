@@ -9,7 +9,8 @@
 #ifndef GRAPHICS_H
 #define GRAPHICS_H
 
-#include "RoboroboMain/roborobo.h"
+//#include "RoboroboMain/roborobo.h"
+#include "RoboroboMain/common.h"
 
 extern int gSnapshotIndex;
 extern int gRenderScreenshotIndex;

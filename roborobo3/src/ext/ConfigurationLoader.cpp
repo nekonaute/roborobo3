@@ -1,5 +1,10 @@
 #include "Config/ConfigurationLoader.h"
-#include <string.h>
+//#include <string.h>
+
+//#include "Observers/WorldObserver.h"
+//#include "WorldModels/RobotWorldModel.h"
+//#include "Observers/AgentObserver.h"
+//#include "Controllers/Controller.h"
 
 #include "Config/TemplateWanderConfigurationLoader.h"
 #include "Config/TemplateBoidsConfigurationLoader.h"

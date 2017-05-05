@@ -1,5 +1,15 @@
 #include "World/PhysicalObjectFactory.h"
 
+//#include "World/PhysicalObject.h"
+#include "World/RoundObject.h"
+#include "World/EnergyItem.h"
+#include "World/GateObject.h"
+#include "World/SwitchObject.h"
+
+#include "RoboroboMain/roborobo.h"
+#include "Utilities/Misc.h"
+
+
 int PhysicalObjectFactory::_nextId = 0;
 
 void PhysicalObjectFactory::makeObject( int type )

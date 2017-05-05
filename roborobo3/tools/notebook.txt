@@ -100,7 +100,8 @@ bp:
 - [=] user-control, est-ce qu'on peut qd même exécuter le controleur du robot?
 - BREAKPOINT: code pour laura (saveSnapshot) en cours d'implémentation
 - [=] clean-up includes (incl.: common.h is included by roborobo.h ; use of forward declaration)
-
+- [=] delete CellularMap? (used?)
+- [-] rename "__MyCompanyName__. All rights reserved." 
 
 ---
 

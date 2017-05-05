@@ -8,6 +8,7 @@
 #define TEMPLATERANDOMWALKCONTROLLER_H
 
 #include "Controllers/Controller.h"
+#include "RoboroboMain/common.h"
 
 class RobotWorldModel;
 

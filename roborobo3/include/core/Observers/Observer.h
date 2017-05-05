@@ -11,8 +11,8 @@
 #ifndef OBSERVER_H
 #define OBSERVER_H 
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
+//#include "RoboroboMain/common.h"
+//#include "RoboroboMain/roborobo.h"
 
 class Observer
 {

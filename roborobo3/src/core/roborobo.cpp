@@ -58,6 +58,7 @@
 #include "Utilities/Timer.h"
 #include "Utilities/Misc.h"
 #include "Utilities/Graphics.h"
+#include "WorldModels/RobotWorldModel.h"
 
 #include "Config/GlobalConfigurationLoader.h"
 

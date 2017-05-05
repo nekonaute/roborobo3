@@ -11,6 +11,9 @@
 #define WORLD_H
 
 #include "RoboroboMain/common.h"
+
+#include "Observers/WorldObserver.h"
+
 //#include "RoboroboMain/roborobo.h"
 //#include "Agents/Robot.h"
 

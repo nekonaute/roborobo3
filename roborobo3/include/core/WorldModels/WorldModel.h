@@ -10,8 +10,8 @@
 #ifndef WORLDMODEL_H
 #define WORLDMODEL_H 
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
+//#include "RoboroboMain/common.h"
+//#include "RoboroboMain/roborobo.h"
 
 class WorldModel
 {
