@@ -91,6 +91,10 @@ extern long int gVersion;
 class World;
 extern World *gWorld;				// pointer to the World
 
+class Robot;
+extern std::vector<Robot*> gRobots2;
+extern std::vector<bool> gRobot2Registry;
+
 extern int	gInitialNumberOfRobots;			// number of robots that should be created at start-up
 extern int	gNbOfRobots;	    // actual number of robots existing in the simulation right now
 extern int	gRobotIndexFocus;		// focused robot id.

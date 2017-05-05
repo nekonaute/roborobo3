@@ -57,19 +57,20 @@ void saveSnapshot ( std::string __comment )
      gWorld->getRobot(gRobotIndexFocus)->set_camera();
      */
     //Show the background image and foreground image (active borders) [note: this is what costs a lot wrt. computation time]
+
+    SDL_FillRect( gSnapshot, &gSnapshot->clip_rect, SDL_MapRGBA( gSnapshot->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen
     
-    if ( true ) // footprint? exists or forced?
-        apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
-    else
-        SDL_FillRect( gScreen, &gScreen->clip_rect, SDL_MapRGBA( gScreen->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen
+    // nice snapshot
+    apply_surface( 0, 0, gFootprintImage, gSnapshot, &gCamera );
+    apply_surface( 0, 0, gForegroundImage, gSnapshot, &gCamera );
     
-    if ( true )
-        apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
-    if ( true )
-        apply_surface( 0, 0, gEnvironmentImage, gScreen, &gCamera );
-    if ( true )
-        apply_surface( 0, 0, gForegroundImage, gScreen, &gCamera );
+    // true snapshot
+    //apply_surface( 0, 0, gEnvironmentImage, gSnapshot, &gCamera );
+    //apply_surface( 0, 0, gForegroundImage, gSnapshot, &gCamera );
+
+
     
+    /*
     if ( true )
     {
         // Show landmark(s) on the screen
@@ -102,10 +103,10 @@ void saveSnapshot ( std::string __comment )
         for ( int i = 0 ; i != gNbOfRobots ; i++ )
         {
             // Show agent(s) on the screen
-            //gRobots[i]->show(); // show sensor rays. ==> DELETE SENSOR RAY!
+            // gRobots[i]->show(); // show sensor rays. ==> DELETE SENSOR RAY!
         }
     }
-    
+    */
     // saving
     
     saveImage(gSnapshot,"snapshot_",snapshotIndexStr+"_"+__comment);

@@ -298,6 +298,10 @@ Timer fps;
 int timetag=-1;
 Timer timeWatch;
 
+std::vector<Robot*> gRobots2;
+std::vector<bool> gRobot2Registry;
+
+
 
 /* ********************
  * * global functions *
@@ -826,6 +830,7 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
             
             if ( gWorld->getIterations() == 1 )
             {
+                saveSnapshot("firstIteration");
                 saveRenderScreenshot("firstIteration");
                 saveEnvironmentScreenshot("firstIteration");
                 saveFootprintScreenshot("firstIteration");
@@ -835,6 +840,7 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
             {
                 if ( gWorld->getIterations() == gMaxIt-1 )
                 {
+                    saveSnapshot("firstIteration");
                     saveRenderScreenshot("lastIteration");
                     saveEnvironmentScreenshot("lastIteration");
                     saveFootprintScreenshot("lastIteration");

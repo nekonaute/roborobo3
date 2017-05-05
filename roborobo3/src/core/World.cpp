@@ -396,13 +396,13 @@ Robot* World::getRobot( int index )
 
 bool World::isRobotRegistered( int index )
 {
-	return  robotRegistry[index];
+	return robotRegistry[index];
 }
 
 // Cf. World.h for explanation about why this function should NEVER be called -- function is implemented as is only to avoid any further temptation.
 void World::deleteRobot (int index )
 {
-    std::cerr << "[CRITICAL] World::deleteRobot should NEVER be called (instead: inactivate+unregister robot ; ordering by index must be kept).\n";
+    std::cerr << "[CRITICAL] World::deleteRobot should NEVER be called (nor implemented)\n\t Reason: ordering by index must be kept.\t Workaround: inactivate+unregister robot. Possibly recycle later.\n";
     exit(-1);
     /*
 	agents[__agentIndex]->unregisterRobot();
