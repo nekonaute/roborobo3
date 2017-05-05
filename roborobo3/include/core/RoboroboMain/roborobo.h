@@ -202,7 +202,8 @@ extern SDL_Rect gCamera;
 
 
 //image surfaces
-extern SDL_Surface *gScreen;			// surface for rendering
+extern SDL_Surface *gSnapshot;			// surface for rendering snapshot (prior to save to disk)
+extern SDL_Surface *gScreen;			// surface for rendering (possibly used for display)
 extern SDL_Texture *gScreenTexture;     // texture to transfer surface to renderer
 extern SDL_Renderer *gScreenRenderer;   // renderer
 extern SDL_Window   *gScreenWindow;     // window

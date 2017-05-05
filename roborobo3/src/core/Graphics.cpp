@@ -11,12 +11,11 @@
 #include "Utilities/Misc.h"
 
 
-int gScreenshotIndex = 0;
+int gSnapshotIndex = 0;
 int gRenderScreenshotIndex = 0; // numbering screenshots
 int gEnvironmentScreenshotIndex = 0;
 int gFootprintScreenshotIndex = 0;
 int gTrajectoryFileIndex = 0; // numbering trajectory images (used by saveTrajectoryImage(...))
-
 
 void saveImage ( SDL_Surface *image, std::string __prefix, std::string __comment ) // comment is optional
 {
@@ -37,38 +36,81 @@ void saveImage ( SDL_Surface *image, std::string __prefix, std::string __comment
     }
 }
 
-void saveScreenshot ( std::string __comment )
+void saveSnapshot ( std::string __comment )
 {
     // preparing
     
-    SDL_Surface  *screenshot = NULL;
-    screenshot = SDL_CreateRGBSurface (
-                                    0, // flags (unused)
-                                    gScreenWidth,
-                                    gScreenHeight,
-                                    32,
-                                    0x00FF0000,
-                                    0x0000FF00,
-                                    0x000000FF,
-                                    0xFF000000);
+    std::string snapshotIndexStr = convertToString(gSnapshotIndex);
     
-    std::string screenShotIndexStr = convertToString(gScreenshotIndex);
-    
-    while( screenShotIndexStr.length() < 6 )
+    while( snapshotIndexStr.length() < 6 )
     {
-        screenShotIndexStr =  "0" + screenShotIndexStr;
+        snapshotIndexStr =  "0" + snapshotIndexStr;
     }
-
+    
     // rendering
     
     std::cout << "NOT IMPLEMENTED - WORK IN PROGRESS!" << std::endl;
+    /*
+     if ( gInspectorMode )
+     gWorld->inspectorAgent->set_camera();
+     else
+     gWorld->getRobot(gRobotIndexFocus)->set_camera();
+     */
+    //Show the background image and foreground image (active borders) [note: this is what costs a lot wrt. computation time]
+    
+    if ( true ) // footprint? exists or forced?
+        apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
+    else
+        SDL_FillRect( gScreen, &gScreen->clip_rect, SDL_MapRGBA( gScreen->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen
+    
+    if ( true )
+        apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
+    if ( true )
+        apply_surface( 0, 0, gEnvironmentImage, gScreen, &gCamera );
+    if ( true )
+        apply_surface( 0, 0, gForegroundImage, gScreen, &gCamera );
+    
+    if ( true )
+    {
+        // Show landmark(s) on the screen
+        for ( int i = 0 ; i != gNbOfLandmarks ; i++ )
+        {
+            if ( gLandmarks[i]->isVisible() )
+            {
+                gLandmarks[i]->show();
+            }
+        }
+    }
+    
+    if ( true )
+    {
+        // Show object(s) on the screen
+        {
+            for ( int i = 0 ; i != gNbOfPhysicalObjects ; i++ )
+            {
+                if ( gPhysicalObjects[i]->isVisible() )
+                {
+                    gPhysicalObjects[i]->show();
+                }
+            }
+        }
+    }
+    
+    if ( true )
+    {
+        // Show agent(s) on the screen
+        for ( int i = 0 ; i != gNbOfRobots ; i++ )
+        {
+            // Show agent(s) on the screen
+            //gRobots[i]->show(); // show sensor rays. ==> DELETE SENSOR RAY!
+        }
+    }
     
     // saving
     
-    saveImage(screenshot,"screenshot_",screenShotIndexStr+"_"+__comment);
+    saveImage(gSnapshot,"snapshot_",snapshotIndexStr+"_"+__comment);
     
-    gScreenshotIndex++;
-    delete screenshot;
+    gSnapshotIndex++;
 }
 
 void saveTrajectoryImage ( std::string __comment )
@@ -190,7 +232,26 @@ bool initSDL(Uint32 flags) // parameter is optional (default: SDL_HWSURFACE | SD
                                     0xFF000000);
     
     if( gScreen == NULL ) // error?
+    {
+        std::cerr << "[CRITICAL] Failed to create screen surface (gScreen). Stop.\n";
         return false;
+    }
+    
+    gSnapshot = SDL_CreateRGBSurface (
+                                    0, // flags (unused)
+                                    gScreenWidth,
+                                    gScreenHeight,
+                                    32,
+                                    0x00FF0000,
+                                    0x0000FF00,
+                                    0x000000FF,
+                                    0xFF000000);
+    
+    if( gScreen == NULL ) // error?
+    {
+        std::cerr << "[CRITICAL] Failed to create snapshot surface (gSnapshot). Stop.\n";
+        return false;
+    }
     
     if ( !gBatchMode )
     {

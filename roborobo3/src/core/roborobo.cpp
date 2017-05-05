@@ -188,6 +188,7 @@ int gPhysicalObjectDefaultSoft_w = 22;
 int gPhysicalObjectDefaultSoft_h = 22;
 
 std::vector<PhysicalObject*> gPhysicalObjects;
+
 bool gPhysicalObjectsRedraw = false;
 
 bool gEnergyLevel = false;
@@ -267,6 +268,7 @@ SDL_Rect gCamera;
 
 //image surfaces
 
+SDL_Surface  *gSnapshot = NULL;
 SDL_Surface  *gScreen = NULL;
 SDL_Texture  *gScreenTexture = NULL;
 SDL_Renderer *gScreenRenderer = NULL;

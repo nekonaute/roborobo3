@@ -1,3 +1,63 @@
+
+gMovableObjects
+
+=-=-=
+
+CircleObject.h:
+    => CircleObject reste virtuelle.
+
+    bool canRegister( Sint16 __x, Sint16 __y ); // can we register the object at that position
+    	=> [N] merge possible avec canRegister sans paramètre (qui serait à supprimer).
+
+RoundObject.h:
+
+    // the impulses given to the object by nearby robots in the current time step, or other objects in the former
+    std::map<int, Point2d> _impulses;
+    
+    // the speed we expect to move at after computing collisions, which we need to be able to tell other objects
+    // in polar coordinates
+    double _desiredSpeedOrientation;
+    double _desiredLinearSpeed;
+    
+    void isPushed( int __idAgent, Point2d __speed ); // register we've been pushed
+
+    bool _hitWall;
+    bool _didMove;
+
+	// coordinates
+    double _xReal;
+    double _yReal;
+
+    double getXReal() { return _xReal; }
+    double getYReal() { return _yReal; }
+
+    Sint16 getXCenterPixel()
+    {
+        return (Sint16)_xReal;
+    }
+    
+    Sint16 getYCenterPixel()
+    {
+        return (Sint16)_yReal;
+    }
+
+    bool canRegister( Sint16 __x, Sint16 __y );
+    bool canRegister( );
+    
+RoundObject.cpp:
+
+	isPushed() ajouté
+	step() mis a jour
+		à revoir: 
+			_xCenterPixel = (Sint16)(_xReal);  
+    		_xCenterPixel = (Sint16)(_yReal);
+
+	canRegister (hérite) et canRegister( Sint16 __x, Sint16 __y ) ajoutés
+
+
+=-=-=
+
+
 bp:
 -.[ ] energyItems are now correctly displayed and registered
 -.[ ] remain: fitness function, selectBestIndividual (or whatever)
@@ -25,7 +85,7 @@ bp:
 -.[=] replace [s|g]etNewGenomeStatus by mapGenotypeToPhenotype() ...? => no, but added mapGenotypeToPhenotype().
 -.[-] Relevance of gRefreshUserDisplay? => deleted
 - [-] set up different environment for benchmark.
-- [+] revoir EnergyItem
+- [+] revoir EnergyItem (à supprimer)
 - [+] supprimer gBackgroundImage...?
 - [=] random=>Mersenne-Twister
 - [=] putPixel32_secured vs putPixel32
@@ -33,7 +93,13 @@ bp:
 - [+] [@Laura] cf. updateDisplay() pour faire un saveRenderScreenshot modulable (ou autre nom)
 - [+] [@Theotime] Mais disons que y’a pas mal de trucs qui dépendent du timestamp même si on change la valeur par défaut, comme outputFilename et dans saveImage()
 		=> search gStartTime
+- [=] revoir le systeme de coordonnées pour les objets
+	- integer vs real coordinates for robots (and roundObject)
+	- Point2d _position.x et .y vs. _xCenterPixel et yCenterPixel;
+- [++] (@Laura) Dans la fonction performVariation(), il faut remplacer rand()/RAND_MAX par ranf().
+- [=] user-control, est-ce qu'on peut qd même exécuter le controleur du robot?
 - BREAKPOINT: code pour laura (saveSnapshot) en cours d'implémentation
+
 
 ---
 
@@ -50,8 +116,30 @@ candidates:
 - lifetime
 - ...
 
----
+=-=-=-=-=
 
 revert to latest "official" commit:
-git fetch --all
-git reset --hard origin/master
+ git fetch --all
+ git reset --hard origin/master
+
+=-=-=-=-=
+
+Pour mettre les dernières modifs sur une nouvelle branche:
+ git branch roborobo-movingObjects
+ git checkout roborobo-movingObjects
+ git commit -a -m "Work in progress"
+ git push --> ou: git push --set-upstream origin roborobo-movingObjects
+
+Divers:
+ git branch --> affiche les branches locales
+ git branch -v --> donne le dernier commit
+ git branch -vv --> donne une info sur la synchro entre les branches locales et celles du serveur
+ git log --oneline --graph --> donne tous les commits (lisible)
+
+Changer de branche:
+ git checkout master -- changer vers la branche master
+
+Pour merger, depuis la branche que l'on souhaite garder:
+ git merge <autre_branche>   (conseil: à faire avec Xcode) -- inclus un commit (pas un push)
+ git branch -d <autre_branche> (supprime la branche en local)
+ aller sur github pour supprimer une vieille branche.
