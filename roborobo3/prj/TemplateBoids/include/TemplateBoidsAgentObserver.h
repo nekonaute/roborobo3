@@ -7,13 +7,9 @@
 #ifndef TEMPLATEBOIDSAGENTOBSERVER_H
 #define TEMPLATEBOIDSAGENTOBSERVER_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
 #include "Observers/AgentObserver.h"
-#include "WorldModels/RobotWorldModel.h"
-#include "TemplateBoids/include/TemplateBoidsSharedData.h"
 
-#include <iomanip>
+class RobotWorldModel;
 
 class TemplateBoidsAgentObserver : public AgentObserver
 {

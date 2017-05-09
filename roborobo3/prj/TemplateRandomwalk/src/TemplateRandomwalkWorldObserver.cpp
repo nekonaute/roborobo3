@@ -4,13 +4,11 @@
 
 
 #include "TemplateRandomwalk/include/TemplateRandomwalkWorldObserver.h"
-
 #include "World/World.h"
-
 #include "Utilities/Misc.h"
-
-
 #include "TemplateRandomwalk/include/TemplateRandomwalkController.h"
+#include "RoboroboMain/roborobo.h"
+
 
 TemplateRandomwalkWorldObserver::TemplateRandomwalkWorldObserver( World *__world ) : WorldObserver( __world )
 {

@@ -6,9 +6,6 @@
 #ifndef TEMPLATEWANDERWORLDOBSERVER_H
 #define TEMPLATEWANDERWORLDOBSERVER_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-
 #include "Observers/WorldObserver.h"
 
 class World;

@@ -5,10 +5,9 @@
 #ifndef TEMPLATEWANDERAGENTOBSERVER_H
 #define TEMPLATEWANDERAGENTOBSERVER_H 
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-#include "WorldModels/RobotWorldModel.h"
 #include "Observers/AgentObserver.h"
+
+class RobotWorldModel;
 
 class TemplateWanderAgentObserver : public AgentObserver
 {

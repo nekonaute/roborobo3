@@ -12,7 +12,7 @@
 
 #include "RoboroboMain/common.h"
 
-#include "Observers/WorldObserver.h"
+//#include "Observers/WorldObserver.h"
 
 //#include "RoboroboMain/roborobo.h"
 //#include "Agents/Robot.h"

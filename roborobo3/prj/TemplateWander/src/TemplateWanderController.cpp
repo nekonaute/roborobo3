@@ -4,6 +4,8 @@
 
 
 #include "TemplateWander/include/TemplateWanderController.h"
+#include "WorldModels/RobotWorldModel.h"
+
 
 TemplateWanderController::TemplateWanderController( RobotWorldModel *__wm ) : Controller ( __wm )
 {

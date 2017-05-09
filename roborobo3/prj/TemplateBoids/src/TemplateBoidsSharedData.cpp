@@ -4,7 +4,6 @@
  */
 
 
-
 #include "TemplateBoids/include/TemplateBoidsSharedData.h"
 
 

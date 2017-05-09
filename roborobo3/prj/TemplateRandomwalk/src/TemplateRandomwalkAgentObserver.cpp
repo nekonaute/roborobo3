@@ -3,7 +3,8 @@
  */
 
 #include "TemplateRandomwalk/include/TemplateRandomwalkAgentObserver.h"
-
+#include "WorldModels/RobotWorldModel.h"
+#include "RoboroboMain/roborobo.h"
 
 
 TemplateRandomwalkAgentObserver::TemplateRandomwalkAgentObserver( )

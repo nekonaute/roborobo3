@@ -3,12 +3,13 @@
  *
  */
 
-#include "Observers/AgentObserver.h"
-#include "Observers/WorldObserver.h"
 #include "TemplateBoids/include/TemplateBoidsWorldObserver.h"
 #include "TemplateBoids/include/TemplateBoidsController.h"
 #include "World/World.h"
-
+#include "Utilities/Graphics.h"
+#include "RoboroboMain/roborobo.h"
+#include "WorldModels/RobotWorldModel.h"
+#include "TemplateBoids/include/TemplateBoidsSharedData.h"
 
 TemplateBoidsWorldObserver::TemplateBoidsWorldObserver( World* world ) : WorldObserver( world )
 {

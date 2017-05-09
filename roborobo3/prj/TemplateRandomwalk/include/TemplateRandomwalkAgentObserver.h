@@ -5,10 +5,9 @@
 #ifndef TEMPLATERANDOMWALKAGENTOBSERVER_H
 #define TEMPLATERANDOMWALKAGENTOBSERVER_H 
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-#include "WorldModels/RobotWorldModel.h"
 #include "Observers/AgentObserver.h"
+
+class RobotWorldModel;
 
 class TemplateRandomwalkAgentObserver : public AgentObserver
 {

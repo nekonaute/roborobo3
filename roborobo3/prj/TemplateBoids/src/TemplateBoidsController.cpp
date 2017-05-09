@@ -3,15 +3,13 @@
  */
 
 #include "TemplateBoids/include/TemplateBoidsController.h"
-#include "TemplateBoids/include/TemplateBoidsWorldObserver.h"
-
 #include "World/World.h"
-#include "Utilities/Misc.h"
-#include <math.h>
-#include <string>
-
+#include "RoboroboMain/roborobo.h"
+#include "WorldModels/RobotWorldModel.h"
+#include <neuralnetworks/NeuralNetwork.h>
 
 using namespace Neural;
+
 
 TemplateBoidsController::TemplateBoidsController( RobotWorldModel *wm )
 {

@@ -5,13 +5,9 @@
 
 
 #include "TemplateBoids/include/TemplateBoidsAgentObserver.h"
-#include "World/World.h"
-#include "Utilities/Misc.h"
+#include "WorldModels/RobotWorldModel.h"
 #include "RoboroboMain/roborobo.h"
-#include "TemplateBoids/include/TemplateBoidsController.h"
-#include <cmath>
-#include "TemplateBoids/include/TemplateBoidsWorldObserver.h"
-#include <string>
+
 
 TemplateBoidsAgentObserver::TemplateBoidsAgentObserver( RobotWorldModel *wm )
 {

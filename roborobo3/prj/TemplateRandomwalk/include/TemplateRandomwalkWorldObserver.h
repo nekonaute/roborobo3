@@ -6,9 +6,6 @@
 #ifndef TEMPLATERANDOMWALKWORLDOBSERVER_H
 #define TEMPLATERANDOMWALKWORLDOBSERVER_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-
 #include "Observers/WorldObserver.h"
 
 class World;

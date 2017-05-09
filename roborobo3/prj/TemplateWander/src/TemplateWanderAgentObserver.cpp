@@ -3,6 +3,8 @@
  */
 
 #include "TemplateWander/include/TemplateWanderAgentObserver.h"
+#include "RoboroboMain/roborobo.h"
+#include "WorldModels/RobotWorldModel.h"
 
 
 

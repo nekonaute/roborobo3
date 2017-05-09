@@ -4,15 +4,8 @@
 
 
 #include "TemplateRandomwalk/include/TemplateRandomwalkController.h"
-
-//#include "RoboroboMain/common.h"
 #include "RoboroboMain/roborobo.h"
-
 #include "WorldModels/RobotWorldModel.h"
-
-//#include "Agents/Agent.h"
-//#include "Agents/Robot.h"
-
 #include "World/World.h"
 
 // Sensor Id

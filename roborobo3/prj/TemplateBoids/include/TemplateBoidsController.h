@@ -8,18 +8,9 @@
 #ifndef TEMPLATEBOIDSCONTROLLER_H
 #define TEMPLATEBOIDSCONTROLLER_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-#include "Utilities/Graphics.h"
 #include "Controllers/Controller.h"
-#include "WorldModels/RobotWorldModel.h"
-#include "TemplateBoids/include/TemplateBoidsAgentObserver.h"
-#include <neuralnetworks/NeuralNetwork.h>
 
-#include <iomanip>
-
-using namespace Neural;
-
+class RobotWorldModel;
 
 class TemplateBoidsController : public Controller
 {
