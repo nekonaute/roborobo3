@@ -9,9 +9,6 @@
 #ifndef SWITCHOBJECT_H
 #define SWITCHOBJECT_H
 
-//#include "RoboroboMain/common.h"
-//#include "Utilities/Geometry.h"
-
 #include "World/CircleObject.h"
 
 class SwitchObject : public CircleObject

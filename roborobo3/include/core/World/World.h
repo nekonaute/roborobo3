@@ -12,13 +12,6 @@
 
 #include "RoboroboMain/common.h"
 
-//#include "Observers/WorldObserver.h"
-
-//#include "RoboroboMain/roborobo.h"
-//#include "Agents/Robot.h"
-
-//#include "Utilities/Misc.h"
-
 class WorldObserver;
 class Robot;
 class LandmarkObject;
@@ -50,7 +43,7 @@ class World
 
 		//delete an agent from the simulator. No other functions to call
         // THIS FUNCTION SHOULD NOT BE IMPLEMENTED AND SHOULD NEVER BE CALLED
-        // Roborobo assumes that the 'agents' list indexes matches agent's id. Mandatory for CellularMap consistency.
+        // Roborobo assumes that the 'agents' list indexes matches agent's id. 
 		void deleteRobot (int index );
     
 		//add an agent in the simulator. No other functions to call

@@ -1,5 +1,4 @@
 #include "World/GateObject.h"
-
 #include "RoboroboMain/roborobo.h"
 #include "Utilities/Misc.h"
 #include "World/World.h"

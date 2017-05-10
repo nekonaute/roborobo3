@@ -7,12 +7,9 @@
 #ifndef TEMPLATEMEDEAAGENTOBSERVER_H
 #define TEMPLATEMEDEAAGENTOBSERVER_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-#include "Observers/AgentObserver.h"
-#include "WorldModels/RobotWorldModel.h"
-#include "TemplateMedea/include/TemplateMedeaSharedData.h"
 #include "TemplateEE/include/TemplateEEAgentObserver.h"
+
+class RobotWorldModel;
 
 class TemplateMedeaAgentObserver : public TemplateEEAgentObserver
 {

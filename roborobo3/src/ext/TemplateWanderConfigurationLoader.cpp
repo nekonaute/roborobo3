@@ -1,11 +1,9 @@
 #if defined PRJ_TEMPLATEWANDER || !defined MODULAR
 
 #include "Config/TemplateWanderConfigurationLoader.h"
-
 #include "TemplateWander/include/TemplateWanderWorldObserver.h"
 #include "TemplateWander/include/TemplateWanderAgentObserver.h"
 #include "TemplateWander/include/TemplateWanderController.h"
-
 #include "WorldModels/RobotWorldModel.h"
 
 

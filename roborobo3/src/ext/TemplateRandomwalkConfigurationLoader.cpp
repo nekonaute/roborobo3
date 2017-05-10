@@ -1,11 +1,9 @@
 #if defined PRJ_TEMPLATERANDOMWALK || !defined MODULAR
 
 #include "Config/TemplateRandomwalkConfigurationLoader.h"
-
 #include "TemplateRandomwalk/include/TemplateRandomwalkWorldObserver.h"
 #include "TemplateRandomwalk/include/TemplateRandomwalkAgentObserver.h"
 #include "TemplateRandomwalk/include/TemplateRandomwalkController.h"
-
 #include "WorldModels/RobotWorldModel.h"
 
 

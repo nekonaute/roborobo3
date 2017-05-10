@@ -46,7 +46,6 @@
 		37BA27371BC3D014002DF5DC /* StringUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA26E31BC3D014002DF5DC /* StringUtils.cpp */; };
 		37BA27381BC3D014002DF5DC /* Agent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA26E51BC3D014002DF5DC /* Agent.cpp */; };
 		37BA27391BC3D014002DF5DC /* AgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA26E61BC3D014002DF5DC /* AgentObserver.cpp */; };
-		37BA273A1BC3D014002DF5DC /* CellularMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA26E71BC3D014002DF5DC /* CellularMap.cpp */; };
 		37BA273B1BC3D014002DF5DC /* CircleObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA26E81BC3D014002DF5DC /* CircleObject.cpp */; };
 		37BA273C1BC3D014002DF5DC /* Controller.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA26E91BC3D014002DF5DC /* Controller.cpp */; };
 		37BA273D1BC3D014002DF5DC /* ExtendedProperties.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA26EA1BC3D014002DF5DC /* ExtendedProperties.cpp */; };
@@ -179,7 +178,6 @@
 		37BA26441BC3D014002DF5DC /* common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = common.h; sourceTree = "<group>"; };
 		37BA26451BC3D014002DF5DC /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
 		37BA26461BC3D014002DF5DC /* roborobo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = roborobo.h; sourceTree = "<group>"; };
-		37BA26481BC3D014002DF5DC /* CellularMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CellularMap.h; sourceTree = "<group>"; };
 		37BA26491BC3D014002DF5DC /* ExtendedProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExtendedProperties.h; sourceTree = "<group>"; };
 		37BA264A1BC3D014002DF5DC /* Geometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geometry.h; sourceTree = "<group>"; };
 		37BA264B1BC3D014002DF5DC /* Graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Graphics.h; sourceTree = "<group>"; };
@@ -212,7 +210,6 @@
 		37BA26E31BC3D014002DF5DC /* StringUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StringUtils.cpp; sourceTree = "<group>"; };
 		37BA26E51BC3D014002DF5DC /* Agent.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Agent.cpp; sourceTree = "<group>"; };
 		37BA26E61BC3D014002DF5DC /* AgentObserver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AgentObserver.cpp; sourceTree = "<group>"; };
-		37BA26E71BC3D014002DF5DC /* CellularMap.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CellularMap.cpp; sourceTree = "<group>"; };
 		37BA26E81BC3D014002DF5DC /* CircleObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CircleObject.cpp; sourceTree = "<group>"; };
 		37BA26E91BC3D014002DF5DC /* Controller.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Controller.cpp; sourceTree = "<group>"; };
 		37BA26EA1BC3D014002DF5DC /* ExtendedProperties.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ExtendedProperties.cpp; sourceTree = "<group>"; };
@@ -590,7 +587,6 @@
 		37BA26471BC3D014002DF5DC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				37BA26481BC3D014002DF5DC /* CellularMap.h */,
 				37BA26491BC3D014002DF5DC /* ExtendedProperties.h */,
 				37BA264A1BC3D014002DF5DC /* Geometry.h */,
 				37BA264B1BC3D014002DF5DC /* Graphics.h */,
@@ -721,7 +717,6 @@
 			children = (
 				37BA26E51BC3D014002DF5DC /* Agent.cpp */,
 				37BA26E61BC3D014002DF5DC /* AgentObserver.cpp */,
-				37BA26E71BC3D014002DF5DC /* CellularMap.cpp */,
 				37BA26E81BC3D014002DF5DC /* CircleObject.cpp */,
 				37BA26E91BC3D014002DF5DC /* Controller.cpp */,
 				37BA26EA1BC3D014002DF5DC /* ExtendedProperties.cpp */,
@@ -828,7 +823,6 @@
 				37BA273C1BC3D014002DF5DC /* Controller.cpp in Sources */,
 				3739761B1BCEAA2F00A007BF /* TemplateRandomwalkConfigurationLoader.cpp in Sources */,
 				3766DF741E29125D0069E44C /* TemplateVanillaEESharedData.cpp in Sources */,
-				37BA273A1BC3D014002DF5DC /* CellularMap.cpp in Sources */,
 				37BA273B1BC3D014002DF5DC /* CircleObject.cpp in Sources */,
 				37C810401E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp in Sources */,
 				3705F0811BC66E3B001A016D /* TemplateBoidsWorldObserver.cpp in Sources */,

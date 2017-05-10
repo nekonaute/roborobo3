@@ -3,15 +3,12 @@
  *
  */
 
-#include "Observers/AgentObserver.h"
-#include "Observers/WorldObserver.h"
 #include "TemplateMedea/include/TemplateMedeaWorldObserver.h"
-#include "TemplateMedea/include/TemplateMedeaController.h"
 #include "World/World.h"
 
 TemplateMedeaWorldObserver::TemplateMedeaWorldObserver( World* world ) : TemplateEEWorldObserver( world )
 {
-    // superclass destructor called before
+    // superclass constructor called before
 }
 
 TemplateMedeaWorldObserver::~TemplateMedeaWorldObserver()

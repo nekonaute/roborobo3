@@ -4,16 +4,9 @@
  */
 
 #include "TemplateVanillaEE/include/TemplateVanillaEEController.h"
-#include "TemplateVanillaEE/include/TemplateVanillaEEWorldObserver.h"
-
 #include "World/World.h"
-#include "Utilities/Misc.h"
-#include <math.h>
-#include <string>
-
-#include <neuralnetworks/MLP.h>
-#include <neuralnetworks/Perceptron.h>
-#include <neuralnetworks/Elman.h>
+#include "RoboroboMain/roborobo.h"
+#include "WorldModels/RobotWorldModel.h"
 
 using namespace Neural;
 

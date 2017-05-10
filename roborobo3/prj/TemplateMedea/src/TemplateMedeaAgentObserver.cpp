@@ -3,16 +3,9 @@
  *
  */
 
-
 #include "TemplateMedea/include/TemplateMedeaAgentObserver.h"
-
-#include "World/World.h"
-#include "Utilities/Misc.h"
+#include "WorldModels/RobotWorldModel.h"
 #include "RoboroboMain/roborobo.h"
-#include "TemplateMedea/include/TemplateMedeaController.h"
-#include <cmath>
-#include "TemplateMedea/include/TemplateMedeaWorldObserver.h"
-#include <string>
 
 TemplateMedeaAgentObserver::TemplateMedeaAgentObserver( RobotWorldModel *wm ) : TemplateEEAgentObserver ( wm )
 {

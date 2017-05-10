@@ -3,8 +3,6 @@
  *
  */
 
-
-
 #include "TemplateMedea/include/TemplateMedeaSharedData.h"
 
 // cf. super class for many parameter values initialization.

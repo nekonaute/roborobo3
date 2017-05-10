@@ -49,7 +49,6 @@
 
 // Project headers
 
-//#include "common.h"
 #include "Utilities/Graphics.h"
 #include "World/World.h"
 #include "Agents/Agent.h"

@@ -8,7 +8,6 @@
  */
 
 #include "Observers/WorldObserver.h"
-
 #include "World/World.h"
 
 

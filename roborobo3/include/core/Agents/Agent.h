@@ -11,8 +11,6 @@
 #define AGENT_H 
 
 #include "RoboroboMain/common.h"
-//#include "RoboroboMain/roborobo.h"
-//#include "Utilities/Graphics.h"
 
 class Agent
 {

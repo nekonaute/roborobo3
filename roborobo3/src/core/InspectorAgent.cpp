@@ -8,7 +8,6 @@
  */
 
 #include "Agents/InspectorAgent.h"
-
 #include "Utilities/Graphics.h"
 #include "RoboroboMain/common.h"
 #include "RoboroboMain/roborobo.h"

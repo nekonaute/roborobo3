@@ -1,3 +1,8 @@
+/**
+ * @author Nicolas Bredeche <nicolas.bredeche@upmc.fr>
+ *
+ */
+
 #include "World/PhysicalObject.h"
 #include "RoboroboMain/roborobo.h"
 #include "Utilities/Misc.h"

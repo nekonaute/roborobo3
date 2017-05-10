@@ -1,5 +1,4 @@
 #include "World/EnergyItem.h"
-
 #include "RoboroboMain/roborobo.h"
 #include "World/World.h"
 #include "WorldModels/RobotWorldModel.h"

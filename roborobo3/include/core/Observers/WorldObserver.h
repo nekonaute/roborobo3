@@ -12,9 +12,6 @@
 #ifndef WORLDOBSERVER_H
 #define WORLDOBSERVER_H
 
-//#include "RoboroboMain/common.h"
-//#include "RoboroboMain/roborobo.h"
-
 #include "Observers/Observer.h"
 
 class World;

@@ -4,7 +4,6 @@
 
 
 #include "TemplateWander/include/TemplateWanderWorldObserver.h"
-
 #include "World/World.h"
 
 

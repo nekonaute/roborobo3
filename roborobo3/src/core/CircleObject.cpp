@@ -1,3 +1,8 @@
+/**
+ * @author Nicolas Bredeche <nicolas.bredeche@upmc.fr>
+ *
+ */
+
 #include "World/CircleObject.h"
 #include "RoboroboMain/roborobo.h"
 #include <Utilities/Graphics.h>

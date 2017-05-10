@@ -1,5 +1,9 @@
+/**
+ * @author Nicolas Bredeche <nicolas.bredeche@upmc.fr>
+ *
+ */
+
 #include <Utilities/ExtendedProperties.h>
-//#include <zsu/Properties.h>
 #include "Utilities/Misc.h"
 #include <cstdlib> // new C++ way to include the exit instruction
 

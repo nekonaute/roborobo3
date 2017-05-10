@@ -41,6 +41,7 @@
 #include <string>
 #include <iomanip>
 #include <cmath>
+#include <float.h> // for DBL_MAX
 
 // boost header
 

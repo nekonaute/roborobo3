@@ -1,5 +1,5 @@
 /*
- *  SDL_gfxRoborobo.cpp
+ *  Graphics.cpp
  *  roborobo
  *
  *  Created by Nicolas on 16/01/09.

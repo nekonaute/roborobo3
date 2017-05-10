@@ -4,16 +4,6 @@
  */
 
 #include "TemplateMedea/include/TemplateMedeaController.h"
-#include "TemplateMedea/include/TemplateMedeaWorldObserver.h"
-
-#include "World/World.h"
-#include "Utilities/Misc.h"
-#include <math.h>
-#include <string>
-
-#include <neuralnetworks/MLP.h>
-#include <neuralnetworks/Perceptron.h>
-#include <neuralnetworks/Elman.h>
 
 using namespace Neural;
 

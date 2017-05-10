@@ -1,11 +1,9 @@
 #if defined PRJ_TEMPLATEMEDEA || !defined MODULAR
 
 #include "Config/TemplateMedeaConfigurationLoader.h"
-
 #include "TemplateMedea/include/TemplateMedeaWorldObserver.h"
 #include "TemplateMedea/include/TemplateMedeaAgentObserver.h"
 #include "TemplateMedea/include/TemplateMedeaController.h"
-
 #include "WorldModels/RobotWorldModel.h"
 
 TemplateMedeaConfigurationLoader::TemplateMedeaConfigurationLoader()

@@ -13,12 +13,9 @@
 #include "Utilities/ExtendedProperties.h"
 #include "Utilities/LogManager.h"
 #include "World/LandmarkObject.h"
-
 #include "Agents/Robot.h"
-
 #include "World/PhysicalObjectFactory.h"
 #include "World/PhysicalObject.h"
-
 
 // project-wide Global data
 

@@ -1,11 +1,9 @@
 #if defined PRJ_TEMPLATEVANILLAEE || !defined MODULAR
 
 #include "Config/TemplateVanillaEEConfigurationLoader.h"
-
 #include "TemplateVanillaEE/include/TemplateVanillaEEWorldObserver.h"
 #include "TemplateVanillaEE/include/TemplateVanillaEEAgentObserver.h"
 #include "TemplateVanillaEE/include/TemplateVanillaEEController.h"
-
 #include "WorldModels/RobotWorldModel.h"
 
 TemplateVanillaEEConfigurationLoader::TemplateVanillaEEConfigurationLoader()

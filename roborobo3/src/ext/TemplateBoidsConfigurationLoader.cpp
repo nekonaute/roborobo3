@@ -1,11 +1,9 @@
 #if defined PRJ_TEMPLATEBOIDS || !defined MODULAR
 
 #include "Config/TemplateBoidsConfigurationLoader.h"
-
 #include "TemplateBoids/include/TemplateBoidsWorldObserver.h"
 #include "TemplateBoids/include/TemplateBoidsAgentObserver.h"
 #include "TemplateBoids/include/TemplateBoidsController.h"
-
 #include "WorldModels/RobotWorldModel.h"
 
 TemplateBoidsConfigurationLoader::TemplateBoidsConfigurationLoader()

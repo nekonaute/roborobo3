@@ -9,9 +9,6 @@
 #ifndef GATEOBJECT_H
 #define GATEOBJECT_H
 
-//#include "RoboroboMain/common.h"
-//#include "Utilities/Geometry.h"
-
 #include "World/SquareObject.h"
 
 class GateObject : public SquareObject

@@ -6,20 +6,18 @@
  *
  */
 
-
 #include "World/World.h"
-
 #include "zsu/Properties.h"
 #include "Config/GlobalConfigurationLoader.h"
 #include "Utilities/Graphics.h"
 #include "RoboroboMain/roborobo.h"
 #include "Observers/WorldObserver.h"
+#include <iostream>
+#include <vector>
 
 //#include "tbb/blocked_range.h"
 //#include "tbb/parallel_for.h"
 //#include "tbb/task_scheduler_init.h"
-#include <iostream>
-#include <vector>
 
 /*
 struct executor

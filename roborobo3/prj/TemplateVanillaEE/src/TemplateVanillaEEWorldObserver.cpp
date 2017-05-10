@@ -3,13 +3,12 @@
  *
  */
 
-#include "Observers/AgentObserver.h"
-#include "Observers/WorldObserver.h"
 #include "TemplateVanillaEE/include/TemplateVanillaEEWorldObserver.h"
 #include "TemplateVanillaEE/include/TemplateVanillaEEController.h"
+#include "TemplateVanillaEE/include/TemplateVanillaEESharedData.h"
+#include "WorldModels/RobotWorldModel.h"
 #include "World/World.h"
-
-#include <float.h> // for DBL_MAX
+#include "RoboroboMain/roborobo.h"
 
 TemplateVanillaEEWorldObserver::TemplateVanillaEEWorldObserver( World* world ) : TemplateEEWorldObserver( world )
 {
@@ -18,7 +17,7 @@ TemplateVanillaEEWorldObserver::TemplateVanillaEEWorldObserver( World* world ) :
 
 TemplateVanillaEEWorldObserver::~TemplateVanillaEEWorldObserver()
 {
-    // superclass constructor called before
+    // superclass destructor called before
 }
 
 void TemplateVanillaEEWorldObserver::step()

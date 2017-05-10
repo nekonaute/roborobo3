@@ -1,13 +1,11 @@
+/**
+ * @author Nicolas Bredeche <nicolas.bredeche@upmc.fr>
+ *
+ */
+
 #include "World/SquareObject.h"
-
 #include "RoboroboMain/roborobo.h"
-//#include "Utilities/Misc.h"
-//#include "World/World.h"
-
-//#include "RoboroboMain/common.h"
-//#include "Utilities/Geometry.h"
 #include "Utilities/Graphics.h"
-
 #include "Utilities/Misc.h"
 
 SquareObject::SquareObject( int __id ) : PhysicalObject( __id ) // a unique and consistent __id should be given as argument

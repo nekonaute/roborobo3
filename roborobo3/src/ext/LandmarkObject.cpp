@@ -1,5 +1,4 @@
 #include "World/LandmarkObject.h"
-
 #include "RoboroboMain/roborobo.h"
 #include "Utilities/Misc.h"
 #include "Utilities/Graphics.h"

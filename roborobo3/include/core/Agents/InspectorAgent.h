@@ -13,7 +13,6 @@
 
 #include "Agents/Agent.h"
 
-//The dot
 class InspectorAgent : public Agent
 {
 	private:

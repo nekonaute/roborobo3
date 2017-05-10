@@ -3,22 +3,14 @@
  *
  */
 
-
-
 #ifndef TEMPLATEVANILLAEECONTROLLER_H
 #define TEMPLATEVANILLAEECONTROLLER_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-#include "Utilities/Graphics.h"
-#include "Controllers/Controller.h"
-#include "WorldModels/RobotWorldModel.h"
-#include "TemplateVanillaEE/include/TemplateVanillaEEAgentObserver.h"
-#include <neuralnetworks/NeuralNetwork.h>
 #include "TemplateEE/include/TemplateEEController.h"
 
 using namespace Neural;
 
+class RobotWorldModel;
 
 class TemplateVanillaEEController : public TemplateEEController
 {
