@@ -5,15 +5,14 @@
 
 #include "TemplateEE/include/TemplateEEController.h"
 #include "TemplateEE/include/TemplateEEWorldObserver.h"
-
+#include "TemplateEE/include/TemplateEESharedData.h"
+#include "RoboroboMain/roborobo.h"
+#include "WorldModels/RobotWorldModel.h"
 #include "World/World.h"
-#include "Utilities/Misc.h"
-#include <math.h>
-#include <string>
-
 #include <neuralnetworks/MLP.h>
 #include <neuralnetworks/Perceptron.h>
 #include <neuralnetworks/Elman.h>
+#include "Utilities/Misc.h"
 
 using namespace Neural;
 

@@ -17,8 +17,6 @@
 #include <neuralnetworks/NeuralNetwork.h>
 #include "TemplateEE/include/TemplateEEController.h"
 
-#include <iomanip>
-
 using namespace Neural;
 
 

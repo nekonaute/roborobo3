@@ -7,13 +7,9 @@
 #ifndef TEMPLATEEEAGENTOBSERVER_H
 #define TEMPLATEEEAGENTOBSERVER_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
 #include "Observers/AgentObserver.h"
-#include "WorldModels/RobotWorldModel.h"
-#include "TemplateEE/include/TemplateEESharedData.h"
 
-#include <iomanip>
+class RobotWorldModel;
 
 class TemplateEEAgentObserver : public AgentObserver
 {

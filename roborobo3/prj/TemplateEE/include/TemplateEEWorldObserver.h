@@ -7,14 +7,9 @@
 #ifndef TEMPLATEEEWORLDOBSERVER_H
 #define TEMPLATEEEWORLDOBSERVER_H
 
-#include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-#include "Observers/Observer.h"
 #include "Observers/WorldObserver.h"
-#include "WorldModels/RobotWorldModel.h"
-#include "TemplateEE/include/TemplateEESharedData.h"
 
-//class World;
+class World;
 
 class TemplateEEWorldObserver : public WorldObserver
 {

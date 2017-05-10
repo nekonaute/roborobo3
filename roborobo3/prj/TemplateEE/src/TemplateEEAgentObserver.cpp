@@ -5,13 +5,9 @@
 
 
 #include "TemplateEE/include/TemplateEEAgentObserver.h"
-#include "World/World.h"
-#include "Utilities/Misc.h"
+#include "WorldModels/RobotWorldModel.h"
 #include "RoboroboMain/roborobo.h"
-#include "TemplateEE/include/TemplateEEController.h"
-#include <cmath>
-#include "TemplateEE/include/TemplateEEWorldObserver.h"
-#include <string>
+
 
 TemplateEEAgentObserver::TemplateEEAgentObserver( RobotWorldModel *wm )
 {

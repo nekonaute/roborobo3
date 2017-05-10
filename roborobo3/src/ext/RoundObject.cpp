@@ -4,8 +4,6 @@
 //#include "Utilities/Misc.h"
 //#include "World/World.h"
 
-#include <iomanip>
-
 RoundObject::RoundObject( int __id ) : CircleObject( __id ) // should only be called by PhysicalObjectFactory
 {
     setType(0);

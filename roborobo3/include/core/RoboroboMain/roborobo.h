@@ -19,11 +19,6 @@
 #include "World/PhysicalObjectFactory.h"
 #include "World/PhysicalObject.h"
 
-#include <boost/multi_array.hpp>
-//#include <boost/filesystem.hpp> // unfortunately, not a header-only part of boost (cf. http://www.boost.org/doc/libs/1_53_0/more/getting_started/windows.html#header-only-libraries)
-
-#include <string.h>
-#include <vector>
 
 // project-wide Global data
 

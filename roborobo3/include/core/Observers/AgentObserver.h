@@ -11,10 +11,6 @@
 #ifndef AGENTOBSERVER_H
 #define AGENTOBSERVER_H 
 
-//#include "RoboroboMain/common.h"
-//#include "RoboroboMain/roborobo.h"
-//#include "WorldModels/RobotWorldModel.h"
-
 #include "Observers/Observer.h"
 
 class RobotWorldModel;

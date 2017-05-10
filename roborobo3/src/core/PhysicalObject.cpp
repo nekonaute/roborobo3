@@ -1,10 +1,7 @@
 #include "World/PhysicalObject.h"
-
 #include "RoboroboMain/roborobo.h"
 #include "Utilities/Misc.h"
 #include "World/World.h"
-
-#include <iomanip>
 
 PhysicalObject::PhysicalObject( int __id ) // a unique and consistent __id should be given as argument
 {

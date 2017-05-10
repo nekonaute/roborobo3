@@ -9,17 +9,13 @@
 #define TEMPLATEEECONTROLLER_H
 
 #include "RoboroboMain/common.h"
-#include "RoboroboMain/roborobo.h"
-#include "Utilities/Graphics.h"
 #include "Controllers/Controller.h"
-#include "WorldModels/RobotWorldModel.h"
-#include "TemplateEE/include/TemplateEEAgentObserver.h"
 #include <neuralnetworks/NeuralNetwork.h>
-
-#include <iomanip>
+#include "RoboroboMain/common.h"
 
 using namespace Neural;
 
+class RobotWorldModel;
 
 class TemplateEEController : public Controller
 {

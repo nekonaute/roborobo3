@@ -3,11 +3,13 @@
  *
  */
 
-#include "Observers/AgentObserver.h"
-#include "Observers/WorldObserver.h"
 #include "TemplateEE/include/TemplateEEWorldObserver.h"
-#include "TemplateEE/include/TemplateEEController.h"
+#include "WorldModels/RobotWorldModel.h"
 #include "World/World.h"
+#include "TemplateEE/include/TemplateEEController.h"
+#include "RoboroboMain/roborobo.h"
+#include "TemplateEE/include/TemplateEESharedData.h"
+#include "Utilities/Graphics.h"
 
 TemplateEEWorldObserver::TemplateEEWorldObserver( World* world ) : WorldObserver( world )
 {

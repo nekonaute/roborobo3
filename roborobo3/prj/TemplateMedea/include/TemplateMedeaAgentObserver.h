@@ -14,8 +14,6 @@
 #include "TemplateMedea/include/TemplateMedeaSharedData.h"
 #include "TemplateEE/include/TemplateEEAgentObserver.h"
 
-#include <iomanip>
-
 class TemplateMedeaAgentObserver : public TemplateEEAgentObserver
 {
 	public:

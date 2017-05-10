@@ -12,7 +12,6 @@
 #include "Observers/AgentObserver.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "TemplateVanillaEE/include/TemplateVanillaEESharedData.h"
-#include <iomanip>
 #include "TemplateEE/include/TemplateEEAgentObserver.h"
 
 class TemplateVanillaEEAgentObserver : public TemplateEEAgentObserver
