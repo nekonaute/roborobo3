@@ -133,7 +133,7 @@ Pour mettre les dernières modifs sur une nouvelle branche:
  git branch roborobo-movingObjects
  git checkout roborobo-movingObjects
  git commit -a -m "Work in progress"
- git push --> ou: git push --set-upstream origin roborobo-movingObjects
+ git push --> ou: git push --set-upstream origin roborobo-movingObjects [OPTIONNEL]
 
 Divers:
  git branch --> affiche les branches locales
@@ -145,6 +145,14 @@ Changer de branche:
  git checkout master -- changer vers la branche master
 
 Pour merger, depuis la branche que l'on souhaite garder:
+ se positionner dans la branche à garder
+ 	git checkout master
  git merge <autre_branche>   (conseil: à faire avec Xcode) -- inclus un commit (pas un push)
+ 		=> si ecrit "fast-forward": ok, pas de merge compliqué a faire.
  git branch -d <autre_branche> (supprime la branche en local)
  aller sur github pour supprimer une vieille branche.
+
+---
+
+git stash
+git stash pop 
