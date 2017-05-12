@@ -99,12 +99,12 @@ bp:
 - [++] (@Laura) Dans la fonction performVariation(), il faut remplacer rand()/RAND_MAX par ranf().
 - [=] user-control, est-ce qu'on peut qd même exécuter le controleur du robot?
 - BREAKPOINT: code pour laura (saveSnapshot) en cours d'implémentation
-- [=] clean-up includes (incl.: common.h is included by roborobo.h ; use of forward declaration)
-	reste à faire:
-		ext/Template*ConfigurationLoader
-		prj: TemplateEE, TemplateVanillaEE, TemplateMedea
-- [=] delete CellularMap? (used?)
+-.[=] clean-up includes (incl.: common.h is included by roborobo.h ; use of forward declaration)
+-.[=] delete CellularMap? (used?)
 - [-] rename "__MyCompanyName__. All rights reserved." 
+- [++] Time(NULL): pb si multiple runs in same second
+	cf. http://stackoverflow.com/questions/322938/recommended-way-to-initialize-srand
+- [++] CHECK: dans Makefile.modular, -lSDL2_image (oubli du "l"?)
 
 ---
 
