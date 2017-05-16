@@ -655,14 +655,16 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 */
 bool Robot::isCollision()
 {
+    bool collision = false;
+    
 	// check collision with borders and environment objects.
     if ( 
 		( _x < 0 ) || ( _x + gRobotWidth >= gAreaWidth ) ||
 		( _y < 0 ) || ( _y + gRobotHeight >= gAreaHeight )
 	   )
 	{
-		// * collision with border 
-		return true;
+		// * collision with border
+        collision = true;
 	}
 	else
 	{
@@ -677,13 +679,28 @@ bool Robot::isCollision()
 					Uint32 pixel = getPixel32( gEnvironmentImage , _x+i , _y+j);
 					if (  pixel != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
 					{
-						return true;
+                        if (gMovableObjects)
+                        {
+                            Uint8 r, g, b;
+                            SDL_GetRGB(pixel,gEnvironmentImage->format,&r,&g,&b);
+                            
+                            int targetIndex = (r<<16)+(g<<8)+b;
+                            
+                            if ( targetIndex >= gPhysicalObjectIndexStartOffset && targetIndex < gRobotIndexStartOffset)   // this is a physical object
+                            {
+                                targetIndex = targetIndex - gPhysicalObjectIndexStartOffset;
+                                gPhysicalObjects[targetIndex]->isPushed(_wm->getId()+gRobotIndexStartOffset, std::tie(_wm->_agentAbsoluteLinearSpeed, _wm->_agentAbsoluteOrientation));
+                            }
+                            collision = true;
+                        }
+                        else
+                            return true; // stop whenever collision is met
 					}
 				}
 			}
 	}	
 	
-	return false;
+    return collision;
 }
 
 

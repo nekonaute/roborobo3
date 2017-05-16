@@ -129,8 +129,6 @@ void PhysicalObject::init()
         y = -1.0;
 	}
     
-    _position = Point2d(x,y);
-    
 	_xCenterPixel = x;
 	_yCenterPixel = y;
 
@@ -148,8 +146,6 @@ int PhysicalObject::findRandomLocation( )
         
         //x = (rand() % (gAreaWidth-20)) + 10;  // deprecated
         //y = (rand() % (gAreaHeight-20)) + 10; // deprecated
-        
-        _position = Point2d(x,y);
         
         _xCenterPixel = x;
         _yCenterPixel = y;

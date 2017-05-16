@@ -26,7 +26,6 @@ class LandmarkObject
 	protected :
     
     // coordinates
-    Point2d _position;
     Sint16 _xCenterPixel;
     Sint16 _yCenterPixel;
     
@@ -49,14 +48,13 @@ class LandmarkObject
     {
         hide(); // hide previous position (if any)
         
-        _position = position;
         _xCenterPixel = position.x;
         _yCenterPixel = position.y;
     }
     
     Point2d getPosition()
     {
-        return _position;
+        return Point2d(_xCenterPixel,_yCenterPixel);
     }
     
     void setColor( Uint8 _r, Uint8 _g, Uint8 _b )

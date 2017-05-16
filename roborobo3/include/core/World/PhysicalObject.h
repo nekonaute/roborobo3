@@ -20,7 +20,6 @@ protected :
     int type;
     
     // coordinates
-    Point2d _position;
     Sint16 _xCenterPixel;
     Sint16 _yCenterPixel;
     
@@ -52,16 +51,21 @@ public :
         return _id;
     }
     
+    double getXReal() { return _xReal; }
+    double getYReal() { return _yReal; }
+    
+    Sint16 getXCenterPixel() { return (Sint16)_xReal; }
+    Sint16 getYCenterPixel() { return (Sint16)_yReal; }
+    
     void setPosition(Point2d position)
     {
-        _position = position;
         _xCenterPixel = position.x;
         _yCenterPixel = position.y;
     }
     
     Point2d getPosition()
     {
-        return _position;
+        return Point2d(_xCenterPixel,_yCenterPixel);
     }
     
     virtual void step() = 0;
@@ -73,7 +77,7 @@ public :
 
     virtual void isTouched( int __idAgent ) = 0; // callback, triggered by agent
     virtual void isWalked( int __idAgent ) = 0; // callback, triggered by agent
-    virtual void isPushed( int __id ) = 0; // callback, triggered by collision w/ agent/object
+    virtual void isPushed( int __id, std::tuple<double, double> __speed ) = 0; // callback, triggered by collision w/ agent/object
     
     virtual void show() = 0;
     virtual void hide() = 0;

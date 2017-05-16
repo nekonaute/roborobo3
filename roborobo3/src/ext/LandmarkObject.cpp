@@ -44,8 +44,6 @@ LandmarkObject::LandmarkObject()
 		y = (rand() % (gAreaHeight-20)) + 10;
         randomLocation = true;	}
     
-	_position = Point2d(x,y);
-    
 	_xCenterPixel = x;
 	_yCenterPixel = y;
     

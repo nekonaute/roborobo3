@@ -24,7 +24,7 @@ public :
     void step();
     void isTouched( int __idAgent ); // callback, triggered by agent
     void isWalked( int __idAgent ); // callback, triggered by agent
-    void isPushed( int __id ); // callback, triggered by collision w/ agent/object
+    void isPushed( int __id, std::tuple<double, double> __speed ); // callback, triggered by collision w/ agent/object
 };
 
 #endif
