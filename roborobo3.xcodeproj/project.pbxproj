@@ -989,6 +989,7 @@
 					roborobo3/include/contrib,
 					roborobo3/include/core,
 					/usr/local/include/,
+					/opt/local/include,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1007,6 +1008,7 @@
 					roborobo3/include/contrib,
 					roborobo3/include/core,
 					/usr/local/include/,
+					/opt/local/include,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

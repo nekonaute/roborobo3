@@ -614,41 +614,41 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 
 	}
 	else
-	{
-		// actual rotational and translational values matches desired values
-		_wm->_actualRotationalVelocity = _wm->_desiredRotationalVelocity;
-		_wm->_actualTranslationalValue = _wm->_agentAbsoluteLinearSpeed; // (!) _wm->_desiredTranslationalValue is different as the "desired" translation speed may not be reached due to physical actuator limitations
-	}
-	
-	// * update sensors
-    
-	for ( int i = 0 ; i != _wm->_cameraSensorsNb ; i++ )
-	{
-		// Warning: the following is repeated in the show method because coordinates are not stored, but are needed to display the sensor rays.
-		double x1 = (_wm->_xReal + _wm->getCameraSensorValue(i,SENSOR_SOURCENORM) * cos( _wm->getCameraSensorValue(i,SENSOR_SOURCEANGLE) + _wm->_agentAbsoluteOrientation * M_PI / 180 ) ) ;
-		double y1 = (_wm->_yReal + _wm->getCameraSensorValue(i,SENSOR_SOURCENORM) * sin( _wm->getCameraSensorValue(i,SENSOR_SOURCEANGLE) + _wm->_agentAbsoluteOrientation * M_PI / 180 ) ) ;
-		double x2 = (_wm->_xReal + _wm->getCameraSensorValue(i,SENSOR_TARGETNORM) * cos( _wm->getCameraSensorValue(i,SENSOR_TARGETANGLE) + _wm->_agentAbsoluteOrientation * M_PI / 180 ) ) ;
-		double y2 = (_wm->_yReal + _wm->getCameraSensorValue(i,SENSOR_TARGETNORM) * sin( _wm->getCameraSensorValue(i,SENSOR_TARGETANGLE) + _wm->_agentAbsoluteOrientation * M_PI / 180 ) ) ;
-
-		// cast sensor ray.
-		_wm->setCameraSensorValue(i,SENSOR_DISTANCEVALUE, castSensorRay(gEnvironmentImage, x1, y1, &x2, &y2, _wm->getCameraSensorMaximumDistanceValue(i)) ); // x2 and y2 are overriden with collision coordinate if ray hits object. -- not used here.
+    {
+        // actual rotational and translational values matches desired values
+        _wm->_actualRotationalVelocity = _wm->_desiredRotationalVelocity;
+        _wm->_actualTranslationalValue = _wm->_agentAbsoluteLinearSpeed; // (!) _wm->_desiredTranslationalValue is different as the "desired" translation speed may not be reached due to physical actuator limitations
         
-		Uint8 r, g, b;
-		Uint32 pixel = getPixel32( gEnvironmentImage, x2 , y2);
-		SDL_GetRGB(pixel,gEnvironmentImage->format,&r,&g,&b);
-        if ( r == 0xFF && g == 0xFF && b == 0xFF )
-            _wm->setCameraSensorValue(i,SENSOR_OBJECTVALUE, -1); // nothing
-        else
-            _wm->setCameraSensorValue(i,SENSOR_OBJECTVALUE, (r<<16)+(g<<8)+b); // type of objects. [0-gRobotIndexStartOffset[ is object, [gRobotIndexStartOffset-...[ is robots
+        // * update sensors
+        
+        for ( int i = 0 ; i != _wm->_cameraSensorsNb ; i++ )
+        {
+            // Warning: the following is repeated in the show method because coordinates are not stored, but are needed to display the sensor rays.
+            double x1 = (_wm->_xReal + _wm->getCameraSensorValue(i,SENSOR_SOURCENORM) * cos( _wm->getCameraSensorValue(i,SENSOR_SOURCEANGLE) + _wm->_agentAbsoluteOrientation * M_PI / 180 ) ) ;
+            double y1 = (_wm->_yReal + _wm->getCameraSensorValue(i,SENSOR_SOURCENORM) * sin( _wm->getCameraSensorValue(i,SENSOR_SOURCEANGLE) + _wm->_agentAbsoluteOrientation * M_PI / 180 ) ) ;
+            double x2 = (_wm->_xReal + _wm->getCameraSensorValue(i,SENSOR_TARGETNORM) * cos( _wm->getCameraSensorValue(i,SENSOR_TARGETANGLE) + _wm->_agentAbsoluteOrientation * M_PI / 180 ) ) ;
+            double y2 = (_wm->_yReal + _wm->getCameraSensorValue(i,SENSOR_TARGETNORM) * sin( _wm->getCameraSensorValue(i,SENSOR_TARGETANGLE) + _wm->_agentAbsoluteOrientation * M_PI / 180 ) ) ;
+            
+            // cast sensor ray.
+            _wm->setCameraSensorValue(i,SENSOR_DISTANCEVALUE, castSensorRay(gEnvironmentImage, x1, y1, &x2, &y2, _wm->getCameraSensorMaximumDistanceValue(i)) ); // x2 and y2 are overriden with collision coordinate if ray hits object. -- not used here.
+            
+            Uint8 r, g, b;
+            Uint32 pixel = getPixel32( gEnvironmentImage, x2 , y2);
+            SDL_GetRGB(pixel,gEnvironmentImage->format,&r,&g,&b);
+            if ( r == 0xFF && g == 0xFF && b == 0xFF )
+                _wm->setCameraSensorValue(i,SENSOR_OBJECTVALUE, -1); // nothing
+            else
+                _wm->setCameraSensorValue(i,SENSOR_OBJECTVALUE, (r<<16)+(g<<8)+b); // type of objects. [0-gRobotIndexStartOffset[ is object, [gRobotIndexStartOffset-...[ is robots
             //_wm->setCameraSensorValue(i,SENSOR_OBJECTVALUE, (r<<16)+(g<<8)+b); // type of objects. [0-gRobotIndexStartOffset[ is object, [gRobotIndexStartOffset-...[ is robots
-	}
-    
-	Uint8 r, g, b;
-	Uint32 pixel = getPixel32( gFootprintImage, _wm->_xReal+0.5, _wm->_yReal+0.5);
-	SDL_GetRGB(pixel,gFootprintImage->format,&r,&g,&b); 
-	_wm->_groundSensorValue[0] = r;
-	_wm->_groundSensorValue[1] = g;
-	_wm->_groundSensorValue[2] = b;
+        }
+        
+        Uint8 r, g, b;
+        Uint32 pixel = getPixel32( gFootprintImage, _wm->_xReal+0.5, _wm->_yReal+0.5);
+        SDL_GetRGB(pixel,gFootprintImage->format,&r,&g,&b); 
+        _wm->_groundSensorValue[0] = r;
+        _wm->_groundSensorValue[1] = g;
+        _wm->_groundSensorValue[2] = b;
+    }
 }
 
 /* Check collision between the robot and the environment (gEnvironmentImage - contains robots, physical objects, walls)

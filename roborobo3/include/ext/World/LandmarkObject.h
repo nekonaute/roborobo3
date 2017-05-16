@@ -14,18 +14,19 @@
 
 class LandmarkObject
 {
-	private :
-
+    private :
+    
     int _id;
     static int _nextId;
     
     Uint8 r = 0xFF;
     Uint8 g = 0xD4;
     Uint8 b = 0x82;
-	
-	protected :
+    
+    protected :
     
     // coordinates
+    Point2d _position;
     Sint16 _xCenterPixel;
     Sint16 _yCenterPixel;
     
@@ -34,7 +35,7 @@ class LandmarkObject
     
     int _state; // a state value, not used. Could be used for any particular purpose.
     
-	public :
+    public :
     
     LandmarkObject();
     ~LandmarkObject();
@@ -48,13 +49,14 @@ class LandmarkObject
     {
         hide(); // hide previous position (if any)
         
+        _position = position;
         _xCenterPixel = position.x;
         _yCenterPixel = position.y;
     }
     
     Point2d getPosition()
     {
-        return Point2d(_xCenterPixel,_yCenterPixel);
+        return _position;
     }
     
     void setColor( Uint8 _r, Uint8 _g, Uint8 _b )
@@ -73,7 +75,7 @@ class LandmarkObject
     
     virtual void show();
     virtual void hide();
-	
+    
 };
 
 #endif

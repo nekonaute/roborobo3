@@ -2,7 +2,7 @@
 #include "RoboroboMain/roborobo.h"
 #include "World/World.h"
 #include "WorldModels/RobotWorldModel.h"
-
+#include "Utilities/Graphics.h"
 
 MovableObject::MovableObject( int __id ) : CircleObject( __id ) // should only be called by PhysicalObjectFactory
 {
@@ -11,8 +11,13 @@ MovableObject::MovableObject( int __id ) : CircleObject( __id ) // should only b
 
 void MovableObject::step()
 {
+    double oldX = _xReal;
+    double oldY = _yReal;
+    
     if ( _impulses.size() != 0 )
         move();
+    
+    _shifting = sqrt((oldX-_desiredX)*(oldX-_desiredX) + (oldY-_desiredY)*(oldY-_desiredY));
     
     //stepPhysicalObject();
     if ( _visible && gPhysicalObjectsRedraw == true )
@@ -25,10 +30,10 @@ void MovableObject::move()
 {
     // work in progress - 2017-05-16
     
-    bool _hitWall = false; // SHOULD BE GLOBAL
-    bool _didMove = false;
-    double _desiredX = _xReal;
-    double _desiredY = _yReal;
+    _hitWall = false;
+    _didMove = false;
+    _desiredX = _xReal;
+    _desiredY = _yReal;
     
     if (_impulses.size() > 0)
     {
@@ -101,11 +106,43 @@ void MovableObject::move()
         
         _impulses.clear();
     }
-    
-    // update integer coordinates (used for display)
-    // BUG: integer-precision implies approximation in collision
-    this->_xCenterPixel= (Sint16)(_xReal+0.5);
-    this->_yCenterPixel = (Sint16)(_yReal+0.5);
+}
+
+bool MovableObject::canRegister()
+{
+    return canRegister(getXCenterPixel(), getYCenterPixel());
+}
+
+bool MovableObject::canRegister( Sint16 __x, Sint16 __y )
+{
+    // test shape
+    for (Sint16 xColor = __x - _radius ; xColor < __x + _radius ; xColor++)
+    {
+        for (Sint16 yColor = __y - _radius ; yColor < __y + _radius; yColor ++)
+        {
+            if ( pow (xColor-__x,2) + pow (yColor - __y,2) < _radius*_radius )
+            {
+                Uint32 pixel = getPixel32_secured( gEnvironmentImage, xColor, yColor);
+                if ( pixel != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ) {
+                    // if we touched an object, tell it
+                    Uint8 r, g, b;
+                    SDL_GetRGB(pixel,gEnvironmentImage->format,&r,&g,&b);
+                    
+                    int targetIndex = (r<<16)+(g<<8)+b;
+                    
+                    if ( targetIndex >= gPhysicalObjectIndexStartOffset && targetIndex < gRobotIndexStartOffset && gMovableObjects)   // physical object
+                    {
+                        targetIndex = targetIndex - gPhysicalObjectIndexStartOffset;
+                        gPhysicalObjects[targetIndex]->isPushed(_id, std::tie(_desiredLinearSpeed, _desiredSpeedOrientation));
+                    } else if (targetIndex < gRobotIndexStartOffset) {
+                        _hitWall = true;
+                    }
+                    return false; // collision!
+                }
+            }
+        }
+    }
+    return true;
 }
 
 void MovableObject::isTouched( int __idAgent )

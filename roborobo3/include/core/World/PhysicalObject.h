@@ -18,10 +18,10 @@ protected :
     int _id;
     
     int type;
-    
-    // coordinates
-    Sint16 _xCenterPixel;
-    Sint16 _yCenterPixel;
+
+    // coordinates (center of object)
+    double _xReal;
+    double _yReal;
     
     Uint8 _displayColorRed;
     Uint8 _displayColorGreen;
@@ -56,18 +56,13 @@ public :
     
     Sint16 getXCenterPixel() { return (Sint16)_xReal; }
     Sint16 getYCenterPixel() { return (Sint16)_yReal; }
-    
-    void setPosition(Point2d position)
+
+    void setCoordinates( double x, double y )
     {
-        _xCenterPixel = position.x;
-        _yCenterPixel = position.y;
+        _xReal = x;
+        _yReal = y;
     }
-    
-    Point2d getPosition()
-    {
-        return Point2d(_xCenterPixel,_yCenterPixel);
-    }
-    
+
     virtual void step() = 0;
     void stepPhysicalObject(); // default step method. Suggested: call this method from step().
     
