@@ -425,7 +425,7 @@ void TemplateEEController::mapGenotypeToPhenotype()
 
 void TemplateEEController::performVariation()
 {
-    if ( TemplateEESharedData::gIndividualMutationRate > rand()/RAND_MAX ) // global mutation rate (whether this genome will get any mutation or not) - default: always
+    if ( TemplateEESharedData::gIndividualMutationRate > ranf() ) // global mutation rate (whether this genome will get any mutation or not) - default: always
     {
         switch ( TemplateEESharedData::gMutationOperator )
         {

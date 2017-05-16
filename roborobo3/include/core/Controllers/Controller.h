@@ -3,7 +3,7 @@
  *  roborobo-online
  *
  *  Created by Nicolas on 19/03/09.
- *  Copyright 2009 __MyCompanyName__. All rights reserved.
+ *  Copyright 2009. All rights reserved.
  *
  */
 
