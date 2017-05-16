@@ -26,6 +26,7 @@ public :
     void step();
     void isTouched( int __idAgent ); // callback, triggered by agent
     void isWalked( int __idAgent ); // callback, triggered by agent
+    void isPushed( int __id ); // callback, triggered by collision w/ agent/object
 };
 
 #endif

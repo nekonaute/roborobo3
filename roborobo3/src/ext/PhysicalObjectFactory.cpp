@@ -3,6 +3,7 @@
 #include "World/EnergyItem.h"
 #include "World/GateObject.h"
 #include "World/SwitchObject.h"
+#include "World/MovableObject.h"
 #include "RoboroboMain/roborobo.h"
 #include "Utilities/Misc.h"
 
@@ -53,6 +54,11 @@ void PhysicalObjectFactory::makeObject( int type )
                 std::cout << "[INFO] Switch Object created (type = " << type << ").\n";
             gPhysicalObjects.push_back( new SwitchObject(id) );
             break;
+        case 4:
+            if ( gVerbose )
+                std::cout << "[INFO] Movable Object created (type = " << type << ").\n";
+            gPhysicalObjects.push_back( new MovableObject(id) );
+            break;
         // case ...: DO NOT FORGET TO UPDATE getNbOfTypes() method.
         default:
             std::cerr << "[CRITICAL] PhysicalObjectFactory: object #" << id << ", type unknown (" << type << ")" << std::endl;
@@ -62,7 +68,7 @@ void PhysicalObjectFactory::makeObject( int type )
 
 int PhysicalObjectFactory::getNbOfTypes()
 {
-    return 4;
+    return 5;
 }
 
 

@@ -59,9 +59,9 @@ verifyMods:
 $(TARGET): $(OBJ)
 ifeq ($(strip $(VERBOSE)),)
 	@echo "[LD]	" $@
-	@$(CC) $(LDFLAGS) -o $@ $^ -lSDL2 -SDL2_image $(LIBS)
+	@$(CC) $(LDFLAGS) -o $@ $^ -lSDL2 -lSDL2_image $(LIBS)
 else
-	$(CC) $(LDFLAGS) -o $@ $^ -lSDL2 -SDL2_image $(LIBS)
+	$(CC) $(LDFLAGS) -o $@ $^ -lSDL2 -lSDL2_image $(LIBS)
 endif
 
 %.o: %.cpp

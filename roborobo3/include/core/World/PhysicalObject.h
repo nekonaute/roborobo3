@@ -73,6 +73,7 @@ public :
 
     virtual void isTouched( int __idAgent ) = 0; // callback, triggered by agent
     virtual void isWalked( int __idAgent ) = 0; // callback, triggered by agent
+    virtual void isPushed( int __id ) = 0; // callback, triggered by collision w/ agent/object
     
     virtual void show() = 0;
     virtual void hide() = 0;

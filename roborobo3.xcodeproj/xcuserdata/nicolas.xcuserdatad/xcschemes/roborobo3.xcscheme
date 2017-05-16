@@ -68,6 +68,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "-l config/movingobjects.properties"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-l config/benchmark.properties"
             isEnabled = "NO">
          </CommandLineArgument>
@@ -93,7 +97,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_vanillaEE.properties"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
