@@ -39,6 +39,12 @@ extern bool gOutputImageFormat;
 extern bool gTrajectoryMonitor;
 extern int gTrajectoryMonitorMode;
 
+extern bool gCustomSnapshot_niceRendering;
+extern bool gCustomSnapshot_showLandmarks;
+extern bool gCustomSnapshot_showObjects;
+extern bool gCustomSnapshot_showRobots;
+extern bool gCustomSnapshot_showSensorRays;
+
 // extern std::vector<std::string> gRemainingCommandLineParameters;     //todelete: 2014-09-17, deprecated
 
 

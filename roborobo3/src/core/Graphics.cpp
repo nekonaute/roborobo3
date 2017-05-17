@@ -59,49 +59,41 @@ void saveCustomScreenshot ( std::string __comment )
     //Show the background image and foreground image (active borders) [note: this is what costs a lot wrt. computation time]
 
     SDL_FillRect( gSnapshot, &gSnapshot->clip_rect, SDL_MapRGBA( gSnapshot->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen
-    
-    // nice snapshot
-    apply_surface( 0, 0, gFootprintImage, gSnapshot, &gCamera );
-    apply_surface( 0, 0, gForegroundImage, gSnapshot, &gCamera );
-    
-    // true snapshot
-    //apply_surface( 0, 0, gEnvironmentImage, gSnapshot, &gCamera );
-    //apply_surface( 0, 0, gForegroundImage, gSnapshot, &gCamera );
 
-
-    
-    
-    if ( true )
+    if ( gCustomSnapshot_niceRendering == true )
     {
-        // Show landmark(s) on the screen
+        // nice snapshot
+        apply_surface( 0, 0, gFootprintImage, gSnapshot, &gCamera );
+        apply_surface( 0, 0, gForegroundImage, gSnapshot, &gCamera );
+    }
+    else
+    {
+        // true snapshot
+        apply_surface( 0, 0, gEnvironmentImage, gSnapshot, &gCamera );
+        apply_surface( 0, 0, gForegroundImage, gSnapshot, &gCamera );
+    }
+
+    if ( gCustomSnapshot_showLandmarks == true )
+    {
         for ( int i = 0 ; i != gNbOfLandmarks ; i++ )
-        {
             if ( gLandmarks[i]->isVisible() )
-            {
                 gLandmarks[i]->show(gSnapshot);
-            }
-        }
     }
     
-    if ( true )
+    if ( gCustomSnapshot_showObjects == true )
     {
-        // Show object(s) on the screen
-        {
-            for ( int i = 0 ; i != gNbOfPhysicalObjects ; i++ )
-            {
-                if ( gPhysicalObjects[i]->isVisible() )
-                {
-                    gPhysicalObjects[i]->show(gSnapshot);
-                }
-            }
-        }
+        for ( int i = 0 ; i != gNbOfPhysicalObjects ; i++ )
+            if ( gPhysicalObjects[i]->isVisible() )
+                gPhysicalObjects[i]->show(gSnapshot);
     }
-
-    if ( true )
+    
+    if ( gCustomSnapshot_showRobots == true )
     {
         int backupDisplaySensorsValue = gDisplaySensors;
-        gDisplaySensors = 0; // do not display sensor rays
-        // Show agent(s) on the screen
+        if ( gCustomSnapshot_showSensorRays == true )
+            gDisplaySensors = 1;
+        else
+            gDisplaySensors = 0;
         for ( int i = 0 ; i != gNbOfRobots ; i++ )
         {
             // Show agent(s) on the screen

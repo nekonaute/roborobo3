@@ -103,6 +103,12 @@ bool gOutputImageFormat = false; // default: PNG. (if True: BMP)
 bool gTrajectoryMonitor = false;
 int gTrajectoryMonitorMode = 0;
 
+bool gCustomSnapshot_niceRendering = true;
+bool gCustomSnapshot_showLandmarks = true;
+bool gCustomSnapshot_showObjects = true;
+bool gCustomSnapshot_showRobots = true;
+bool gCustomSnapshot_showSensorRays = true;
+
 //filenames
 
 std::ofstream gLogFile;
@@ -1758,6 +1764,66 @@ bool loadProperties( std::string __propertiesFilename )
             convertFromString<int>(gTrajectoryMonitorMode, gProperties.getProperty("gTrajectoryMonitorMode"), std::dec);
     }
 
+    s = gProperties.getProperty("gCustomSnapshot_niceRendering");
+    if ( s == "true" || s == "True" || s == "TRUE" )
+        gCustomSnapshot_niceRendering = true;
+    else
+        if ( s == "false" || s == "False" || s == "FALSE" )
+            gCustomSnapshot_niceRendering = false;
+        else
+        {
+            std::cerr << "[WARNING] gCustomSnapshot_niceRendering is missing or corrupt (default value is \"true\").\n";
+            //returnValue = false;
+        }
+
+    s = gProperties.getProperty("gCustomSnapshot_showLandmarks");
+    if ( s == "true" || s == "True" || s == "TRUE" )
+        gCustomSnapshot_showLandmarks = true;
+    else
+        if ( s == "false" || s == "False" || s == "FALSE" )
+            gCustomSnapshot_showLandmarks = false;
+        else
+        {
+            std::cerr << "[WARNING] gCustomSnapshot_showLandmarks is missing or corrupt (default value is \"true\").\n";
+            //returnValue = false;
+        }
+    
+    s = gProperties.getProperty("gCustomSnapshot_showObjects");
+    if ( s == "true" || s == "True" || s == "TRUE" )
+        gCustomSnapshot_showObjects = true;
+    else
+        if ( s == "false" || s == "False" || s == "FALSE" )
+            gCustomSnapshot_showObjects = false;
+        else
+        {
+            std::cerr << "[WARNING] gCustomSnapshot_showObjects is missing or corrupt (default value is \"true\").\n";
+            //returnValue = false;
+        }
+
+    s = gProperties.getProperty("gCustomSnapshot_showRobots");
+    if ( s == "true" || s == "True" || s == "TRUE" )
+        gCustomSnapshot_showRobots = true;
+    else
+        if ( s == "false" || s == "False" || s == "FALSE" )
+            gCustomSnapshot_showRobots = false;
+        else
+        {
+            std::cerr << "[WARNING] gCustomSnapshot_showRobots is missing or corrupt (default value is \"true\").\n";
+            //returnValue = false;
+        }
+    
+    s = gProperties.getProperty("gCustomSnapshot_showSensorRays");
+    if ( s == "true" || s == "True" || s == "TRUE" )
+        gCustomSnapshot_showSensorRays = true;
+    else
+        if ( s == "false" || s == "False" || s == "FALSE" )
+            gCustomSnapshot_showSensorRays = false;
+        else
+        {
+            std::cerr << "[WARNING] gCustomSnapshot_showSensorRays is missing or corrupt (default value is \"true\").\n";
+            //returnValue = false;
+        }
+    
     s = gProperties.getProperty("gMovableObjects");
     if ( s == "true" || s == "True" || s == "TRUE" )
         gMovableObjects = true;
