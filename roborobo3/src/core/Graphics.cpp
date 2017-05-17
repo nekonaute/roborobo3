@@ -38,6 +38,8 @@ void saveImage ( SDL_Surface *image, std::string __prefix, std::string __comment
 
 void saveCustomScreenshot ( std::string __comment )
 {
+    //std::cout << "[DEBUG] saveCustomScreenshot: WORK IN PROGRESS!" << std::endl;
+    
     // preparing
     
     std::string snapshotIndexStr = convertToString(gSnapshotIndex);
@@ -49,15 +51,6 @@ void saveCustomScreenshot ( std::string __comment )
     
     // rendering
     
-    std::cout << "[DEBUG] saveCustomScreenshot: WORK IN PROGRESS!" << std::endl;
-    /*
-     if ( gInspectorMode )
-     gWorld->inspectorAgent->set_camera();
-     else
-     gWorld->getRobot(gRobotIndexFocus)->set_camera();
-     */
-    //Show the background image and foreground image (active borders) [note: this is what costs a lot wrt. computation time]
-
     SDL_FillRect( gSnapshot, &gSnapshot->clip_rect, SDL_MapRGBA( gSnapshot->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen
 
     if ( gCustomSnapshot_niceRendering == true )
@@ -91,7 +84,7 @@ void saveCustomScreenshot ( std::string __comment )
     {
         int backupDisplaySensorsValue = gDisplaySensors;
         if ( gCustomSnapshot_showSensorRays == true )
-            gDisplaySensors = 1;
+            gDisplaySensors = 2;
         else
             gDisplaySensors = 0;
         for ( int i = 0 ; i != gNbOfRobots ; i++ )

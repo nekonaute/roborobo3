@@ -107,7 +107,7 @@ bool gCustomSnapshot_niceRendering = true;
 bool gCustomSnapshot_showLandmarks = true;
 bool gCustomSnapshot_showObjects = true;
 bool gCustomSnapshot_showRobots = true;
-bool gCustomSnapshot_showSensorRays = true;
+bool gCustomSnapshot_showSensorRays = false;
 
 //filenames
 
@@ -771,9 +771,6 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 
 void updateDisplay() // display is called starting when gWorld->getIterations > 0.
 {
-    
-    saveCustomScreenshot(std::to_string(gWorld->getIterations())); // !n-DEBUG
-    
     if ( gDisplayMode == 0 || ( gDisplayMode == 1 && gWorld->getIterations() % gFastDisplayModeSpeed == 0 ) )
     {
         //Set the camera to either focused agent or inspector virtual location
@@ -850,7 +847,7 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
         {
             if ( gWorld->getIterations() == gMaxIt-1 )
             {
-                saveCustomScreenshot("firstIteration");
+                saveCustomScreenshot("lastIteration");
                 saveRenderScreenshot("lastIteration");
                 saveEnvironmentScreenshot("lastIteration");
                 saveFootprintScreenshot("lastIteration");
@@ -1772,7 +1769,7 @@ bool loadProperties( std::string __propertiesFilename )
             gCustomSnapshot_niceRendering = false;
         else
         {
-            std::cerr << "[WARNING] gCustomSnapshot_niceRendering is missing or corrupt (default value is \"true\").\n";
+            std::cerr << "[WARNING] gCustomSnapshot_niceRendering is missing or corrupt (default value is \"" << gCustomSnapshot_niceRendering << "\").\n";
             //returnValue = false;
         }
 
@@ -1784,7 +1781,7 @@ bool loadProperties( std::string __propertiesFilename )
             gCustomSnapshot_showLandmarks = false;
         else
         {
-            std::cerr << "[WARNING] gCustomSnapshot_showLandmarks is missing or corrupt (default value is \"true\").\n";
+            std::cerr << "[WARNING] gCustomSnapshot_showLandmarks is missing or corrupt (default value is \"" << gCustomSnapshot_showLandmarks << "\").\n";
             //returnValue = false;
         }
     
@@ -1796,7 +1793,7 @@ bool loadProperties( std::string __propertiesFilename )
             gCustomSnapshot_showObjects = false;
         else
         {
-            std::cerr << "[WARNING] gCustomSnapshot_showObjects is missing or corrupt (default value is \"true\").\n";
+            std::cerr << "[WARNING] gCustomSnapshot_showObjects is missing or corrupt (default value is \"" << gCustomSnapshot_showObjects << "\").\n";
             //returnValue = false;
         }
 
@@ -1808,7 +1805,7 @@ bool loadProperties( std::string __propertiesFilename )
             gCustomSnapshot_showRobots = false;
         else
         {
-            std::cerr << "[WARNING] gCustomSnapshot_showRobots is missing or corrupt (default value is \"true\").\n";
+            std::cerr << "[WARNING] gCustomSnapshot_showRobots is missing or corrupt (default value is \"" << gCustomSnapshot_showRobots << "\").\n";
             //returnValue = false;
         }
     
@@ -1820,7 +1817,7 @@ bool loadProperties( std::string __propertiesFilename )
             gCustomSnapshot_showSensorRays = false;
         else
         {
-            std::cerr << "[WARNING] gCustomSnapshot_showSensorRays is missing or corrupt (default value is \"true\").\n";
+            std::cerr << "[WARNING] gCustomSnapshot_showSensorRays is missing or corrupt (default value is \"" << gCustomSnapshot_showSensorRays << "\").\n";
             //returnValue = false;
         }
     
@@ -1832,7 +1829,7 @@ bool loadProperties( std::string __propertiesFilename )
             gMovableObjects = false;
         else
         {
-            std::cerr << "[WARNING] gMovableObjects is missing or corrupt (default is \"false\").\n";
+            std::cerr << "[WARNING] gMovableObjects is missing or corrupt (default is \"" << gMovableObjects << "\").\n";
             //returnValue = false;
         }
 
