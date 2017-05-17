@@ -19,7 +19,7 @@ int gTrajectoryFileIndex = 0; // numbering trajectory images (used by saveTrajec
 
 void saveImage ( SDL_Surface *image, std::string __prefix, std::string __comment ) // comment is optional
 {
-    std::string sLog = gLogDirectoryname + "/" + __prefix + "_" + gStartTime;
+    std::string sLog = gLogDirectoryname + "/" + __prefix + "_" + gStartTime + "_" + getpidAsReadableString();
 
 	if ( __comment != "" )
 		sLog += "_" + __comment;
@@ -36,7 +36,7 @@ void saveImage ( SDL_Surface *image, std::string __prefix, std::string __comment
     }
 }
 
-void saveSnapshot ( std::string __comment )
+void saveCustomScreenshot ( std::string __comment )
 {
     // preparing
     
@@ -49,7 +49,7 @@ void saveSnapshot ( std::string __comment )
     
     // rendering
     
-    std::cout << "NOT IMPLEMENTED - WORK IN PROGRESS!" << std::endl;
+    std::cout << "[DEBUG] saveCustomScreenshot: WORK IN PROGRESS!" << std::endl;
     /*
      if ( gInspectorMode )
      gWorld->inspectorAgent->set_camera();
@@ -70,7 +70,7 @@ void saveSnapshot ( std::string __comment )
 
 
     
-    /*
+    
     if ( true )
     {
         // Show landmark(s) on the screen
@@ -78,11 +78,11 @@ void saveSnapshot ( std::string __comment )
         {
             if ( gLandmarks[i]->isVisible() )
             {
-                gLandmarks[i]->show();
+                gLandmarks[i]->show(gSnapshot);
             }
         }
     }
-    */
+    
     if ( true )
     {
         // Show object(s) on the screen
@@ -91,7 +91,7 @@ void saveSnapshot ( std::string __comment )
             {
                 if ( gPhysicalObjects[i]->isVisible() )
                 {
-                    gPhysicalObjects[i]->show();
+                    gPhysicalObjects[i]->show(gSnapshot);
                 }
             }
         }
@@ -99,17 +99,20 @@ void saveSnapshot ( std::string __comment )
 
     if ( true )
     {
+        int backupDisplaySensorsValue = gDisplaySensors;
+        gDisplaySensors = 0; // do not display sensor rays
         // Show agent(s) on the screen
         for ( int i = 0 ; i != gNbOfRobots ; i++ )
         {
             // Show agent(s) on the screen
-            gRobots[i]->show(); // show sensor rays. ==> DELETE SENSOR RAY!
+            gRobots[i]->show(gSnapshot);
         }
+        gDisplaySensors = backupDisplaySensorsValue;
     }
     
     // saving
     
-    saveImage(gSnapshot,"snapshot_",snapshotIndexStr+"_"+__comment);
+    saveImage(gSnapshot,"screenshot_custom",snapshotIndexStr+"_"+__comment);
     
     gSnapshotIndex++;
 }

@@ -12,6 +12,8 @@
 
 #include "RoboroboMain/common.h"
 
+extern SDL_Surface *gScreen;
+
 class Agent
 {
     protected:
@@ -40,11 +42,8 @@ class Agent
 		virtual void stepBehavior() = 0;
 		virtual void stepBehavior(const Uint8* __keyboardStates) = 0;
     
-		//Moves the dot
 		void move();
-
-		//Shows the dot on the screen
-		void show();
+        void show(SDL_Surface *surface = gScreen);
     
 		//Sets the camera over the dot
 		void set_camera();

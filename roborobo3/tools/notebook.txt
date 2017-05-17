@@ -1,8 +1,7 @@
-~notebook.txt
+notebook.txt
 
 ---
 
-bp:
 -.[ ] energyItems are now correctly displayed and registered
 -.[ ] remain: fitness function, selectBestIndividual (or whatever)
 -.[ ] bug corrected: clearreservoir()
@@ -45,13 +44,13 @@ bp:
 - BREAKPOINT: code pour laura (saveSnapshot) en cours d'implémentation
 -.[=] clean-up includes (incl.: common.h is included by roborobo.h ; use of forward declaration)
 -.[=] delete CellularMap? (used?)
-- [-] rename "__MyCompanyName__. All rights reserved." 
-- [++] Time(NULL): pb si multiple runs in same second
-	cf. http://stackoverflow.com/questions/322938/recommended-way-to-initialize-srand
-- [++] CHECK: dans Makefile.modular, -lSDL2_image (oubli du "l"?)
+-.[-] delete "__MyCompanyName__. All rights reserved." 
+-.[+] ambiguous logs'timestamp when multiple runs start at the same second. Solved: use pid.
+	alternative: http://stackoverflow.com/questions/322938/recommended-way-to-initialize-srand
+-.[+] in Makefile.modular: -SDL2_image (should be -lSDL2_image)
 - [=] "TemplateWanderConfigurationLoader" => (ProjectName) "TemplateWander"
-- [+] /opt/local/include dans les search paths du projet (Xcode et Makefile)
-- [-] Landmark.cpp/h: rename setPosition to setCoordinates
+-.[+] /opt/local/include dans les search paths du projet (Xcode et Makefile)
+-.[-] Landmark.cpp/h: rename setPosition to setCoordinates
 -.[=] Robot::move() - update sensors done if no collision (was: done always)
 - [+] Physics
     - Robot.move() -> collision w/ objects => isPushed()
@@ -75,72 +74,6 @@ bp:
 
 BREAKPOINT:
     wrongly multiple actions of a given robot on a particular object
-
----
-
-Show the origin of selection pressure (envt vs obj) depends on the pressure to survival
-- low pressure to survival: optimize objective
-- high pressure to survival: optimize survival only
-- by-product: pursuing an objective may be detrimental vs survival
-Possible outcome: lifetime duration may ease the burden of survival in a non-linear manner 
-	--> if long life, chances to encounter other even if only objective is pursued
-	--> would imply transition depending on the envt pressure applied
-
-candidates:
-- popsize
-- lifetime
-- ...
-
-=-=-=-=-=
-
-revert to latest "official" commit:
- git fetch --all
- git reset --hard origin/master (change de branche, et va sur HEAD)
- git reset --hard HEAD (sur la branche courante)
-
-=-=-=-=-=
-
-Pour mettre les dernières modifs sur une nouvelle branche:
- git branch roborobo-movingObjects
- git checkout roborobo-movingObjects
- git commit -a -m "Work in progress"
- git push --> ou: git push --set-upstream origin roborobo-movingObjects [OPTIONNEL]
-
-Divers:
- git branch --> affiche les branches locales
- git branch -v --> donne le dernier commit
- git branch -vv --> donne une info sur la synchro entre les branches locales et celles du serveur
- git log --oneline --graph --> donne tous les commits (lisible)
-
-Changer de branche:
- git checkout master -- changer vers la branche master
-
-Pour merger, depuis la branche que l'on souhaite garder:
- se positionner dans la branche à garder
- 	git checkout master
- git merge <autre_branche>   (conseil: à faire avec Xcode) -- inclus un commit (pas un push)
- 		=> si ecrit "fast-forward": ok, pas de merge compliqué a faire.
- git branch -d <autre_branche> (supprime la branche en local)
- aller sur github pour supprimer une vieille branche.
-
----
-
-git stash {push}
-git stash pop 
-git stash -v
-
----
-
-git remote add roborobo-theotime https://github.com/Juiblex/roborobo3
-git remote -v
-git fetch roborobo-theotime
-git branch
-git branch -v # incl. branche locale et leur head (ie. nom du dernier commit)
-git branch -vv # incl. relation aux serveurs distants
-git checkout -b roborobo-theotime/static-objects
-
-Pour suivre la branche distance:
-git branch --set-upstream <ma_branche_locale> roborobo-theotime/static-objects
-git pull
-Bien sur: pas de push possible.
+    roborobo.cpp: saveCustomScreenshot(std::to_string(gWorld->getIterations())); // !n-DEBUG
+        show for agent/object must be on gSnapshot (which is to be renamed)
 

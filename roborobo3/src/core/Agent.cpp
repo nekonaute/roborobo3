@@ -39,10 +39,10 @@ void Agent::setCoord (int __x, int __y) // agent is centered on point
     * Display agent on screen. Add information caption if needed.
 	* (render mode only) 
     */
-void Agent::show() // display on screen -- method may be overriden
-{    
+void Agent::show(SDL_Surface *surface) // display on screen -- method may be overriden
+{
     //Show the dot
-    apply_surface( _x - gCamera.x, _y - gCamera.y, gRobotDisplayImage, gScreen );
+    apply_surface( _x - gCamera.x, _y - gCamera.y, gRobotDisplayImage, surface );
 }
 
 

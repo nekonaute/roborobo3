@@ -64,7 +64,7 @@ void toggle_fullscreen();
 
 SDL_Surface *load_image( std::string filename );
 
-void saveSnapshot( std::string __comment = "");
+void saveCustomScreenshot( std::string __comment = "");
 void saveRenderScreenshot( std::string __comment = "");
 void saveEnvironmentScreenshot( std::string __comment = "" );
 void saveFootprintScreenshot( std::string __comment = "" );

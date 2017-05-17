@@ -15,10 +15,8 @@
 class World;
 class Controller;
 class AgentObserver;
-class Agent;
 class RobotWorldModel;
 class WorldObserver;
-class World;
 
 class Robot : public Agent
 {
@@ -63,7 +61,7 @@ class Robot : public Agent
 		//Moves the agent
 		void move( int __recursiveIt = 0 );
 		
-		void show();
+		void show(SDL_Surface *surface = gScreen);
 
 		bool isCollision();
 

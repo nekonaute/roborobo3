@@ -44,8 +44,6 @@ LandmarkObject::LandmarkObject()
         y = (rand() % (gAreaHeight-20)) + 10;
         randomLocation = true;	}
     
-    _position = Point2d(x,y);
-    
     _xCenterPixel = x;
     _yCenterPixel = y;
     
@@ -76,9 +74,9 @@ void LandmarkObject::step()
 {
 }
 
-void LandmarkObject::show() // display on screen (called in the step() method if gDisplayMode=0 and _visible=true)
+void LandmarkObject::show(SDL_Surface *surface) // display on screen (called in the step() method if gDisplayMode=0 and _visible=true)
 {
-    Uint32 color = SDL_MapRGBA(gScreen->format,r,g,b,SDL_ALPHA_OPAQUE);
+    Uint32 color = SDL_MapRGBA(surface->format,r,g,b,SDL_ALPHA_OPAQUE);
     
     
     for (Sint16 xColor = _xCenterPixel - Sint16(_radius) ; xColor < _xCenterPixel + Sint16(_radius) ; xColor++)
@@ -87,7 +85,7 @@ void LandmarkObject::show() // display on screen (called in the step() method if
         {
             if ((sqrt ( pow (xColor-_xCenterPixel,2) + pow (yColor - _yCenterPixel,2))) < _radius)
             {
-                putPixel32(gScreen, xColor, yColor,  color);//color);
+                putPixel32(surface, xColor, yColor,  color);//color);
             }
         }
     }

@@ -12,6 +12,8 @@
 #include "RoboroboMain/common.h"
 #include "Utilities/Geometry.h"
 
+extern SDL_Surface *gScreen;
+
 class PhysicalObject
 {
 protected :
@@ -74,7 +76,7 @@ public :
     virtual void isWalked( int __idAgent ) = 0; // callback, triggered by agent
     virtual void isPushed( int __id, std::tuple<double, double> __speed ) = 0; // callback, triggered by collision w/ agent/object
     
-    virtual void show() = 0;
+    virtual void show(SDL_Surface *surface = gScreen) = 0;
     virtual void hide() = 0;
     
     bool isVisible() { return _visible; }

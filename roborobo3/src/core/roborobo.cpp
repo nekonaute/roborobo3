@@ -58,6 +58,7 @@
 #include "Utilities/Misc.h"
 #include "Utilities/Graphics.h"
 #include "WorldModels/RobotWorldModel.h"
+#include "Utilities/Misc.h"
 
 #include "Config/GlobalConfigurationLoader.h"
 
@@ -764,113 +765,116 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 
 void updateDisplay() // display is called starting when gWorld->getIterations > 0.
 {
-        if ( gDisplayMode == 0 || ( gDisplayMode == 1 && gWorld->getIterations() % gFastDisplayModeSpeed == 0 ) )
-		{			
-			//Set the camera to either focused agent or inspector virtual location 
-			if ( gInspectorMode )
-				inspectorAgent->set_camera();
-			else
-				gWorld->getRobot(gRobotIndexFocus)->set_camera();
-
-			//Show the background image and foreground image (active borders) [note: this is what costs a lot wrt. computation time]
-            if ( gNiceRendering )
+    
+    saveCustomScreenshot(std::to_string(gWorld->getIterations())); // !n-DEBUG
+    
+    if ( gDisplayMode == 0 || ( gDisplayMode == 1 && gWorld->getIterations() % gFastDisplayModeSpeed == 0 ) )
+    {
+        //Set the camera to either focused agent or inspector virtual location
+        if ( gInspectorMode )
+            inspectorAgent->set_camera();
+        else
+            gWorld->getRobot(gRobotIndexFocus)->set_camera();
+        
+        //Show the background image and foreground image (active borders) [note: this is what costs a lot wrt. computation time]
+        if ( gNiceRendering )
+        {
+            if ( gBackgroundImage != NULL )
             {
-                if ( gBackgroundImage != NULL )
-                {
-                    apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
-                    //apply_surface( 0, 0, gBackgroundImage, gScreen, &gCamera ); //!n
-                }
-                else
-                    SDL_FillRect( gScreen, &gScreen->clip_rect, SDL_MapRGBA( gScreen->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen
-                apply_surface( 0, 0, gForegroundImage, gScreen, &gCamera );
-            }
-			else
-            {
-				apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
-				apply_surface( 0, 0, gEnvironmentImage, gScreen, &gCamera );
-            }
-            
-            if ( gNiceRendering ) // + ( gDisplayMode != 2 || gSnapshot...? || gVideoRecording...? )   // !n
-            {
-                // Show landmark(s) on the screen
-                for ( int i = 0 ; i != gNbOfLandmarks ; i++ )
-                {
-                    if ( gLandmarks[i]->isVisible() )
-                    {
-                        gLandmarks[i]->show();
-                    }
-                }
-                
-                // Show object(s) on the screen
-                {
-                    for ( int i = 0 ; i != gNbOfPhysicalObjects ; i++ )
-                    {
-                        if ( gPhysicalObjects[i]->isVisible() )
-                        {
-                            gPhysicalObjects[i]->show();
-                        }
-                    }
-                }
-
-                // Show agent(s) on the screen
-                for ( int i = 0 ; i != gNbOfRobots ; i++ )
-                {
-                    if ( gWorld->isRobotRegistered(i) )
-                        gWorld->getRobot(i)->unregisterRobot(); // remove agent from memory so as to correctly cast sensors (otw: may see itself)
-                    
-                    gWorld->getRobot(i)->show(); // show sensor rays.
-                    
-                    // re-registering agents (post-display)
-                    if ( gWorld->isRobotRegistered(i) )
-                        gWorld->getRobot(i)->registerRobot();
-                }
-            }
-            
-            // * Snapshots: take screenshots of first and ~ultimate iteration
-            
-            if ( gWorld->getIterations() == 1 )
-            {
-                saveSnapshot("firstIteration");
-                saveRenderScreenshot("firstIteration");
-                saveEnvironmentScreenshot("firstIteration");
-                saveFootprintScreenshot("firstIteration");
-                
+                apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
+                //apply_surface( 0, 0, gBackgroundImage, gScreen, &gCamera ); //!n
             }
             else
+                SDL_FillRect( gScreen, &gScreen->clip_rect, SDL_MapRGBA( gScreen->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) ); // clear screen
+            apply_surface( 0, 0, gForegroundImage, gScreen, &gCamera );
+        }
+        else
+        {
+            apply_surface( 0, 0, gFootprintImage, gScreen, &gCamera );
+            apply_surface( 0, 0, gEnvironmentImage, gScreen, &gCamera );
+        }
+        
+        if ( gNiceRendering ) // + ( gDisplayMode != 2 || gSnapshot...? || gVideoRecording...? )   // !n
+        {
+            // Show landmark(s) on the screen
+            for ( int i = 0 ; i != gNbOfLandmarks ; i++ )
             {
-                if ( gWorld->getIterations() == gMaxIt-1 )
+                if ( gLandmarks[i]->isVisible() )
                 {
-                    saveSnapshot("firstIteration");
-                    saveRenderScreenshot("lastIteration");
-                    saveEnvironmentScreenshot("lastIteration");
-                    saveFootprintScreenshot("lastIteration");
+                    gLandmarks[i]->show();
                 }
             }
-
-			
-			// show inspector agent location (single point)
-			if ( gInspectorMode )
-				inspectorAgent->show();
-
-            if ( !gBatchMode )
+            
+            // Show object(s) on the screen
             {
-                SDL_UpdateTexture(gScreenTexture, NULL, gScreen->pixels, gScreen->pitch);
-                SDL_RenderClear(gScreenRenderer);
-                SDL_RenderCopy(gScreenRenderer, gScreenTexture, NULL, NULL);
-                SDL_RenderPresent(gScreenRenderer);
+                for ( int i = 0 ; i != gNbOfPhysicalObjects ; i++ )
+                {
+                    if ( gPhysicalObjects[i]->isVisible() )
+                    {
+                        gPhysicalObjects[i]->show();
+                    }
+                }
             }
-    		
-			//Cap the frame rate
-			if( fps.get_ticks() < 1000 / gFramesPerSecond )
-			{
-				SDL_Delay( ( 1000 / gFramesPerSecond ) - fps.get_ticks() );
-			}
-			/**/
-			
-			// video capture (sync with screen update)
-			if ( gVideoRecording == true )
-				saveRenderScreenshot("movie");
-	}
+            
+            // Show agent(s) on the screen
+            for ( int i = 0 ; i != gNbOfRobots ; i++ )
+            {
+                if ( gWorld->isRobotRegistered(i) )
+                    gWorld->getRobot(i)->unregisterRobot(); // remove agent from memory so as to correctly cast sensors (otw: may see itself)
+                
+                gWorld->getRobot(i)->show(); // show sensor rays.
+                
+                // re-registering agents (post-display)
+                if ( gWorld->isRobotRegistered(i) )
+                    gWorld->getRobot(i)->registerRobot();
+            }
+        }
+        
+        // * Snapshots: take screenshots of first and ~ultimate iteration
+        
+        if ( gWorld->getIterations() == 1 )
+        {
+            saveCustomScreenshot("firstIteration");
+            saveRenderScreenshot("firstIteration");
+            saveEnvironmentScreenshot("firstIteration");
+            saveFootprintScreenshot("firstIteration");
+            
+        }
+        else
+        {
+            if ( gWorld->getIterations() == gMaxIt-1 )
+            {
+                saveCustomScreenshot("firstIteration");
+                saveRenderScreenshot("lastIteration");
+                saveEnvironmentScreenshot("lastIteration");
+                saveFootprintScreenshot("lastIteration");
+            }
+        }
+        
+        
+        // show inspector agent location (single point)
+        if ( gInspectorMode )
+            inspectorAgent->show();
+        
+        if ( !gBatchMode )
+        {
+            SDL_UpdateTexture(gScreenTexture, NULL, gScreen->pixels, gScreen->pitch);
+            SDL_RenderClear(gScreenRenderer);
+            SDL_RenderCopy(gScreenRenderer, gScreenTexture, NULL, NULL);
+            SDL_RenderPresent(gScreenRenderer);
+        }
+        
+        //Cap the frame rate
+        if( fps.get_ticks() < 1000 / gFramesPerSecond )
+        {
+            SDL_Delay( ( 1000 / gFramesPerSecond ) - fps.get_ticks() );
+        }
+        /**/
+        
+        // video capture (sync with screen update)
+        if ( gVideoRecording == true )
+            saveRenderScreenshot("movie");
+    }
     
     if ( gWorld->getIterations() == 1 )
         gDisplayMode = backup_gDisplayMode;
@@ -944,6 +948,7 @@ void initLogging()
 	gLogFile << "# =-= Compilation version tag : " << gCompileDate << " - " << gCompileTime << std::endl;
 	gLogFile << "#" << std::endl;
 	gLogFile << "# Loaded time stamp           : " << gStartTime << std::endl;
+    gLogFile << "# process ID                  : " << getpidAsReadableString() << std::endl;
 	gLogFile << "#" << std::endl;
 
 	//gLogFile << "# log comment      : " << gLogCommentText << std::endl; 
@@ -1825,7 +1830,7 @@ bool loadProperties( std::string __propertiesFilename )
 		gLogFilename = gProperties.getProperty("gLogFilename");
 	else
 	{
-		gLogFilename = "datalog_" + gStartTime + ".txt";
+		gLogFilename = "datalog_" + gStartTime + "_" + getpidAsReadableString() + ".txt";
 		gProperties.setProperty("gLogFilename",gLogFilename);
 
 		std::cout << "[WARNING] No default gLogFilename string value. Log data will be written in \"" << gLogFilename << "\"\n";
@@ -1865,6 +1870,8 @@ bool loadProperties( std::string __propertiesFilename )
     outputFileNameTmp += "/";
 	outputFileNameTmp += "properties_";
 	outputFileNameTmp += gStartTime;
+    outputFileNameTmp += "_";
+    outputFileNameTmp += getpidAsReadableString();
 	outputFileNameTmp += ".txt";
 	
 	// open file

@@ -127,8 +127,8 @@ void TemplateRandomwalkController::monitorSensoryInformation()
                 Point2d posRobot(_wm->getXReal(),_wm->getYReal());
                 Point2d closestPoint;
                 
-                double distanceToLandmark = getEuclideanDistance (posRobot,gLandmarks[0]->getPosition());
-                double diffAngleToClosestLandmark = getAngleToTarget(posRobot,_wm->_agentAbsoluteOrientation,gLandmarks[i]->getPosition());
+                double distanceToLandmark = getEuclideanDistance (posRobot,gLandmarks[0]->getCoordinates());
+                double diffAngleToClosestLandmark = getAngleToTarget(posRobot,_wm->_agentAbsoluteOrientation,gLandmarks[i]->getCoordinates());
                 
                 std::cout << "Landmark " << i << " is at distance " << distanceToLandmark << ", angle = " << diffAngleToClosestLandmark << "\n";
             }
