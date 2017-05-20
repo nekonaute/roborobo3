@@ -668,7 +668,9 @@ bool Robot::isCollision()
 	}
 	else
 	{
-		// * environment objects 
+        //std::cout << "[DEBUG] Robot #" << _wm->getId() << " collision manager.\n";
+        
+		// * environment objects
 		for ( int i = 0 ; i != gRobotWidth ; i++ )
 			for ( int j = 0 ; j != gRobotHeight ; j++ )
 			{
@@ -679,7 +681,7 @@ bool Robot::isCollision()
 					Uint32 pixel = getPixel32( gEnvironmentImage , _x+i , _y+j);
 					if (  pixel != SDL_MapRGBA( gEnvironmentImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
 					{
-                        if (gMovableObjects)
+                        if (gMovableObjects) // will consider *all* collisions
                         {
                             Uint8 r, g, b;
                             SDL_GetRGB(pixel,gEnvironmentImage->format,&r,&g,&b);
@@ -690,6 +692,8 @@ bool Robot::isCollision()
                             {
                                 targetIndex = targetIndex - gPhysicalObjectIndexStartOffset;
                                 gPhysicalObjects[targetIndex]->isPushed(_wm->getId()+gRobotIndexStartOffset, std::tie(_wm->_agentAbsoluteLinearSpeed, _wm->_agentAbsoluteOrientation));
+
+                                //std::cout << "[DEBUG] Robot #" << _wm->getId() << " collides with object #" << targetIndex << ".\n";
                             }
                             collision = true;
                         }

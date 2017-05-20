@@ -159,11 +159,12 @@ void MovableObject::isWalked( int __idAgent )
 
 void MovableObject::isPushed( int __id, std::tuple<double, double> __speed )
 {
-        if ( gVerbose && gDisplayMode <= 1)
-           std::cout << "[DEBUG] Physical object #" << this->getId() << " (movable object) pushed by robot/agent #" << __id << std::endl;
+    //if ( gVerbose && gDisplayMode <= 1)
+        //std::cout << "[DEBUG] Physical object #" << this->getId() << " (movable object) pushed by robot/agent #" << __id << std::endl;
     
     if (_impulses.count(__id) == 0) {
         _impulses.insert(std::tie(__id, __speed));
+        //std::cout << "[DEBUG] Object registers impulse from robot #" << __id << ".\n";
     }
 
 }
