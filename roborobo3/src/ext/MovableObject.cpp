@@ -67,7 +67,8 @@ void MovableObject::move()
             double impY = (vx*ux+vy*uy)*uy/sqnorm;
             impXtot += impX;
             impYtot += impY;
-            _efforts.insert(std::tuple<int, double>(imp.first, sqrt(impX*impX+impY*impY)));
+            //_efforts.insert(std::tuple<int, double>(imp.first, sqrt(impX*impX+impY*impY))); // compile on macos, not on linux
+            _efforts.insert(std::pair<int, double>(imp.first, sqrt(impX*impX+impY*impY))); //
         }
         
         _desiredLinearSpeed = sqrt(impXtot*impXtot + impYtot*impYtot);
@@ -161,11 +162,13 @@ void MovableObject::isPushed( int __id, std::tuple<double, double> __speed )
 {
     //if ( gVerbose && gDisplayMode <= 1)
         //std::cout << "[DEBUG] Physical object #" << this->getId() << " (movable object) pushed by robot/agent #" << __id << std::endl;
-    
+
     if (_impulses.count(__id) == 0) {
-        _impulses.insert(std::tie(__id, __speed));
+        //_impulses.insert(std::tie(__id, __speed));  // compiles on macos, not on linux
+        _impulses.insert(std::pair<int, std::tuple<double, double>>(__id, __speed));
         //std::cout << "[DEBUG] Object registers impulse from robot #" << __id << ".\n";
     }
+
 
 }
 
