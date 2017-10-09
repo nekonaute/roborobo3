@@ -53,7 +53,7 @@ void RobotWorldModel::initCameraSensors ( int nbSensors )
 
 void RobotWorldModel::updateLandmarkSensor( int __landmarkId )
 {
-    if ( (size_t)__landmarkId > gNbOfLandmarks )
+    if ( __landmarkId > gNbOfLandmarks )
     {
         std::cout << "[ERROR] Landmark " << __landmarkId << " does not exist in RobotWorldModel::updateLandmarkSensor(landmarkId). Exiting." << std::endl;
         exit (-1);
@@ -107,7 +107,7 @@ void RobotWorldModel::updateLandmarkSensor()
         distanceToClosestLandmark = getEuclideanDistance (posRobot,gLandmarks[0]->getCoordinates());
         int iClosest = 0;
         
-        for ( unsigned int i = 1 ; i < gNbOfLandmarks ; i++ )
+        for ( int i = 1 ; i < gNbOfLandmarks ; i++ )
         {
             double distance = getEuclideanDistance (posRobot,gLandmarks[i]->getCoordinates());
             

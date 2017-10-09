@@ -122,7 +122,7 @@ void TemplateRandomwalkController::monitorSensoryInformation()
         {
             // All landmarks (if any)
             
-            for ( size_t i = 0 ; i != gNbOfLandmarks ; i++ )
+            for ( int i = 0 ; i != gNbOfLandmarks ; i++ )
             {
                 Point2d posRobot(_wm->getXReal(),_wm->getYReal());
                 Point2d closestPoint;
