@@ -9,7 +9,7 @@
 # ### ### ### ### ### ### ###
 
 CC           = g++ 
-CCFLAGS      = -Wall -O3 -std=c++0x
+CCFLAGS      = -Wall -O3 -std=c++11
 LDFLAGS      = `sdl2-config --cflags --libs`
 LIBS      = 
 RM           = rm -f 
