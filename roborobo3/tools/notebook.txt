@@ -38,18 +38,23 @@ notebook.txt
 -.[+] /opt/local/include dans les search paths du projet (Xcode et Makefile)
 -.[-] Landmark.cpp/h: rename setPosition to setCoordinates
 -.[=] Robot::move() - update sensors done if no collision (was: done always)
-- [?] [@Theotime] influence du timestamp: outputFilename, saveImage(), ??? (cf. gStartTime)
-- [-] set up different environment for benchmark.
-- [-] merge Robot and Agent?
-- [-] delete EnergyItem
-- [=] new demo: grab/ungrab objects (and re-implement energy as demo)
-- [=] user-control, est-ce qu'on peut qd même exécuter le controleur du robot?
-- [=] "TemplateWanderConfigurationLoader" => (ProjectName) "TemplateWander"
-- [=] revoir EnergyItem (à supprimer)
-- [=] random=>Mersenne-Twister
-- [=] putPixel32_secured vs putPixel32
-- [+] CircleObject::canRegister()/registerObject: implement as robots (ie. circle, not disk)
+-.[-] merge Robot and Agent? No: InspectorAgent inherits from Agent
 -.[+] Robot.isCollision() and MovingObject.isPushed() -- one impulse per robot (solved)
+-.[-] CircleObject::canRegister()/registerObject: implement as robots (ie. circle, not disk)
+        => cancelled: large diameter would then allow encapsulated robots
+-.[-] putPixel32_secured vs putPixel32. => OK.
+- [-] set up different environment for benchmark.
+- [-] user-control, est-ce qu'on peut qd même exécuter le controleur du robot?
+- [-] "TemplateWanderConfigurationLoader" => (ProjectName) "TemplateWander"
+- [=] random=>Mersenne-Twister
+- [=] EnergyItem: rename and refactor energyMode (cf. ::isWalked(.), switch)
+    Missing: an object which can be taken (roundObject?)
+    new demo: grab/ungrab objects (and re-implement energy as demo)
+- [+] list demos
+- [+] write tutorials
+- [=] Robot::reset() - à revoir 
+	cf. code Théotime? --> findRandomLocation(.), comme les objets
+	voir interaction avec code Move(.) sur la partie isCollision(.) (absente alors que utile)
+- [?] senseurs de proximité additionnel fonctionnant dans l'image de la footprint (départ du bord du robot)
+- [?] les footprints d'objets peuvent ils s'overlapper? (gOverlapObjectFootprint?)
 
-BREAKPOINT:
-    wrongly multiple actions of a given robot on a particular object

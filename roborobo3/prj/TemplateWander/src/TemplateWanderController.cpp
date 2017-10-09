@@ -24,7 +24,7 @@ void TemplateWanderController::reset()
 
 void TemplateWanderController::step()
 {
-	// a basic obstacle avoidance behavior
+    // a basic obstacle avoidance behavior
 
 	_wm->_desiredTranslationalValue =  + 1 - ( (double)gSensorRange - ((_wm->getCameraSensorValue(2,SENSOR_DISTANCEVALUE)+_wm->getCameraSensorValue(3,SENSOR_DISTANCEVALUE))/2) )  / (double)gSensorRange;
 	if ( _wm->getCameraSensorValue(0,SENSOR_DISTANCEVALUE) + _wm->getCameraSensorValue(1,SENSOR_DISTANCEVALUE) + _wm->getCameraSensorValue(2,SENSOR_DISTANCEVALUE) < _wm->getCameraSensorValue(3,SENSOR_DISTANCEVALUE) + _wm->getCameraSensorValue(4,SENSOR_DISTANCEVALUE) + _wm->getCameraSensorValue(5,SENSOR_DISTANCEVALUE) )

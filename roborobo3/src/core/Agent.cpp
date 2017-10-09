@@ -45,8 +45,6 @@ void Agent::show(SDL_Surface *surface) // display on screen -- method may be ove
     apply_surface( _x - gCamera.x, _y - gCamera.y, gRobotDisplayImage, surface );
 }
 
-
-
  /**
     * update the agent position in the environment. Apply simple physics (ie. obstacle collision detection and consequences).
     */
