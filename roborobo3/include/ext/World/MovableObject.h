@@ -9,9 +9,9 @@
 #ifndef MOVABLEOBJECT_H
 #define MOVABLEOBJECT_H
 
-#include "World/CircleObject.h"
+#include "World/RoundObject.h"
 
-class MovableObject : public CircleObject
+class MovableObject : public RoundObject
 {
 private:
     

@@ -4,7 +4,7 @@
 #include "WorldModels/RobotWorldModel.h"
 #include "Utilities/Graphics.h"
 
-MovableObject::MovableObject( int __id ) : CircleObject( __id ) // should only be called by PhysicalObjectFactory
+MovableObject::MovableObject( int __id ) : RoundObject( __id ) // should only be called by PhysicalObjectFactory
 {
     setType(4);
 }
