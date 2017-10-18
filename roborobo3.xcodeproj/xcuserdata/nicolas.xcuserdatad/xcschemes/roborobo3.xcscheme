@@ -85,11 +85,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_wander_smallrobots.properties"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_randomwalk.properties"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_medea.properties"

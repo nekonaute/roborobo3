@@ -116,6 +116,7 @@ extern bool gRobotLEDdisplay; // display LED status (RGB) on top of the robot
 extern bool gExtendedSensoryInputs; // adds type of object or class of agents in controller sensory inputs.
 
 extern bool gPauseMode;				// pause on/off (default is on)
+extern bool gStepByStep;
 extern bool gInspectorMode;			// defines if manual control is robot-centered or "god"-centered (ie. envt viewpoint)
 extern bool gInspectorAgent;		// defines if there *actually* is an inspector agent (note: if using batch mode for, e.g. evolution, no inspector agent is needed)
 
