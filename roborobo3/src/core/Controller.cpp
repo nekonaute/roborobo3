@@ -23,9 +23,3 @@ Controller::~Controller()
 {
 	// nothing to do.
 }
-
-std::string Controller::inspect( )
-{
-    // nothing to do.
-    return "Controller::inspect() not implemented.\n";
-}
