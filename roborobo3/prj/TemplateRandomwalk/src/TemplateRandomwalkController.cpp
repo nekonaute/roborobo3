@@ -200,7 +200,7 @@ void TemplateRandomwalkController::monitorSensoryInformation()
                     std::cout << " touched robot #" << gWorld->getRobot(targetRobotId) << ", at distance " << std::setw(4) << distance << ".\n";
                     
                     std::cout << "\tTouched robot information:\n";
-                    ( (TemplateRandomwalkController*)gWorld->getRobot(targetRobotId)->getController()) ->inspect("\t\t");
+                    std::cout << ( (TemplateRandomwalkController*)gWorld->getRobot(targetRobotId)->getController()) ->inspect();
                     
                     // Distance to target , orientation wrt target, target absolute orientation, target LED values
                     // Distance to target is approximated through sensor ray length before contact.
@@ -250,7 +250,7 @@ void TemplateRandomwalkController::monitorSensoryInformation()
 }
 
 
-void TemplateRandomwalkController::inspect( const std::string& prefix )
+std::string TemplateRandomwalkController::inspect( )
 {
     // Rotational and translational speed, agent orientation wrt. upwards
     //      - *actual* and *desired* translational/rotational values are very different
@@ -260,13 +260,17 @@ void TemplateRandomwalkController::inspect( const std::string& prefix )
     //          - typical example: when going for max speed, the robot cannot instantaneously go at max speed.
     //      - agent orientation acts as a compass with respect the y-axis, similar to a magnetic compass where north is upward
     
-    std::cout << prefix << "Agent identifier: " << std::setw(4) << _wm->getId() << "\n";
-
-    std::cout << prefix << "Agent orientation: " << std::setw(4) << _wm->_agentAbsoluteOrientation << "° wrt North (ie. upwards).\n";
+    std::string s = "";
+    std::stringstream out;
     
-    std::cout << prefix << "Agent desired translational speed: " << _wm->_desiredTranslationalValue << std::endl;
-    std::cout << prefix << "Agent desired rotational speed: " << std::setw(4) << _wm->_desiredRotationalVelocity << std::endl;
+    out << "Agent identifier: " << std::setw(4) << _wm->getId() << "\n";
+    out << "Agent orientation: " << std::setw(4) << _wm->_agentAbsoluteOrientation << "° wrt North (ie. upwards).\n";
+    out << "Agent desired translational speed: " << _wm->_desiredTranslationalValue << std::endl;
+    out << "Agent desired rotational speed: " << std::setw(4) << _wm->_desiredRotationalVelocity << std::endl;
+    out << "Agent actual translational speed: " << _wm->_actualTranslationalValue << std::endl;
+    out << "Agent actual rotational speed: " << std::setw(4) << _wm->_actualRotationalVelocity << std::endl;
     
-    std::cout << prefix << "Agent actual translational speed: " << _wm->_actualTranslationalValue << std::endl;
-    std::cout << prefix << "Agent actual rotational speed: " << std::setw(4) << _wm->_actualRotationalVelocity << std::endl;
+    s = out.str();
+    
+    return s;
 }

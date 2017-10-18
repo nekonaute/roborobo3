@@ -31,7 +31,7 @@ class Controller
     
         RobotWorldModel* getWorldModel() { return _wm; }
     
-    void inspect( const std::string& prefix = "" );
+        std::string inspect( );
 };
 
 

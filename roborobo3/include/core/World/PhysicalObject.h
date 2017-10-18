@@ -87,6 +87,8 @@ public :
 
     static bool isInstanceOf ( int index );
     
+    std::string inspect( ) { return "PhysicalObject::inspect() not implemented.\n"; }
+    
 };
 
 #endif

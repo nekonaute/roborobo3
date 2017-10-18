@@ -24,8 +24,8 @@ Controller::~Controller()
 	// nothing to do.
 }
 
-void Controller::inspect( const std::string& prefix )
+std::string Controller::inspect( )
 {
     // nothing to do.
-    std::cout << prefix << "Controller::inspect() not implemented." << std::endl;
+    return "Controller::inspect() not implemented.\n";
 }
