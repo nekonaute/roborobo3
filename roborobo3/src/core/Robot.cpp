@@ -161,8 +161,7 @@ void Robot::reset()
 	str_Ycoord += out.str();
 	str_Ycoord += "].y";
     
-    int tries = 0;
-    int maxTries = gLocationFinderMaxNbOfTrials;
+    int tries = 0; // max number of trials: gLocationFinderMaxNbOfTrials
     bool randomPick = true;
 
 	if ( gProperties.hasProperty( str_Xcoord ) == true && gProperties.hasProperty( str_Ycoord ) == true )
@@ -221,11 +220,11 @@ void Robot::reset()
 
 			tries++;
 				
-		} while ( success == false && tries < maxTries );
+		} while ( success == false && tries < gLocationFinderMaxNbOfTrials );
 			
 		if ( tries == gLocationFinderMaxNbOfTrials )
 		{
-            std::cerr << "[CRITICAL] Random initialization of initial position for agent #" << _wm->getId() << " after trying " << maxTries << " random picks (all failed). There may be too few (none?) possible locations (you may try to manually set initial positions). EXITING.\n";
+            std::cerr << "[CRITICAL] Random initialization of initial position for agent #" << _wm->getId() << " after trying " << gLocationFinderMaxNbOfTrials << " random picks (all failed). There may be too few (none?) possible locations (you may try to manually set initial positions). EXITING.\n";
 			exit(-1);
 		}
     }

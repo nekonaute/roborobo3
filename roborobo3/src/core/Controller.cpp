@@ -23,3 +23,9 @@ Controller::~Controller()
 {
 	// nothing to do.
 }
+
+void Controller::inspect( const std::string& prefix )
+{
+    // nothing to do.
+    std::cout << prefix << "Controller::inspect() not implemented." << std::endl;
+}
