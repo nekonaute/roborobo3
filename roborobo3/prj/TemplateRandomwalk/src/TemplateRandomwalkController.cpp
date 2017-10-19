@@ -250,7 +250,7 @@ void TemplateRandomwalkController::monitorSensoryInformation()
 }
 
 
-std::string TemplateRandomwalkController::inspect( )
+std::string TemplateRandomwalkController::inspect( std::string prefix )
 {
     // Rotational and translational speed, agent orientation wrt. upwards
     //      - *actual* and *desired* translational/rotational values are very different
@@ -263,12 +263,12 @@ std::string TemplateRandomwalkController::inspect( )
     std::string s = "";
     std::stringstream out;
     
-    out << "Agent identifier: " << std::setw(4) << _wm->getId() << "\n";
-    out << "Agent orientation: " << std::setw(4) << _wm->_agentAbsoluteOrientation << "° wrt North (ie. upwards).\n";
-    out << "Agent desired translational speed: " << _wm->_desiredTranslationalValue << std::endl;
-    out << "Agent desired rotational speed: " << std::setw(4) << _wm->_desiredRotationalVelocity << std::endl;
-    out << "Agent actual translational speed: " << _wm->_actualTranslationalValue << std::endl;
-    out << "Agent actual rotational speed: " << std::setw(4) << _wm->_actualRotationalVelocity << std::endl;
+    out << prefix << "Agent identifier: " << std::setw(4) << _wm->getId() << "\n";
+    out << prefix << "Agent orientation: " << std::setw(4) << _wm->_agentAbsoluteOrientation << "° wrt North (ie. upwards).\n";
+    out << prefix << "Agent desired translational speed: " << _wm->_desiredTranslationalValue << std::endl;
+    out << prefix << "Agent desired rotational speed: " << std::setw(4) << _wm->_desiredRotationalVelocity << std::endl;
+    out << prefix << "Agent actual translational speed: " << _wm->_actualTranslationalValue << std::endl;
+    out << prefix << "Agent actual rotational speed: " << std::setw(4) << _wm->_actualRotationalVelocity << std::endl;
     
     s = out.str();
     

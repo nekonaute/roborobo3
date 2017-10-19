@@ -250,7 +250,8 @@ extern int gLocomotionMode; // locomotion mode dynamics
 
 void clean_up();
 void displayHelp();
-bool checkQuitEvent();
+void inspectAtPixel(int xIns, int yIns);
+bool checkEvent();
 bool handleKeyEvent(Uint8 *keyboardStates);
 void updateDisplay();
 void initLogging();

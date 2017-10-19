@@ -931,3 +931,9 @@ void Robot::applyRobotPhysics( )
         }
     }
 }
+
+
+std::string Robot::inspect( std::string prefix)
+{
+    return _controller->inspect( prefix );
+}

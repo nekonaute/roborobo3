@@ -87,7 +87,7 @@ public :
 
     static bool isInstanceOf ( int index );
     
-    virtual std::string inspect( );
+    virtual std::string inspect( std::string prefix = "" );
     
 };
 

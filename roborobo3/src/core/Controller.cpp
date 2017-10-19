@@ -23,3 +23,8 @@ Controller::~Controller()
 {
 	// nothing to do.
 }
+
+std::string Controller::inspect( std::string prefix )
+{
+    return std::string(prefix + "Controller::inspect() not implemented.");
+}

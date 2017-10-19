@@ -77,6 +77,8 @@ class Robot : public Agent
 		WorldObserver* getWorldObserver();
         RobotWorldModel* getWorldModel() { return _wm; }
     
+        virtual std::string inspect( std::string prefix = "" );
+    
 		void displayInfo(); // display input/output values on console. (used for inspect agent mode, cf. help on console) -- keep it simple: one line only.
 
 		

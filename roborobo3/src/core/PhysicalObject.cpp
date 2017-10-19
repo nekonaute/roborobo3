@@ -236,7 +236,7 @@ bool PhysicalObject::triggerRegrow()
     return true;
 }
 
-std::string PhysicalObject::inspect( )
+std::string PhysicalObject::inspect( std::string prefix )
 {
-    return "PhysicalObject::inspect() not implemented.\n";
+    return std::string(prefix + "PhysicalObject::inspect() not implemented.\n");
 }

@@ -31,7 +31,7 @@ class Controller
     
         RobotWorldModel* getWorldModel() { return _wm; }
     
-    virtual std::string inspect( ) { return "Controller::inspect() not implemented.";};
+    virtual std::string inspect( std::string prefix = "" );
 };
 
 

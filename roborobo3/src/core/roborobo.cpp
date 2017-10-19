@@ -309,8 +309,6 @@ Timer timeWatch;
 std::vector<Robot*> gRobots;
 std::vector<bool> gRobotsRegistry;
 
-
-
 /* ********************
  * * global functions *
  * ********************/
@@ -389,24 +387,89 @@ void displayHelp()
  *   MAIN   *
  * ******** */
 
-bool checkQuitEvent()
+void inspectAtPixel(int xIns, int yIns)
 {
-	bool quit = false;
-	//While there's events to handle
-	while( SDL_PollEvent( &gEvent ) )
-	{
-		//If the user has Xed out the window
-		if( gEvent.type == SDL_QUIT )
-		{
-			//Quit the program
-			quit = true;
-			break;
-		}
-	}
-	return quit;
+    std::cout << "## Inspector Agent ##" << std::endl; //"Inspector virtual sensors:"
+    
+    // location
+    std::cout << "\tcoordinates: (" << xIns << "," << yIns << ")" << std::endl;
+    
+    // virtual range sensor
+    Uint32 inspectorSensorValue = getPixel32(gEnvironmentImage, xIns, yIns);
+    Uint8 r, g, b;
+    SDL_GetRGB(inspectorSensorValue,gEnvironmentImage->format,&r,&g,&b);
+    inspectorSensorValue = (r<<16)+(g<<8)+b;
+    std::cout << "\tvirtual range sensor: ";
+    if ( inspectorSensorValue == 0xFFFFFF ) // either nothing or unregistered agent(s).
+    {
+        std::cout << "0xFFFFFF (nothing)" << std::endl;
+        
+        // Agents may not be visible in the internal scene buffer due to optimization
+        // Hence, we scan the list of agents to compare actual inspector location and agent location
+        // Results from this scan should be interpreted as a list of either
+        //  - nearby agents (possibly registered, or not)
+        //  - agent precisely at this location, but not registered
+        // note: registering Agent in the internal scene buffer is not mandatory if it is sure
+        //       that it is not within the perceptual range of any other agents (speed up simulation).
+        
+        int radiusMax = gRobotWidth > gRobotHeight ? ( gRobotWidth + 1 ) / 2 : ( gRobotHeight + 1 ) / 2; // assume an upper bound for dimension.
+        for ( int i = 0 ; i != gNbOfRobots ; i++ ) // test for agents proximity based on localization
+        {
+            int x = (int)(gWorld->getRobot(i)->getWorldModel()->getXReal());
+            int y = (int)(gWorld->getRobot(i)->getWorldModel()->getYReal());
+            if ( abs(x - xIns) < radiusMax && abs(y - yIns) < radiusMax )
+                std::cout << "\tAgent #" << i << " detected (closeby and/or unregistered)." << std::endl;
+        }
+    }
+    else
+    {
+        std::cout << "Detected id: " << inspectorSensorValue << std::endl;
+        if ( inspectorSensorValue >= (Uint32)gRobotIndexStartOffset )
+        {
+            std::cout << "\tInformation from agent #" << inspectorSensorValue - gRobotIndexStartOffset << std::endl;
+            Robot* robot = gWorld->getRobot(inspectorSensorValue - gRobotIndexStartOffset);
+            std::cout << robot->inspect("\t") << std::endl;
+        }
+        else if (inspectorSensorValue >= (Uint32) gPhysicalObjectIndexStartOffset
+                 && inspectorSensorValue < (Uint32) (gPhysicalObjectIndexStartOffset + gNbOfPhysicalObjects))
+        {
+            int iObj = inspectorSensorValue - gPhysicalObjectIndexStartOffset;
+            std::cout << "\tInformation from Physical object #" << iObj << std::endl;
+            PhysicalObject *physicalObject = gPhysicalObjects[iObj];
+            std::cout << physicalObject->inspect("\t");
+        }
+    }
+    
+    // virtual floor sensor
+    inspectorSensorValue = getPixel32( gFootprintImage, xIns, yIns);
+    SDL_GetRGB(inspectorSensorValue,gFootprintImage->format,&r,&g,&b);
+    
+    int value = ((int)r)*256*256 + ((int)g)*256 + (int)b;
+    
+    std::cout << "\tvirtual floor sensor: ( " << value << " : " << (int)r << "," << (int)g << "," << (int)b << ")" << std::endl;
 }
 
-
+bool checkEvent()
+{
+    bool quit = false;
+    //While there's events to handle
+    while( SDL_PollEvent( &gEvent ) )
+    {
+        //If the user has Xed out the window
+        if( gEvent.type == SDL_QUIT )
+        {
+            //Quit the program
+            quit = true;
+            break;
+        }
+        else
+            if (gEvent.type == SDL_MOUSEBUTTONUP)
+            {
+                inspectAtPixel(gEvent.button.x, gEvent.button.y);
+            }
+    }
+    return quit;
+}
 
 
 // return true if quit.
@@ -580,57 +643,9 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 				{
 					// * inspector mode. Return key trigger sensor display. (note: non-collision enabled robot cannot be seen)
 			
-					// inspector virtual sensors values
-					std::cout << "## Inspector Agent ##" << std::endl; //"Inspector virtual sensors:"
-
-					int xTmp,yTmp;
-					inspectorAgent->getCoord(xTmp,yTmp);
-
-					// location
-					std::cout << "\tcoordinates: (" << xTmp << "," << yTmp << ")" << std::endl; 
-					
-					// virtual range sensor
-					Uint32 inspectorSensorValue = getPixel32(gEnvironmentImage, xTmp, yTmp);
-					Uint8 r, g, b;
-					SDL_GetRGB(inspectorSensorValue,gEnvironmentImage->format,&r,&g,&b); 
-					inspectorSensorValue = (r<<16)+(g<<8)+b; 
-					std::cout << "\tvirtual range sensor: ";
-					if ( inspectorSensorValue == 0xFFFFFF ) // either nothing or unregistered agent(s).
-					{	
-						std::cout << "0xFFFFFF (nothing)" << std::endl;
-						
-						// Agents may not be visible in the internal scene buffer due to optimization
-						// Hence, we scan the list of agents to compare actual inspector location and agent location
-						// Results from this scan should be interpreted as a list of either
-						//  - nearby agents (possibly registered, or not)
-						//  - agent precisely at this location, but not registered
-						// note: registering Agent in the internal scene buffer is not mandatory if it is sure
-						//       that it is not within the perceptual range of any other agents (speed up simulation).
-						
-						int radiusMax = gRobotWidth > gRobotHeight ? ( gRobotWidth + 1 ) / 2 : ( gRobotHeight + 1 ) / 2; // assume an upper bound for dimension.
-						for ( int i = 0 ; i != gNbOfRobots ; i++ ) // test for agents proximity based on localization 
-						{
-						  int x = (int)(gWorld->getRobot(i)->getWorldModel()->getXReal());
-						  int y = (int)(gWorld->getRobot(i)->getWorldModel()->getYReal());
-						  if ( abs(x - xTmp) < radiusMax && abs(y - yTmp) < radiusMax )
-							std::cout << "\t\tAgent #" << i << " detected (closeby and/or unregistered)." << std::endl;
-						}
-					}
-					else
-					{
-						std::cout << inspectorSensorValue;
-						if ( inspectorSensorValue >= (Uint32)gRobotIndexStartOffset )
-						  std::cout << " (agent #" << inspectorSensorValue - gRobotIndexStartOffset << ")";
-						std::cout << std::endl; 
-					}
-
-					// virtual floor sensor
-                    inspectorSensorValue = getPixel32( gFootprintImage, xTmp, yTmp);
-                    SDL_GetRGB(inspectorSensorValue,gFootprintImage->format,&r,&g,&b);
-
-                    int value = ((int)r)*256*256 + ((int)g)*256 + (int)b;
-                    
-                    std::cout << "\tvirtual floor sensor: ( " << value << " : " << (int)r << "," << (int)g << "," << (int)b << ")" << std::endl;
+                    int xIns, yIns;
+                    inspectorAgent->getCoord(xIns, yIns);
+                    inspectAtPixel(xIns, yIns);
 				}
 			}				
 			SDL_Delay(PAUSE_COMMAND); // 200ms delay
@@ -2049,7 +2064,7 @@ bool runRoborobo(int __maxIt) // default parameter is -1 (infinite)
 		else
 		{
 			const Uint8 *keyboardStates = SDL_GetKeyboardState( NULL );
-			quit = checkQuitEvent() | handleKeyEvent(keyboardStates);
+			quit = checkEvent() | handleKeyEvent(keyboardStates);
             
 			//Start the frame timer
 			fps.start();
