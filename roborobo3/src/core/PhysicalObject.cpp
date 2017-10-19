@@ -235,3 +235,8 @@ bool PhysicalObject::triggerRegrow()
     
     return true;
 }
+
+std::string PhysicalObject::inspect( )
+{
+    return "PhysicalObject::inspect() not implemented.\n";
+}
