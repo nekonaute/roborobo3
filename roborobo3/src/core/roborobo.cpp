@@ -4,7 +4,7 @@
 //                                                                                               //
 // Author: Nicolas Bredeche                                                                      //
 // Contact: nicolas.bredeche(at)upmc.fr / niko(at)factorycity.com                                //
-// http://factorycity.com // http://pages.isir.upmc.fr/~bredeche                                 //
+// http://pages.isir.upmc.fr/~bredeche                                                           //
 //                                                                                               //
 // 2008-2017 (started 20081216, version 3: 20160122)                                             //
 // current version: (see gVersion value)                                                         //
@@ -36,7 +36,6 @@
 //  http://lazyfoo.net/SDL_tutorials/                                                            //
 //                                                                                               //
 // * Projects acknowledgements                                                                   //
-//  http://factorycity.com                                                                       //
 //  Symbrion EU project, grant agreement 216342 (2008-2013) (EU FET Proactive Intiative)         //
 //  Grid'5000 experimental testbed ( https://www.grid5000.fr )                                   //
 //  BQR UPMC (2012-2013)                                                                         //
@@ -354,29 +353,38 @@ void displayHelp()
 		std::cout << " >>>> Keys:" << std::endl;
 		std::cout << "       h : help! (ie. this text)" << std::endl;
 		
-		std::cout << "       n : radio network communication on/off" << std::endl;
-		std::cout << "       d : set display mode - (1) default-60-fps; (2) fast; (3) fastest-no-display. (shift+d: inverse)" << std::endl;
+		//std::cout << "       n : radio network communication on/off (unused)" << std::endl;
+		std::cout << "       d : set display mode (shift+d: reverse)" << std::endl;
+        std::cout << "       \t (1) default-60-fps;" << std::endl;
+        std::cout << "       \t (2) fast;" << std::endl;
+        std::cout << "       \t (3) fastest-no-display." << std::endl;
 		std::cout << "       v : verbose on/off (console)" << std::endl;
-		std::cout << "       p : pause/freeze simulation (display mode) - use <space> for step-by-step update" << std::endl;
+		std::cout << "       p : pause/freeze simulation (display mode)"  << std::endl;
+        std::cout << "       \t use <space> for step-by-step update" << std::endl;
 		std::cout << "       s : slow mode on/off (switch it off if display is off)" << std::endl;
-
 		std::cout << "       x : (\"X-ray mode\") debug display mode on/off" << std::endl;
 		std::cout << "       f : highlight current focused agent on/off (display mode)" << std::endl;
 		std::cout << "       z : display ground type caption on/off (display mode)" << std::endl;
-		std::cout << "       g : (\"god mode\") switch agent/inspector mode - follow selected agent or move freely (display mode)" << std::endl;
-		std::cout << "       i : inspect currently selected agent on/off (display sensor and motor values on console)" << std::endl;
-		std::cout << "       j : show / dont show sensor raycasting and visual markers (display mode)" << std::endl;
-		std::cout << "       l : show / dont show LED color on top of the robots (display mode)" << std::endl;
+        std::cout << "       g : (\"god mode\") switch agent/inspector mode" << std::endl;
+        std::cout << "       \t follow selected agent or move freely (display mode)" << std::endl;
+		std::cout << "       i : inspect currently selected agent on/off" << std::endl;
+        std::cout << "       \t display sensor and motor values on console)" << std::endl;
+        std::cout << "       \t inspection can also be performed by mouse clicking." << std::endl;
+		std::cout << "       j : show/hide sensor raycasting and visual markers (display mode)" << std::endl;
+		std::cout << "       l : show/hide LED color on top of the robots (display mode)" << std::endl;
 		
-        std::cout << "       o : take screenshot - save image to disk (in ./logs) (display mode)" << std::endl;
-		std::cout << "       O : video recording start/stop - save images to disk (in ./logs) (display mode)" << std::endl;
-		
-        std::cout << "       t : start/stop tracking trajectories (all agents) - save image to disk (in ./logs) (display mode)" << std::endl;
-        std::cout << "       T : start/stop tracking trajectories (target agent) - save image to disk (in ./logs) (display mode)" << std::endl;
+        std::cout << "       o : take screenshot" << std::endl;
+        std::cout << "       \t save image to disk (in ./logs) (display mode)" << std::endl;
+		std::cout << "       O : video recording start/stop" << std::endl;
+        std::cout << "       \t save images to disk (in ./logs) (display mode)" << std::endl;
+		std::cout << "       t : start/stop tracking trajectories (all agents)" << std::endl;
+        std::cout << "       \t save images to disk (in ./logs) (display mode)" << std::endl;
+        std::cout << "       T : start/stop tracking trajectories (target agent)" << std::endl;
+        std::cout << "       \t save images to disk (in ./logs) (display mode)" << std::endl;
         
 		std::cout << "   <tab> : switch focus to next agent (shift+o: previous agent)" << std::endl;
 		std::cout << " <enter> : (in agent following mode) trigger manual agent control mode" << std::endl;
-		std::cout << " <enter> : (in inspector mode) sample and display sensor values at current location" << std::endl;
+		std::cout << " <enter> : (inspector mode) display sensor values at current location" << std::endl;
 		std::cout << "   <esc> : quit" << std::endl;
 		std::cout << "=-=-=-=-=-=-=-=-=-=-=-= roborobo! =-=-=-=-=-=-=-=-=-=-=-=\n\n";
 	}
