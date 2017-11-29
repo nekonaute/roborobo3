@@ -128,9 +128,9 @@ void InspectorAgent::show() // display on screen
     //Show the dot
 	int r,g,b;
 
-	r = rand() % 255 ;
-	g = rand() % 255 ;
-	b = rand() % 255 ;
+	r = randint() % 255 ;
+	g = randint() % 255 ;
+	b = randint() % 255 ;
 
 	int x = _x - gCamera.x;
 	int y = _y - gCamera.y;

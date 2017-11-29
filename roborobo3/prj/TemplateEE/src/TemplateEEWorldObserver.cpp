@@ -107,7 +107,7 @@ void TemplateEEWorldObserver::updateEnvironment()
     if ( gWorld->getIterations() % 2000 == 0 )
         for ( int i = 0 ; i != gNbOfLandmarks ; i++ )
         {
-            Point2d* position = new Point2d( 200+rand()%(gAreaWidth-400) , 200+rand()%(gAreaHeight-400) );
+            Point2d* position = new Point2d( 200+randint()%(gAreaWidth-400) , 200+randint()%(gAreaHeight-400) );
             gLandmarks[i]->setPosition(*position);
         }
     */

@@ -130,7 +130,7 @@ std::string gFootprintImageFilename =           "data/ground.png";
 
 //general purpose
 
-int gRandomSeed = -1; // (default value should be "-1" => time-based random seed)
+long int gRandomSeed = -1; // (default value should be "-1" => time-based random seed)
 
 bool gVerbose = true;
 bool gBatchMode = false;
@@ -1464,13 +1464,17 @@ bool loadProperties( std::string __propertiesFilename )
     
 	if ( gProperties.hasProperty("gRandomSeed") )
 	{
-		convertFromString<int>(gRandomSeed, gProperties.getProperty("gRandomSeed"), std::dec);
+		convertFromString<long int>(gRandomSeed, gProperties.getProperty("gRandomSeed"), std::dec);
 		
 		if ( gRandomSeed == -1 ) // value = -1 means random seed. set seed, then update content of properties.
 		{
 			// set seed value
-			gRandomSeed = (unsigned int)time(NULL); // time-based random seed, if needed.
-
+            // use time in microseconds + PID to ~avoid duplicate when running multiple instances of roborobo (e.g. multiple experiences on a cluster)
+            struct timeval tv;
+            gettimeofday(&tv,NULL);
+            unsigned long time_in_micros = 1000000 * tv.tv_sec + tv.tv_usec;
+            gRandomSeed = time_in_micros + (getpid()<<16);
+            
 			// update properties
 
 			gProperties.setProperty("gRandomSeed",convertToString(gRandomSeed)); // update value.
@@ -2041,7 +2045,9 @@ void initRoborobo()
     
 	// * Initialize Random seed -- loaded, or initialized, in loadProperties(...)
 	
-	srand(gRandomSeed); // fixed seed - useful to reproduce results (ie. deterministic sequence of random values)
+    engine.seed(gRandomSeed);
+    
+	//srand(gRandomSeed); // fixed seed - useful to reproduce results (ie. deterministic sequence of random values)
 	gLogFile << "# random seed             : " << gRandomSeed << std::endl; 
 
 	gWorld = new World();

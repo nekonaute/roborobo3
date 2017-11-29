@@ -15,29 +15,25 @@
 #include <string>
 #include <sstream>
 #include <iostream>
-
-#include <cstdlib> // rand and RAND_MAX
-
+#include <cstdlib> // RAND_MAX
+#include <random>
+#include <chrono>
 #include <sys/time.h>
 
 #define swapInteger(a,b) {int tmp;tmp=a;a=b;b=tmp;}
 
+// random number generators (defined in roborobo.cpp)
+// Note that boost/c++11 random is slower (by one order of magnitude), but more precise, than old classic rand()
 
-#define ranf() \
-  ((double)rand()/(1.0+(double)RAND_MAX)) // Uniform from interval [0,1) */
+extern std::random_device rnd;
+extern std::mt19937 engine;
+extern std::uniform_real_distribution<double> disRandom;
+extern std::uniform_int_distribution<> disRandint;
+extern std::normal_distribution<> disNormal;
 
-/* Credits:
-	boxmuller.c           Implements the Polar form of the Box-Muller
-                         Transformation
-
-                      (c) Copyright 1994, Everett F. Carter Jr.
-                          Permission is granted by the author to use
-			  this software for any application provided this
-			  copyright notice is preserved.
-			  http://www.taygeta.com/random/gaussian.html
-			  http://www.bearcave.com/misl/misl_tech/wavelets/hurst/random.html
-*/
-double getGaussianRand (double m, double s); // box-muller
+#define random() disRandom(engine) // uniform in [0,1), return double
+#define randint() disRandint(engine) // uniform in [0,max), returns int
+#define randgaussian() disNormal(engine) // normal distribution mean=0 and stddev=1 (use: mean+rand*stddev)
 
 // Cast string to value.
 //
@@ -67,6 +63,7 @@ std::string getpidAsReadableString();
 
 // check: http://notfaq.wordpress.com/2006/08/30/c-convert-int-to-string/
 std::string convertToString( int __value );
+std::string convertToString( long int __value );
 
 void sleep(int milliseconds);
 

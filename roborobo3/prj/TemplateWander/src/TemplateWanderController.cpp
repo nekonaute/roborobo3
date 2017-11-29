@@ -39,6 +39,6 @@ void TemplateWanderController::step()
 				if ( _wm->_desiredRotationalVelocity < 0) 
 					_wm->_desiredRotationalVelocity++;
 				else
-					_wm->_desiredRotationalVelocity = 0.01 - (double)(rand()%10)/10.*0.02;
+					_wm->_desiredRotationalVelocity = 0.01 - (double)(randint()%10)/10.*0.02;
 
 }

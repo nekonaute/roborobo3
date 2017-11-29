@@ -28,7 +28,7 @@ LandmarkObject::LandmarkObject()
     }
     else
     {
-        x = (rand() % (gAreaWidth-20)) + 10;
+        x = (randint() % (gAreaWidth-20)) + 10;
         randomLocation = true;
     }
     
@@ -41,7 +41,7 @@ LandmarkObject::LandmarkObject()
     }
     else
     {
-        y = (rand() % (gAreaHeight-20)) + 10;
+        y = (randint() % (gAreaHeight-20)) + 10;
         randomLocation = true;	}
     
     _xCenterPixel = x;

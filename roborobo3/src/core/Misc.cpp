@@ -4,6 +4,8 @@
  *
  *  Created by Nicolas on 24/01/09.
  *
+ *  A set of useful functions.
+ *  see header file for description and credits/sources.
  */
 
 #include "Utilities/Misc.h"
@@ -11,41 +13,12 @@
 #include <string>
 #include <random>
 
-// useful functions. 
-// see header file for description and credits/sources.
-
-
-
-// gaussian random adapted from: http://www.design.caltech.edu/erik/Misc/Gaussian.html
-double getGaussianRand(double m, double s)	/* normal random variate generator */
-{				        /* mean m, standard deviation s */
-	double x1, x2, w, y1;
-	static double y2;
-	static int use_last = 0;
-
-	if (use_last)		        /* use value from previous call */
-	{
-		y1 = y2;
-		use_last = 0;
-	}
-	else
-	{
-		do {
-			//x1 = ((double)rand()/(1.0+(double)RAND_MAX)); //??? check and delete
-			x1 = 2.0 * ranf() - 1.0;
-			x2 = 2.0 * ranf() - 1.0;
-			w = x1 * x1 + x2 * x2;
-		} while ( ( w >= 1.0 ) || ( w == 0.0 ) );
-
-		w = sqrt( (-2.0 * log( w ) ) / w );
-		y1 = x1 * w;
-		y2 = x2 * w;
-		use_last = 1;
-	}
-
-	return( m + y1 * s );
-}
-
+// random generator functions, header declaration in common.h (general scope)
+std::random_device rnd;
+std::mt19937 engine(rnd());
+std::uniform_real_distribution<double> disRandom(0.0, 1.0);
+std::uniform_int_distribution<> disRandint(0, UINT32_MAX);
+std::normal_distribution<> disNormal(0,1);
 
 double computeModulo( double a , double b )
 {
@@ -103,6 +76,15 @@ std::string convertToString( int __value )
 	return s;
 }
 
+std::string convertToString( long int __value )
+{
+    std::string s;
+    std::stringstream sOutTmp;
+    sOutTmp << __value;
+    s = sOutTmp.str();
+    
+    return s;
+}
 
 void sleep(int milliseconds)
 {

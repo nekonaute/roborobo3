@@ -48,7 +48,7 @@ void TemplateRandomwalkWorldObserver::stepPre()
             
             for ( size_t j = 0 ; j != (*controller)._params.size() ; j++ )
             {
-                (*controller)._params[(int)j] = ranf()*2.0-1.0;
+                (*controller)._params[(int)j] = random()*2.0-1.0;
             }
         }
     }

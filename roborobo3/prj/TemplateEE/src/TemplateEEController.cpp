@@ -425,7 +425,7 @@ void TemplateEEController::mapGenotypeToPhenotype()
 
 void TemplateEEController::performVariation()
 {
-    if ( TemplateEESharedData::gIndividualMutationRate > ranf() ) // global mutation rate (whether this genome will get any mutation or not) - default: always
+    if ( TemplateEESharedData::gIndividualMutationRate > random() ) // global mutation rate (whether this genome will get any mutation or not) - default: always
     {
         switch ( TemplateEESharedData::gMutationOperator )
         {
@@ -448,7 +448,7 @@ void TemplateEEController::performVariation()
 
 void TemplateEEController::selectRandomGenome() // if called, assume genomeList.size()>0
 {
-    int randomIndex = rand()%_genomesList.size();
+    int randomIndex = randint()%_genomesList.size();
 
     std::map<std::pair<int,int>, std::vector<double> >::iterator it = _genomesList.begin();
     while (randomIndex !=0 )
@@ -527,7 +527,7 @@ void TemplateEEController::mutateGaussian(float sigma) // mutate within bounds.
     
     for (unsigned int i = 0 ; i != _currentGenome.size() ; i++ )
     {
-        double value = _currentGenome[i] + getGaussianRand(0,_currentSigma);
+        double value = _currentGenome[i] + randgaussian()*_currentSigma;
         // bouncing upper/lower bounds
         if ( value < _minValue )
         {
@@ -560,7 +560,7 @@ void TemplateEEController::mutateUniform() // mutate within bounds.
 {
     for (unsigned int i = 0 ; i != _currentGenome.size() ; i++ )
     {
-        float randomValue = float(rand()%100) / 100.0; // in [0,1[
+        float randomValue = float(randint()%100) / 100.0; // in [0,1[
         double range = _maxValue - _minValue;
         double value = randomValue * range + _minValue;
         
@@ -614,7 +614,7 @@ void TemplateEEController::initController()
     
     for ( unsigned int i = 0 ; i != nbGene ; i++ )
     {
-        _currentGenome.push_back((double)(rand()%TemplateEESharedData::gNeuronWeightRange)/(TemplateEESharedData::gNeuronWeightRange/2)-1.0); // weights: random init between -1 and +1
+        _currentGenome.push_back((double)(randint()%TemplateEESharedData::gNeuronWeightRange)/(TemplateEESharedData::gNeuronWeightRange/2)-1.0); // weights: random init between -1 and +1
     }
     
     setNewGenomeStatus(true);
@@ -642,11 +642,11 @@ void TemplateEEController::reset()
 
 void TemplateEEController::mutateSigmaValue()
 {
-    float dice = float(rand()%100) / 100.0;
+    float dice = float(randint()%100) / 100.0;
     
     if ( dice <= TemplateEESharedData::gProbaMutation )
     {
-        dice = float(rand() %100) / 100.0;
+        dice = float(randint() %100) / 100.0;
         if ( dice < 0.5 )
         {
             _currentSigma = _currentSigma * ( 1 + TemplateEESharedData::gUpdateSigmaStep ); // increase sigma

@@ -133,10 +133,10 @@ void TemplateBoidsController::step()
     {
         // * a basic obstacle avoidance behavior
         
-        if ( ( (double)(rand()%100))/100.0 < 0.2 )
+        if ( ( (double)(randint()%100))/100.0 < 0.2 )
         {
             // pure random move
-            _wm->_desiredRotationalVelocity = (double)((rand()%360)-180);
+            _wm->_desiredRotationalVelocity = (double)((randint()%360)-180);
         }
         else
         {
@@ -154,7 +154,7 @@ void TemplateBoidsController::step()
                         if ( _wm->_desiredRotationalVelocity < 0)
                             _wm->_desiredRotationalVelocity++;
                         else
-                            _wm->_desiredRotationalVelocity = 0.01 - (double)(rand()%10)/10.*0.02;
+                            _wm->_desiredRotationalVelocity = 0.01 - (double)(randint()%10)/10.*0.02;
         }
     }
     else
@@ -301,7 +301,7 @@ void TemplateBoidsController::step() // THIS IS A TEMPLATE FOR PRACTICAL APPLICA
     // * move like an idiot!
     // *
     
-    _wm->_desiredRotationalVelocity = 2 + (double)(rand()%10)/10.*0.02;
+    _wm->_desiredRotationalVelocity = 2 + (double)(randint()%10)/10.*0.02;
     _wm->_desiredTranslationalValue = 3;
     
 }
