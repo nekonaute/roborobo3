@@ -189,9 +189,9 @@ void World::updateWorld(const Uint8 *__keyboardStates)
 		(*it)->step();
 	}
     
-	// * update world level observer
+	// * update world level observer (*before* updating agent state and location)
 	
-    _worldObserver->step();
+    _worldObserver->stepPre();
 
     // * update agents
 	
@@ -234,6 +234,10 @@ void World::updateWorld(const Uint8 *__keyboardStates)
         gRobots[shuffledRobotIndex[i]]->registerRobot();
         gRobotsRegistry[shuffledRobotIndex[i]]=true;
     }
+    
+    // * update world level observer (*after* updating agent state and location)
+    
+    _worldObserver->stepPost();
     
     gLogManager->flush();
     

@@ -25,7 +25,7 @@ void TemplateRandomwalkWorldObserver::reset()
 	// nothing to do.
 }
 
-void TemplateRandomwalkWorldObserver::step()
+void TemplateRandomwalkWorldObserver::stepPre()
 {
     
     // The following code shows an example where every 100 iterations, robots are re-located to their initial positions, and parameters are randomly changed.
@@ -53,4 +53,9 @@ void TemplateRandomwalkWorldObserver::step()
         }
     }
     
+}
+
+void TemplateRandomwalkWorldObserver::stepPost()
+{
+    // nothing to do.
 }

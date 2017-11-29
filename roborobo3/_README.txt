@@ -144,7 +144,20 @@ The philosophy is that in the standard case, the designer should be able to code
 From the Controllers, you can access the world and robot(s) world-models. All the rest is simulator-specific implementation.
 - of course, you may want to create a new properties file in the config sub-directory
 
-About the simulation update method scheme:
+** SIMULATION UPDATE CYCLE **
+
+Roborobo is turn-based with randomized-ordering updates for both objects and robots. Randomization is used to break any ordering effects, and updates for control and movements are asynchroneous. The update ordering is the following (check World::updateWorld):
+
+1. perform update (and move?) on all objects, ie. set up the environment before updating the robots
+2. call a world observer (WorldObserve::.stepPre()), ie. observe (and possibly modify) the state of the world before the robots compute&move.
+3. for each robot, call an observer, ie. observe (and possibly modify) the state of the agent before moving.
+4. perform state update for all robots, ie. robots make decisions
+5. perform location update for all robots, ie. robots move
+6. call a world observer (WorldObserve::.stepPost()), ie. observe (and possibly modify) the state of the world *after* the robots moved
+
+More general information about the simulation update cycle:
+    - Prior to this update cycle, a World::initWorld() is called to setup the whole simulation.
+    - Observers are pretty useful for logging data.
 	- AgentObserver is called N times per iterations (N = nb of agents)
 	- WorldObserver is called once per iterations
 	- Update method: turn-based, synchroneous and shuffle-ordered update method.
@@ -182,7 +195,7 @@ A last remark: roborobo! is not exactly the paragon of Clean Coding philosophy a
 
 ** CONTENT OF ./DATA/ : IMAGES OF ROBOTS AND ENVIRONMENT **
 
-Environments and robots are all described as images. 
+Environments and robots are all described as images.
 
 >>>>IMPORTANT: USE ONLY 32-bits BMP IMAGES!<<<<
 

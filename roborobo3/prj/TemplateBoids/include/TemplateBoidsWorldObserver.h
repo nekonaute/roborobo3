@@ -25,7 +25,8 @@ public:
     ~TemplateBoidsWorldObserver();
     
     void reset();
-    void step();
+    void stepPre();
+    void stepPost();
     
     int getGenerationItCount() { return _generationItCount; }
 

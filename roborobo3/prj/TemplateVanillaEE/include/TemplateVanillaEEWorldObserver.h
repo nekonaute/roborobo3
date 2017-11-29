@@ -16,7 +16,8 @@ public:
     TemplateVanillaEEWorldObserver(World *world);
     ~TemplateVanillaEEWorldObserver();
     
-    virtual void step();
+    void stepPre();
+    void stepPost();
 
 protected:    
     virtual void monitorPopulation( bool localVerbose = true );

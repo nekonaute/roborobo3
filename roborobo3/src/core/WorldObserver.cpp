@@ -26,9 +26,12 @@ void WorldObserver::reset()
 	// nothing to do.
 }
 
-void WorldObserver::step()
+void WorldObserver::stepPre() // see header file for remark on stepPre/stepPost
 {
 	// nothing to do.
 }
 
-
+void WorldObserver::stepPost()
+{
+    // nothing to do.
+}

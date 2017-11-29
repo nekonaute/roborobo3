@@ -26,7 +26,6 @@
 #define ranf() \
   ((double)rand()/(1.0+(double)RAND_MAX)) // Uniform from interval [0,1) */
 
-
 /* Credits:
 	boxmuller.c           Implements the Polar form of the Box-Muller
                          Transformation
@@ -39,8 +38,6 @@
 			  http://www.bearcave.com/misl/misl_tech/wavelets/hurst/random.html
 */
 double getGaussianRand (double m, double s); // box-muller
-
-
 
 // Cast string to value.
 //

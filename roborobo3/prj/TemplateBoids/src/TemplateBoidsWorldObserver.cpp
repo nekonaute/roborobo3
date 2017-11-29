@@ -50,7 +50,7 @@ void TemplateBoidsWorldObserver::reset()
     // nothing to do.
 }
 
-void TemplateBoidsWorldObserver::step()
+void TemplateBoidsWorldObserver::stepPre()
 {
     _generationItCount++;
     
@@ -67,6 +67,10 @@ void TemplateBoidsWorldObserver::step()
     
 }
 
+void TemplateBoidsWorldObserver::stepPost()
+{
+    // nothing to do.
+}
 
 void TemplateBoidsWorldObserver::updateEnvironment()
 {

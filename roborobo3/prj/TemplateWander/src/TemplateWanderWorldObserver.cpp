@@ -22,7 +22,12 @@ void TemplateWanderWorldObserver::reset()
 	// nothing to do.
 }
 
-void TemplateWanderWorldObserver::step()
+void TemplateWanderWorldObserver::stepPre()
 {
 	// nothing to do.
+}
+
+void TemplateWanderWorldObserver::stepPost()
+{
+    // nothing to do.
 }

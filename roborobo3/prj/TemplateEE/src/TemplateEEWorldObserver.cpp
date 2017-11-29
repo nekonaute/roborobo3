@@ -78,7 +78,7 @@ void TemplateEEWorldObserver::reset()
 {
 }
 
-void TemplateEEWorldObserver::step()
+void TemplateEEWorldObserver::stepPre()
 {
     _generationItCount++;
     
@@ -95,6 +95,10 @@ void TemplateEEWorldObserver::step()
     
 }
 
+void TemplateEEWorldObserver::stepPost()
+{
+    // nothing to do.
+}
 
 void TemplateEEWorldObserver::updateEnvironment()
 {

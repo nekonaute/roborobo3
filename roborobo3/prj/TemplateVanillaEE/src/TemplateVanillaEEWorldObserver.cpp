@@ -20,9 +20,9 @@ TemplateVanillaEEWorldObserver::~TemplateVanillaEEWorldObserver()
     // superclass destructor called before
 }
 
-void TemplateVanillaEEWorldObserver::step()
+void TemplateVanillaEEWorldObserver::stepPre()
 {
-    TemplateEEWorldObserver::step();
+    TemplateEEWorldObserver::stepPre();
     
     /*
     if( gWorld->getIterations() > 0 && gWorld->getIterations() % TemplateEESharedData::gEvaluationTime == 0 )
@@ -30,7 +30,11 @@ void TemplateVanillaEEWorldObserver::step()
         std::cout << "[DEBUG] new generation.\n";
     }
     */
+}
 
+void TemplateVanillaEEWorldObserver::stepPost( )
+{
+    // nothing to do.
 }
 
 void TemplateVanillaEEWorldObserver::monitorPopulation( bool localVerbose )

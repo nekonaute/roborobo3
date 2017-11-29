@@ -19,7 +19,9 @@ class TemplateRandomwalkWorldObserver : public WorldObserver
 		~TemplateRandomwalkWorldObserver();
 				
 		void reset();
-		void step();
+    
+        void stepPre();
+        void stepPost();
 		
 };
 

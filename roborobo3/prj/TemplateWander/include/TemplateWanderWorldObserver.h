@@ -19,8 +19,10 @@ class TemplateWanderWorldObserver : public WorldObserver
 		~TemplateWanderWorldObserver();
 				
 		void reset();
-		void step();
-		
+    
+		void stepPre();
+		void stepPost();
+    
 };
 
 #endif

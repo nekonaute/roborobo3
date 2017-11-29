@@ -15,3 +15,13 @@ TemplateMedeaWorldObserver::~TemplateMedeaWorldObserver()
 {
     // superclass destructor called before
 }
+
+void TemplateMedeaWorldObserver::stepPre()
+{
+    // nothing to do.
+}
+
+void TemplateMedeaWorldObserver::stepPost()
+{
+    // nothing to do.
+}
