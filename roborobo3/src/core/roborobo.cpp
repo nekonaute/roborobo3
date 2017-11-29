@@ -130,7 +130,7 @@ std::string gFootprintImageFilename =           "data/ground.png";
 
 //general purpose
 
-long int gRandomSeed = -1; // (default value should be "-1" => time-based random seed)
+int gRandomSeed = -1; // (default value should be "-1" => time-based random seed)
 
 bool gVerbose = true;
 bool gBatchMode = false;
@@ -1464,19 +1464,18 @@ bool loadProperties( std::string __propertiesFilename )
     
 	if ( gProperties.hasProperty("gRandomSeed") )
 	{
-		convertFromString<long int>(gRandomSeed, gProperties.getProperty("gRandomSeed"), std::dec);
+		convertFromString<int>(gRandomSeed, gProperties.getProperty("gRandomSeed"), std::dec);
 		
 		if ( gRandomSeed == -1 ) // value = -1 means random seed. set seed, then update content of properties.
 		{
 			// set seed value
-            // use time in microseconds + PID to ~avoid duplicate when running multiple instances of roborobo (e.g. multiple experiences on a cluster)
+            // use time in microseconds + PID to try to avoid duplicate when running multiple instances of roborobo (e.g. multiple experiences on a cluster).
             struct timeval tv;
             gettimeofday(&tv,NULL);
-            unsigned long time_in_micros = 1000000 * tv.tv_sec + tv.tv_usec;
-            gRandomSeed = time_in_micros + (getpid()<<16);
+            unsigned long time_in_microsec = 1000000 * tv.tv_sec + tv.tv_usec;
+            gRandomSeed = (int)time_in_microsec + getpid();
             
 			// update properties
-
 			gProperties.setProperty("gRandomSeed",convertToString(gRandomSeed)); // update value.
 		}
 	}

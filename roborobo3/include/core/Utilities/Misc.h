@@ -63,7 +63,6 @@ std::string getpidAsReadableString();
 
 // check: http://notfaq.wordpress.com/2006/08/30/c-convert-int-to-string/
 std::string convertToString( int __value );
-std::string convertToString( long int __value );
 
 void sleep(int milliseconds);
 

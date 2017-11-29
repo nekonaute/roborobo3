@@ -72,7 +72,7 @@ extern std::string gConfigFilename;
 
 // general purpose
 
-extern long int gRandomSeed;				// random seed. Default value (="-1") means time based.
+extern int gRandomSeed;				// random seed. Default value (="-1") means time based.
 
 extern bool gVerbose;				// trigger console verbose on/off
 extern bool gBatchMode;				// trigger no display / no verbose mode.

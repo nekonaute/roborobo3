@@ -76,16 +76,6 @@ std::string convertToString( int __value )
 	return s;
 }
 
-std::string convertToString( long int __value )
-{
-    std::string s;
-    std::stringstream sOutTmp;
-    sOutTmp << __value;
-    s = sOutTmp.str();
-    
-    return s;
-}
-
 void sleep(int milliseconds)
 {
     clock_t time_end;
