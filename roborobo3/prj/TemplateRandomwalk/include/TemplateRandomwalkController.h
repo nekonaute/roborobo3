@@ -26,7 +26,7 @@ class TemplateRandomwalkController : public Controller
     
         void monitorSensoryInformation();
     
-    std::string inspect( std::string prefix = 0 );
+        std::string inspect( std::string prefix = "" );
 };
 
 
