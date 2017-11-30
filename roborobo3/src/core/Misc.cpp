@@ -15,9 +15,9 @@
 
 // random generator functions, header declaration in common.h (general scope)
 std::random_device rnd;
+std::minstd_rand randint;
 std::mt19937 engine(rnd());
 std::uniform_real_distribution<double> disRandom(0.0, 1.0);
-std::uniform_int_distribution<> disRandint(0, UINT32_MAX);
 std::normal_distribution<> disNormal(0,1);
 
 double computeModulo( double a , double b )

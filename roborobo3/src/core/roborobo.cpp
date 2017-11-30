@@ -2045,6 +2045,7 @@ void initRoborobo()
 	// * Initialize Random seed -- loaded, or initialized, in loadProperties(...)
 	
     engine.seed(gRandomSeed);
+    randint.seed(gRandomSeed);
     
 	//srand(gRandomSeed); // fixed seed - useful to reproduce results (ie. deterministic sequence of random values)
 	gLogFile << "# random seed             : " << gRandomSeed << std::endl; 

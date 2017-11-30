@@ -26,13 +26,12 @@
 // Note that boost/c++11 random is slower (by one order of magnitude), but more precise, than old classic rand()
 
 extern std::random_device rnd;
+extern std::minstd_rand randint; // randint() returns an int with value drawn uniformly in [0,max)
 extern std::mt19937 engine;
 extern std::uniform_real_distribution<double> disRandom;
-extern std::uniform_int_distribution<> disRandint;
 extern std::normal_distribution<> disNormal;
 
 #define random() disRandom(engine) // uniform in [0,1), return double
-#define randint() disRandint(engine) // uniform in [0,max), returns int
 #define randgaussian() disNormal(engine) // normal distribution mean=0 and stddev=1 (use: mean+rand*stddev)
 
 // Cast string to value.
