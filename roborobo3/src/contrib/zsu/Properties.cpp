@@ -103,6 +103,13 @@ void Properties::load(istream& inStream)
 
       string value( stripRight(stripLeft(stripAfter(string(valStart, line.end()),'#'))) );
 
+      // Added by Nicolas (2017-12-30, roborobo-specific): only one definition per property is allowed in Property file.
+      if ( hasProperty(key) == true )
+      {
+          std::cout << "[ERROR] Properties: Multiple definitions of \"" << key << "\" in Properties file(s). Stopping.\n";
+          exit (-1);
+      }
+        
       // Convert then store key and value
       key = loadConvert(key);
       value = loadConvert(value);

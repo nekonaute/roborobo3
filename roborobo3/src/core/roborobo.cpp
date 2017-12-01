@@ -1087,11 +1087,7 @@ bool loadProperties( std::string __propertiesFilename )
             import = true;
         }
     }
-    if ( import == true )
-    {
-        std::cout << "[REMARK] imported property values are register first, but may be overwritten if redefined." << std::endl;
-    }
-    
+
     in.clear();
     in.seekg(0, std::ios::beg); // reposition to beginning -- so as to avoid to call in.close();
     
@@ -1469,11 +1465,20 @@ bool loadProperties( std::string __propertiesFilename )
 		if ( gRandomSeed == -1 ) // value = -1 means random seed. set seed, then update content of properties.
 		{
 			// set seed value
+            
+            // METHOD 1
             // use time in microseconds + PID to try to avoid duplicate when running multiple instances of roborobo (e.g. multiple experiences on a cluster).
             struct timeval tv;
             gettimeofday(&tv,NULL);
             unsigned long time_in_microsec = 1000000 * tv.tv_sec + tv.tv_usec;
             gRandomSeed = (int)time_in_microsec + getpid();
+            
+            // METHOD 2 (not used, left here for information)
+            // use non-deterministic hardware-based random device
+            // NOT USED because it may be deterministic on some systems!
+            // cf.  https://stackoverflow.com/questions/18880654/why-do-i-get-the-same-sequence-for-every-run-with-stdrandom-device-with-mingw
+            //std::random_device rdseed;
+            //gRandomSeed = rdseed();
             
 			// update properties
 			gProperties.setProperty("gRandomSeed",convertToString(gRandomSeed)); // update value.
