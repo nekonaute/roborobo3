@@ -58,7 +58,6 @@ roborobo!:
  - main developper: nicolas.bredeche(at)upmc.fr
 included contributions:
  - the Properties class from Evert Haasdijk (VU Amsterdam)
- - box-muller algorithm from Everett F. Carter Jr. (1994) - ref: http://www.taygeta.com/random/gaussian.html
  - other contribs are mentionned in the code (check: core/Misc.h and contrib/*)
  - past contributor(s): Jean-Marc Montanier, Leo Cazenille, Pierre Delarboulas
 
@@ -191,6 +190,23 @@ A last remark: roborobo! is not exactly the paragon of Clean Coding philosophy a
 - core   : core roborobo! code. Contains the elementary elements for running roborobo.
 - ext    : derived class and extensions for roborobo! code, which may be of global interest. It contains addition to roborobo core, including all code that can be factorised from projects (ie. re-usable code, such as e.g. neural nets, logger), as well as project specific code.
 - contrib: imported code with useful features.
+
+** PROPERTIES FILE **
+
+Properties files are plain-text file where you can specify the parameters for your run with keys and values (e.g. gScreenWidth=800). Some parameters are required by roborobo, some other you can add to fit your needs. It is recommended to clone an existing Properties file if you need to create your own keys and values.
+
+Useful information on Properties file:
+- only one Properties file can be passed as argument to roborobo
+- duplicated symbols are forbidden (i.e. multiple declarations of the same key will trigger a critical error (with message))
+- the main Properties file can import any number of other Properties files (syntax: "import (config/mysecondlevelpropertiesfile.properties)")
+- recursive imports are not allowed (only imports from the main Properties file are done)
+
+the import(.) command can be very useful for two reasons:
+1. to seperate different kind of parameters (e.g. environment-related properties vs agent-related properties)
+2. to re-use a similar subset of parameters in two different experiments
+    Examples:
+        obstacleavoidanceexperiement.properties and foragingexperiment.properties may use the same evolutionaryparameters.properties
+        a defaultsetup.properties could contain the general settings to be imported in experiment-specific Properties files.
 
 
 ** CONTENT OF ./DATA/ : IMAGES OF ROBOTS AND ENVIRONMENT **
