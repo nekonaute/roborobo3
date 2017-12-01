@@ -1065,7 +1065,7 @@ bool loadProperties( std::string __propertiesFilename )
     if ( !in.is_open() )
         return false;
     std::string target("import(");
-    bool import = false;
+
     while (in)
     {
         std::string line;
@@ -1084,7 +1084,6 @@ bool loadProperties( std::string __propertiesFilename )
                 std::cout << "[INFO] Import properties from file: " << importFilename << std::endl;
             gProperties.load(in2);
             in2.close();
-            import = true;
         }
     }
 

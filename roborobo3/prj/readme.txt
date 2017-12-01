@@ -51,4 +51,15 @@ Also:
 
 =-=-=
 
+EXISTING TEMPLATE PROJECTS:
+- TemplateVanillaEE : a basic embodied evolution setup with elitist selection, use with config/template_vanillaEE.properties
+- TemplateMedeaEE   : a basic mEDEA setup with random selection, use with config/template_medea.properties or config/movingobjects.properties
+- TemplateRandowalk : a simple example of random walkers with position reset every N iterations, use with config/template_randowalk.properties
+- TemplateWander    : a simple example of wandering robots, use with config/template_wander_{small|big}robots.properties
+- TemplateBoids     : a simple example of boids, use with config/template_boids.properties
+
+Recommendation: do not modify template projects (use clone_project.py script)
+
+=-=-=
+
 .2014-06-28n.

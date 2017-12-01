@@ -444,6 +444,7 @@ void TemplateEEController::performVariation()
                 exit(-1);
         }
     }
+    
 }
 
 void TemplateEEController::selectRandomGenome() // if called, assume genomeList.size()>0
@@ -462,14 +463,9 @@ void TemplateEEController::selectRandomGenome() // if called, assume genomeList.
     _birthdate = gWorld->getIterations();
     
     setNewGenomeStatus(true); 
-    
-    // Logging: track descendance
-    std::string sLog = std::string("");
-    sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
-    gLogManager->write(sLog);
-    gLogManager->flush();
 }
 
+// used for debugging
 void TemplateEEController::selectFirstGenome()  // if called, assume genomeList.size()>0
 {
     _currentGenome = (*_genomesList.begin()).second;
@@ -477,12 +473,112 @@ void TemplateEEController::selectFirstGenome()  // if called, assume genomeList.
     _birthdate = gWorld->getIterations();
     
     setNewGenomeStatus(true);
+}
+
+void TemplateEEController::selectBestGenome()
+{
+    std::pair<int,int> bestId;
     
-    // Logging: track descendance
-    std::string sLog = std::string("");
-    sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
-    gLogManager->write(sLog);
-    gLogManager->flush();
+    std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValuesList.begin();
+    
+    float bestFitnessValue = (*fitnessesIt).second;
+    bestId = (*fitnessesIt).first;
+    
+    ++fitnessesIt;
+    
+    int nbSimilar = 0;
+    
+    for ( int i = 1 ; fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt, i++)
+    {
+        if ( (*fitnessesIt).second >= bestFitnessValue )
+        {
+            if ( (*fitnessesIt).second > bestFitnessValue )
+            {
+                bestFitnessValue = (*fitnessesIt).second;
+                bestId = (*fitnessesIt).first;
+                nbSimilar = 0;
+            }
+            else
+            {
+                nbSimilar++;
+            }
+        }
+    }
+    
+    if ( nbSimilar > 0 ) // >1 genomes have the same fitness best value. Pick randomly among them
+    {
+        int count = 0;
+        int randomPick = randint() % ( nbSimilar + 1 );
+        
+        if ( randomPick != 0 ) // not already stored (i.e. not the first one)
+        {
+            fitnessesIt = _fitnessValuesList.begin();
+            for ( int i = 0 ; ; ++fitnessesIt, i++)
+            {
+                if ( (*fitnessesIt).second == bestFitnessValue )
+                {
+                    if ( count == randomPick )
+                    {
+                        bestId = (*fitnessesIt).first;
+                        break;
+                    }
+                    count++;
+                }
+            }
+        }
+    }
+    
+    _birthdate = gWorld->getIterations();
+    
+    _currentGenome = _genomesList[bestId];
+    _currentSigma = _sigmaList[bestId];
+    
+    setNewGenomeStatus(true);
+}
+
+void TemplateEEController::selectFitProp()
+{
+    std::pair<int,int> selectId;
+    
+    // compute sum of fitness
+    
+    float sumOfFit = 0;
+    
+    std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValuesList.begin();
+    
+    for ( ; fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt )
+    {
+        sumOfFit += (*fitnessesIt).second;
+    }
+    
+    // randomly draw a value in [0,sum_of_fitness] -- assume maximisation
+    
+    float fitnessTarget = random()*sumOfFit;
+    
+    // find the parent
+
+    float currentSum = 0;
+
+    fitnessesIt = _fitnessValuesList.begin();
+    
+    for ( ; fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt )
+    {
+        currentSum += (*fitnessesIt).second;
+        if ( currentSum >= fitnessTarget )
+        {
+            selectId = (*fitnessesIt).first;
+            break;
+        }
+    }
+    
+    // update current genome with selected parent (mutation will be done elsewhere)
+    
+    _birthdate = gWorld->getIterations();
+    
+    _currentGenome = _genomesList[selectId];
+    _currentSigma = _sigmaList[selectId];
+    
+    setNewGenomeStatus(true);
 }
 
 /* manage storage of a genome received from a neighbour
@@ -709,6 +805,12 @@ void TemplateEEController::performSelection() // called only if at least 1 genom
             break;
         case 1:
             selectFirstGenome();
+            break;
+        case 2:
+            selectBestGenome();
+            break;
+        case 3:
+            selectFitProp();
             break;
         default:
             std::cerr << "[ERROR] unknown selection method (gSelectionMethod = " << TemplateEESharedData::gSelectionMethod << ")\n";

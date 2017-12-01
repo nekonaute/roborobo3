@@ -42,6 +42,8 @@ protected:
     
     void selectRandomGenome();
     void selectFirstGenome();
+    void selectBestGenome();
+    void selectFitProp();
     
     void mutateGaussian( float sigma );
     void mutateUniform();

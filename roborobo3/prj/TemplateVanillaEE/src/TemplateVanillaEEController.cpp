@@ -33,65 +33,7 @@ void TemplateVanillaEEController::initController()
 
 void TemplateVanillaEEController::performSelection()
 {
-    //TemplateEEController::performSelection();
-    
-    std::pair<int,int> bestId;
-
-    std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValuesList.begin();
-
-    float bestFitnessValue = (*fitnessesIt).second;
-    bestId = (*fitnessesIt).first;
-
-    ++fitnessesIt;
-
-    int nbSimilar = 0;
-    
-    for ( int i = 1 ; fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt, i++)
-    {
-        if ( (*fitnessesIt).second >= bestFitnessValue )
-        {
-            if ( (*fitnessesIt).second > bestFitnessValue )
-            {
-                bestFitnessValue = (*fitnessesIt).second;
-                bestId = (*fitnessesIt).first;
-                nbSimilar = 0;
-            }
-            else
-            {
-                nbSimilar++;
-            }
-        }
-    }
-
-    if ( nbSimilar > 0 ) // >1 genomes have the same fitness best value. Pick randomly among them
-    {
-        int count = 0;
-        int randomPick = randint() % ( nbSimilar + 1 );
-        
-        if ( randomPick != 0 ) // not already stored (i.e. not the first one)
-        {
-            fitnessesIt = _fitnessValuesList.begin();
-            for ( int i = 0 ; ; ++fitnessesIt, i++)
-            {
-                if ( (*fitnessesIt).second == bestFitnessValue )
-                {
-                    if ( count == randomPick )
-                    {
-                        bestId = (*fitnessesIt).first;
-                        break;
-                    }
-                    count++;
-                }
-            }
-        }
-    }
-    
-    _birthdate = gWorld->getIterations();
-    
-    _currentGenome = _genomesList[bestId];
-    _currentSigma = _sigmaList[bestId];
-    
-    setNewGenomeStatus(true);
+    TemplateEEController::performSelection();
     
     // Logging: track descendance
     std::string sLog = std::string("");
@@ -99,7 +41,6 @@ void TemplateVanillaEEController::performSelection()
     gLogManager->write(sLog);
     gLogManager->flush();
 }
-
 
 void TemplateVanillaEEController::performVariation()
 {
