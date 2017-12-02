@@ -43,10 +43,10 @@ notebook.txt
 -.[-] CircleObject::canRegister()/registerObject: implement as robots (ie. circle, not disk)
         => cancelled: large diameter would then allow encapsulated robots
 -.[-] putPixel32_secured vs putPixel32. => OK.
-- [-] set up different environment for benchmark.
+-.[=] random=>c++11
+-.[-] set up different environment for benchmark.
 - [-] user-control, est-ce qu'on peut qd même exécuter le controleur du robot?
 - [-] "TemplateWanderConfigurationLoader" => (ProjectName) "TemplateWander"
-- [=] random=>Mersenne-Twister
 - [=] EnergyItem: rename and refactor energyMode (cf. ::isWalked(.), switch)
     Missing: an object which can be taken (roundObject?)
     new demo: grab/ungrab objects (and re-implement energy as demo)
@@ -57,4 +57,4 @@ notebook.txt
 	voir interaction avec code Move(.) sur la partie isCollision(.) (absente alors que utile)
 - [?] senseurs de proximité additionnel fonctionnant dans l'image de la footprint (départ du bord du robot)
 - [?] les footprints d'objets peuvent ils s'overlapper? (gOverlapObjectFootprint?)
-
+- [=] Bug (peu impactant pour de l'évolution): comportement assymétrique des senseurs. Description: en testant sur des maxirobots (masque : maxirobots-mask-edges-only, sensors : maxirobots-specs-round), les senseurs traversent parfois les voisins, et apparemment uniquement dans les directions S et E. Ça expliquerait la dérive dans certains cas (expérience phystat de Thomas 2017) puisque les capteurs prendraient en compte des robots plus lointains pour le calcul du barycentre, mais d'un autre côté ça n'arrive que rarement, et n'est pas un problème pour les expés d'évolution quelle qu'elle soit. Cause probable: problème de ray-tracing quand les agents sont côte-à-côte, coordonnée de départ. Solutions possibles: (1) masque avec épaisseur deux pixels (2) modifier le point de départ du lancé de rayon pour les quadrants sud et est. Remarque: les simulations mini-robot ne sont pas impactées (corps plein).

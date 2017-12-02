@@ -109,6 +109,13 @@ extern bool gRobotDisplayFocus;  // make focused robot more visible
 
 extern bool gRadioNetwork;			// update radio network.
 
+#define SENSOR_RAY_RED 224   //192,192,255
+#define SENSOR_RAY_GREEN 224
+#define SENSOR_RAY_BLUE 255
+#define SENSOR_RAY_CONTACT_RED 255   //255,0,0
+#define SENSOR_RAY_CONTACT_GREEN 192
+#define SENSOR_RAY_CONTACT_BLUE 192
+
 extern int gDisplaySensors; // display sensor rays on screen (0:no,1:if-contact,2:always+red,3:always)
 extern bool gDisplayTail; // display tail on screen (back of robot)
 extern bool gRobotLEDdisplay; // display LED status (RGB) on top of the robot

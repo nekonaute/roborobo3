@@ -781,14 +781,14 @@ void Robot::show(SDL_Surface *surface) // display on screen
 			if ( _wm->getCameraSensorValue(i,SENSOR_DISTANCEVALUE) < _wm->getCameraSensorMaximumDistanceValue(i)-1 ) //gSensorRange-1 )
             {
                 if ( gDisplaySensors == 2 )
-                    traceRayRGB(surface, int(x1+0.5)-gCamera.x, int(y1+0.5)-gCamera.y, int(x2+0.5)-gCamera.x, int(y2+0.5)-gCamera.y, 255 , 0 , 0 );
+                    traceRayRGB(surface, int(x1+0.5)-gCamera.x, int(y1+0.5)-gCamera.y, int(x2+0.5)-gCamera.x, int(y2+0.5)-gCamera.y, SENSOR_RAY_CONTACT_RED , SENSOR_RAY_CONTACT_GREEN , SENSOR_RAY_CONTACT_BLUE );
                 else
-                    traceRayRGB(surface, int(x1+0.5)-gCamera.x, int(y1+0.5)-gCamera.y, int(x2+0.5)-gCamera.x, int(y2+0.5)-gCamera.y, 192 , 192 , 255 );
+                    traceRayRGB(surface, int(x1+0.5)-gCamera.x, int(y1+0.5)-gCamera.y, int(x2+0.5)-gCamera.x, int(y2+0.5)-gCamera.y, SENSOR_RAY_RED , SENSOR_RAY_GREEN , SENSOR_RAY_BLUE );
             }
 			else
             {
                 if ( gDisplaySensors == 2 || gDisplaySensors == 3 )
-                    traceRayRGB(surface, int(x1+0.5)-gCamera.x, int(y1+0.5)-gCamera.y, int(x2+0.5)-gCamera.x, int(y2+0.5)-gCamera.y, 192 , 192 , 255 );
+                    traceRayRGB(surface, int(x1+0.5)-gCamera.x, int(y1+0.5)-gCamera.y, int(x2+0.5)-gCamera.x, int(y2+0.5)-gCamera.y, SENSOR_RAY_RED , SENSOR_RAY_GREEN , SENSOR_RAY_BLUE );
             }
 		}
         
