@@ -34,12 +34,6 @@ void TemplateVanillaEEController::initController()
 void TemplateVanillaEEController::performSelection()
 {
     TemplateEEController::performSelection();
-    
-    // Logging: track descendance
-    std::string sLog = std::string("");
-    sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
-    gLogManager->write(sLog);
-    gLogManager->flush();
 }
 
 void TemplateVanillaEEController::performVariation()
@@ -54,18 +48,18 @@ void TemplateVanillaEEController::broadcastGenome()
 
 double TemplateVanillaEEController::getFitness()
 {
-    return _wm->_fitnessValue;
+    return TemplateEEController::getFitness();
 }
 
 void TemplateVanillaEEController::resetFitness()
 {
-    _wm->_fitnessValue = 0;
+    TemplateEEController::resetFitness();
 }
 
 
 void TemplateVanillaEEController::updateFitness()
 {
-    // nothing to do -- updating is performed in AgentObserver (automatic event when energy item are captured)
+    // nothing to do -- updating is performed in TemplateVanillaEEController::AgentObserver (automatic event when energy item are captured)
 }
 
 void TemplateVanillaEEController::logCurrentState()

@@ -816,6 +816,12 @@ void TemplateEEController::performSelection() // called only if at least 1 genom
             std::cerr << "[ERROR] unknown selection method (gSelectionMethod = " << TemplateEESharedData::gSelectionMethod << ")\n";
             exit(-1);
     }
+    
+    // Logging: track descendance
+    std::string sLog = std::string("");
+    sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
+    gLogManager->write(sLog);
+    gLogManager->flush();
 }
 
 
@@ -958,8 +964,7 @@ void TemplateEEController::logCurrentState()
 
 double TemplateEEController::getFitness()
 {
-    // nothing to do
-    return -1;
+    return _wm->_fitnessValue;
 }
 
 /*
@@ -967,7 +972,7 @@ double TemplateEEController::getFitness()
  */
 void TemplateEEController::resetFitness()
 {
-    // nothing to do
+    _wm->_fitnessValue = 0;
 }
 
 void TemplateEEController::updateFitness()
