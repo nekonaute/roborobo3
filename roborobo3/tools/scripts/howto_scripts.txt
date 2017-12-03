@@ -1,0 +1,8 @@
+How to use scripts in this directory.
+
+# MULTIPLOT
+
+multiplot.py (and companion mylib.py) can be use to generate graphs from CSV data of multiple (or one single) file(s). Uses Python 2.x.
+Use:
+	Help: python multiplot.py
+	Copy or create a symlink for these scripts in the log/ directory
