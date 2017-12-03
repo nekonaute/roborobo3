@@ -203,10 +203,10 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
         + ","
         + std::to_string(maxFitness)
         + ","
-        + std::to_string(sumOfFitnesses/activeCount)
-        + "\n";
+        + std::to_string(sumOfFitnesses/activeCount);
     gLitelogManager->write(sLitelog);
-    gLitelogManager->flush();
+    gLitelogManager->flush();  // flush internal buffer to file
+    gLitelogFile << std::endl; // flush file output (+ "\n")
     
     // Logging, population-level: alive
     std::string sLog = std::string("") + std::to_string(gWorld->getIterations()) + ",pop,alive," + std::to_string(activeCount) + "\n";
