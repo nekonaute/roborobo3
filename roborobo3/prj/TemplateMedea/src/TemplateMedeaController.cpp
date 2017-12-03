@@ -45,16 +45,14 @@ void TemplateMedeaController::broadcastGenome()
 
 double TemplateMedeaController::getFitness()
 {
-    // nothing to do
-    // if relevant, use _wm->_fitnessValue.
-    return -1;
+    // mEDEA uses no fitness. Set to zero by default.
+    return 0;
 }
 
 void TemplateMedeaController::resetFitness()
 {
     // nothing to do
 }
-
 
 void TemplateMedeaController::updateFitness()
 {

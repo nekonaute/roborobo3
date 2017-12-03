@@ -18,6 +18,8 @@ public:
     
     void stepPre();
     void stepPost();
+    
+    void monitorPopulation( bool localVerbose );
 };
 
 #endif

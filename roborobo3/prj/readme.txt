@@ -17,15 +17,15 @@ CONTENT:
 ## 1. LIST OF "TEMPLATE" PROJECTS
 
 This directory contains several template projects:
-- TemplateVanillaEE : a basic embodied evolution setup with elitist selection, use with config/template_vanillaEE.properties
-- TemplateMedeaEE   : a basic mEDEA setup with random selection, use with config/template_medea.properties or config/movingobjects.properties
+- TemplateVanillaEE : a basic task-driven embodied evolution setup solving a foraging problem (ie. explicit fitness function for foraging), use with config/template_vanillaEE.properties
+- TemplateMedeaEE   : a basic mEDEA setup (with random selection) with energy constraints (ie. environmental pressure points towards foraging), use with config/template_medea.properties or config/movingobjects.properties
 - TemplateRandowalk : a simple example of random walkers with position reset every N iterations, use with config/template_randowalk.properties
 - TemplateWander    : a simple example of wandering robots, use with config/template_wander_{small|big}robots.properties
 - TemplateBoids     : a simple example of boids, use with config/template_boids.properties
 
 All this projects can be tested from the command line: Use "./makefile-manager -l" to check if the project of interest is activated. If not, check "./makefile-manager -h" to activate it. Then re-compile (make clean; make). Then use "./roborobo -l config/name_of_properties_file.properties", with the relevant properties filename as argument (check list of projects above).
 
-Remark: the TemplateEE project is an abstract project from which TemplateVanillaEE and TemplateMedeaEE are derived.
+Remark: the TemplateEE project is an abstract project from which TemplateVanillaEE and TemplateMedeaEE are derived. Prefer to derive from the two latter to start a project on embodied evolution.
 
 Do *not* modify template projects, they can be quite useful. To create your own project, see below.
 

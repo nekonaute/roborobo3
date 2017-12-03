@@ -978,5 +978,6 @@ void TemplateEEController::resetFitness()
 void TemplateEEController::updateFitness()
 {
     // nothing to do
+    std::cout << "[WARNING] TemplateEEController::updateFitness() called -- nothing to do. Forgot to implement?\n";
 }
 

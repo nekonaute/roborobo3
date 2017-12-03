@@ -4,9 +4,13 @@
  */
 
 
-
 #ifndef TEMPLATEEESHAREDDATA_H
 #define TEMPLATEEESHAREDDATA_H
+
+#include "Utilities/LogManager.h"
+
+extern std::ofstream gLitelogFile;
+extern LogManager *gLitelogManager;
 
 class TemplateEESharedData {
     

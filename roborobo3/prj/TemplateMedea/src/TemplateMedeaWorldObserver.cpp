@@ -4,7 +4,12 @@
  */
 
 #include "TemplateMedea/include/TemplateMedeaWorldObserver.h"
+#include "TemplateMedea/include/TemplateMedeaController.h"
+#include "TemplateMedea/include/TemplateMedeaSharedData.h"
+#include "RoboroboMain/roborobo.h"
+#include "WorldModels/RobotWorldModel.h"
 #include "World/World.h"
+
 
 TemplateMedeaWorldObserver::TemplateMedeaWorldObserver( World* world ) : TemplateEEWorldObserver( world )
 {
@@ -18,10 +23,15 @@ TemplateMedeaWorldObserver::~TemplateMedeaWorldObserver()
 
 void TemplateMedeaWorldObserver::stepPre()
 {
-    // nothing to do.
+    TemplateEEWorldObserver::stepPre();
 }
 
 void TemplateMedeaWorldObserver::stepPost()
 {
-    // nothing to do.
+    TemplateEEWorldObserver::stepPost();
+}
+
+void TemplateMedeaWorldObserver::monitorPopulation( bool localVerbose )
+{
+    TemplateEEWorldObserver::monitorPopulation(localVerbose);
 }

@@ -56,7 +56,6 @@ void TemplateVanillaEEController::resetFitness()
     TemplateEEController::resetFitness();
 }
 
-
 void TemplateVanillaEEController::updateFitness()
 {
     // nothing to do -- updating is performed in TemplateVanillaEEController::AgentObserver (automatic event when energy item are captured)

@@ -15,8 +15,24 @@ TemplateEEWorldObserver::TemplateEEWorldObserver( World* world ) : WorldObserver
 {
     _world = world;
     
-    // ==== loading project-specific properties
+    // ==== create specific "lite" logger file
     
+    std::string litelogFullFilename = gLogDirectoryname + "/lite_" + gLogFilename;
+    gLitelogFile.open(litelogFullFilename.c_str());
+        
+    if(!gLitelogFile) {
+        std::cout << "[CRITICAL] Cannot open \"lite\" log file " << litelogFullFilename << "." << std::endl << std::endl;
+        exit(-1);
+    }
+        
+    gLitelogManager = new LogManager();
+    gLitelogManager->setLogFile(gLitelogFile);
+    gLitelogManager->write("# lite logger\n");
+    gLitelogManager->write("# generation,iteration,populationSize,minFitness,maxFitness,avgFitness.\n");
+    gLitelogManager->flush();
+
+    // ==== loading project-specific properties
+
     gProperties.checkAndGetPropertyValue("gSigmaRef",&TemplateEESharedData::gSigmaRef,true);
     gProperties.checkAndGetPropertyValue("gSigmaMin",&TemplateEESharedData::gSigmaMin,true);
     gProperties.checkAndGetPropertyValue("gSigmaMax",&TemplateEESharedData::gSigmaMax,true);
@@ -71,7 +87,7 @@ TemplateEEWorldObserver::TemplateEEWorldObserver( World* world ) : WorldObserver
 
 TemplateEEWorldObserver::~TemplateEEWorldObserver()
 {
-    // nothing to do.
+    gLitelogFile.close();
 }
 
 void TemplateEEWorldObserver::reset()
@@ -150,21 +166,50 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
     // * monitoring: count number of active agents.
     
     int activeCount = 0;
+    double sumOfFitnesses = 0;
+    double minFitness = DBL_MAX;
+    double maxFitness = -DBL_MAX;
+    
     for ( int i = 0 ; i != gNbOfRobots ; i++ )
     {
-        if ( (dynamic_cast<TemplateEEController*>(gWorld->getRobot(i)->getController()))->getWorldModel()->isAlive() == true )
+        TemplateEEController *ctl = dynamic_cast<TemplateEEController*>(gWorld->getRobot(i)->getController());
+        
+        if ( ctl->getWorldModel()->isAlive() == true )
+        {
             activeCount++;
+            sumOfFitnesses += ctl->getFitness() ;
+            if ( ctl->getFitness() < minFitness )
+                minFitness = ctl->getFitness();
+            if ( ctl->getFitness() > maxFitness )
+                maxFitness = ctl->getFitness();
+        }
     }
     
     if ( gVerbose && localVerbose )
     {
-        std::cout << "[gen:" << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << ";it:" << gWorld->getIterations() << ";pop:" << activeCount << "]\n";
+        std::cout << "[ gen:" << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << "\tit:" << gWorld->getIterations() << "\tpop:" << activeCount << "\tminFitness:" << minFitness << "\tmaxFitness:" << maxFitness << "\tavgFitness:" << sumOfFitnesses/activeCount << " ]\n";
     }
+    
+    // display lightweight logs for easy-parsing
+    std::string sLitelog =
+        "log,"
+        + std::to_string(gWorld->getIterations()/TemplateEESharedData::gEvaluationTime)
+        + ","
+        + std::to_string(gWorld->getIterations())
+        + ","
+        + std::to_string(activeCount)
+        + ","
+        + std::to_string(minFitness)
+        + ","
+        + std::to_string(maxFitness)
+        + ","
+        + std::to_string(sumOfFitnesses/activeCount)
+        + "\n";
+    gLitelogManager->write(sLitelog);
+    gLitelogManager->flush();
     
     // Logging, population-level: alive
     std::string sLog = std::string("") + std::to_string(gWorld->getIterations()) + ",pop,alive," + std::to_string(activeCount) + "\n";
-    
     gLogManager->write(sLog);
     gLogManager->flush();
-    
 }
