@@ -192,7 +192,7 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
     
     // display lightweight logs for easy-parsing
     std::string sLitelog =
-        "log,"
+        "log:"
         + std::to_string(gWorld->getIterations()/TemplateEESharedData::gEvaluationTime)
         + ","
         + std::to_string(gWorld->getIterations())

@@ -1,5 +1,6 @@
 rm -f logs/datalog_*.txt
-rm -f logs/litelog_*.txt
+rm -f logs/lite_*.txt
+rm -f logs/graph*pdf
 rm -f logs/properties_*.txt
 rm -f logs/screenshot_*
 rm -f logs/snapshot_*
