@@ -177,7 +177,7 @@ def cloneProject(source,target):
     print ("DONE.")
     print ("")
     print "To delete this project:"
-    print "  1. delete directory <roborobo>/"+target+""
+    print "  1. delete directory <roborobo>/prj/"+target+""
     print "  2. edit file "+configurationLoaderFilename+""
     print "\tdelete line: \"#include \"Config/"+target+"ConfigurationLoader.h\""
     print "\tdelete block: \"#if define PRJ_"+target.upper()+"\" (...) #endif\""
@@ -193,7 +193,10 @@ def cloneProject(source,target):
     print "\t\t make clean ; make"
     print "\t\t\"./roborobo -l Config/<yourconfigurationfile>.properties\""
     print "\tXcode on Mac"
-    print "\t\tAdd new files to project"
+    print "\t\tAdd new files to project:"
+    print "\t\t\tFiles in <roborobo>/prj/" + target
+    print "\t\t\tFile <roborobo>/src/ext/" + target + "ConfigurationLoader.cpp"
+    print "\t\t\tFile <roborobo>/include/ext/config/" + target + "ConfigurationLoader.h"
     print "\t\tIf necessary, add filenames to list of sources to compile"
     print "\t\t\t1. click on projet name (project navigator window, upper-left)"
     print "\t\t\t2. select roborobo3 as target, not project (project/target list window, drop-down list)"
