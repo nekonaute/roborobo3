@@ -67,3 +67,5 @@ Experiment on 2017-12-04
 - obj=400, relocate=false, respawndelay=50 ==> circlers (perfect circles)
 - obj=400, relocate=false, respawndelay=400 ==> explorers (dont care about fitness)
 
+Proposition:
+obj:150, respawndelay=0 100 400
