@@ -6,3 +6,8 @@ multiplot.py (and companion mylib.py) can be use to generate graphs from CSV dat
 Use:
 	Help: python multiplot.py
 	Copy or create a symlink for these scripts in the log/ directory
+
+# CLEAN_LOG
+
+clean_logs.sh cleans all logs. Should be used from the ./logs directory. Suggested: create symbolic link.
+

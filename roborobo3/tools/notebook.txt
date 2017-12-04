@@ -58,3 +58,12 @@ notebook.txt
 - [?] senseurs de proximité additionnel fonctionnant dans l'image de la footprint (départ du bord du robot)
 - [?] les footprints d'objets peuvent ils s'overlapper? (gOverlapObjectFootprint?)
 - [=] Bug (peu impactant pour de l'évolution): comportement assymétrique des senseurs. Description: en testant sur des maxirobots (masque : maxirobots-mask-edges-only, sensors : maxirobots-specs-round), les senseurs traversent parfois les voisins, et apparemment uniquement dans les directions S et E. Ça expliquerait la dérive dans certains cas (expérience phystat de Thomas 2017) puisque les capteurs prendraient en compte des robots plus lointains pour le calcul du barycentre, mais d'un autre côté ça n'arrive que rarement, et n'est pas un problème pour les expés d'évolution quelle qu'elle soit. Cause probable: problème de ray-tracing quand les agents sont côte-à-côte, coordonnée de départ. Solutions possibles: (1) masque avec épaisseur deux pixels (2) modifier le point de départ du lancé de rayon pour les quadrants sud et est. Remarque: les simulations mini-robot ne sont pas impactées (corps plein).
+
+----
+
+Experiment on 2017-12-04
+- use VanillaEE
+- obj=150, relocate=true, respawndelay=0 ==> foragers (look for energy)
+- obj=400, relocate=false, respawndelay=50 ==> circlers (perfect circles)
+- obj=400, relocate=false, respawndelay=400 ==> explorers (dont care about fitness)
+
