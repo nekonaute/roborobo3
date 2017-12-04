@@ -34,6 +34,11 @@
 		376C24651E28BBA800E70850 /* TemplateMedeaSharedData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 376C24611E28BBA800E70850 /* TemplateMedeaSharedData.cpp */; };
 		376C24661E28BBA800E70850 /* TemplateMedeaWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 376C24621E28BBA800E70850 /* TemplateMedeaWorldObserver.cpp */; };
 		37753A961ECB27EB0039BF21 /* MovableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37753A951ECB27EB0039BF21 /* MovableObject.cpp */; };
+		37A4B76B1FD593F400C14DF8 /* EEcreditassignementConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37A4B76A1FD593F400C14DF8 /* EEcreditassignementConfigurationLoader.cpp */; };
+		37A4B76D1FD5947B00C14DF8 /* EEcreditassignementAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37A4B7641FD5939500C14DF8 /* EEcreditassignementAgentObserver.cpp */; };
+		37A4B76E1FD5947D00C14DF8 /* EEcreditassignementController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37A4B7651FD5939500C14DF8 /* EEcreditassignementController.cpp */; };
+		37A4B76F1FD5947E00C14DF8 /* EEcreditassignementSharedData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37A4B7661FD5939500C14DF8 /* EEcreditassignementSharedData.cpp */; };
+		37A4B7701FD5948000C14DF8 /* EEcreditassignementWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37A4B7671FD5939500C14DF8 /* EEcreditassignementWorldObserver.cpp */; };
 		37A9F91B1E28AA7E00006059 /* TemplateVanillaEEConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37A9F91A1E28AA7E00006059 /* TemplateVanillaEEConfigurationLoader.cpp */; };
 		37BA26231BC3C7A9002DF5DC /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37BA26211BC3C7A9002DF5DC /* SDL2.framework */; };
 		37BA272F1BC3D014002DF5DC /* Elman.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA26DA1BC3D014002DF5DC /* Elman.cpp */; };
@@ -155,6 +160,16 @@
 		37753A951ECB27EB0039BF21 /* MovableObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovableObject.cpp; sourceTree = "<group>"; };
 		37753A971ECB28070039BF21 /* MovableObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovableObject.h; sourceTree = "<group>"; };
 		37753A981ECB295C0039BF21 /* movingobjects.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = movingobjects.properties; sourceTree = "<group>"; };
+		37A4B75F1FD5939500C14DF8 /* EEcreditassignementAgentObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EEcreditassignementAgentObserver.h; sourceTree = "<group>"; };
+		37A4B7601FD5939500C14DF8 /* EEcreditassignementController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EEcreditassignementController.h; sourceTree = "<group>"; };
+		37A4B7611FD5939500C14DF8 /* EEcreditassignementSharedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EEcreditassignementSharedData.h; sourceTree = "<group>"; };
+		37A4B7621FD5939500C14DF8 /* EEcreditassignementWorldObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EEcreditassignementWorldObserver.h; sourceTree = "<group>"; };
+		37A4B7641FD5939500C14DF8 /* EEcreditassignementAgentObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EEcreditassignementAgentObserver.cpp; sourceTree = "<group>"; };
+		37A4B7651FD5939500C14DF8 /* EEcreditassignementController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EEcreditassignementController.cpp; sourceTree = "<group>"; };
+		37A4B7661FD5939500C14DF8 /* EEcreditassignementSharedData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EEcreditassignementSharedData.cpp; sourceTree = "<group>"; };
+		37A4B7671FD5939500C14DF8 /* EEcreditassignementWorldObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = EEcreditassignementWorldObserver.cpp; sourceTree = "<group>"; };
+		37A4B76A1FD593F400C14DF8 /* EEcreditassignementConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EEcreditassignementConfigurationLoader.cpp; sourceTree = "<group>"; };
+		37A4B76C1FD5940C00C14DF8 /* EEcreditassignementConfigurationLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EEcreditassignementConfigurationLoader.h; sourceTree = "<group>"; };
 		37A569C11E38AB2100B983FF /* template_vanillaEE.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template_vanillaEE.properties; sourceTree = "<group>"; };
 		37A9F91A1E28AA7E00006059 /* TemplateVanillaEEConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateVanillaEEConfigurationLoader.cpp; sourceTree = "<group>"; };
 		37A9F91D1E28AA9600006059 /* TemplateVanillaEEConfigurationLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEConfigurationLoader.h; sourceTree = "<group>"; };
@@ -459,6 +474,37 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		37A4B75D1FD5939500C14DF8 /* EEcreditassignement */ = {
+			isa = PBXGroup;
+			children = (
+				37A4B75E1FD5939500C14DF8 /* include */,
+				37A4B7631FD5939500C14DF8 /* src */,
+			);
+			path = EEcreditassignement;
+			sourceTree = "<group>";
+		};
+		37A4B75E1FD5939500C14DF8 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				37A4B75F1FD5939500C14DF8 /* EEcreditassignementAgentObserver.h */,
+				37A4B7601FD5939500C14DF8 /* EEcreditassignementController.h */,
+				37A4B7611FD5939500C14DF8 /* EEcreditassignementSharedData.h */,
+				37A4B7621FD5939500C14DF8 /* EEcreditassignementWorldObserver.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		37A4B7631FD5939500C14DF8 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				37A4B7641FD5939500C14DF8 /* EEcreditassignementAgentObserver.cpp */,
+				37A4B7651FD5939500C14DF8 /* EEcreditassignementController.cpp */,
+				37A4B7661FD5939500C14DF8 /* EEcreditassignementSharedData.cpp */,
+				37A4B7671FD5939500C14DF8 /* EEcreditassignementWorldObserver.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		37BA260D1BC3C782002DF5DC = {
 			isa = PBXGroup;
 			children = (
@@ -635,6 +681,7 @@
 		37BA26591BC3D014002DF5DC /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				37A4B76C1FD5940C00C14DF8 /* EEcreditassignementConfigurationLoader.h */,
 				3766DF761E2914160069E44C /* TemplateEEConfigurationLoader.h */,
 				3705F0561BC66E03001A016D /* TemplateBoidsConfigurationLoader.h */,
 				3705F0581BC66E03001A016D /* TemplateWanderConfigurationLoader.h */,
@@ -664,6 +711,7 @@
 			isa = PBXGroup;
 			children = (
 				37BA26D61BC3D014002DF5DC /* readme.txt */,
+				37A4B75D1FD5939500C14DF8 /* EEcreditassignement */,
 				3766DF671E29125D0069E44C /* TemplateVanillaEE */,
 				376C24581E28BBA800E70850 /* TemplateMedea */,
 				376C24491E28BB8800E70850 /* TemplateEE */,
@@ -749,6 +797,7 @@
 		37BA26FB1BC3D014002DF5DC /* ext */ = {
 			isa = PBXGroup;
 			children = (
+				37A4B76A1FD593F400C14DF8 /* EEcreditassignementConfigurationLoader.cpp */,
 				3766DF771E29141E0069E44C /* TemplateEEConfigurationLoader.cpp */,
 				37BA26FE1BC3D014002DF5DC /* ConfigurationLoader.cpp */,
 				37BA27001BC3D014002DF5DC /* EnergyItem.cpp */,
@@ -829,7 +878,11 @@
 				37753A961ECB27EB0039BF21 /* MovableObject.cpp in Sources */,
 				3705F05C1BC66E21001A016D /* TemplateBoidsConfigurationLoader.cpp in Sources */,
 				37BA273C1BC3D014002DF5DC /* Controller.cpp in Sources */,
+				37A4B76F1FD5947E00C14DF8 /* EEcreditassignementSharedData.cpp in Sources */,
+				37A4B76E1FD5947D00C14DF8 /* EEcreditassignementController.cpp in Sources */,
 				3739761B1BCEAA2F00A007BF /* TemplateRandomwalkConfigurationLoader.cpp in Sources */,
+				37A4B7701FD5948000C14DF8 /* EEcreditassignementWorldObserver.cpp in Sources */,
+				37A4B76D1FD5947B00C14DF8 /* EEcreditassignementAgentObserver.cpp in Sources */,
 				3766DF741E29125D0069E44C /* TemplateVanillaEESharedData.cpp in Sources */,
 				37BA273B1BC3D014002DF5DC /* CircleObject.cpp in Sources */,
 				37C810401E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp in Sources */,
@@ -841,6 +894,7 @@
 				37BA27591BC3D014002DF5DC /* SwitchObject.cpp in Sources */,
 				37BA27461BC3D014002DF5DC /* roborobo.cpp in Sources */,
 				37BA27581BC3D014002DF5DC /* RoundObject.cpp in Sources */,
+				37A4B76B1FD593F400C14DF8 /* EEcreditassignementConfigurationLoader.cpp in Sources */,
 				3766DF751E29125D0069E44C /* TemplateVanillaEEWorldObserver.cpp in Sources */,
 				37BA27381BC3D014002DF5DC /* Agent.cpp in Sources */,
 				37BA27361BC3D014002DF5DC /* Properties.cpp in Sources */,

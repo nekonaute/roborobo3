@@ -5,6 +5,7 @@
 #include "Config/TemplateEEConfigurationLoader.h"
 #include "Config/TemplateVanillaEEConfigurationLoader.h"
 #include "Config/TemplateMedeaConfigurationLoader.h"
+#include "Config/EEcreditassignementConfigurationLoader.h"
 //###DO-NOT-DELETE-THIS-LINE###TAG:INCLUDE###//
 
 
@@ -58,6 +59,12 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 	else if (configurationLoaderObjectName == "TemplateMedeaConfigurationLoader" )
 	{
 		return new TemplateMedeaConfigurationLoader();
+	}
+#endif
+#if defined PRJ_EECREDITASSIGNEMENT || !defined MODULAR
+	else if (configurationLoaderObjectName == "EEcreditassignementConfigurationLoader" )
+	{
+		return new EEcreditassignementConfigurationLoader();
 	}
 #endif
     //###DO-NOT-DELETE-THIS-LINE###TAG:SWITCH###//
