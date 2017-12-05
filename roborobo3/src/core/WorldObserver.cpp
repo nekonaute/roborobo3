@@ -21,9 +21,14 @@ WorldObserver::~WorldObserver()
 	// nothing to do.
 }
 
-void WorldObserver::reset()
+void WorldObserver::initPre() // called *before* first initializing Objects and Robots
 {
 	// nothing to do.
+}
+
+void WorldObserver::initPost() // called *after* first initializing Objects and Robots
+{
+    // nothing to do.
 }
 
 void WorldObserver::stepPre() // see header file for remark on stepPre/stepPost

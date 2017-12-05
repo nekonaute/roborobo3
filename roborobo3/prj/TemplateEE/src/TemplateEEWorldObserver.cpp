@@ -90,8 +90,14 @@ TemplateEEWorldObserver::~TemplateEEWorldObserver()
     gLitelogFile.close();
 }
 
-void TemplateEEWorldObserver::reset()
+void TemplateEEWorldObserver::initPre()
 {
+    // nothing to do.
+}
+
+void TemplateEEWorldObserver::initPost()
+{
+    // nothing to do.
 }
 
 void TemplateEEWorldObserver::stepPre()

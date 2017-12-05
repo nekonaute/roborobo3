@@ -45,10 +45,16 @@ TemplateBoidsWorldObserver::~TemplateBoidsWorldObserver()
     // nothing to do.
 }
 
-void TemplateBoidsWorldObserver::reset()
+void TemplateBoidsWorldObserver::initPre()
 {
     // nothing to do.
 }
+
+void TemplateBoidsWorldObserver::initPost()
+{
+    // nothing to do.
+}
+
 
 void TemplateBoidsWorldObserver::stepPre()
 {

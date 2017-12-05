@@ -19,11 +19,6 @@ Observer::~Observer()
 	// nothing to do.
 }
 
-void Observer::reset()
-{
-	// nothing to do.
-}
-
 void Observer::step()
 {
 	// nothing to do.

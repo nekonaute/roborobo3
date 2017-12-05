@@ -17,9 +17,15 @@ TemplateWanderWorldObserver::~TemplateWanderWorldObserver()
 	// nothing to do.
 }
 
-void TemplateWanderWorldObserver::reset()
+
+void TemplateWanderWorldObserver::initPre()
 {
-	// nothing to do.
+    // nothing to do.
+}
+
+void TemplateWanderWorldObserver::initPost()
+{
+    // nothing to do.
 }
 
 void TemplateWanderWorldObserver::stepPre()

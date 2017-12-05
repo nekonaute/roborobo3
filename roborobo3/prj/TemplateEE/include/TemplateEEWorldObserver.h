@@ -25,7 +25,8 @@ public:
     TemplateEEWorldObserver(World *world);
     ~TemplateEEWorldObserver();
     
-    void reset();
+    void initPre();
+    void initPost();
 
     void stepPre();
     void stepPost();

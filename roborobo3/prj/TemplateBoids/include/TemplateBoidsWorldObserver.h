@@ -24,7 +24,9 @@ public:
     TemplateBoidsWorldObserver(World *world);
     ~TemplateBoidsWorldObserver();
     
-    void reset();
+    void initPre();
+    void initPost();
+
     void stepPre();
     void stepPost();
     

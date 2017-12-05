@@ -18,8 +18,9 @@ class TemplateRandomwalkWorldObserver : public WorldObserver
 		TemplateRandomwalkWorldObserver( World *__world );
 		~TemplateRandomwalkWorldObserver();
 				
-		void reset();
-    
+		void initPre();
+        void initPost();
+
         void stepPre();
         void stepPost();
 		
