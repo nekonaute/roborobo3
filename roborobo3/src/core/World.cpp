@@ -143,7 +143,7 @@ void World::initWorld()
     
     // *** Set up the world with landmarks, objects and robots
     
-    _worldObserver->initPost();
+    _worldObserver->initPre();
     
     for ( int i = 0 ; i != gNbOfLandmarks ; i++)
     {

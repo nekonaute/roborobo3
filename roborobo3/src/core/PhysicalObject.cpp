@@ -152,8 +152,17 @@ int PhysicalObject::findRandomLocation( )
     
     if ( tries == gLocationFinderMaxNbOfTrials )
     {
-        std::cerr << "[CRITICAL] Random initialization of initial position for physical object #" << getId() << " after trying " << gLocationFinderMaxNbOfTrials << " random picks (all failed). There may be too few (none?) possible locations (you may try to manually set initial positions). EXITING.\n";
-        exit(-1);
+        if ( gLocationFinderExitOnFail == true )
+        {
+            std::cerr << "[CRITICAL] Random initialization of initial position for physical object #" << getId() << " after trying " << gLocationFinderMaxNbOfTrials << " random picks (all failed). There may be too few (none?) possible locations (you may try to manually set initial positions). EXITING.\n";
+            exit(-1);
+        }
+        else
+        {
+            std::cerr << "[WARNING] Random initialization of initial position for physical object #" << getId() << " after trying " << gLocationFinderMaxNbOfTrials << " random picks (all failed). Retry later.\n";
+            regrowTime = 1;
+            setCoordinates( -1, -1 );
+        }
     }
     
     return tries;
@@ -171,10 +180,13 @@ void PhysicalObject::stepPhysicalObject()
         {
             if ( relocate == true )
             {
-                findRandomLocation(); // exit on fail.
-                _visible = true;
-                registered = true;
-                registerObject();
+                findRandomLocation(); // fail: exit or return (x,y)=(-1,-1)
+                if ( getXReal() != -1 ) // check if new location is possible
+                {
+                    _visible = true;
+                    registered = true;
+                    registerObject();
+                }
             }
             else
             {
@@ -189,13 +201,14 @@ void PhysicalObject::stepPhysicalObject()
     }
     else
     {
-        if ( _visible )
-        {
-            if ( gPhysicalObjectsRedraw == true )
+        if ( getXReal() != -1 ) // check if (new) location is possible
+            if ( _visible )
             {
-                registerObject();
+                if ( gPhysicalObjectsRedraw == true )
+                {
+                    registerObject();
+                }
             }
-        }
     }
 }
 

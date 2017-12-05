@@ -139,6 +139,7 @@ int gScreenBPP = 32; // bits per pixel color (32 bits)
 int gFramesPerSecond = 60; // frame rate
 
 int gLocationFinderMaxNbOfTrials = 100; 
+bool gLocationFinderExitOnFail = true; // true: exit, false: wait another turn and retry.
 
 int gPhysicalObjectsInitAreaX = 0;
 int gPhysicalObjectsInitAreaY = 0;
@@ -1560,6 +1561,21 @@ bool loadProperties( std::string __propertiesFilename )
 		std::cerr << "[MISSING] gDisplaySensors value is missing.\n";
 		returnValue = false;
 	}
+    
+    s = gProperties.getProperty("gLocationFinderExitOnFail");
+    if ( s == "true" || s == "True" || s == "TRUE" )
+        gLocationFinderExitOnFail = true;
+    else
+        if ( s == "false" || s == "False" || s == "FALSE" )
+        {
+            gLocationFinderExitOnFail = false;
+            std::cerr << "[WARNING] gLocationFinderExitOnFail is set to False. This may _significantly_ slow down your simulation.\n";
+        }
+        else
+        {
+            std::cerr << "[WARNING] gLocationFinderExitOnFail is missing or corrupt (default is \"true\").\n";
+            //returnValue = false; // not critical
+        }
     
 	s = gProperties.getProperty("gRobotDisplayFocus");
 	if ( s == "true" || s == "True" || s == "TRUE" ) 

@@ -143,7 +143,7 @@ The philosophy is that in the standard case, the designer should be able to code
 From the Controllers, you can access the world and robot(s) world-models. All the rest is simulator-specific implementation.
 - of course, you may want to create a new properties file in the config sub-directory
 
-** SIMULATION UPDATE CYCLE **
+** SIMULATION INIT AND UPDATE CYCLE **
 
 Roborobo is turn-based with randomized-ordering updates for both objects and robots. Randomization is used to break any ordering effects, and updates for control and movements are asynchroneous. The update ordering is the following (check World::updateWorld):
 
@@ -155,20 +155,33 @@ Roborobo is turn-based with randomized-ordering updates for both objects and rob
 6. call a world observer (WorldObserve::.stepPost()), ie. observe (and possibly modify) the state of the world *after* the robots moved
 
 More general information about the simulation update cycle:
-    - Prior to this update cycle, a World::initWorld() is called to setup the whole simulation.
-    - Observers are pretty useful for logging data.
-	- AgentObserver is called N times per iterations (N = nb of agents)
-	- WorldObserver is called once per iterations
-	- Update method: turn-based, synchroneous and shuffle-ordered update method.
-		- update method call sequence: WorldObserver => N_a * agentObservers => (N_e * energyPoints update) => N_a * agent steps => N_a agent moves
-			- worldObserver is called *before* agentObservers, agentObservers are all called *before* agent.stepBehavior
-			- environment physics and actual moving of agents are performed in a row *after* all agent.stepBehavior has been called
-			- Agent position movements is performed using synchroneous position updates. Hence, solving collisions is robust to agent index ordering
-		- the update ordering is shuffled for each new world iterations, ie. agent indexes are shuffled (to avoid update ordering nasty effects accross time)
-			- a typical problem if shuffling is not done is that agents with low indexes always act and move first, hence a big survival advantage.
-			- however, agentObservers and agent.stepBehavior are called in the same order (ie. no re-shuffling)
-	- WorldModel: contains all information on on agent, ie. its representation of the outside world, including its own status (e.g. energy level).
-		- in practical, neither controlarchitecture or observers should contain general agent-related information. All should be stored in the worldmodel.
+- Observers are pretty useful for logging data.
+- AgentObserver is called N times per iterations (N = nb of agents)
+- WorldObserver is called once per iterations
+- Update method: turn-based, synchroneous and shuffle-ordered update method.
+- update method call sequence: WorldObserver => N_a * agentObservers => (N_e * energyPoints update) => N_a * agent steps => N_a agent moves
+- worldObserver is called *before* agentObservers, agentObservers are all called *before* agent.stepBehavior
+- environment physics and actual moving of agents are performed in a row *after* all agent.stepBehavior has been called
+- Agent position movements is performed using synchroneous position updates. Hence, solving collisions is robust to agent index ordering
+- the update ordering is shuffled for each new world iterations, ie. agent indexes are shuffled (to avoid update ordering nasty effects accross time)
+- a typical problem if shuffling is not done is that agents with low indexes always act and move first, hence a big survival advantage.
+- however, agentObservers and agent.stepBehavior are called in the same order (ie. no re-shuffling)
+- WorldModel: contains all information on on agent, ie. its representation of the outside world, including its own status (e.g. energy level).
+- in practical, neither controlarchitecture or observers should contain general agent-related information. All should be stored in the worldmodel.
+
+Prior to this update cycle, a World::initWorld() is called to setup the whole simulation. The initialisation order is:
+1. call WorldObserver::initPre() -- does nothing by default. User-implementation is possible.
+2. initialise landmarks
+3. initialise objects
+4. initialise robots
+5. call WorldObserver::initPost() -- does nothing by default. User-implementation is possible.
+
+More general information about the simulation initialization:
+- WorldObserver's initPre() and initPost() methods are useful to log the state of the world before simulation starts (especially initPost()).
+    - initPre() is called before landmarks/objects/robots are set up according to the Properties file
+    - initPost() is called after landmarks/objects/robots are set up according to the Properties file, ie. just before simulation starts
+    - These methods can also be used to change/initialize the simulation, e.g. setting up specifics (e.g. add/remove/move some objects, robots, landmarks)
+- initialisation uses information from the Properties file
 
 The best way to learn is to practice. Clone an existing project and toy with it. See next paragraph to start playing.
 

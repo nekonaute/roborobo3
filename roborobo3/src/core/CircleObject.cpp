@@ -76,12 +76,28 @@ CircleObject::CircleObject( int __id ) : PhysicalObject( __id ) // a unique and 
         }
     }
     
+    /*
     if ( _visible )
     {
         registerObject();
     }
-    
     registered = true;
+    /**/
+    /* BP.2017-12-05 !n */
+    if ( canRegister() ) // in case location is not possible (may occur if findRandomLocation() failed, and gLocationFinderExitOnFail is false)
+    {
+        if ( _visible )
+        {
+            registerObject();
+        }
+        registered = true;
+    }
+    else
+    {
+        _visible = false;
+        registered = false;
+    }
+    /**/
 }
 
 
