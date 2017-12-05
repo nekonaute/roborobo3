@@ -131,6 +131,7 @@
 		3739762A1BD0EC6200A007BF /* _FAQ.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _FAQ.txt; path = roborobo3/_FAQ.txt; sourceTree = "<group>"; };
 		3739762B1BD0EC6200A007BF /* _INSTALL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _INSTALL.txt; path = roborobo3/_INSTALL.txt; sourceTree = "<group>"; };
 		3739762C1BD0EC6200A007BF /* _README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _README.txt; path = roborobo3/_README.txt; sourceTree = "<group>"; };
+		3744FC8A1FD59CF50043E78F /* EEcreditassignement.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEcreditassignement.properties; sourceTree = "<group>"; };
 		3766DF691E29125D0069E44C /* TemplateVanillaEEAgentObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEAgentObserver.h; sourceTree = "<group>"; };
 		3766DF6A1E29125D0069E44C /* TemplateVanillaEEController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEController.h; sourceTree = "<group>"; };
 		3766DF6B1E29125D0069E44C /* TemplateVanillaEESharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEESharedData.h; sourceTree = "<group>"; };
@@ -338,6 +339,7 @@
 		3705F0891BC67B7C001A016D /* config */ = {
 			isa = PBXGroup;
 			children = (
+				3744FC8A1FD59CF50043E78F /* EEcreditassignement.properties */,
 				37753A981ECB295C0039BF21 /* movingobjects.properties */,
 				37A569C11E38AB2100B983FF /* template_vanillaEE.properties */,
 				3705F08A1BC67B7C001A016D /* benchmark.properties */,

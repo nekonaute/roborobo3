@@ -16,6 +16,7 @@ public:
     EEcreditassignementWorldObserver(World *world);
     ~EEcreditassignementWorldObserver();
     
+    void reset();
     void stepPre();
     void stepPost();
 

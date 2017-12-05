@@ -20,6 +20,27 @@ EEcreditassignementWorldObserver::~EEcreditassignementWorldObserver()
     // superclass destructor called before
 }
 
+void EEcreditassignementWorldObserver::reset()
+{
+    TemplateEEWorldObserver::reset();
+    
+    int border = 40;
+
+    for ( int i = 0 ; i < gNbOfPhysicalObjects ; i++ )
+        gPhysicalObjects[i]->unregisterObject();
+    
+    for ( int i = 0 ; i < gNbOfPhysicalObjects ; i++ )
+    {
+        double value = random();
+        double xPos;
+        //xPos = std::pow(value,3); // x^3   <====
+        xPos = std::pow(value,10); // x^10
+        //xPos = 1 - ( 1 / (1 + std::exp( -value * 10 + 5))); // 1 - (1/(1 + Exp[-x*10 + 5]))
+        gPhysicalObjects[i]->setCoordinates(xPos * ( gScreenWidth - 2*border ) + border, random() * ( gScreenHeight - 2*border ) + border );
+        gPhysicalObjects[i]->registerObject();
+    }
+}
+
 void EEcreditassignementWorldObserver::stepPre()
 {
     TemplateEEWorldObserver::stepPre();

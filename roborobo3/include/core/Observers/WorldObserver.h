@@ -27,6 +27,7 @@ class WorldObserver : public Observer
 		WorldObserver( World *__world );
 		virtual ~WorldObserver();
 				
+    /* reset() is called at the end of World::initWorld(). This is where you may log the state of the world before simulation starts, or change some elements (e.g. add/remove/move some objects) */ 
 		virtual void reset();
     
     /* a remark on stepPre() and stepPost():
