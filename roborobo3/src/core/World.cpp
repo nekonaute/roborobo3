@@ -75,7 +75,7 @@ World::~World()
 
 void World::initWorld()
 {
-	// * load environment and agents files
+	// *** load environment and agents files
     if( loadFiles() == false )
 	{
 		std::cout << "[CRITICAL] cannot load image files." << std::endl;
@@ -108,19 +108,8 @@ void World::initWorld()
         exit(-1);
     }
     
-    // * initialize landmarks
     
-    for ( int i = 0 ; i != gNbOfLandmarks ; i++)
-    {
-        gLandmarks.push_back(new LandmarkObject());
-    }
-    
-    // * initialize physical objects
-    
-    for ( int i = 0 ; i != gNbOfPhysicalObjects ; i++)
-    {
-        PhysicalObjectFactory::makeObject();
-    }
+    // *** create robot mask from image
     
     // * Analyse agent mask and make it into a list of coordinates
     
@@ -128,21 +117,21 @@ void World::initWorld()
     
     // count number of significant pixels in mask.
     
-    for ( int i = 0 ; i != gRobotWidth ; i++ ) 
+    for ( int i = 0 ; i != gRobotWidth ; i++ )
         for ( int j = 0 ; j != gRobotHeight ; j++ )
             if ( getPixel32( gRobotMaskImage , i , j) != SDL_MapRGBA( gRobotMaskImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
             {
                 nbPointsInMask++;
             }
-
+    
     gRobotMaskData.resize(nbPointsInMask);
-	for ( int i = 0 ; i != nbPointsInMask ; i++)
+    for ( int i = 0 ; i != nbPointsInMask ; i++)
         (gRobotMaskData.at(i)).reserve(2);
     
     // count number of significant pixels in mask.
     
     int currentIndex = 0;
-    for ( int i = 0 ; i != gRobotWidth ; i++ ) 
+    for ( int i = 0 ; i != gRobotWidth ; i++ )
         for ( int j = 0 ; j != gRobotHeight ; j++ )
             if ( getPixel32( gRobotMaskImage , i , j) != SDL_MapRGBA( gRobotMaskImage->format, 0xFF, 0xFF, 0xFF, SDL_ALPHA_OPAQUE ) )
             {
@@ -150,19 +139,33 @@ void World::initWorld()
                 gRobotMaskData[currentIndex][1]=j;
                 currentIndex++;
             }
+
     
-	// * initialize agents
+    // *** Set up the world with landmarks, objects and robots
+    
+    _worldObserver->initPre();
+    
+    for ( int i = 0 ; i != gNbOfLandmarks ; i++)
+    {
+        gLandmarks.push_back(new LandmarkObject());
+    }
+    
+    for ( int i = 0 ; i != gNbOfPhysicalObjects ; i++)
+    {
+        PhysicalObjectFactory::makeObject();
+    }
     
 	for ( int i = 0 ; i != gInitialNumberOfRobots ; i++ )
 	{
 		Robot *robot = new Robot(this);
         this->addRobot(robot);
 	}
-    
-	_worldObserver->reset();
 
     for ( int i = 0 ; i != gNbOfRobots ; i++ )
 		gRobotsRegistry[i]=false;
+
+    
+    _worldObserver->initPost();
 }
 
 void World::updateWorld(const Uint8 *__keyboardStates)

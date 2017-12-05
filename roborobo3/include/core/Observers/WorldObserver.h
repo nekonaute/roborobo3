@@ -27,8 +27,15 @@ class WorldObserver : public Observer
 		WorldObserver( World *__world );
 		virtual ~WorldObserver();
 				
-    /* reset() is called at the end of World::initWorld(). This is where you may log the state of the world before simulation starts, or change some elements (e.g. add/remove/move some objects) */ 
-		virtual void reset();
+    /* initPre() and initPost() methods
+        these methods are called at the end of World::initWorld()
+            initPre() is called before landmarks/objects/robots are set up according to the Properties file
+            initPost() is called after landmarks/objects/robots are set up according to the Properties file, ie. just before simulation starts
+        These methods are useful to log the state of the world before simulation starts (especially initPost()).
+        These methods are also to change/initialize the simulation, e.g. setting up specifics (e.g. add/remove/move some objects, robots, landmarks)
+     */
+		virtual void initPre();
+        virtual void initPost();
     
     /* a remark on stepPre() and stepPost():
      the update ordering for one step of roborobo is

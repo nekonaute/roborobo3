@@ -16,6 +16,9 @@ public:
     TemplateMedeaWorldObserver(World *world);
     ~TemplateMedeaWorldObserver();
     
+    void initPre();
+    void initPost();
+
     void stepPre();
     void stepPost();
     

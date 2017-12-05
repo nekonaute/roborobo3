@@ -20,9 +20,14 @@ TemplateRandomwalkWorldObserver::~TemplateRandomwalkWorldObserver()
 	// nothing to do.
 }
 
-void TemplateRandomwalkWorldObserver::reset()
+void TemplateRandomwalkWorldObserver::initPre()
 {
-	// nothing to do.
+    // nothing to do.
+}
+
+void TemplateRandomwalkWorldObserver::initPost()
+{
+    // nothing to do.
 }
 
 void TemplateRandomwalkWorldObserver::stepPre()

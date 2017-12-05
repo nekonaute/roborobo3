@@ -21,6 +21,16 @@ TemplateMedeaWorldObserver::~TemplateMedeaWorldObserver()
     // superclass destructor called before
 }
 
+void TemplateMedeaWorldObserver::initPre()
+{
+    // nothing to do.
+}
+
+void TemplateMedeaWorldObserver::initPost()
+{
+    // nothing to do.
+}
+
 void TemplateMedeaWorldObserver::stepPre()
 {
     TemplateEEWorldObserver::stepPre();

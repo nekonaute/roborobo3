@@ -20,9 +20,14 @@ EEcreditassignementWorldObserver::~EEcreditassignementWorldObserver()
     // superclass destructor called before
 }
 
-void EEcreditassignementWorldObserver::reset()
+void EEcreditassignementWorldObserver::initPre()
 {
-    TemplateEEWorldObserver::reset();
+    TemplateEEWorldObserver::initPre();
+}
+
+void EEcreditassignementWorldObserver::initPost()
+{
+    TemplateEEWorldObserver::initPost();
     
     int border = 40;
 

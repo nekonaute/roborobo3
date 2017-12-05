@@ -47,7 +47,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/nicolas/Desktop/__Dropbox/Dropbox/Corailbox/code/Repositories/git/roborobo3/roborobo3"
+      customWorkingDirectory = "/Users/nicolas/Desktop/__Dropbox/Dropbox/Corailbox/code/Repositories/git/roborobo3.branch/roborobo3"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"

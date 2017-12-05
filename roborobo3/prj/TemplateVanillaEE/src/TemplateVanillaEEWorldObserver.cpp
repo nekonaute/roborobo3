@@ -20,6 +20,16 @@ TemplateVanillaEEWorldObserver::~TemplateVanillaEEWorldObserver()
     // superclass destructor called before
 }
 
+void TemplateVanillaEEWorldObserver::initPre()
+{
+    // nothing to do.
+}
+
+void TemplateVanillaEEWorldObserver::initPost()
+{
+    // nothing to do.
+}
+
 void TemplateVanillaEEWorldObserver::stepPre()
 {
     TemplateEEWorldObserver::stepPre();
