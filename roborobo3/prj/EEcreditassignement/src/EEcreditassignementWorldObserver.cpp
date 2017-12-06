@@ -39,7 +39,8 @@ void EEcreditassignementWorldObserver::initPost()
         double value = random();
         double xPos;
         //xPos = std::pow(value,3); // x^3   <====
-        xPos = std::pow(value,10); // x^10
+        //xPos = (1/(1 + std::exp(-value*5 + 5)))*2; // (1/(1 + Exp[-x*5 + 5]))
+        xPos = (1/(1 + std::exp(-value*5 + 13)))*3000; // (1/(1 + Exp[-x*5 + 13])*3000)
         //xPos = 1 - ( 1 / (1 + std::exp( -value * 10 + 5))); // 1 - (1/(1 + Exp[-x*10 + 5]))
         gPhysicalObjects[i]->setCoordinates(xPos * ( gScreenWidth - 2*border ) + border, random() * ( gScreenHeight - 2*border ) + border );
         gPhysicalObjects[i]->registerObject();

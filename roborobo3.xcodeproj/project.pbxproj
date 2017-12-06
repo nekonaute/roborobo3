@@ -20,6 +20,7 @@
 		373976271BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976241BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp */; };
 		373976281BCFAED500A007BF /* TemplateRandomwalkController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976251BCFAED500A007BF /* TemplateRandomwalkController.cpp */; };
 		373976291BCFAED500A007BF /* TemplateRandomwalkWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976261BCFAED500A007BF /* TemplateRandomwalkWorldObserver.cpp */; };
+		3751FB921FD87EF900179711 /* EEcreditassignementEnergyItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3751FB901FD87EF900179711 /* EEcreditassignementEnergyItem.cpp */; };
 		3766DF721E29125D0069E44C /* TemplateVanillaEEAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3766DF6E1E29125D0069E44C /* TemplateVanillaEEAgentObserver.cpp */; };
 		3766DF731E29125D0069E44C /* TemplateVanillaEEController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3766DF6F1E29125D0069E44C /* TemplateVanillaEEController.cpp */; };
 		3766DF741E29125D0069E44C /* TemplateVanillaEESharedData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3766DF701E29125D0069E44C /* TemplateVanillaEESharedData.cpp */; };
@@ -132,6 +133,8 @@
 		3739762B1BD0EC6200A007BF /* _INSTALL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _INSTALL.txt; path = roborobo3/_INSTALL.txt; sourceTree = "<group>"; };
 		3739762C1BD0EC6200A007BF /* _README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _README.txt; path = roborobo3/_README.txt; sourceTree = "<group>"; };
 		3744FC8A1FD59CF50043E78F /* EEcreditassignement.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = EEcreditassignement.properties; sourceTree = "<group>"; };
+		3751FB901FD87EF900179711 /* EEcreditassignementEnergyItem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EEcreditassignementEnergyItem.cpp; sourceTree = "<group>"; };
+		3751FB931FD87F2200179711 /* EEcreditassignementEnergyItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EEcreditassignementEnergyItem.h; sourceTree = "<group>"; };
 		3766DF691E29125D0069E44C /* TemplateVanillaEEAgentObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEAgentObserver.h; sourceTree = "<group>"; };
 		3766DF6A1E29125D0069E44C /* TemplateVanillaEEController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEController.h; sourceTree = "<group>"; };
 		3766DF6B1E29125D0069E44C /* TemplateVanillaEESharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEESharedData.h; sourceTree = "<group>"; };
@@ -492,6 +495,7 @@
 				37A4B7601FD5939500C14DF8 /* EEcreditassignementController.h */,
 				37A4B7611FD5939500C14DF8 /* EEcreditassignementSharedData.h */,
 				37A4B7621FD5939500C14DF8 /* EEcreditassignementWorldObserver.h */,
+				3751FB931FD87F2200179711 /* EEcreditassignementEnergyItem.h */,
 			);
 			path = include;
 			sourceTree = "<group>";
@@ -503,6 +507,7 @@
 				37A4B7651FD5939500C14DF8 /* EEcreditassignementController.cpp */,
 				37A4B7661FD5939500C14DF8 /* EEcreditassignementSharedData.cpp */,
 				37A4B7671FD5939500C14DF8 /* EEcreditassignementWorldObserver.cpp */,
+				3751FB901FD87EF900179711 /* EEcreditassignementEnergyItem.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -940,6 +945,7 @@
 				37BA27481BC3D014002DF5DC /* RobotWorldModel.cpp in Sources */,
 				37BA27421BC3D014002DF5DC /* main.cpp in Sources */,
 				376C24631E28BBA800E70850 /* TemplateMedeaAgentObserver.cpp in Sources */,
+				3751FB921FD87EF900179711 /* EEcreditassignementEnergyItem.cpp in Sources */,
 				37BA27451BC3D014002DF5DC /* PhysicalObject.cpp in Sources */,
 				37BA273F1BC3D014002DF5DC /* Graphics.cpp in Sources */,
 				373976271BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp in Sources */,
