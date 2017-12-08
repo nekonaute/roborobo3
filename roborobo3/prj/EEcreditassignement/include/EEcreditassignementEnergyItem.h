@@ -13,7 +13,11 @@
 
 class EEcreditassignementEnergyItem : public EnergyItem
 {
-    public :
+private:
+    
+    double _offsetRegion;
+
+public :
     
     EEcreditassignementEnergyItem( int __id );
     ~EEcreditassignementEnergyItem() { }
@@ -22,6 +26,8 @@ class EEcreditassignementEnergyItem : public EnergyItem
     void isTouched( int __idAgent ); // callback, triggered by agent
     void isWalked( int __idAgent ); // callback, triggered by agent
     void isPushed( int __id, std::tuple<double, double> __speed ); // callback, triggered by collision w/ agent/object
+    
+    void relocate();
 };
 
 #endif /* EEcreditassignementEnergyItem_hpp */

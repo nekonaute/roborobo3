@@ -26,9 +26,7 @@ void EEcreditassignementWorldObserver::initPre()
 {
     TemplateEEWorldObserver::initPre();
     
-    int border = 40;
-    
-    for ( int i = 0 ; i < 1000 ; i++ )
+    for ( int i = 0 ; i < 80 ; i++ ) // 300
     {
         // * create a new (custom) object
         
@@ -36,34 +34,7 @@ void EEcreditassignementWorldObserver::initPre()
         EEcreditassignementEnergyItem *object = new EEcreditassignementEnergyItem(id);
         gPhysicalObjects.push_back( object );
         
-        // * pick new coordinate
-        
-        object->unregisterObject();
-
-        double pi = atan(1)*4;
-        
-        do{
-            
-            double xPos;
-        
-            //double value = random();
-            //xPos = (1/(1 + std::exp(-value*5 + 13)))*3000; // (1/(1 + Exp[-x*5 + 13])*3000) <===
-            //xPos = std::pow(value,3); // x^3   <==
-            //xPos = (1/(1 + std::exp(-value*5 + 5)))*2; // (1/(1 + Exp[-x*5 + 5]))
-            //xPos = 1 - ( 1 / (1 + std::exp( -value * 10 + 5))); // 1 - (1/(1 + Exp[-x*10 + 5]))
-        
-            double sigma = 0.2;
-            double gaussianPeakValue = 1.0 / std::sqrt( 2. * pi * std::pow(sigma,2) );
-            xPos = sigma*randgaussian() / gaussianPeakValue;
-            
-            double x = xPos * ( gScreenWidth - 2*border ) + border;
-            double y = random() * ( gScreenHeight - 2*border ) + border;
-        
-            object->setCoordinates(x,y);
-        
-        } while ( object->canRegister() == false );
-        
-        object->registerObject();
+        object->relocate();
     }
 }
 

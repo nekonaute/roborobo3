@@ -313,7 +313,7 @@ void TemplateEEController::stepController()
     // normalize to motor interval values
     _wm->_desiredTranslationalValue = _wm->_desiredTranslationalValue * gMaxTranslationalSpeed;
     _wm->_desiredRotationalVelocity = _wm->_desiredRotationalVelocity * gMaxRotationalSpeed;
-    
+
 }
 
 
