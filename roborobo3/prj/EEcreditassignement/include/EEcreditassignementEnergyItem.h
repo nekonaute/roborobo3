@@ -16,6 +16,7 @@ class EEcreditassignementEnergyItem : public EnergyItem
 private:
     
     double _offsetRegion;
+    int activeIt;
 
 public :
     
@@ -27,6 +28,7 @@ public :
     void isWalked( int __idAgent ); // callback, triggered by agent
     void isPushed( int __id, std::tuple<double, double> __speed ); // callback, triggered by collision w/ agent/object
     
+    void setOffset( double value );
     void relocate();
 };
 

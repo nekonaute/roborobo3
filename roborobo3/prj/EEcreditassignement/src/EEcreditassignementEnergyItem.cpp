@@ -11,22 +11,25 @@
 #include "World/World.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "Utilities/Misc.h"
+#include "TemplateEE/include/TemplateEESharedData.h"
 
 double leftRegionDensity = 0.99;
 
 EEcreditassignementEnergyItem::EEcreditassignementEnergyItem( int __id ) : EnergyItem( __id )
 {
-    if ( random() < leftRegionDensity ) // proportion in left/right parts of environment
-        _offsetRegion = 0;
-    else
-        _offsetRegion = 0.5;
 }
 
 void EEcreditassignementEnergyItem::step()
 {
     EnergyItem::step();
-    //if ( gWorld->getIterations() % (400*50) == 0 )
-    //    _leftSideDensity = 1 - _leftSideDensity;
+ 
+    if ( activeIt == TemplateEESharedData::gEvaluationTime * 2 ) // relocate after xxx iterations (if not harvested inbetween)
+    {
+        relocate(); // incl. activeIt=0
+        _visible = true;
+    }
+    else
+        activeIt++;
 }
 
 void EEcreditassignementEnergyItem::isTouched( int __idAgent )
@@ -45,6 +48,11 @@ void EEcreditassignementEnergyItem::isWalked( int __idAgent )
 void EEcreditassignementEnergyItem::isPushed( int __id, std::tuple<double, double> __speed )
 {
     EnergyItem::isPushed(__id,__speed);
+}
+
+void EEcreditassignementEnergyItem::setOffset( double value )
+{
+    _offsetRegion = value;
 }
 
 void EEcreditassignementEnergyItem::relocate()
@@ -83,4 +91,6 @@ void EEcreditassignementEnergyItem::relocate()
     } while ( canRegister() == false );
     
     registerObject();
+    
+    activeIt=0;
 }
