@@ -28,7 +28,7 @@ TemplateEEWorldObserver::TemplateEEWorldObserver( World* world ) : WorldObserver
     gLitelogManager = new LogManager();
     gLitelogManager->setLogFile(gLitelogFile);
     gLitelogManager->write("# lite logger\n");
-    gLitelogManager->write("# generation,iteration,populationSize,minFitness,maxFitness,avgFitness.\n");
+    gLitelogManager->write("# generation,iteration,populationSize,minFitness,maxFitness,avgFitnessNormalized.\n");
     gLitelogManager->flush();
 
     // ==== loading project-specific properties
@@ -193,7 +193,7 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
     
     if ( gVerbose && localVerbose )
     {
-        std::cout << "[ gen:" << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << "\tit:" << gWorld->getIterations() << "\tpop:" << activeCount << "\tminFitness:" << minFitness << "\tmaxFitness:" << maxFitness << "\tavgFitness:" << sumOfFitnesses/activeCount << " ]\n";
+        std::cout << "[ gen:" << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << "\tit:" << gWorld->getIterations() << "\tpop:" << activeCount << "\tminFitness:" << minFitness << "\tmaxFitness:" << maxFitness << "\tavgFitnessNormalized:" << sumOfFitnesses/activeCount << " ]\n";
     }
     
     // display lightweight logs for easy-parsing
