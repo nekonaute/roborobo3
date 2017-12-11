@@ -26,10 +26,10 @@ void EEcreditassignementWorldObserver::initPre()
 {
     TemplateEEWorldObserver::initPre();
     
-    int nbRobots = 80;
-    int nbRobotsInLeftRegion = 75; // provide exact value (rather than a percentage) to avoid undesirable stochastic effect.
+    int nbObjectsTotal = 150;//80;
+    int nbObjectsInLeftRegion = 140;//75; // provide exact value (rather than a percentage) to avoid undesirable stochastic effect.
     
-    for ( int i = 0 ; i < nbRobots ; i++ ) // 300
+    for ( int i = 0 ; i < nbObjectsTotal ; i++ ) // 300
     {
         // * create a new (custom) object
         
@@ -37,7 +37,7 @@ void EEcreditassignementWorldObserver::initPre()
         EEcreditassignementEnergyItem *object = new EEcreditassignementEnergyItem(id);
         gPhysicalObjects.push_back( object );
         
-        if ( i < nbRobotsInLeftRegion ) // proportion in left/right parts of environment
+        if ( i < nbObjectsInLeftRegion ) // proportion in left/right parts of environment
             object->setOffset(0);
         else
             object->setOffset(0.5);
