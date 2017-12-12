@@ -29,7 +29,7 @@ public :
     void isPushed( int __id, std::tuple<double, double> __speed ); // callback, triggered by collision w/ agent/object
     
     void setOffset( double value );
-    void relocate();
+    virtual void relocate();
 };
 
 #endif /* EEcreditassignementEnergyItem_hpp */

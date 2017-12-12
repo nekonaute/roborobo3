@@ -274,3 +274,4 @@ void CircleObject::unregisterObject()
         }
     }
 }
+

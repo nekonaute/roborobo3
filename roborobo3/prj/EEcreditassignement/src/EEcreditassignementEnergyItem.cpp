@@ -28,8 +28,6 @@ void EEcreditassignementEnergyItem::step()
         relocate(); // incl. activeIt=0
         _visible = true;
     }
-    else
-        activeIt++;
 }
 
 void EEcreditassignementEnergyItem::isTouched( int __idAgent )

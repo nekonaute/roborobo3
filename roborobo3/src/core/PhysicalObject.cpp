@@ -50,10 +50,10 @@ void PhysicalObject::init()
 	s += out.str();
 	s += "].relocate";
 	if ( gProperties.hasProperty( s ) )
-        gProperties.checkAndGetPropertyValue(s,&relocate,true);
+        gProperties.checkAndGetPropertyValue(s,&relocateObject,true);
     else
     {
-        relocate = gPhysicalObjectDefaultRelocate;
+        relocateObject = gPhysicalObjectDefaultRelocate;
     }
     
     s = "physicalObject[";
@@ -178,7 +178,7 @@ void PhysicalObject::stepPhysicalObject()
         }
         else
         {
-            if ( relocate == true )
+            if ( relocateObject == true )
             {
                 findRandomLocation(); // fail: exit or return (x,y)=(-1,-1)
                 if ( getXReal() != -1 ) // check if new location is possible
@@ -252,4 +252,36 @@ bool PhysicalObject::triggerRegrow()
 std::string PhysicalObject::inspect( std::string prefix )
 {
     return std::string(prefix + "PhysicalObject::inspect() not implemented.\n");
+}
+
+void PhysicalObject::relocate()
+{
+    if ( getXCenterPixel() != -1.0 && getYCenterPixel() != -1.0 ) // if registered
+        unregisterObject();
+    
+    findRandomLocation();
+    
+    if ( getXCenterPixel() != -1.0 && getYCenterPixel() != -1.0 ) // not registered
+        registerObject();
+}
+
+bool PhysicalObject::relocate( int x, int y )
+{
+    int backup_x = getXCenterPixel();
+    int backup_y = getYCenterPixel();
+    
+    setCoordinates( x,y );
+    
+    if ( canRegister() == true )
+    {
+        if ( getXCenterPixel() != -1.0 && getYCenterPixel() != -1.0 ) // if registered
+            unregisterObject();
+        registerObject();
+        return true;
+    }
+    else
+    {
+        setCoordinates(backup_x, backup_y);
+        return false;
+    }
 }

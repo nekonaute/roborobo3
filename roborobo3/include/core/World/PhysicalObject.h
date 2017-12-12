@@ -32,7 +32,7 @@ protected :
     int regrowTimeMax; // max iterations before object re-appear - load from properties file.
     int regrowTime; // iterations before object re-appear
     bool registered;  // is it scheduled for regrowing? (ie. hidden)
-    bool relocate; // relocate object when re-appear
+    bool relocateObject; // relocate object when re-appear
     bool overwrite; // write object even if another object/robot will be overwritten.
     
     bool _visible; // display option (default: true)
@@ -89,6 +89,8 @@ public :
     
     virtual std::string inspect( std::string prefix = "" );
     
+    virtual void relocate();
+    virtual bool relocate( int x, int y );
 };
 
 #endif
