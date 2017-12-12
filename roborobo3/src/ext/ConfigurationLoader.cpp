@@ -5,7 +5,7 @@
 #include "Config/TemplateEEConfigurationLoader.h"
 #include "Config/TemplateVanillaEEConfigurationLoader.h"
 #include "Config/TemplateMedeaConfigurationLoader.h"
-#include "Config/EEcreditassignementConfigurationLoader.h"
+#include "Config/ForagingRegionsConfigurationLoader.h"
 //###DO-NOT-DELETE-THIS-LINE###TAG:INCLUDE###//
 
 
@@ -61,10 +61,10 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 		return new TemplateMedeaConfigurationLoader();
 	}
 #endif
-#if defined PRJ_EECREDITASSIGNEMENT || !defined MODULAR
-	else if (configurationLoaderObjectName == "EEcreditassignementConfigurationLoader" )
+#if defined PRJ_FORAGINGREGIONS || !defined MODULAR
+	else if (configurationLoaderObjectName == "ForagingRegionsConfigurationLoader" )
 	{
-		return new EEcreditassignementConfigurationLoader();
+		return new ForagingRegionsConfigurationLoader();
 	}
 #endif
     //###DO-NOT-DELETE-THIS-LINE###TAG:SWITCH###//

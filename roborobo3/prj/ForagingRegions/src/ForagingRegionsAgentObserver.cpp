@@ -3,16 +3,16 @@
  *
  */
 
-#include "EEcreditassignement/include/EEcreditassignementAgentObserver.h"
+#include "ForagingRegions/include/ForagingRegionsAgentObserver.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "World/PhysicalObject.h"
 
-EEcreditassignementAgentObserver::EEcreditassignementAgentObserver( RobotWorldModel *wm ) : TemplateEEAgentObserver ( wm )
+ForagingRegionsAgentObserver::ForagingRegionsAgentObserver( RobotWorldModel *wm ) : TemplateEEAgentObserver ( wm )
 {
     // superclass constructor called before
 }
 
-EEcreditassignementAgentObserver::~EEcreditassignementAgentObserver()
+ForagingRegionsAgentObserver::~ForagingRegionsAgentObserver()
 {
     // superclass destructor called before
 }
@@ -23,7 +23,7 @@ EEcreditassignementAgentObserver::~EEcreditassignementAgentObserver()
  * Assume that *only* energy point's footprint can be walked upon. That means that for this code to correctly run you should avoid placing any objects detectable through the robot's ground sensor.
  *
  */
-void EEcreditassignementAgentObserver::step()
+void ForagingRegionsAgentObserver::step()
 {
     // * update fitness (if needed)
     if ( _wm->isAlive() && PhysicalObject::isInstanceOf(_wm->getGroundSensorValue()) )

@@ -1,17 +1,17 @@
 //
-//  EEcreditassignementEnergyItem.hpp
+//  ForagingRegionsEnergyItem.hpp
 //  roborobo3
 //
 //  Created by Nicolas Bredeche on 06/12/17.
 //  Copyright © 2017 Nicolas Bredeche. All rights reserved.
 //
 
-#ifndef EEcreditassignementEnergyItem_hpp
-#define EEcreditassignementEnergyItem_hpp
+#ifndef ForagingRegionsEnergyItem_hpp
+#define ForagingRegionsEnergyItem_hpp
 
 #include "World/EnergyItem.h"
 
-class EEcreditassignementEnergyItem : public EnergyItem
+class ForagingRegionsEnergyItem : public EnergyItem
 {
 private:
     
@@ -20,8 +20,8 @@ private:
 
 public :
     
-    EEcreditassignementEnergyItem( int __id );
-    ~EEcreditassignementEnergyItem() { }
+    ForagingRegionsEnergyItem( int __id );
+    ~ForagingRegionsEnergyItem() { }
     
     void step();
     void isTouched( int __idAgent ); // callback, triggered by agent
@@ -32,4 +32,4 @@ public :
     virtual void relocate();
 };
 
-#endif /* EEcreditassignementEnergyItem_hpp */
+#endif /* ForagingRegionsEnergyItem_hpp */

@@ -3,18 +3,18 @@
  *
  */
 
-#ifndef EECREDITASSIGNEMENTWORLDOBSERVER_H
-#define EECREDITASSIGNEMENTWORLDOBSERVER_H
+#ifndef FORAGINGREGIONSWORLDOBSERVER_H
+#define FORAGINGREGIONSWORLDOBSERVER_H
 
 #include "TemplateEE/include/TemplateEEWorldObserver.h"
 
 class World;
 
-class EEcreditassignementWorldObserver : public TemplateEEWorldObserver
+class ForagingRegionsWorldObserver : public TemplateEEWorldObserver
 {
 public:
-    EEcreditassignementWorldObserver(World *world);
-    ~EEcreditassignementWorldObserver();
+    ForagingRegionsWorldObserver(World *world);
+    ~ForagingRegionsWorldObserver();
     
     void initPre();
     void initPost();

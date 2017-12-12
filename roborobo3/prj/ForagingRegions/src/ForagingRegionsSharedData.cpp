@@ -5,12 +5,12 @@
 
 
 
-#include "EEcreditassignement/include/EEcreditassignementSharedData.h"
+#include "ForagingRegions/include/ForagingRegionsSharedData.h"
 
 // cf. super class for many parameter values initialization.
 // Add here initialization for parameters that are specific to current implementation.
 //
 // Quick help:
 //  if parameter is already defined in TemplateEEShareData, then use TemplateEEShareData::parametername
-//  to define a new parameter, do it in EEcreditassignementSharedData.h, initialize it in EEcreditassignementSharedData.cpp, then use EEcreditassignementSharedData::parametername
+//  to define a new parameter, do it in ForagingRegionsSharedData.h, initialize it in ForagingRegionsSharedData.cpp, then use ForagingRegionsSharedData::parametername
 //

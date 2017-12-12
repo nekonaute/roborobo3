@@ -22,6 +22,7 @@ This directory contains several template projects:
 - TemplateRandowalk : a simple example of random walkers with position reset every N iterations, use with config/template_randowalk.properties
 - TemplateWander    : a simple example of wandering robots, use with config/template_wander_{small|big}robots.properties
 - TemplateBoids     : a simple example of boids, use with config/template_boids.properties
+- ForagingRegions   : illustrate how to define a new object type, and implement a particular object's behavior
 
 All this projects can be tested from the command line: Use "./makefile-manager -l" to check if the project of interest is activated. If not, check "./makefile-manager -h" to activate it. Then re-compile (make clean; make). Then use "./roborobo -l config/name_of_properties_file.properties", with the relevant properties filename as argument (check list of projects above).
 

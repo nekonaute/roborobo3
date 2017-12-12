@@ -1,12 +1,12 @@
 //
-//  EEcreditassignementEnergyItem.cpp
+//  ForagingRegionsEnergyItem.cpp
 //  roborobo3
 //
 //  Created by Nicolas Bredeche on 06/12/17.
 //  Copyright © 2017 Nicolas Bredeche. All rights reserved.
 //
 
-#include "EEcreditassignement/include/EEcreditassignementEnergyItem.h"
+#include "ForagingRegions/include/ForagingRegionsEnergyItem.h"
 #include "RoboroboMain/roborobo.h"
 #include "World/World.h"
 #include "WorldModels/RobotWorldModel.h"
@@ -15,11 +15,11 @@
 
 double leftRegionDensity = 0.99;
 
-EEcreditassignementEnergyItem::EEcreditassignementEnergyItem( int __id ) : EnergyItem( __id )
+ForagingRegionsEnergyItem::ForagingRegionsEnergyItem( int __id ) : EnergyItem( __id )
 {
 }
 
-void EEcreditassignementEnergyItem::step()
+void ForagingRegionsEnergyItem::step()
 {
     EnergyItem::step();
  
@@ -30,12 +30,12 @@ void EEcreditassignementEnergyItem::step()
     }
 }
 
-void EEcreditassignementEnergyItem::isTouched( int __idAgent )
+void ForagingRegionsEnergyItem::isTouched( int __idAgent )
 {
     EnergyItem::isTouched(__idAgent);
 }
 
-void EEcreditassignementEnergyItem::isWalked( int __idAgent )
+void ForagingRegionsEnergyItem::isWalked( int __idAgent )
 {
     EnergyItem::isWalked(__idAgent);
 
@@ -43,17 +43,17 @@ void EEcreditassignementEnergyItem::isWalked( int __idAgent )
     _visible = true;
 }
 
-void EEcreditassignementEnergyItem::isPushed( int __id, std::tuple<double, double> __speed )
+void ForagingRegionsEnergyItem::isPushed( int __id, std::tuple<double, double> __speed )
 {
     EnergyItem::isPushed(__id,__speed);
 }
 
-void EEcreditassignementEnergyItem::setOffset( double value )
+void ForagingRegionsEnergyItem::setOffset( double value )
 {
     _offsetRegion = value;
 }
 
-void EEcreditassignementEnergyItem::relocate()
+void ForagingRegionsEnergyItem::relocate()
 {
     // * pick new coordinate
     

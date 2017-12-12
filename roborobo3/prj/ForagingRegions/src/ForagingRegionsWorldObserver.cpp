@@ -3,26 +3,26 @@
  *
  */
 
-#include "EEcreditassignement/include/EEcreditassignementWorldObserver.h"
-#include "EEcreditassignement/include/EEcreditassignementController.h"
-#include "EEcreditassignement/include/EEcreditassignementSharedData.h"
-#include "EEcreditassignement/include/EEcreditassignementEnergyItem.h"
+#include "ForagingRegions/include/ForagingRegionsWorldObserver.h"
+#include "ForagingRegions/include/ForagingRegionsController.h"
+#include "ForagingRegions/include/ForagingRegionsSharedData.h"
+#include "ForagingRegions/include/ForagingRegionsEnergyItem.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "World/World.h"
 #include "RoboroboMain/roborobo.h"
 #include <math.h>
 
-EEcreditassignementWorldObserver::EEcreditassignementWorldObserver( World* world ) : TemplateEEWorldObserver( world )
+ForagingRegionsWorldObserver::ForagingRegionsWorldObserver( World* world ) : TemplateEEWorldObserver( world )
 {
     // superclass constructor called before
 }
 
-EEcreditassignementWorldObserver::~EEcreditassignementWorldObserver()
+ForagingRegionsWorldObserver::~ForagingRegionsWorldObserver()
 {
     // superclass destructor called before
 }
 
-void EEcreditassignementWorldObserver::initPre()
+void ForagingRegionsWorldObserver::initPre()
 {
     TemplateEEWorldObserver::initPre();
     
@@ -34,7 +34,7 @@ void EEcreditassignementWorldObserver::initPre()
         // * create a new (custom) object
         
         int id = PhysicalObjectFactory::getNextId();
-        EEcreditassignementEnergyItem *object = new EEcreditassignementEnergyItem(id);
+        ForagingRegionsEnergyItem *object = new ForagingRegionsEnergyItem(id);
         gPhysicalObjects.push_back( object );
         
         if ( i < nbObjectsInLeftRegion ) // proportion in left/right parts of environment
@@ -46,14 +46,14 @@ void EEcreditassignementWorldObserver::initPre()
     }
 }
 
-void EEcreditassignementWorldObserver::initPost()
+void ForagingRegionsWorldObserver::initPost()
 {
     TemplateEEWorldObserver::initPost();
     
     gNbOfPhysicalObjects = (int)gPhysicalObjects.size(); // must be done in the initPost() method for objects created in initPre().
 }
 
-void EEcreditassignementWorldObserver::stepPre()
+void ForagingRegionsWorldObserver::stepPre()
 {
     TemplateEEWorldObserver::stepPre();
     /*
@@ -65,12 +65,12 @@ void EEcreditassignementWorldObserver::stepPre()
     */
 }
 
-void EEcreditassignementWorldObserver::stepPost( )
+void ForagingRegionsWorldObserver::stepPost( )
 {
     TemplateEEWorldObserver::stepPost();
 }
 
-void EEcreditassignementWorldObserver::monitorPopulation( bool localVerbose )
+void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
 {
     TemplateEEWorldObserver::monitorPopulation(localVerbose);
 }

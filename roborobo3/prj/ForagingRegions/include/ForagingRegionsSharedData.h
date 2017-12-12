@@ -5,12 +5,12 @@
 
 
 
-#ifndef EECREDITASSIGNEMENTSHAREDDATA_H
-#define EECREDITASSIGNEMENTSHAREDDATA_H
+#ifndef FORAGINGREGIONSSHAREDDATA_H
+#define FORAGINGREGIONSSHAREDDATA_H
 
 #include "TemplateEE/include/TemplateEESharedData.h"
 
-class EEcreditassignementSharedData : TemplateEESharedData {
+class ForagingRegionsSharedData : TemplateEESharedData {
     
     // cf. super class for many parameter values.
     // Add here parameters that are specific to current implementation.

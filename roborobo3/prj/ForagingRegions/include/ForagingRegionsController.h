@@ -3,8 +3,8 @@
  *
  */
 
-#ifndef EECREDITASSIGNEMENTCONTROLLER_H
-#define EECREDITASSIGNEMENTCONTROLLER_H
+#ifndef FORAGINGREGIONSCONTROLLER_H
+#define FORAGINGREGIONSCONTROLLER_H
 
 #include "TemplateEE/include/TemplateEEController.h"
 
@@ -12,12 +12,12 @@ using namespace Neural;
 
 class RobotWorldModel;
 
-class EEcreditassignementController : public TemplateEEController
+class ForagingRegionsController : public TemplateEEController
 {
     public:
     
-        EEcreditassignementController(RobotWorldModel *wm);
-        ~EEcreditassignementController();
+        ForagingRegionsController(RobotWorldModel *wm);
+        ~ForagingRegionsController();
     
         double getFitness();
 
