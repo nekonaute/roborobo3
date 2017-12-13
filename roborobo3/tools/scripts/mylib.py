@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: utf-8 -*-
+# -*- coding:utf-8 -*-
 
 # nicolas.bredeche(at)upmc.fr
 # Last revision: 2017-01-30 14h48
