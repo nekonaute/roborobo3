@@ -14,7 +14,6 @@
 class Observer
 {
 	public:
-		//Initializes the variables
 		Observer();
 		virtual ~Observer();
 	

@@ -21,13 +21,12 @@ class AgentObserver : public Observer
 		RobotWorldModel *_wm;
 		
 	public:
-		//Initializes the variables
 		AgentObserver( );
 		AgentObserver( RobotWorldModel *__wm );
 		~AgentObserver();
 				
-		void reset();
-		void step();
+		virtual void reset();
+		void step() override;
 		
 };
 

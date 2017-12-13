@@ -45,14 +45,13 @@ class Robot : public Agent
         void applyRobotPhysics( );
 
 	public:
-		//Initializes the variables
 		Robot( World *__world );
 		virtual ~Robot();
 
-		void reset();
+		void reset() override;
 
-		virtual void stepBehavior();
-		virtual void stepBehavior(const Uint8* __keyboardStates);
+		void stepBehavior() override;
+		void stepBehavior(const Uint8* __keyboardStates) override;
 
 		void callObserver(); // call the embedded genetic engine -- always called before stepBehavior.
 
@@ -61,7 +60,7 @@ class Robot : public Agent
 		//Moves the agent
 		void move( int __recursiveIt = 0 );
 		
-		void show(SDL_Surface *surface = gScreen);
+		void show(SDL_Surface *surface = gScreen) override;
 
 		bool isCollision();
 

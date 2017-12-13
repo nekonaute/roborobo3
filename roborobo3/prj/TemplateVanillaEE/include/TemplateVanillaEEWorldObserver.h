@@ -23,7 +23,7 @@ public:
     void stepPost();
 
 protected:    
-    virtual void monitorPopulation( bool localVerbose = true );
+    void monitorPopulation( bool localVerbose = true ) override;
 };
 
 #endif

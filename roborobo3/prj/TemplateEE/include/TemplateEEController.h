@@ -93,7 +93,7 @@ protected:
     double _dSumTravelled;
     
     bool storeGenome(std::vector<double> genome, std::pair<int,int> senderId, float sigma, float fitness=0);
-    void reset();
+    void reset() override;
     
     void clearReservoir(); // clear genomesList, sigmaList, fitnessesList and birthdayList
     
@@ -112,7 +112,7 @@ public:
     TemplateEEController(RobotWorldModel *wm);
     ~TemplateEEController();
     
-    void step();
+    void step() override;
     
     int getBirthdate() { return _birthdate; }
     

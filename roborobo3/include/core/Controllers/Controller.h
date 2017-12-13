@@ -21,7 +21,6 @@ class Controller
 		RobotWorldModel *_wm;
 
 	public:
-		//Initializes the variables
 		Controller( );
 		Controller( RobotWorldModel *__wm );
         virtual ~Controller();

@@ -18,24 +18,22 @@ class InspectorAgent : public Agent
 	private:
 
 	public:
-	
-		//Initializes the variables
 		InspectorAgent();
 		virtual ~InspectorAgent() {};
 		//InspectorAgent(SDL_Surface *__mask);	// NOT IMPLEMENTED
 		
 		// controller step
-		virtual void stepBehavior();
-		virtual void stepBehavior(const Uint8* __keyboardStates);
+		void stepBehavior() override;
+		void stepBehavior(const Uint8* __keyboardStates) override;
     
-		void reset();
+		void reset() override;
 		
 		//Moves the dot
-		void move();
+		void move() override;
 
 		
 		//Shows the dot on the screen
-		void show();
+		virtual void show();
 		
 		/*
 		//Sets the camera over the dot

@@ -15,6 +15,10 @@ class ForagingRegionsSharedData : TemplateEESharedData {
     // cf. super class for many parameter values.
     // Add here parameters that are specific to current implementation.
     
+public:
+    static int nbObjectsOnLeft;
+    static int nbObjectsOnRight;
+    
 }; 
 
 

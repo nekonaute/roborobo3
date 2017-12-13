@@ -15,6 +15,10 @@
 ForagingRegionsWorldObserver::ForagingRegionsWorldObserver( World* world ) : TemplateEEWorldObserver( world )
 {
     // superclass constructor called before
+
+    gProperties.checkAndGetPropertyValue("gNbObjectsOnLeft",&ForagingRegionsSharedData::nbObjectsOnLeft,true);
+    gProperties.checkAndGetPropertyValue("gNbObjectsOnRight",&ForagingRegionsSharedData::nbObjectsOnRight,true);
+    
 }
 
 ForagingRegionsWorldObserver::~ForagingRegionsWorldObserver()
@@ -26,10 +30,10 @@ void ForagingRegionsWorldObserver::initPre()
 {
     TemplateEEWorldObserver::initPre();
     
-    int nbObjectsTotal = 150;//80;
-    int nbObjectsInLeftRegion = 140;//75; // provide exact value (rather than a percentage) to avoid undesirable stochastic effect.
+    int nbObjectsTotal = ForagingRegionsSharedData::nbObjectsOnLeft + ForagingRegionsSharedData::nbObjectsOnRight;
+    int nbObjectsInLeftRegion = ForagingRegionsSharedData::nbObjectsOnLeft;
     
-    for ( int i = 0 ; i < nbObjectsTotal ; i++ ) // 300
+    for ( int i = 0 ; i < nbObjectsTotal ; i++ )
     {
         // * create a new (custom) object
         

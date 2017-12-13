@@ -23,7 +23,6 @@ class WorldObserver : public Observer
 		World *_world;
 		
 	public:
-		//Initializes the variables
 		WorldObserver( World *__world );
 		virtual ~WorldObserver();
 				

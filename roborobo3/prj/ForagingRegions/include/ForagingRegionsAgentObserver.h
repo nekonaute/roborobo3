@@ -16,7 +16,7 @@ class ForagingRegionsAgentObserver : public TemplateEEAgentObserver
 		ForagingRegionsAgentObserver(RobotWorldModel *wm);
 		~ForagingRegionsAgentObserver();
     
-        virtual void step();
+        void step() override;
 };
 
 #endif

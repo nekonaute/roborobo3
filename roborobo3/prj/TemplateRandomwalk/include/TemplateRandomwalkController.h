@@ -15,7 +15,6 @@ class RobotWorldModel;
 class TemplateRandomwalkController : public Controller
 {
 	public:
-		//Initializes the variables
 		TemplateRandomwalkController( RobotWorldModel *__wm );
 		~TemplateRandomwalkController();
     

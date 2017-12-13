@@ -14,3 +14,6 @@
 //  if parameter is already defined in TemplateEEShareData, then use TemplateEEShareData::parametername
 //  to define a new parameter, do it in ForagingRegionsSharedData.h, initialize it in ForagingRegionsSharedData.cpp, then use ForagingRegionsSharedData::parametername
 //
+
+int ForagingRegionsSharedData::nbObjectsOnLeft = 0;
+int ForagingRegionsSharedData::nbObjectsOnRight = 0;

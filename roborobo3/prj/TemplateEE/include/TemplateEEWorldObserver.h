@@ -25,11 +25,11 @@ public:
     TemplateEEWorldObserver(World *world);
     ~TemplateEEWorldObserver();
     
-    void initPre();
-    void initPost();
+    void initPre() override;
+    void initPost() override;
 
-    void stepPre();
-    void stepPost();
+    void stepPre() override;
+    void stepPost() override;
 
     virtual  int getGenerationItCount() { return _generationItCount; }
 

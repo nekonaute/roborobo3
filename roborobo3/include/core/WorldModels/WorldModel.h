@@ -16,7 +16,6 @@ private:
     bool _isAlive;  // robot behavior is executed *only* if robot is alived. (default is: alive)
     
 public:
-	//Initializes the variables
 	WorldModel();
 	~WorldModel();
     
