@@ -1,5 +1,8 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
+# TROUBLE SHOOTING:
+#  if you get an error like "ValueError: unknown locale: UTF-8"
+#  then first type in the terminal: "export LC_ALL=en_US.UTF-8"
 
 # nicolas.bredeche(at)upmc.fr
 # Last revision: 2017-01-30 14h48
