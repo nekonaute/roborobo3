@@ -92,7 +92,7 @@ protected:
     double _Yinit;
     double _dSumTravelled;
     
-    bool storeGenome(std::vector<double> genome, std::pair<int,int> senderId, float sigma, float fitness=0);
+    virtual bool storeGenome(std::vector<double> genome, std::pair<int,int> senderId, float sigma, float fitness=0);
     void reset() override;
     
     void clearReservoir(); // clear genomesList, sigmaList, fitnessesList and birthdayList
@@ -118,6 +118,11 @@ public:
     
     bool isListening() { return _isListening; }
     
+    // Remarks on fitness value:
+    // the current fitness is transmitted to other nearby robots.
+    // in case of multiple encounters between robots/genomes (ie. the robot still bears the same genome)  
+    // selection will then act using fitness which can be taken at very different moment (e.g. comparing a very good but young genome with a not-so-good but old genome. While the younger will very probably end up with a better fitness score, the old one is advantaged by the total amount of time spent -- e.g. with a foraging task.)
+
     virtual double getFitness();
 
     

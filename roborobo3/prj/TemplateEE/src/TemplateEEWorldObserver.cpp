@@ -191,9 +191,20 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
         }
     }
     
+    double avgFitnessNormalized;
+    
+    if ( activeCount == 0 ) // arbitrary convention: in case of extinction, min/max/avg fitness values are -1
+    {
+        minFitness = -1;
+        maxFitness = -1;
+        avgFitnessNormalized = -1;
+    }
+    else
+        avgFitnessNormalized = sumOfFitnesses/activeCount;
+    
     if ( gVerbose && localVerbose )
     {
-        std::cout << "[ gen:" << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << "\tit:" << gWorld->getIterations() << "\tpop:" << activeCount << "\tminFitness:" << minFitness << "\tmaxFitness:" << maxFitness << "\tavgFitnessNormalized:" << sumOfFitnesses/activeCount << " ]\n";
+        std::cout << "[ gen:" << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << "\tit:" << gWorld->getIterations() << "\tpop:" << activeCount << "\tminFitness:" << minFitness << "\tmaxFitness:" << maxFitness << "\tavgFitnessNormalized:" << avgFitnessNormalized << " ]\n";
     }
     
     // display lightweight logs for easy-parsing
@@ -209,7 +220,7 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
         + ","
         + std::to_string(maxFitness)
         + ","
-        + std::to_string(sumOfFitnesses/activeCount);
+        + std::to_string(avgFitnessNormalized);
     gLitelogManager->write(sLitelog);
     gLitelogManager->flush();  // flush internal buffer to file
     gLitelogFile << std::endl; // flush file output (+ "\n")

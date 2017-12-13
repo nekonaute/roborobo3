@@ -584,35 +584,29 @@ void TemplateEEController::selectFitProp()
 /* manage storage of a genome received from a neighbour
  *
  * Note that in case of multiple encounters with the same robot (same id, same "birthdate"), genome is stored only once, and last known fitness value is stored (i.e. updated at each encounter).
+ * Remark: storeGenome is called only if robot's listening mode is on (ie. _isListening == true).
  */
 bool TemplateEEController::storeGenome(std::vector<double> genome, std::pair<int,int> senderId, float sigma, float fitness) // fitness is optional (default: 0)
 {
-    if ( !_isListening )
+    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(senderId);
+    
+    /*
+     _genomesList[senderId] = genome;
+     _sigmaList[senderId] = sigma;
+     _fitnessValuesList[senderId] = fitness;
+     */
+    
+    if ( it != _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
     {
-        return false; // current agent is not listening: do nothing.
+        _fitnessValuesList[senderId] = fitness; // update with most recent fitness
+        return false;
     }
     else
     {
-        std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(senderId);
-    
-        /*
         _genomesList[senderId] = genome;
         _sigmaList[senderId] = sigma;
         _fitnessValuesList[senderId] = fitness;
-        */
-        
-        if ( it != _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
-        {
-            _fitnessValuesList[senderId] = fitness; // update with most recent fitness (IMPLEMENTATION CHOICE) [!n]
-            return false;
-        }
-        else
-        {
-            _genomesList[senderId] = genome;
-            _sigmaList[senderId] = sigma;
-            _fitnessValuesList[senderId] = fitness;
-            return true;
-        }
+        return true;
     }
 }
 
