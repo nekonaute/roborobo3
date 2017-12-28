@@ -41,7 +41,6 @@ protected :
     
 protected:
     int findRandomLocation( );
-    void setType ( int __type ) { type = __type; }
     
 public :
     
@@ -64,6 +63,16 @@ public :
         _xReal = x;
         _yReal = y;
     }
+    
+    void setDisplayColor( Uint8 r, Uint8 g, Uint8 b )
+    {
+        _displayColorRed = r;
+        _displayColorGreen = g;
+        _displayColorBlue = b;
+    }
+    
+    void setType ( int __type ) { type = __type; }
+    
 
     virtual void step() = 0;
     void stepPhysicalObject(); // default step method. Suggested: call this method from step().

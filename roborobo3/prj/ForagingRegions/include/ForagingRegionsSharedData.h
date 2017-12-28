@@ -18,6 +18,7 @@ class ForagingRegionsSharedData : TemplateEESharedData {
 public:
     static int nbObjectsOnLeft;
     static int nbObjectsOnRight;
+    static int foragingTask;
     
 }; 
 

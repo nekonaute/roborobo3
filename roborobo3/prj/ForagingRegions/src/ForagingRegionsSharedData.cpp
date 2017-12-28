@@ -17,3 +17,4 @@
 
 int ForagingRegionsSharedData::nbObjectsOnLeft = 0;
 int ForagingRegionsSharedData::nbObjectsOnRight = 0;
+int ForagingRegionsSharedData::foragingTask = 0;

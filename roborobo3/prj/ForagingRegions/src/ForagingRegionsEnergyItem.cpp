@@ -11,12 +11,13 @@
 #include "World/World.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "Utilities/Misc.h"
-#include "TemplateEE/include/TemplateEESharedData.h"
+#include "ForagingRegions/include/ForagingRegionsSharedData.h"
 
 double leftRegionDensity = 0.99;
 
 ForagingRegionsEnergyItem::ForagingRegionsEnergyItem( int __id ) : EnergyItem( __id )
 {
+    
 }
 
 void ForagingRegionsEnergyItem::step()
@@ -48,9 +49,10 @@ void ForagingRegionsEnergyItem::isPushed( int __id, std::tuple<double, double> _
     EnergyItem::isPushed(__id,__speed);
 }
 
-void ForagingRegionsEnergyItem::setOffset( double value )
+void ForagingRegionsEnergyItem::setRegion( double offset, double range )
 {
-    _offsetRegion = value;
+    _offsetRegion = offset;
+    _range = range;
 }
 
 void ForagingRegionsEnergyItem::relocate()
@@ -67,7 +69,7 @@ void ForagingRegionsEnergyItem::relocate()
         
         double xPos;
         
-        xPos = random() * 0.5 + _offsetRegion;
+        xPos = random() * _range + _offsetRegion;
         
         // with a sigmoid
         //double value = random();

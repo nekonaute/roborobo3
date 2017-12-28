@@ -48,7 +48,7 @@ void ForagingRegionsController::broadcastGenome()
 
 double ForagingRegionsController::getFitness()
 {
-    return TemplateEEController::getFitness();
+    return std::abs(_wm->_fitnessValue);
 }
 
 void ForagingRegionsController::resetFitness()

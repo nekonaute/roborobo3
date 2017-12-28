@@ -16,11 +16,11 @@ public:
     TemplateVanillaEEWorldObserver(World *world);
     ~TemplateVanillaEEWorldObserver();
     
-    void initPre();
-    void initPost();
+    void initPre() override;
+    void initPost() override;
 
-    void stepPre();
-    void stepPost();
+    void stepPre() override;
+    void stepPost() override;
 
 protected:    
     void monitorPopulation( bool localVerbose = true ) override;
