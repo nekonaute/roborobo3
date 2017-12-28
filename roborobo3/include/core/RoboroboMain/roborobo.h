@@ -120,7 +120,22 @@ extern int gDisplaySensors; // display sensor rays on screen (0:no,1:if-contact,
 extern bool gDisplayTail; // display tail on screen (back of robot)
 extern bool gRobotLEDdisplay; // display LED status (RGB) on top of the robot
 
-extern bool gExtendedSensoryInputs; // adds type of object or class of agents in controller sensory inputs.
+//extern bool gExtendedSensoryInputs; // DEPRECATED AND REMOVED AS OF 2017-12-28. Check TemplateEEController::getInputs() for help.
+extern bool gSensoryInputs_distanceToContact;
+extern bool gSensoryInputs_physicalObjectType;
+extern bool gSensoryInputs_isOtherAgent;
+extern bool gSensoryInputs_otherAgentSameGroup;
+extern bool gSensoryInputs_otherAgentOrientation;
+extern bool gSensoryInputs_isWall;
+extern bool gSensoryInputs_groundSensors;
+extern int gSensoryInputs_landmarkTrackerMode;
+extern bool gSensoryInputs_distanceToLandmark;
+extern bool gSensoryInputs_orientationToLandmark;
+extern bool gSensoryInputs_energyLevel;
+
+extern bool gReentrantMapping_motorOutputs;
+extern bool gReentrantMapping_virtualOutputs;
+extern int gVirtualOutputs;
 
 extern bool gPauseMode;				// pause on/off (default is on)
 extern bool gStepByStep;

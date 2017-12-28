@@ -168,7 +168,22 @@ int gDisplaySensors = 2; // 0:no, 1:if-contact, 2:always+red, 3: always
 bool gDisplayTail = true;
 bool gRobotLEDdisplay = true;
 
-bool gExtendedSensoryInputs = false;
+//bool gExtendedSensoryInputs = false; // DEPRECATED AND REMOVED AS OF 2017-12-28. Check TemplateEEController::getInputs() for help.
+bool gSensoryInputs_distanceToContact = true;
+bool gSensoryInputs_physicalObjectType = true;
+bool gSensoryInputs_isOtherAgent = true;
+bool gSensoryInputs_otherAgentSameGroup = true;
+bool gSensoryInputs_otherAgentOrientation = true;
+bool gSensoryInputs_isWall = true;
+bool gSensoryInputs_groundSensors = true;
+int gSensoryInputs_landmarkTrackerMode = 1;
+bool gSensoryInputs_distanceToLandmark = true;
+bool gSensoryInputs_orientationToLandmark = true;
+bool gSensoryInputs_energyLevel = true;
+
+bool gReentrantMapping_motorOutputs = false;
+bool gReentrantMapping_virtualOutputs = false;
+int gVirtualOutputs = 0;
 
 bool gPauseMode = false;
 bool gStepByStep = false;
@@ -1412,7 +1427,24 @@ bool loadProperties( std::string __propertiesFilename )
 
     gProperties.checkAndGetPropertyValue("gFootprintImage_restoreOriginal",&gFootprintImage_restoreOriginal,false);
     
-    gProperties.checkAndGetPropertyValue("gExtendedSensoryInputs",&gExtendedSensoryInputs,false);
+    //gProperties.checkAndGetPropertyValue("gExtendedSensoryInputs",&gExtendedSensoryInputs,false);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_distanceToContact",&gSensoryInputs_distanceToContact,true);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_physicalObjectType",&gSensoryInputs_physicalObjectType,false);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_isOtherAgent",&gSensoryInputs_isOtherAgent,false);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_otherAgentSameGroup",&gSensoryInputs_otherAgentSameGroup,false);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_otherAgentOrientation",&gSensoryInputs_otherAgentOrientation,false);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_isWall",&gSensoryInputs_isWall,false);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_groundSensors",&gSensoryInputs_groundSensors,false);
+    if ( gProperties.hasProperty("gSensoryInputs_landmarkTrackerMode") )
+        convertFromString<int>(gSensoryInputs_landmarkTrackerMode, gProperties.getProperty("gSensoryInputs_landmarkTrackerMode"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gSensoryInputs_landmarkTrackerMode value is missing. Assume value is 0.\n";
+        gSensoryInputs_landmarkTrackerMode = 0;  // none
+    }
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_distanceToLandmark",&gSensoryInputs_distanceToLandmark,false);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_orientationToLandmark",&gSensoryInputs_orientationToLandmark,false);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_energyLevel",&gSensoryInputs_energyLevel,false);
     
     gProperties.checkAndGetPropertyValue("gEnergyLevel",&gEnergyLevel,false);
     
@@ -1425,7 +1457,19 @@ bool loadProperties( std::string __propertiesFilename )
     gProperties.checkAndGetPropertyValue("gEnergyItemDefaultInit",&gEnergyItemDefaultInit,false);
 
     gProperties.checkAndGetPropertyValue("gEnergyItemDefaultMode",&gEnergyItemDefaultMode,false);
-
+    
+    gProperties.checkAndGetPropertyValue("gReentrantMapping_motorOutputs",&gReentrantMapping_motorOutputs,false);
+    
+    gProperties.checkAndGetPropertyValue("gReentrantMapping_virtualOutputs",&gReentrantMapping_virtualOutputs,false);
+    
+    if ( gProperties.hasProperty("gVirtualOutputs") )
+        convertFromString<int>(gVirtualOutputs, gProperties.getProperty("gVirtualOutputs"), std::dec);
+    else
+    {
+        std::cerr << "[MISSING] gVirtualOutputs value is missing. Assume value is 0.\n";
+        gVirtualOutputs = 0;  // none
+    }
+    
 	if ( gProperties.hasProperty("gInitialNumberOfRobots") )
 		convertFromString<int>(gInitialNumberOfRobots, gProperties.getProperty("gInitialNumberOfRobots"), std::dec);
 	else

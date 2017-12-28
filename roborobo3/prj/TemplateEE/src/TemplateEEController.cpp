@@ -156,11 +156,32 @@ void TemplateEEController::step() // handles control decision and evolution (but
 std::vector<double> TemplateEEController::getInputs(){
     
     
-    // WHAT FOLLOWS IS AN EXAMPLE OF LOADING A NN-CONTROLER WITH A FULL-FLEDGE SENSORY INPUT INFORMATION
+    // WHAT FOLLOWS IS A TEMPLATE FOR LOADING A NN-CONTROLER WITH A SENSORY INPUT INFORMATION
+    // It uses general properties.
+    //
+    //      gSensoryInputs_distanceToContact: value in {true|false}, adds 1 input per distance sensors (suggested: at least set this one to True)
+    //      gSensoryInputs_physicalObjectType: value in {true|false}, adds 1 input per distance sensors
+    //      gSensoryInputs_isOtherAgent: value in {true|false}, adds 1 input per distance sensors
+    //      gSensoryInputs_otherAgentSameGroup: value in {true|false}, adds 1 input per distance sensors
+    //      gSensoryInputs_otherAgentOrientation: value in {true|false}, adds 1 input per distance sensors
+    //      gSensoryInputs_isWall: value in {true|false}, adds 1 input per distance sensors
+    //      gSensoryInputs_groundSensors: value in {true|false}, adds 3 inputs (R, G, B components)
+    //      gSensoryInputs_landmarkTrackerMode: value in {0|1|2}, 0:none, 1:closest-landmark, 2:all-landmarks
+    //      gSensoryInputs_distanceToLandmark: value in {true|false}, used only if landmarkTrackerMode>0, adds 1 input per landmark
+    //      gSensoryInputs_orientationToLandmark: value in {true|false}, used only if landmarkTrackerMode>0, adds 1 input per landmark
+    //      gSensoryInputs_energyLevel: value in {true|false}, used only if gEnergyLevel=True, adds 1 input
+    //
+    //    Note that gSensoryInputs_distanceToLandmark and gSensoryInputs_orientationToLandmark can both be set to false.
+    //    This is equivalent to setting gSensoryInputs_landmarkTrackerMode to 0 (the latter saves a few instructions).
+    //
+    //    As of 2017-12-28, gExtendedSensoryInputs is deprecated (and removed). To port deprecated code:
+    //         gExtendedSensoryInputs=True  <==> all to True, landmark tracker mode to 1.
+    //         gExtendedSensoryInputs=False <==> gSensoryInputs_distanceToContact and gSensoryInputs_groundSensors to True, landmark tracker mode to 1 (with distance and orientation to true).
+    //
     // Rewrite to match your own extended input scheme, if needed.
-    // Note that you may tune it on/off using gExtendedSensoryInputs defined in the properties file.
-    // When modifying this code, dont forget to update the initialization in the reset() method
-    // Example:
+    // When modifying this code, do update the setIOcontrollerSize() method too
+    // it may also be relevant to update the initialization in the reset() method
+    // Example of use:
     //      - you may want to distinguish between robot's groups (if more than 1)
     //      - you may want to restrict the number of objects that can be identified (if not all possible objects are in use)
     //      - you may want to compress inputs (e.g. binary encoding instead of one-input-per-object-type.
@@ -169,20 +190,17 @@ std::vector<double> TemplateEEController::getInputs(){
     // In the following, sensory inputs for each sensor are ordered (and filled in) as follow:
     // - N range sensors
     //      - distance to obstacle (max if nothing)
-    //      IF extendedInputs is True:
-    //          - [0...N_physicalobjecttypes] Is it an object of type i? (0: no, 1: yes) -- type: 0 (round), 1 (energy item), 2 (gate), 3 (switch), ...? (cf. PhysicalObjectFactory)
-    //          - is it a robot? (1 or 0)
-    //          - is it from the same group? (1 or 0)
-    //          - relative orientation wrt. current robot (relative orientation or 0 if not a robot)
-    //          - is it a wall? (ie. a non-distinguishible something) (1 or 0)
-    // - floor sensor, red value
-    // - floor sensor, green value
-    // - floor sensor, blue value
-    // - relative direction to the closest landmark
-    // - distance to the closest landmark
+    //      - [0...N_physicalobjecttypes] Is it an object of type i? (0: no, 1: yes) -- type: 0 (round), 1 (energy item), 2 (gate), 3 (switch), ...? (cf. PhysicalObjectFactory)
+    //      - is it a robot? (1 or 0)
+    //      - is it from the same group? (1 or 0)
+    //      - relative orientation wrt. current robot (relative orientation or 0 if not a robot)
+    //      - is it a wall? (ie. a non-distinguishible something) (1 or 0)
+    // - floor sensor
+    //      - red value
+    //      - green value
+    //      - blue value
+    // - relative distance and/or orientation of either the closest landmark or to all landmarks (or to none)
     // - normalized energy level (if any)
-    //
-    // => number of sensory inputs: N * rangeSensors + 6, with rangeSensors varying from 1 to many, if extended sensory inputs are on.
     
 
     
@@ -191,12 +209,13 @@ std::vector<double> TemplateEEController::getInputs(){
     // distance sensors
     for(int i  = 0; i < _wm->_cameraSensorsNb; i++)
     {
-        inputs.push_back( _wm->getDistanceValueFromCameraSensor(i) / _wm->getCameraSensorMaximumDistanceValue(i) );
+        if ( gSensoryInputs_distanceToContact )
+            inputs.push_back( _wm->getDistanceValueFromCameraSensor(i) / _wm->getCameraSensorMaximumDistanceValue(i) );
         
-        if ( gExtendedSensoryInputs ) // EXTENDED SENSORY INPUTS: code provided as example, should be rewritten to suit your need.
+        int objectId = _wm->getObjectIdFromCameraSensor(i);
+
+        if ( gSensoryInputs_physicalObjectType )
         {
-            int objectId = _wm->getObjectIdFromCameraSensor(i);
-            
             // input: physical object? which type?
             if ( PhysicalObject::isInstanceOf(objectId) )
             {
@@ -218,69 +237,132 @@ std::vector<double> TemplateEEController::getInputs(){
                     inputs.push_back( 0 );
                 }
             }
-            
+        }
+        
+        if ( gSensoryInputs_isOtherAgent )
+        {
             // input: another agent? If yes: same group?
             if ( Agent::isInstanceOf(objectId) )
             {
                 // this is an agent
                 inputs.push_back( 1 );
                 
-                // same group?
-                if ( gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->getGroupId() == _wm->getGroupId() )
+                if ( gSensoryInputs_otherAgentSameGroup )
                 {
-                    inputs.push_back( 1 ); // match: same group
+                    // same group?
+                    if ( gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->getGroupId() == _wm->getGroupId() )
+                        inputs.push_back( 1 ); // match: same group
+                    else
+                        inputs.push_back( 0 ); // not the same group
                 }
-                else
+ 
+                if ( gSensoryInputs_otherAgentOrientation )
                 {
-                    inputs.push_back( 0 ); // not the same group
+                    // relative orientation? (ie. angle difference wrt. current agent)
+                    double srcOrientation = _wm->_agentAbsoluteOrientation;
+                    double tgtOrientation = gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->_agentAbsoluteOrientation;
+                    double delta_orientation = - ( srcOrientation - tgtOrientation );
+                    if ( delta_orientation >= 180.0 )
+                        delta_orientation = - ( 360.0 - delta_orientation );
+                    else
+                        if ( delta_orientation <= -180.0 )
+                            delta_orientation = - ( - 360.0 - delta_orientation );
+                    inputs.push_back( delta_orientation/180.0 );
                 }
-                
-                // relative orientation? (ie. angle difference wrt. current agent)
-                double srcOrientation = _wm->_agentAbsoluteOrientation;
-                double tgtOrientation = gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->_agentAbsoluteOrientation;
-                double delta_orientation = - ( srcOrientation - tgtOrientation );
-                if ( delta_orientation >= 180.0 )
-                    delta_orientation = - ( 360.0 - delta_orientation );
-                else
-                    if ( delta_orientation <= -180.0 )
-                        delta_orientation = - ( - 360.0 - delta_orientation );
-                inputs.push_back( delta_orientation/180.0 );
             }
             else
             {
                 inputs.push_back( 0 ); // not an agent...
-                inputs.push_back( 0 ); // ...therefore no match wrt. group.
-                inputs.push_back( 0 ); // ...and no orientation.
+                if ( gSensoryInputs_otherAgentSameGroup )
+                    inputs.push_back( 0 ); // ...therefore no match wrt. group.
+                if ( gSensoryInputs_otherAgentOrientation )
+                    inputs.push_back( 0 ); // ...and no orientation.
             }
-            
+        }
+        
+        if ( gSensoryInputs_isWall )
+        {
             // input: wall or empty?
             if ( objectId >= 0 && objectId < gPhysicalObjectIndexStartOffset ) // not empty, but cannot be identified: this is a wall.
                 inputs.push_back( 1 );
             else
                 inputs.push_back( 0 ); // nothing. (objectId=-1)
         }
+        
     }
-    
     
     // floor sensor
-    inputs.push_back( (double)_wm->getGroundSensor_redValue()/255.0 );
-    inputs.push_back( (double)_wm->getGroundSensor_greenValue()/255.0 );
-    inputs.push_back( (double)_wm->getGroundSensor_blueValue()/255.0 );
-    
-    // landmark (closest landmark)
-    if ( gNbOfLandmarks > 0 )
+    if ( gSensoryInputs_groundSensors )
     {
-        _wm->updateLandmarkSensor(); // update with closest landmark
-        inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
-        inputs.push_back( _wm->getLandmarkDistanceValue() );
+        inputs.push_back( (double)_wm->getGroundSensor_redValue()/255.0 );
+        inputs.push_back( (double)_wm->getGroundSensor_greenValue()/255.0 );
+        inputs.push_back( (double)_wm->getGroundSensor_blueValue()/255.0 );
     }
     
+    // landmark(s)
+    if ( gSensoryInputs_landmarkTrackerMode == 1 ) // closest landmark only
+    {
+        _wm->updateLandmarkSensor(); // update with closest landmark
+        if ( gSensoryInputs_distanceToLandmark )
+            inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
+        if ( gSensoryInputs_orientationToLandmark )
+        inputs.push_back( _wm->getLandmarkDistanceValue() );
+    }
+    else
+        if ( gSensoryInputs_landmarkTrackerMode == 2 ) // register all landmarks
+        {
+            for ( int i = 0 ; i != gNbOfLandmarks ; i++ )
+            {
+                _wm->updateLandmarkSensor(i); // update with closest landmark
+                if ( gSensoryInputs_distanceToLandmark )
+                    inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
+                if ( gSensoryInputs_orientationToLandmark )
+                    inputs.push_back( _wm->getLandmarkDistanceValue() );
+            }
+        }
     
     // energy level
-    if ( gEnergyLevel )
+    if ( gEnergyLevel && gSensoryInputs_energyLevel )
     {
         inputs.push_back( _wm->getEnergyLevel() / gEnergyMax );
     }
+    
+    // reentrant mapping from output neurons (motor or virtual output neurons, if any) -- Jordan-like reccurence. 
+    if ( gReentrantMapping_motorOutputs || gReentrantMapping_virtualOutputs )
+    {
+        std::vector<double> outputs = nn->readOut();
+        
+        size_t i_start = 0;
+        size_t i_end = outputs.size();
+        
+        if ( gReentrantMapping_motorOutputs == false )
+        {
+            if ( TemplateEESharedData::gEnergyRequestOutput )
+                i_start = 3;
+            else
+                i_start = 2;
+        }
+        
+        if ( gReentrantMapping_virtualOutputs == false )
+        {
+            if ( TemplateEESharedData::gEnergyRequestOutput )
+                i_end = 3;
+            else
+                i_end = 2;
+        }
+            
+        for ( size_t i = i_start ; i < i_end ; i++ )
+        {
+            inputs.push_back( outputs[i] );
+        }
+    }
+    /*
+    // DEBUG - to delete after 2018-01-16 [!n]
+    std::vector<double> outputs = nn->readOut();
+    std::cout << "[DEBUG] outputs:\n";
+    for ( int i = 0 ; i < outputs.size() ; i++ )
+        std::cout << "\t" << outputs[i] << "\n";
+    */
     
     return inputs;
 }
@@ -665,23 +747,66 @@ void TemplateEEController::setIOcontrollerSize()
     
     _nbInputs = 0;
     
-    if ( gExtendedSensoryInputs ) // EXTENDED SENSORY INPUTS: code provided as example, can be rewritten to suit your need.
+    if ( gSensoryInputs_distanceToContact )
+        _nbInputs += _wm->_cameraSensorsNb;
+    if ( gSensoryInputs_physicalObjectType )
+        _nbInputs += _wm->_cameraSensorsNb * PhysicalObjectFactory::getNbOfTypes();
+    if ( gSensoryInputs_isOtherAgent )
     {
-        _nbInputs = ( PhysicalObjectFactory::getNbOfTypes()+3+1 ) * _wm->_cameraSensorsNb; // nbOfTypes + ( isItAnAgent? + isItSameGroupId? + agentAngleDifference?) + isItAWall?
+        _nbInputs += _wm->_cameraSensorsNb;
+        if ( gSensoryInputs_otherAgentSameGroup )
+            _nbInputs += _wm->_cameraSensorsNb;
+        if ( gSensoryInputs_otherAgentOrientation )
+            _nbInputs += _wm->_cameraSensorsNb;
+    }
+    if ( gSensoryInputs_isWall )
+        _nbInputs += _wm->_cameraSensorsNb;
+    if ( gSensoryInputs_groundSensors )
+        _nbInputs += 3; // R,G,B
+    if ( gSensoryInputs_landmarkTrackerMode == 1 )
+    {
+        // closest-landmark
+        if ( gSensoryInputs_distanceToLandmark )
+            _nbInputs += 1;
+        if ( gSensoryInputs_orientationToLandmark )
+            _nbInputs += 1;
+    }
+    else
+    {
+        if ( gSensoryInputs_landmarkTrackerMode == 2 )
+        {
+            // all landmarks
+            if ( gSensoryInputs_distanceToLandmark )
+                _nbInputs += gNbOfLandmarks;
+            if ( gSensoryInputs_orientationToLandmark )
+                _nbInputs += gNbOfLandmarks;
+        }
     }
     
-    _nbInputs += _wm->_cameraSensorsNb + 3; // proximity sensors + ground sensor (3 values)
-    if ( gEnergyLevel )
-        _nbInputs += 1; // incl. energy level
-    if ( gNbOfLandmarks > 0 )
-        _nbInputs += 2; // incl. landmark (angle,dist)
-    
+    if ( gEnergyLevel && gSensoryInputs_energyLevel )
+        _nbInputs += 1;
+
     // wrt outputs
     
     _nbOutputs = 2;
     
     if ( TemplateEESharedData::gEnergyRequestOutput )
         _nbOutputs += 1; // incl. energy request
+
+    // wrt reentrant mapping: output neurons activation are copied to input neurons
+
+    if ( gReentrantMapping_virtualOutputs )
+    {
+        _nbOutputs += gVirtualOutputs;
+        _nbInputs += gVirtualOutputs;
+    }
+    
+    if ( gReentrantMapping_motorOutputs )
+    {
+        _nbInputs += 2;
+        if ( TemplateEESharedData::gEnergyRequestOutput )
+            _nbInputs++;
+    }
 }
 
 void TemplateEEController::initController()
