@@ -9,8 +9,6 @@
 
 #include "Observers/AgentObserver.h"
 
-
-
 AgentObserver::AgentObserver( )
 {
 }
@@ -35,3 +33,7 @@ void AgentObserver::step()
 	// nothing to do.
 }
 
+Controller* AgentObserver::getController()
+{
+    return gWorld->getRobot(_wm->getId())->getController();
+}

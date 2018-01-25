@@ -12,6 +12,11 @@
 #define AGENTOBSERVER_H 
 
 #include "Observers/Observer.h"
+#include "Controllers/Controller.h"
+
+#include "World/World.h"
+#include "RoboroboMain/roborobo.h"
+#include "WorldModels/RobotWorldModel.h"
 
 class RobotWorldModel;
 
@@ -27,6 +32,7 @@ class AgentObserver : public Observer
 				
 		virtual void reset();
 		void step() override;
+        Controller* getController();
 		
 };
 

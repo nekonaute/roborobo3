@@ -5,9 +5,12 @@
 
 #include "ForagingRegions/include/ForagingRegionsAgentObserver.h"
 #include "ForagingRegions/include/ForagingRegionsSharedData.h"
+#include "ForagingRegions/include/ForagingRegionsController.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "World/PhysicalObject.h"
 #include "RoboroboMain/roborobo.h"
+#include "World/World.h"
+
 
 ForagingRegionsAgentObserver::ForagingRegionsAgentObserver( RobotWorldModel *wm ) : TemplateEEAgentObserver ( wm )
 {
@@ -38,14 +41,18 @@ void ForagingRegionsAgentObserver::step()
             case 1:
             {
                 int targetIndex = _wm->getGroundSensorValue() - gPhysicalObjectIndexStartOffset;
-                int threshold = ( ForagingRegionsSharedData::nbObjectsOnLeft + ForagingRegionsSharedData::nbObjectsOnRight ) / 2 ;
-                if ( gPhysicalObjects[targetIndex]->getId() <= threshold )
+                int threshold = ForagingRegionsSharedData::nbObjectsType1;
+                if ( gPhysicalObjects[targetIndex]->getId() < threshold )
                 {
                     _wm->_fitnessValue = _wm->_fitnessValue + 1;
+                    ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(getController());
+                    ctl->nbForagedItemType0++;
                 }
                 else
                 {
                     _wm->_fitnessValue = _wm->_fitnessValue - 1;
+                    ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(getController());
+                    ctl->nbForagedItemType1++;
                 }
                 break;
             }

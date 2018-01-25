@@ -15,6 +15,6 @@
 //  to define a new parameter, do it in ForagingRegionsSharedData.h, initialize it in ForagingRegionsSharedData.cpp, then use ForagingRegionsSharedData::parametername
 //
 
-int ForagingRegionsSharedData::nbObjectsOnLeft = 0;
-int ForagingRegionsSharedData::nbObjectsOnRight = 0;
+int ForagingRegionsSharedData::nbObjectsType1 = 0;
+int ForagingRegionsSharedData::nbObjectsType2 = 0;
 int ForagingRegionsSharedData::foragingTask = 0;

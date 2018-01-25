@@ -4,6 +4,7 @@
  */
 
 #include "ForagingRegions/include/ForagingRegionsController.h"
+#include "ForagingRegions/include/ForagingRegionsSharedData.h"
 #include "World/World.h"
 #include "RoboroboMain/roborobo.h"
 #include "WorldModels/RobotWorldModel.h"
@@ -54,11 +55,17 @@ double ForagingRegionsController::getFitness()
 void ForagingRegionsController::resetFitness()
 {
     TemplateEEController::resetFitness();
+    
+    if ( ForagingRegionsSharedData::foragingTask == 1 )
+    {
+        nbForagedItemType0 = 0;
+        nbForagedItemType1 = 0;
+    }
 }
 
 void ForagingRegionsController::updateFitness()
 {
-    // nothing to do -- updating is performed in ForagingRegionsController::AgentObserver (automatic event when energy item are captured)
+    // nothing to do -- updating is performed in ForagingRegionAgentObserver (automatic event when energy item are captured)
 }
 
 void ForagingRegionsController::logCurrentState()

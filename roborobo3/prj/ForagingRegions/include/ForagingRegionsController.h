@@ -21,6 +21,9 @@ class ForagingRegionsController : public TemplateEEController
     
         double getFitness();
 
+        int nbForagedItemType0;
+        int nbForagedItemType1;
+    
     protected:
     
         void initController();

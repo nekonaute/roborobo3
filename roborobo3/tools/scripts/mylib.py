@@ -15,6 +15,10 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as pl
 
+import seaborn as sns
+sns.set() #Charge la conf de seaborn
+sns.set_palette('colorblind')  # évidemment
+
 ## agg backend is used to create plot as a .png file
 #mpl.use('agg')   # removed (caused: "UserWarning:  This call to matplotlib.use() has no effect")
 
@@ -57,9 +61,9 @@ def getMaximumLength ( myList ): # return the length of maximally lengthy sub-el
 # many examples: http://matplotlib.org/gallery.html#
 # code below adapted from: http://blog.bharatbhole.com/creating-boxplots-with-matplotlib/
 # ###
-def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, xlimMax=-1, ylimMin=-1, ylimMax=-1, legendLabel="", locLegend='upper right'):
+def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, xlimMax=-1, ylimMin=-1, ylimMax=-1, legendLabel="", locLegend='upper right', autoscaling=False):
     
-    pl.gca().set_color_cycle(['red', 'green', 'blue', 'orange', 'violet', 'darkblue', 'black','purple','cyan','brown']) # force cycle through specified colors
+    #pl.gca().set_color_cycle(['red', 'green', 'blue', 'orange', 'violet', 'darkblue', 'black','purple','cyan','brown']) # force cycle through specified colors
 
     # Create a figure instance
     fig = pl.figure(1, figsize=(9, 6))
@@ -78,6 +82,8 @@ def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, 
     ax.get_xaxis().tick_bottom()
     ax.get_yaxis().tick_left()
 
+    ax.set_autoscale_on(autoscaling)
+
     # Add labels and legend
     pl.xlabel(xLabel)
     pl.ylabel(yLabel)
@@ -88,13 +94,15 @@ def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, 
         pl.title(title)
         if legendLabel != "":
             pl.legend(legendLabel, loc=locLegend)
+
     if xlimMin != -1 and xlimMax != -1:
         pl.xlim(xlimMin, xlimMax)
-        if ylimMin != -1 and ylimMax != -1:
-            pl.ylim(ylimMin, ylimMax)
+    if ylimMin != -1 and ylimMax != -1:
+        pl.ylim(ylimMin, ylimMax)
 
     # Save the figure
     fig.savefig("graph_"+getTimestamp()+".pdf", format="pdf", bbox_inches='tight')
     
     # Display
     pl.show() # mandatory: call after savefig(.)
+

@@ -27,8 +27,6 @@ TemplateEEWorldObserver::TemplateEEWorldObserver( World* world ) : WorldObserver
         
     gLitelogManager = new LogManager();
     gLitelogManager->setLogFile(gLitelogFile);
-    gLitelogManager->write("# lite logger\n");
-    gLitelogManager->write("# generation,iteration,populationSize,minFitness,maxFitness,avgFitnessNormalized.\n");
     gLitelogManager->flush();
 
     // ==== loading project-specific properties

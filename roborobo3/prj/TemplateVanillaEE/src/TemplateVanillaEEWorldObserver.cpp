@@ -13,6 +13,10 @@
 TemplateVanillaEEWorldObserver::TemplateVanillaEEWorldObserver( World* world ) : TemplateEEWorldObserver( world )
 {
     // superclass constructor called before
+    
+    gLitelogManager->write("# lite logger\n");
+    gLitelogManager->write("# generation,iteration,populationSize,minFitness,maxFitness,avgFitnessNormalized.\n");
+    gLitelogManager->flush();
 }
 
 TemplateVanillaEEWorldObserver::~TemplateVanillaEEWorldObserver()

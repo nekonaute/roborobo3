@@ -16,8 +16,8 @@ class ForagingRegionsSharedData : TemplateEESharedData {
     // Add here parameters that are specific to current implementation.
     
 public:
-    static int nbObjectsOnLeft;
-    static int nbObjectsOnRight;
+    static int nbObjectsType1;
+    static int nbObjectsType2;
     static int foragingTask;
     
 }; 

@@ -906,7 +906,8 @@ void TemplateEEController::broadcastGenome()
             
             if ( targetRobotController->isListening() )
             {
-                bool success = targetRobotController->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, _wm->_fitnessValue); // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
+                bool success = targetRobotController->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness()); // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
+                //bool success = targetRobotController->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, _wm->_fitnessValue); // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0) // TODELETE: AFTER 2018-01-31
                 
                 if ( success == true )
                     _nbGenomeTransmission++; // count unique transmissions (ie. nb of different genomes stored).
@@ -1075,7 +1076,7 @@ void TemplateEEController::logCurrentState()
     ",dist," + std::to_string( getEuclideanDistance( _Xinit, _Yinit, _wm->getXReal(), _wm->getYReal() ) ) +
     ",sumOfDist," + std::to_string( _dSumTravelled ) +
     ",groupId," + std::to_string(_wm->getGroupId()) +
-    ",fitnessValue," + std::to_string(_wm->_fitnessValue) + 
+    ",fitnessValue," + std::to_string(getFitness()) +
     "\n";
     gLogManager->write(sLog);
     gLogManager->flush();
