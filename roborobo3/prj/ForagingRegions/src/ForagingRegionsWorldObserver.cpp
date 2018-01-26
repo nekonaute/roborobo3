@@ -22,11 +22,7 @@ ForagingRegionsWorldObserver::ForagingRegionsWorldObserver( World* world ) : Tem
     
     
     gLitelogManager->write("# lite logger\n");
-    gLitelogManager->write("# generation,iteration,populationSize,minFitness,maxFitness,avgFitnessNormalized");
-    if ( ForagingRegionsSharedData::foragingTask == 0 )
-        gLitelogManager->write(",#objectsLeftRegion_foraged,variance,#objectsRightRegion_foraged,variance,sumOfFitnesses,foragingBalance,avg_countForagedItemType0, stddev_countForagedItemType0, avg_countForagedItemType1, stddev_countForagedItemType1.");
-    else
-        gLitelogManager->write(",#objectsType0_foraged,variance,#objectsType1_foraged,variance,sumOfFitnesses,foragingBalance,avg_countForagedItemType0, stddev_countForagedItemType0, avg_countForagedItemType1, stddev_countForagedItemType1.");
+    gLitelogManager->write("# [0]:generation,[1]:iteration,[2]:populationSize,[3]:minFitness,[4]:maxFitness,[5]:avgFitnessNormalized,[6]:sumOfFitnesses,[7]:foragingBalance,[8]:avg_countForagedItemType0,[9]:stddev_countForagedItemType0, [10]:avg_countForagedItemType1,[11]:stddev_countForagedItemType1.");
     
     gLitelogManager->write(".\n");
     gLitelogManager->flush();
@@ -145,8 +141,32 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
         }
     }
     
-    double foragingBalance = std::max( countForagedItemType0 , countForagedItemType1 ) / std::min( countForagedItemType0 , countForagedItemType1 );
+    double foragingBalance;
+    if ( countForagedItemType0+countForagedItemType1 == 0 )
+        foragingBalance = -1.0;
+    else
+        foragingBalance =
+            1.0 -
+            (
+                (
+                std::max( float(countForagedItemType0) , float(countForagedItemType1) )
+                /
+                float(countForagedItemType0 + countForagedItemType1)
+                )
+                - 0.5
+            ) * 2.0;
     
+    /*
+    =1 perfect equilibrium
+    =0 no equilibrium
+    =? si n/a
+     
+    if a+b = 0:
+        res = -1
+    else:
+        res = 1 - ( max(a,b)/(a+b) - 0.5 ) * 2
+    */
+     
     double avgFitnessNormalized;
     
     if ( activeCount == 0 ) // arbitrary convention: in case of extinction, min/max/avg fitness values are -1
