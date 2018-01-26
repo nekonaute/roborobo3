@@ -24,9 +24,9 @@ ForagingRegionsWorldObserver::ForagingRegionsWorldObserver( World* world ) : Tem
     gLitelogManager->write("# lite logger\n");
     gLitelogManager->write("# generation,iteration,populationSize,minFitness,maxFitness,avgFitnessNormalized");
     if ( ForagingRegionsSharedData::foragingTask == 0 )
-        gLitelogManager->write(",#objectsLeftRegion_foraged,variance,#objectsRightRegion_foraged,variance.");
+        gLitelogManager->write(",#objectsLeftRegion_foraged,variance,#objectsRightRegion_foraged,variance,sumOfFitnesses,foragingBalance,avg_countForagedItemType0, stddev_countForagedItemType0, avg_countForagedItemType1, stddev_countForagedItemType1.");
     else
-        gLitelogManager->write(",#objectsType0_foraged,variance,#objectsType1_foraged,variance.");
+        gLitelogManager->write(",#objectsType0_foraged,variance,#objectsType1_foraged,variance,sumOfFitnesses,foragingBalance,avg_countForagedItemType0, stddev_countForagedItemType0, avg_countForagedItemType1, stddev_countForagedItemType1.");
     
     gLitelogManager->write(".\n");
     gLitelogManager->flush();
@@ -148,6 +148,8 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
         }
     }
     
+    double foragingBalance = std::max( countForagedItemType0 , countForagedItemType1 ) / std::min( countForagedItemType0 , countForagedItemType1 );
+    
     double avgFitnessNormalized;
     
     if ( activeCount == 0 ) // arbitrary convention: in case of extinction, min/max/avg fitness values are -1
@@ -177,10 +179,14 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     + ","
     + std::to_string(maxFitness)
     + ","
-    + std::to_string(avgFitnessNormalized);
+    + std::to_string(avgFitnessNormalized)
+    + ","
+    + std::to_string(sumOfFitnesses)
+    + ","
+    + std::to_string(foragingBalance);
     
     
-    if ( ForagingRegionsSharedData::foragingTask == 1 )
+    //if ( ForagingRegionsSharedData::foragingTask == 1 )
     {
         double avg_countForagedItemType0 = (double)countForagedItemType0 / activeCount;
         double avg_countForagedItemType1 = (double)countForagedItemType1 / activeCount;
