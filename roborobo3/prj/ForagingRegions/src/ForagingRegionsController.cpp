@@ -56,11 +56,8 @@ void ForagingRegionsController::resetFitness()
 {
     TemplateEEController::resetFitness();
     
-    if ( ForagingRegionsSharedData::foragingTask == 1 )
-    {
-        nbForagedItemType0 = 0;
-        nbForagedItemType1 = 0;
-    }
+    nbForagedItemType0 = 0;
+    nbForagedItemType1 = 0;
 }
 
 void ForagingRegionsController::updateFitness()

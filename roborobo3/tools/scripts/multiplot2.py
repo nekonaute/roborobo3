@@ -22,7 +22,7 @@ parser = argparse.ArgumentParser(description=
 "Trace and write PDF with results from input file(s) -- single line or boxplots. Remarks: (1) can be used with a single file or with multiple files (2) only lines that starts with prefix are considered (optional) (3) prefix is removed before considering axis index number (4) lines beginning with \"#\" are ignored (5) <path/files.ext> may use wildcards to select several files at once.")
 #\n\t\tExamples:\n\t\t\t",sys.argv[0], " myLog_\\*/\\*.data 0 3\n\t\t\t",sys.argv[0], " myLog_onefile.data 1 3 prefixofline:\n")
 
-parser.add_argument('filenames', nargs='+', help='a first value')
+parser.add_argument('filenames', nargs='+', help='filename or filename template (using \"*\" character)')
 parser.add_argument('xIndex', type=int, help='index of x-axis values')
 parser.add_argument('yIndex', type=int, help='index of y-axis values')
 parser.add_argument('--prefix','-p', type=str, nargs='?', default="", help='line prefix (ex.: \"log:\") [optional]')

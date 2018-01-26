@@ -140,11 +140,8 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
             if ( ctl->getFitness() > maxFitness )
                 maxFitness = ctl->getFitness();
             
-            if ( ForagingRegionsSharedData::foragingTask == 1 )
-            {
-                countForagedItemType0 += ctl->nbForagedItemType0;
-                countForagedItemType1 += ctl->nbForagedItemType1;
-            }
+            countForagedItemType0 += ctl->nbForagedItemType0;
+            countForagedItemType1 += ctl->nbForagedItemType1;
         }
     }
     
@@ -218,9 +215,11 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
         + std::to_string(stddev_countForagedItemType1);
     }
     
+    //sLitelog += "\n";
+    
     gLitelogManager->write(sLitelog);
-    gLitelogManager->flush();  // flush internal buffer to file
     gLitelogFile << std::endl; // flush file output (+ "\n")
+    gLitelogManager->flush();  // flush internal buffer to file
     
     // Logging, population-level: alive
     std::string sLog = std::string("") + std::to_string(gWorld->getIterations()) + ",pop,alive," + std::to_string(activeCount) + "\n";

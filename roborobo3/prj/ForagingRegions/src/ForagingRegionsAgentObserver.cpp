@@ -33,32 +33,32 @@ void ForagingRegionsAgentObserver::step()
     // * update fitness (if needed)
     if ( _wm->isAlive() && PhysicalObject::isInstanceOf(_wm->getGroundSensorValue()) )
     {
-        switch ( ForagingRegionsSharedData::foragingTask )
+        if ( ForagingRegionsSharedData::foragingTask != 0 && ForagingRegionsSharedData::foragingTask != 1 )
         {
-            case 0:
+            std::cerr << "[ERROR] gForagingTask value is unkown. Exiting.\n";
+            exit (-1);
+        }
+
+        if ( ForagingRegionsSharedData::foragingTask == 0 )
+        {
+            _wm->_fitnessValue = _wm->_fitnessValue + 1;
+        }
+
+        int targetIndex = _wm->getGroundSensorValue() - gPhysicalObjectIndexStartOffset;
+        int threshold = ForagingRegionsSharedData::nbObjectsType1;
+        if ( gPhysicalObjects[targetIndex]->getId() < threshold )
+        {
+            if ( ForagingRegionsSharedData::foragingTask == 1 )
                 _wm->_fitnessValue = _wm->_fitnessValue + 1;
-                break;
-            case 1:
-            {
-                int targetIndex = _wm->getGroundSensorValue() - gPhysicalObjectIndexStartOffset;
-                int threshold = ForagingRegionsSharedData::nbObjectsType1;
-                if ( gPhysicalObjects[targetIndex]->getId() < threshold )
-                {
-                    _wm->_fitnessValue = _wm->_fitnessValue + 1;
-                    ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(getController());
-                    ctl->nbForagedItemType0++;
-                }
-                else
-                {
-                    _wm->_fitnessValue = _wm->_fitnessValue - 1;
-                    ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(getController());
-                    ctl->nbForagedItemType1++;
-                }
-                break;
-            }
-            default:
-                std::cerr << "[ERROR] gForagingTask value is unkown. Exiting.\n";
-                break;
+            ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(getController());
+            ctl->nbForagedItemType0++;
+        }
+        else
+        {
+            if ( ForagingRegionsSharedData::foragingTask == 1 )
+                _wm->_fitnessValue = _wm->_fitnessValue - 1;
+            ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(getController());
+            ctl->nbForagedItemType1++;
         }
     }
 
