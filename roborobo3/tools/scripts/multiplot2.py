@@ -101,14 +101,13 @@ else:
     xData = []
     yData = []
     
-    for i in range(len(lines[0])):
+    for i in range(0,len(lines[0]),args.resolution):
         print "i = ",i
-        if i % args.resolution == 0:
-            xData.append( int(lines[0][i][args.xIndex]) )
-            l = []
-            for j in range(len(lines)):
-                l.append( lines[j][i][args.yIndex] )
-            yData.append(l)
-            print ( str(xData[i]) + "," + str(yData[i]))
+        xData.append( int(lines[0][i][args.xIndex]) )
+        l = []
+        for j in range(len(lines)):
+            l.append( lines[j][i][args.yIndex] )
+        yData.append(l)
+        print ( str(xData[i]) + "," + str(yData[i]))
 
     traceData( xData, yData, "multi", title=args.title, ylimMin=args.ylimMin, ylimMax=args.ylimMax, xlimMin=args.xlimMin, xlimMax=args.xlimMax, autoscaling=args.autoscaling, locLegend=args.locLegend, xLabel=args.xLabel, yLabel=args.yLabel)
