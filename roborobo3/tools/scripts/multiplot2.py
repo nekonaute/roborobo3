@@ -108,6 +108,6 @@ else:
         for j in range(len(lines)):
             l.append( lines[j][i][args.yIndex] )
         yData.append(l)
-        print ( str(xData[i]) + "," + str(yData[i]))
+        print ( str(xData[-1]) + "," + str(yData[-1]))
 
     traceData( xData, yData, "multi", title=args.title, ylimMin=args.ylimMin, ylimMax=args.ylimMax, xlimMin=args.xlimMin, xlimMax=args.xlimMax, autoscaling=args.autoscaling, locLegend=args.locLegend, xLabel=args.xLabel, yLabel=args.yLabel)
