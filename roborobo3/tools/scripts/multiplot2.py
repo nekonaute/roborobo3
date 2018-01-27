@@ -19,7 +19,7 @@ from mylib import *
 debug = False   # if True: shell command are not issued, but displayed.
 
 parser = argparse.ArgumentParser(description=
-"Trace and write PDF with results from input file(s) -- single line or boxplots. Remarks: (1) can be used with a single file or with multiple files (2) only lines that starts with prefix are considered (optional) (3) prefix is removed before considering axis index number (4) lines beginning with \"#\" are ignored (5) <path/files.ext> may use wildcards to select several files at once.")
+                                 "Trace and write PDF with results from input file(s) -- single line or boxplots. Remarks: (1) can be used with a single file or with multiple files (2) only lines that starts with prefix are considered (optional) (3) prefix is removed before considering axis index number (4) lines beginning with \"#\" are ignored (5) <path/files.ext> may use wildcards to select several files at once.")
 #\n\t\tExamples:\n\t\t\t",sys.argv[0], " myLog_\\*/\\*.data 0 3\n\t\t\t",sys.argv[0], " myLog_onefile.data 1 3 prefixofline:\n")
 
 parser.add_argument('filenames', nargs='+', help='filename or filename template (using \"*\" character)')
@@ -86,7 +86,7 @@ if len(args.filenames) == 1:
     traceData( xData, yData, title=args.title, ylimMin=args.ylimMin, ylimMax=args.ylimMax, xlimMin=args.xlimMin, xlimMax=args.xlimMax, autoscaling=args.autoscaling, locLegend=args.locLegend, xLabel=args.xLabel, yLabel=args.yLabel)
 else:
     # compile data from multiple files and display boxplots
-
+    
     if len(lines)<5:
         print "[ERROR] at least 5 data file are required to trace boxplots. Stop."
         quit()
@@ -100,8 +100,9 @@ else:
 
     xData = []
     yData = []
-
+    
     for i in range(len(lines[0])):
+        print "i = ",i
         if i % args.resolution == 0:
             xData.append( int(lines[0][i][args.xIndex]) )
             l = []
