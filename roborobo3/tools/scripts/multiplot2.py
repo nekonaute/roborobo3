@@ -36,7 +36,7 @@ parser.add_argument('-ylimMax', type=float, nargs='?', default=-1, help='max Y d
 parser.add_argument('-xlimMin', type=float, nargs='?', default=-1, help='min X displayed value [optional]')
 parser.add_argument('-xlimMax', type=float, nargs='?', default=-1, help='max X displayed value [optional]')
 
-parser.add_argument('-resolution', type=int, nargs='?', default=1, help='data resolution (1: trace each data values, 2: trace every other data values, etc.) [optional]') # consider data every {resolution} line(s). value>0
+parser.add_argument('--resolution', '-r', type=int, nargs='?', default=1, help='data resolution (1: trace each data values, 2: trace every other data values, etc.) [optional]') # consider data every {resolution} line(s). value>0
 
 parser.add_argument('-autoscaling', type=bool, nargs='?', default=True, help='graph autoscaling [optional]') # consider data every {resolution} line(s). value>0
 
@@ -75,10 +75,14 @@ if len(args.filenames) == 1:
     # display raw data from one single file
     xData = []
     yData = []
+    
+    i = 0
     for l in lines[0]:
-        xData.append( l[args.xIndex] )
-        yData.append( l[args.yIndex] )
-        print ( str(l[args.xIndex]) + "," + str(l[args.yIndex]) )
+        if i % args.resolution == 0:
+            xData.append( l[args.xIndex] )
+            yData.append( l[args.yIndex] )
+            print ( str(l[args.xIndex]) + "," + str(l[args.yIndex]) )
+        i = i + 1
     traceData( xData, yData, title=args.title, ylimMin=args.ylimMin, ylimMax=args.ylimMax, xlimMin=args.xlimMin, xlimMax=args.xlimMax, autoscaling=args.autoscaling, locLegend=args.locLegend, xLabel=args.xLabel, yLabel=args.yLabel)
 else:
     # compile data from multiple files and display boxplots
@@ -98,11 +102,12 @@ else:
     yData = []
 
     for i in range(len(lines[0])):
-        xData.append( int(lines[0][i][args.xIndex]) )
-        l = []
-        for j in range(len(lines)):
-            l.append( lines[j][i][args.yIndex] )
-        yData.append(l)
-        print ( str(xData[i]) + "," + str(yData[i]))
+        if i % args.resolution == 0:
+            xData.append( int(lines[0][i][args.xIndex]) )
+            l = []
+            for j in range(len(lines)):
+                l.append( lines[j][i][args.yIndex] )
+            yData.append(l)
+            print ( str(xData[i]) + "," + str(yData[i]))
 
     traceData( xData, yData, "multi", title=args.title, ylimMin=args.ylimMin, ylimMax=args.ylimMax, xlimMin=args.xlimMin, xlimMax=args.xlimMax, autoscaling=args.autoscaling, locLegend=args.locLegend, xLabel=args.xLabel, yLabel=args.yLabel)
