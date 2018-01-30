@@ -181,7 +181,9 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
         if ( ctl->getWorldModel()->isAlive() == true )
         {
             activeCount++;
+
             sumOfFitnesses += ctl->getFitness() ;
+            
             if ( ctl->getFitness() < minFitness )
                 minFitness = ctl->getFitness();
             if ( ctl->getFitness() > maxFitness )
@@ -219,6 +221,7 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
         + std::to_string(maxFitness)
         + ","
         + std::to_string(avgFitnessNormalized);
+        
     gLitelogManager->write(sLitelog);
     gLitelogManager->flush();  // flush internal buffer to file
     gLitelogFile << std::endl; // flush file output (+ "\n")

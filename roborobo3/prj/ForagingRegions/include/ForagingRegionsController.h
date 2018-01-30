@@ -24,6 +24,11 @@ class ForagingRegionsController : public TemplateEEController
         int nbForagedItemType0;
         int nbForagedItemType1;
     
+        int* lastSeenObjectIdPerSensorList = NULL;
+        //int lastSeenObjectIdOnFloorSensor = 0;
+    
+        int regret; 
+    
     protected:
     
         void initController();

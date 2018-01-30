@@ -20,6 +20,8 @@ protected :
     int _id;
     
     int type;
+    
+    int lastRelocationDate; // number of steps since last relocation
 
     // coordinates (center of object)
     double _xReal;
@@ -78,7 +80,9 @@ public :
     void stepPhysicalObject(); // default step method. Suggested: call this method from step().
     
     virtual bool canRegister() = 0; // test if register object is possible (use both shape or footprints)
-    virtual void registerObject() = 0; // register object in the world (write images)
+    
+    void registerObject(); // register object in the world (write images) -- object-specific implementation. When implementing, call super class.
+    
     virtual void unregisterObject() = 0; // unregister object in the world (write blank pixels)
 
     virtual void isTouched( int __idAgent ) = 0; // callback, triggered by agent
@@ -100,6 +104,11 @@ public :
     
     virtual void relocate();
     virtual bool relocate( int x, int y );
+    
+    int getTimestepSinceRelocation();
+    int getLastRelocationDate() { return lastRelocationDate; }
+    
+    
 };
 
 #endif

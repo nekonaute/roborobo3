@@ -124,6 +124,8 @@ public:
     // selection will then act using fitness which can be taken at very different moment (e.g. comparing a very good but young genome with a not-so-good but old genome. While the younger will very probably end up with a better fitness score, the old one is advantaged by the total amount of time spent -- e.g. with a foraging task.)
 
     virtual double getFitness();
+    
+    int getGenomeReservoirSize() { return (int)_genomesList.size(); }
 
     
 };

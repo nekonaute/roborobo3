@@ -8,6 +8,7 @@
 #include "World/World.h"
 #include "RoboroboMain/roborobo.h"
 #include "WorldModels/RobotWorldModel.h"
+#include <algorithm>
 
 using namespace Neural;
 
@@ -15,16 +16,110 @@ ForagingRegionsController::ForagingRegionsController( RobotWorldModel *wm ) : Te
 {
     // superclass constructor called before this baseclass constructor.
     resetFitness(); // superconstructor calls parent method.
+    
+    lastSeenObjectIdPerSensorList = new int [_wm->_cameraSensorsNb];
+    for ( int i = 0 ; i < _wm->_cameraSensorsNb ; i++ )
+        lastSeenObjectIdPerSensorList[i] = -1;
+    
+    //lastSeenObjectIdOnFloorSensor = -1;
 }
 
 ForagingRegionsController::~ForagingRegionsController()
 {
     // superclass destructor automatically called after this baseclass destructor.
+    
+    delete [] lastSeenObjectIdPerSensorList;
 }
 
 void ForagingRegionsController::stepController()
 {
     TemplateEEController::stepController();
+    
+    // * register all objects seen through distance sensors and check if caught an object (or not, then, who did?)
+    // This code block is used to check if the current robot got one object it was perceiving, or if the object was "stolen" by someone else.
+
+    bool localDebug = false;
+    
+    int firstCheckedObjectId = -1;
+    int lastCheckedObjectId = -1; // used to consider unique object ids.
+    
+    int objectOnFloorIndex = _wm->getGroundSensorValue();
+    if ( PhysicalObject::isInstanceOf(objectOnFloorIndex) )
+    {
+        objectOnFloorIndex = objectOnFloorIndex - gPhysicalObjectIndexStartOffset; // note that object may have already disappeared, though its trace remains in the floor sensor.
+    }
+    else
+    {
+        objectOnFloorIndex = -1;
+    }
+
+    PhysicalObject* lastWalkedObject = NULL;
+    if ( objectOnFloorIndex != -1 )
+        lastWalkedObject = gPhysicalObjects[objectOnFloorIndex];
+    
+    for(int i  = 0; i < _wm->_cameraSensorsNb; i++)
+    {
+        if ( lastSeenObjectIdPerSensorList[i] != -1 )
+        {
+            int targetId = lastSeenObjectIdPerSensorList[i];
+            
+            if ( firstCheckedObjectId == -1 )
+                firstCheckedObjectId = targetId;
+            
+            PhysicalObject* object = gPhysicalObjects[targetId];
+            
+            if ( object->getTimestepSinceRelocation() == 0 )
+            {
+                if ( objectOnFloorIndex != -1 && object->getId() == lastWalkedObject->getId() )
+                {
+                    if ( targetId != lastCheckedObjectId && !( i == _wm->_cameraSensorsNb - 1 && targetId != firstCheckedObjectId ) )
+                    {
+                        if ( localDebug )
+                            std::cout << "[DEBUG] robot #" << _wm->getId() << " says: I gathered object no." << object->getId() << "!\n";
+                    }
+                    else
+                    {
+                        if ( localDebug )
+                            std::cout << "[DEBUG] robot #" << _wm->getId() << " says: I gathered object no." << object->getId() << "! (already said that)\n";
+                    }
+                }
+                else
+                {
+                    if ( targetId != lastCheckedObjectId && !( i == _wm->_cameraSensorsNb - 1 && targetId != firstCheckedObjectId ) )
+                    {
+                        if ( localDebug )
+                            std::cout << "[DEBUG] robot #" << _wm->getId() << " says: object no." << object->getId() << " disappeared! (not me!)\n";
+                        this->regret += ForagingRegionsSharedData::regretValue; // so frustrating!
+                    }
+                    else
+                    {
+                        if ( localDebug )
+                            std::cout << "[DEBUG] robot #" << _wm->getId() << " says: object no." << object->getId() << " disappeared! (not me!) (already said that)\n";
+                    }
+                }
+            }
+
+            if ( lastCheckedObjectId != targetId )  // note that distance sensors cannot list obj1,obj2,obj1 due to similar object size. ie.: continuity hypothesis wrt object sensing (partial occlusion by another robot is not a problem, as this part of the code is executed only in an object is detected).
+                lastCheckedObjectId = targetId;
+            
+        }
+    }
+    
+    // store current sensor values for next step.
+    for(int i  = 0; i < _wm->_cameraSensorsNb; i++)
+    {
+        int objectId = _wm->getObjectIdFromCameraSensor(i);
+        
+        if ( PhysicalObject::isInstanceOf(objectId) )
+        {
+            lastSeenObjectIdPerSensorList[i] = objectId - gPhysicalObjectIndexStartOffset;
+        }
+        else
+        {
+            lastSeenObjectIdPerSensorList[i] = -1;
+        }
+    }
+    
 }
 
 void ForagingRegionsController::initController()
@@ -49,7 +144,24 @@ void ForagingRegionsController::broadcastGenome()
 
 double ForagingRegionsController::getFitness()
 {
-    return std::abs(_wm->_fitnessValue);
+    switch ( ForagingRegionsSharedData::fitnessFunction )
+    {
+        case 0:
+            return 0.0; // no fitness (ie. medea) [CTL]
+            break;
+        case 1:
+            return std::abs(_wm->_fitnessValue); // foraging-only
+            break;
+        case 2:
+            return std::max( 0.0, ( std::abs(_wm->_fitnessValue) - this->regret ) ); // foraging and regret (aggregated)
+            break;
+        case 3:
+            return -(double)this->regret; // regret-only [CTL]
+            break;
+        default:
+            std::cerr << "[ERROR] Fitness function unkown (check fitnessFunction value). Exiting.\n";
+            exit (-1);
+    }
 }
 
 void ForagingRegionsController::resetFitness()
@@ -58,6 +170,8 @@ void ForagingRegionsController::resetFitness()
     
     nbForagedItemType0 = 0;
     nbForagedItemType1 = 0;
+    
+    this->regret = 0;
 }
 
 void ForagingRegionsController::updateFitness()

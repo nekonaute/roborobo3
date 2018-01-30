@@ -203,6 +203,8 @@ bool CircleObject::canRegister()
 
 void CircleObject::registerObject()
 {
+    PhysicalObject::registerObject(); // call to superclass method
+    
     int id_converted = _id + gPhysicalObjectIndexStartOffset;
     
     //  draw footprint
@@ -234,6 +236,7 @@ void CircleObject::registerObject()
             }
         }
     }
+    
 }
 
 void CircleObject::unregisterObject()

@@ -18,3 +18,5 @@
 int ForagingRegionsSharedData::nbObjectsType1 = 0;
 int ForagingRegionsSharedData::nbObjectsType2 = 0;
 int ForagingRegionsSharedData::foragingTask = 0;
+int ForagingRegionsSharedData::fitnessFunction = 0;
+int ForagingRegionsSharedData::regretValue = 0;

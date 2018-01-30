@@ -20,11 +20,11 @@ ForagingRegionsWorldObserver::ForagingRegionsWorldObserver( World* world ) : Tem
     gProperties.checkAndGetPropertyValue("gNbObjectsType2",&ForagingRegionsSharedData::nbObjectsType2,true);
     gProperties.checkAndGetPropertyValue("gForagingTask",&ForagingRegionsSharedData::foragingTask,true);
     
+    gProperties.checkAndGetPropertyValue("fitnessFunction",&ForagingRegionsSharedData::fitnessFunction,true);
+    gProperties.checkAndGetPropertyValue("regretValue",&ForagingRegionsSharedData::regretValue,true);
     
     gLitelogManager->write("# lite logger\n");
-    gLitelogManager->write("# [0]:generation,[1]:iteration,[2]:populationSize,[3]:minFitness,[4]:maxFitness,[5]:avgFitnessNormalized,[6]:sumOfFitnesses,[7]:foragingBalance,[8]:avg_countForagedItemType0,[9]:stddev_countForagedItemType0, [10]:avg_countForagedItemType1,[11]:stddev_countForagedItemType1.");
-    
-    gLitelogManager->write(".\n");
+    gLitelogManager->write("# [0]:generation,[1]:iteration,[2]:populationSize,[3]:minFitness,[4]:maxFitness,[5]:avgFitnessNormalized,[6]:sumOfFitnesses,[7]:foragingBalance,[8]:avg_countForagedItemType0,[9]:stddev_countForagedItemType0, [10]:avg_countForagedItemType1,[11]:stddev_countForagedItemType1,[12]:globalWelfare,[13]minGenomeReservoirSize,[14]maxGenomeReservoirSize,[15]avgGenomeReservoirSize.\n");
     gLitelogManager->flush();
 }
 
@@ -123,6 +123,10 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     int countForagedItemType0 = 0;
     int countForagedItemType1 = 0;
     
+    int minGenomeReservoirSize = -1;
+    int maxGenomeReservoirSize = -1;
+    double avgGenomeReservoirSize = -1;
+    
     for ( int i = 0 ; i != gNbOfRobots ; i++ )
     {
         ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(gWorld->getRobot(i)->getController());
@@ -130,16 +134,43 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
         if ( ctl->getWorldModel()->isAlive() == true )
         {
             activeCount++;
+
+            // fitnesses
+            
             sumOfFitnesses += ctl->getFitness() ;
             if ( ctl->getFitness() < minFitness )
                 minFitness = ctl->getFitness();
             if ( ctl->getFitness() > maxFitness )
                 maxFitness = ctl->getFitness();
             
+            // foraging scores
+            
             countForagedItemType0 += ctl->nbForagedItemType0;
             countForagedItemType1 += ctl->nbForagedItemType1;
+            
+            // genome reservoir sizes
+            
+            int genomeReservoirSize = ctl->getGenomeReservoirSize();
+            
+            avgGenomeReservoirSize += (double)genomeReservoirSize;
+            
+            if ( minGenomeReservoirSize == -1 )
+            {
+                minGenomeReservoirSize = genomeReservoirSize;
+                maxGenomeReservoirSize = genomeReservoirSize;
+            }
+            else
+            {
+                if ( minGenomeReservoirSize > genomeReservoirSize )
+                    minGenomeReservoirSize = genomeReservoirSize;
+                else
+                    if ( maxGenomeReservoirSize < genomeReservoirSize )
+                        maxGenomeReservoirSize = genomeReservoirSize;
+            }
         }
     }
+    
+    avgGenomeReservoirSize = avgGenomeReservoirSize / activeCount;
     
     double foragingBalance;
     if ( countForagedItemType0+countForagedItemType1 == 0 )
@@ -178,11 +209,6 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     else
         avgFitnessNormalized = sumOfFitnesses/activeCount;
     
-    if ( gVerbose && localVerbose )
-    {
-        std::cout << "[ gen:" << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << "\tit:" << gWorld->getIterations() << "\tpop:" << activeCount << "\tminFitness:" << minFitness << "\tmaxFitness:" << maxFitness << "\tavgFitnessNormalized:" << avgFitnessNormalized << " ]\n";
-    }
-    
     // display lightweight logs for easy-parsing
     std::string sLitelog =
     "log:"
@@ -203,39 +229,43 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     + std::to_string(foragingBalance);
     
     
-    //if ( ForagingRegionsSharedData::foragingTask == 1 )
+    double avg_countForagedItemType0 = (double)countForagedItemType0 / activeCount;
+    double avg_countForagedItemType1 = (double)countForagedItemType1 / activeCount;
+    
+    double stddev_countForagedItemType0 = 0;
+    double stddev_countForagedItemType1 = 0;
+    
+    for ( int i = 0 ; i != gNbOfRobots ; i++ )
     {
-        double avg_countForagedItemType0 = (double)countForagedItemType0 / activeCount;
-        double avg_countForagedItemType1 = (double)countForagedItemType1 / activeCount;
-
-        double stddev_countForagedItemType0 = 0;
-        double stddev_countForagedItemType1 = 0;
+        ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(gWorld->getRobot(i)->getController());
         
-        for ( int i = 0 ; i != gNbOfRobots ; i++ )
+        if ( ctl->getWorldModel()->isAlive() == true )
         {
-            ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(gWorld->getRobot(i)->getController());
-            
-            if ( ctl->getWorldModel()->isAlive() == true )
-            {
-                stddev_countForagedItemType0 += pow( (double)ctl->nbForagedItemType0 - avg_countForagedItemType0, 2);
-                stddev_countForagedItemType1 += pow( (double)ctl->nbForagedItemType1 - avg_countForagedItemType1, 2);
-            }
+            stddev_countForagedItemType0 += pow( (double)ctl->nbForagedItemType0 - avg_countForagedItemType0, 2);
+            stddev_countForagedItemType1 += pow( (double)ctl->nbForagedItemType1 - avg_countForagedItemType1, 2);
         }
-        
-        stddev_countForagedItemType0 /= activeCount;
-        stddev_countForagedItemType1 /= activeCount;
-        
-        sLitelog += ","
-        + std::to_string(avg_countForagedItemType0)
-        + ","
-        + std::to_string(stddev_countForagedItemType0)
-        + ","
-        + std::to_string(avg_countForagedItemType1)
-        + ","
-        + std::to_string(stddev_countForagedItemType1);
     }
     
-    //sLitelog += "\n";
+    stddev_countForagedItemType0 /= activeCount;
+    stddev_countForagedItemType1 /= activeCount;
+    
+    sLitelog += ","
+    + std::to_string(avg_countForagedItemType0)
+    + ","
+    + std::to_string(stddev_countForagedItemType0)
+    + ","
+    + std::to_string(avg_countForagedItemType1)
+    + ","
+    + std::to_string(stddev_countForagedItemType1)
+    + ","
+    + std::to_string(countForagedItemType0+countForagedItemType1); // ie. global welfare, or: population-level foraging score
+
+    sLitelog += ","
+    + std::to_string(minGenomeReservoirSize)
+    + ","
+    + std::to_string(maxGenomeReservoirSize)
+    + ","
+    + std::to_string(avgGenomeReservoirSize);
     
     gLitelogManager->write(sLitelog);
     gLitelogFile << std::endl; // flush file output (+ "\n")
@@ -245,5 +275,10 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     std::string sLog = std::string("") + std::to_string(gWorld->getIterations()) + ",pop,alive," + std::to_string(activeCount) + "\n";
     gLogManager->write(sLog);
     gLogManager->flush();
+    
+    if ( gVerbose && localVerbose )
+    {
+        std::cout << "[ gen:" << (gWorld->getIterations()/TemplateEESharedData::gEvaluationTime) << "\tit:" << gWorld->getIterations() << "\tpop:" << activeCount << "\tminFitness:" << minFitness << "\tmaxFitness:" << maxFitness << "\tavgFitnessNormalized:" << avgFitnessNormalized << "\tglobalWelfare:" << (countForagedItemType0+countForagedItemType1) << " ]\n";
+    }
 
 }

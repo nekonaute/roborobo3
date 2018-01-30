@@ -11,6 +11,10 @@
 PhysicalObject::PhysicalObject( int __id ) // a unique and consistent __id should be given as argument
 {
     _id = __id;
+
+    this->lastRelocationDate = gWorld->getIterations();
+    //std::cout << "[DEBUG]" << lastRelocationDate << "\n";
+    
     init();
 }
 
@@ -262,7 +266,9 @@ void PhysicalObject::relocate()
     findRandomLocation();
     
     if ( getXCenterPixel() != -1.0 && getYCenterPixel() != -1.0 ) // not registered
+    {
         registerObject();
+    }
 }
 
 bool PhysicalObject::relocate( int x, int y )
@@ -284,4 +290,18 @@ bool PhysicalObject::relocate( int x, int y )
         setCoordinates(backup_x, backup_y);
         return false;
     }
+}
+
+void PhysicalObject::registerObject()
+{
+    //std::cout << "[DEBUG][0]" << lastRelocationDate << "\n";
+    this->lastRelocationDate = gWorld->getIterations();
+    //std::cout << "[DEBUG][1]" << lastRelocationDate << "\n";
+}
+
+int PhysicalObject::getTimestepSinceRelocation()
+{
+    int a = gWorld->getIterations();
+    int b = this->lastRelocationDate;
+    return ( a - b );
 }
