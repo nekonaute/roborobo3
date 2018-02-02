@@ -561,7 +561,7 @@ void TemplateEEController::selectBestGenome()
 {
     std::pair<int,int> bestId;
     
-    std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValuesList.begin();
+    std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValueList.begin();
     
     float bestFitnessValue = (*fitnessesIt).second;
     bestId = (*fitnessesIt).first;
@@ -570,7 +570,7 @@ void TemplateEEController::selectBestGenome()
     
     int nbSimilar = 0;
     
-    for ( int i = 1 ; fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt, i++)
+    for ( int i = 1 ; fitnessesIt != _fitnessValueList.end(); ++fitnessesIt, i++)
     {
         if ( (*fitnessesIt).second >= bestFitnessValue )
         {
@@ -594,7 +594,7 @@ void TemplateEEController::selectBestGenome()
         
         if ( randomPick != 0 ) // not already stored (i.e. not the first one)
         {
-            fitnessesIt = _fitnessValuesList.begin();
+            fitnessesIt = _fitnessValueList.begin();
             for ( int i = 0 ; ; ++fitnessesIt, i++)
             {
                 if ( (*fitnessesIt).second == bestFitnessValue )
@@ -626,9 +626,9 @@ void TemplateEEController::selectFitProp()
     
     float sumOfFit = 0;
     
-    std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValuesList.begin();
+    std::map<std::pair<int,int>, float >::iterator fitnessesIt = _fitnessValueList.begin();
     
-    for ( ; fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt )
+    for ( ; fitnessesIt != _fitnessValueList.end(); ++fitnessesIt )
     {
         sumOfFit += (*fitnessesIt).second;
     }
@@ -641,9 +641,9 @@ void TemplateEEController::selectFitProp()
 
     float currentSum = 0;
 
-    fitnessesIt = _fitnessValuesList.begin();
+    fitnessesIt = _fitnessValueList.begin();
     
-    for ( ; fitnessesIt != _fitnessValuesList.end(); ++fitnessesIt )
+    for ( ; fitnessesIt != _fitnessValueList.end(); ++fitnessesIt )
     {
         currentSum += (*fitnessesIt).second;
         if ( currentSum >= fitnessTarget )
@@ -662,36 +662,6 @@ void TemplateEEController::selectFitProp()
     
     setNewGenomeStatus(true);
 }
-
-/* manage storage of a genome received from a neighbour
- *
- * Note that in case of multiple encounters with the same robot (same id, same "birthdate"), genome is stored only once, and last known fitness value is stored (i.e. updated at each encounter).
- * Remark: storeGenome is called only if robot's listening mode is on (ie. _isListening == true).
- */
-bool TemplateEEController::storeGenome(std::vector<double> genome, std::pair<int,int> senderId, float sigma, float fitness) // fitness is optional (default: 0)
-{
-    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(senderId);
-    
-    /*
-     _genomesList[senderId] = genome;
-     _sigmaList[senderId] = sigma;
-     _fitnessValuesList[senderId] = fitness;
-     */
-    
-    if ( it != _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
-    {
-        _fitnessValuesList[senderId] = fitness; // update with most recent fitness
-        return false;
-    }
-    else
-    {
-        _genomesList[senderId] = genome;
-        _sigmaList[senderId] = sigma;
-        _fitnessValuesList[senderId] = fitness;
-        return true;
-    }
-}
-
 
 void TemplateEEController::mutateGaussian(float sigma) // mutate within bounds.
 {
@@ -846,7 +816,7 @@ void TemplateEEController::clearReservoir()
     
     _genomesList.clear(); // empty the list of received genomes
     _sigmaList.clear();
-    _fitnessValuesList.clear();
+    _fitnessValueList.clear();
 }
 
 void TemplateEEController::reset()
@@ -906,10 +876,9 @@ void TemplateEEController::broadcastGenome()
             
             if ( targetRobotController->isListening() )
             {
-                bool success = targetRobotController->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness()); // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
-                //bool success = targetRobotController->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, _wm->_fitnessValue); // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0) // TODELETE: AFTER 2018-01-31
+                bool retValue = sendGenome(targetRobotController);
                 
-                if ( success == true )
+                if ( retValue == true )
                     _nbGenomeTransmission++; // count unique transmissions (ie. nb of different genomes stored).
             }
         }
@@ -936,14 +905,16 @@ void TemplateEEController::performSelection() // called only if at least 1 genom
             std::cerr << "[ERROR] unknown selection method (gSelectionMethod = " << TemplateEESharedData::gSelectionMethod << ")\n";
             exit(-1);
     }
-    
+}
+
+void TemplateEEController::logDescendance()
+{
     // Logging: track descendance
     std::string sLog = std::string("");
     sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
     gLogManager->write(sLog);
     gLogManager->flush();
 }
-
 
 void TemplateEEController::loadNewGenome()
 {
@@ -959,6 +930,7 @@ void TemplateEEController::loadNewGenome()
             // case: 1+ genome(s) imported, random pick.
             
             performSelection();
+            logDescendance();
             performVariation();
             clearReservoir();
             
@@ -1101,3 +1073,35 @@ void TemplateEEController::updateFitness()
     std::cout << "[WARNING] TemplateEEController::updateFitness() called -- nothing to do. Forgot to implement?\n";
 }
 
+bool TemplateEEController::sendGenome( TemplateEEController* __targetRobotController )
+{
+    // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
+    
+    bool retValue = __targetRobotController->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness());
+    
+    return retValue;
+}
+
+
+/* manage storage of a genome received from a neighbour
+ *
+ * Note that in case of multiple encounters with the same robot (same id, same "birthdate"), genome is stored only once, and last known fitness value is stored (i.e. updated at each encounter).
+ * Remark: storeGenome is called only if robot's listening mode is on (ie. _isListening == true).
+ */
+bool TemplateEEController::storeGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness) // fitness is optional (default: 0)
+{
+    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(__senderId);
+    
+    if ( it != _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
+    {
+        _fitnessValueList[__senderId] = __fitness; // update with most recent fitness
+        return false;
+    }
+    else
+    {
+        _genomesList[__senderId] = __genome;
+        _sigmaList[__senderId] = __sigma;
+        _fitnessValueList[__senderId] = __fitness;
+        return true;
+    }
+}

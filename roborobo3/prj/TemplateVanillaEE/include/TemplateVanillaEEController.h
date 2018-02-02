@@ -19,22 +19,22 @@ class TemplateVanillaEEController : public TemplateEEController
         TemplateVanillaEEController(RobotWorldModel *wm);
         ~TemplateVanillaEEController();
     
-        double getFitness();
+        double getFitness() override;
 
     protected:
     
-        void initController();
-        void stepController();
+        void initController() override;
+        void stepController() override;
     
-        void performSelection();
-        void performVariation();
+        void performSelection() override;
+        void performVariation() override;
     
-        void broadcastGenome();
+        void broadcastGenome() override;
     
-        void resetFitness();
-        void updateFitness();
+        void resetFitness() override;
+        void updateFitness() override;
 
-        void logCurrentState();
+        void logCurrentState() override;
 };
 
 

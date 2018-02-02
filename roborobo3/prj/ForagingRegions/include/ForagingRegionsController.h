@@ -14,35 +14,44 @@ class RobotWorldModel;
 
 class ForagingRegionsController : public TemplateEEController
 {
-    public:
+private:
+    std::map< std::pair<int,int>, int > _regretValueList;
     
-        ForagingRegionsController(RobotWorldModel *wm);
-        ~ForagingRegionsController();
+public:
     
-        double getFitness();
-
-        int nbForagedItemType0;
-        int nbForagedItemType1;
+    ForagingRegionsController(RobotWorldModel *wm);
+    ~ForagingRegionsController();
     
-        int* lastSeenObjectIdPerSensorList = NULL;
-        //int lastSeenObjectIdOnFloorSensor = 0;
+    double getFitness() override;
     
-        int regret; 
+    int nbForagedItemType0;
+    int nbForagedItemType1;
     
-    protected:
+    int* lastSeenObjectIdPerSensorList = NULL;
+    //int lastSeenObjectIdOnFloorSensor = 0;
     
-        void initController();
-        void stepController();
+    int regret;
     
-        void performSelection();
-        void performVariation();
+protected:
     
-        void broadcastGenome();
+    void initController() override;
+    void stepController() override;
     
-        void resetFitness();
-        void updateFitness();
-
-        void logCurrentState();
+    void performSelection() override;
+    void performVariation() override;
+    
+    void broadcastGenome() override;
+    
+    void resetFitness() override;
+    void updateFitness() override;
+    
+    void logCurrentState() override;
+    
+    bool sendGenome( TemplateEEController* __targetRobotController ) override;
+    bool storeGenome( std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness=0, int __regret=0 );
+    
+    void selectNaiveMO();
+    
 };
 
 

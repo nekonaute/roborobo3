@@ -22,7 +22,7 @@ class TemplateEEController : public Controller
 protected:
     int _iteration;
     int _birthdate; // evaluation when this controller was initialized.
-        
+    
     bool _isListening;
     int _notListeningDelay;
     int _listeningDelay;
@@ -72,7 +72,7 @@ protected:
     
     std::map< std::pair<int,int>, std::vector<double> > _genomesList;
     std::map< std::pair<int,int>, float > _sigmaList;
-    std::map< std::pair<int,int>, float > _fitnessValuesList;
+    std::map< std::pair<int,int>, float > _fitnessValueList;
     
     // current genome
     
@@ -92,12 +92,15 @@ protected:
     double _Yinit;
     double _dSumTravelled;
     
-    virtual bool storeGenome(std::vector<double> genome, std::pair<int,int> senderId, float sigma, float fitness=0);
+    virtual bool storeGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness=0);
+    virtual bool sendGenome( TemplateEEController* __targetRobotController );
+    
     void reset() override;
     
     void clearReservoir(); // clear genomesList, sigmaList, fitnessesList and birthdayList
     
     virtual void logCurrentState();
+    virtual void logDescendance();
     
     virtual void mapGenotypeToPhenotype();
     

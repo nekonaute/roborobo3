@@ -129,7 +129,63 @@ void ForagingRegionsController::initController()
 
 void ForagingRegionsController::performSelection()
 {
-    TemplateEEController::performSelection();
+    switch ( TemplateEESharedData::gSelectionMethod )
+    {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            TemplateEEController::performSelection();
+            break;
+        case 4:
+            selectNaiveMO();
+            break;
+        default:
+            std::cerr << "[ERROR] unknown selection method (gSelectionMethod = " << TemplateEESharedData::gSelectionMethod << ")\n";
+            exit(-1);
+    }
+}
+
+void ForagingRegionsController::selectNaiveMO()
+{
+    std::map<std::pair<int,int>, float >::iterator fitnessIt = _fitnessValueList.begin();
+    std::map<std::pair<int,int>, int >::iterator regretIt = _regretValueList.begin();
+ 
+    std::vector<std::pair<int,int>> paretoFrontGenomeList;
+    
+    // build the Pareto front
+    
+    for ( ; fitnessIt != _fitnessValueList.end(); ++fitnessIt, ++regretIt )
+    {
+        std::map<std::pair<int,int>, float >::iterator fitnessIt2 = _fitnessValueList.begin();
+        std::map<std::pair<int,int>, int >::iterator regretIt2 = _regretValueList.begin();
+        
+        bool candidate = true;
+        
+        for ( ; fitnessIt2 != _fitnessValueList.end(); ++fitnessIt2, ++regretIt2 )
+        {
+            if ( (*fitnessIt).second < (*fitnessIt2).second and (*regretIt).second > (*regretIt2).second ) // remember: regret is positive and larger value is worse.
+            {
+                candidate = false;
+                break;
+            }
+            paretoFrontGenomeList.push_back( (*fitnessIt2).first );
+        }
+    }
+    
+    // select a random genome from the Pareto front
+    
+    int randomIndex = randint()%paretoFrontGenomeList.size();
+    std::pair<int,int> selectId = paretoFrontGenomeList.at(randomIndex);
+    
+    // update current genome with selected parent (mutation will be done elsewhere)
+    
+    _birthdate = gWorld->getIterations();
+    
+    _currentGenome = _genomesList[selectId];
+    _currentSigma = _sigmaList[selectId];
+    
+    setNewGenomeStatus(true);
 }
 
 void ForagingRegionsController::performVariation()
@@ -149,8 +205,9 @@ double ForagingRegionsController::getFitness()
         case 0:
             return 0.0; // no fitness (ie. medea) [CTL]
             break;
-        case 1:
-            return std::abs(_wm->_fitnessValue); // foraging-only
+        case 1: // foraging-only
+        case 4: // naive MO (using foraging and regret as seperate objectives)
+            return std::abs(_wm->_fitnessValue); // foraging-only (or naive MO, which uses fitness as foraging)
             break;
         case 2:
             return std::max( 0.0, ( std::abs(_wm->_fitnessValue) - this->regret ) ); // foraging and regret (aggregated)
@@ -164,6 +221,7 @@ double ForagingRegionsController::getFitness()
     }
 }
 
+
 void ForagingRegionsController::resetFitness()
 {
     TemplateEEController::resetFitness();
@@ -174,12 +232,45 @@ void ForagingRegionsController::resetFitness()
     this->regret = 0;
 }
 
+
 void ForagingRegionsController::updateFitness()
 {
     // nothing to do -- updating is performed in ForagingRegionAgentObserver (automatic event when energy item are captured)
 }
 
+
 void ForagingRegionsController::logCurrentState()
 {
     TemplateEEController::logCurrentState();
+}
+
+
+bool ForagingRegionsController::sendGenome( TemplateEEController* __targetRobotController )
+{
+    // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
+    
+    bool retValue = ((ForagingRegionsController*)__targetRobotController)->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness(), this->regret);
+    
+    return retValue;
+}
+
+
+bool ForagingRegionsController::storeGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness, int __regret)
+{
+    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(__senderId);
+    
+    _fitnessValueList[__senderId] = __fitness;
+    _regretValueList[__senderId] = __regret;
+    
+    if ( it == _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
+    {
+        _genomesList[__senderId] = __genome;
+        _sigmaList[__senderId] = __sigma;
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+
 }
