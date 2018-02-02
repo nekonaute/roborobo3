@@ -169,8 +169,9 @@ void ForagingRegionsController::selectNaiveMO()
                 candidate = false;
                 break;
             }
-            paretoFrontGenomeList.push_back( (*fitnessIt2).first );
         }
+        if ( candidate == true )
+            paretoFrontGenomeList.push_back( (*fitnessIt2).first );
     }
     
     // select a random genome from the Pareto front
