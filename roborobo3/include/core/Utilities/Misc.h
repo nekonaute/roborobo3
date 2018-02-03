@@ -51,6 +51,11 @@ bool convertFromString(T& t,
   return !(iss >> f >> t).fail();
 }
 
+// provide a value for the balance between the two input values.
+// f(a,b) = 1.0 - ( ( max(a,b) / ( a+b ) - 0.5 ) * 2.0 ) = 2. - 2. * max(a,b) / (a+b)
+double getBalance( double a, double b );
+double getBalance( int a , int b );
+
 double computeModulo(double a, double b);
 
 // return current time in a string, with readable format - e.g. 20100526-10h12m08s

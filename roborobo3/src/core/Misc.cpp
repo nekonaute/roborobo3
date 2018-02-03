@@ -20,7 +20,26 @@ std::mt19937 engine(rnd());
 std::uniform_real_distribution<double> disRandom(0.0, 1.0);
 std::normal_distribution<> disNormal(0,1);
 
-double computeModulo( double a , double b )
+
+double computeBalance( double a, double b )
+{
+    // x vs x => 1.0
+    // x vs 0 => 0.0
+    // 0 vs 0 => -1.0 (divbyzero protection)
+    // f(a,b) = 1.0 - ( ( max(a,b) / ( a+b ) - 0.5 ) * 2.0 ) = 2. - 2. * max(a,b) / (a+b)
+    
+    if ( a+b == 0 )
+        return ( -1. );
+    else
+        return ( 2. - 2. * std::max( float(a) , float(b) ) / float( a + b ) );
+}
+
+double getBalance( int a , int b )
+{
+    return getBalance( (double)a, (double)b );
+}
+
+double getBalance( double a , double b )
 {
 	int result = static_cast<int>( a / b );
 	return a - static_cast<double>( result ) * b;

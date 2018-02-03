@@ -11,6 +11,7 @@
 #include "World/World.h"
 #include "RoboroboMain/roborobo.h"
 #include <math.h>
+#include "Utilities/Misc.h"
 
 ForagingRegionsWorldObserver::ForagingRegionsWorldObserver( World* world ) : TemplateEEWorldObserver( world )
 {
@@ -24,7 +25,7 @@ ForagingRegionsWorldObserver::ForagingRegionsWorldObserver( World* world ) : Tem
     gProperties.checkAndGetPropertyValue("regretValue",&ForagingRegionsSharedData::regretValue,true);
     
     gLitelogManager->write("# lite logger\n");
-    gLitelogManager->write("# [0]:generation,[1]:iteration,[2]:populationSize,[3]:minFitness,[4]:maxFitness,[5]:avgFitnessNormalized,[6]:sumOfFitnesses,[7]:foragingBalance,[8]:avg_countForagedItemType0,[9]:stddev_countForagedItemType0, [10]:avg_countForagedItemType1,[11]:stddev_countForagedItemType1,[12]:globalWelfare,[13]minGenomeReservoirSize,[14]maxGenomeReservoirSize,[15]avgGenomeReservoirSize.\n");
+    gLitelogManager->write("# [0]:generation,[1]:iteration,[2]:populationSize,[3]:minFitness,[4]:maxFitness,[5]:avgFitnessNormalized,[6]:sumOfFitnesses,[7]:foragingBalance,[8]:avg_countForagedItemType0,[9]:stddev_countForagedItemType0, [10]:avg_countForagedItemType1,[11]:stddev_countForagedItemType1,[12]:globalWelfare,[13]minGenomeReservoirSize,[14]maxGenomeReservoirSize,[15]avgGenomeReservoirSize,[16]avgForagingBalancePerRobot.\n");
     gLitelogManager->flush();
 }
 
@@ -127,6 +128,8 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     int maxGenomeReservoirSize = -1;
     double avgGenomeReservoirSize = -1;
     
+    double avgForagingBalancePerRobot = 0;
+    
     for ( int i = 0 ; i != gNbOfRobots ; i++ )
     {
         ForagingRegionsController *ctl = dynamic_cast<ForagingRegionsController*>(gWorld->getRobot(i)->getController());
@@ -148,6 +151,10 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
             countForagedItemType0 += ctl->nbForagedItemType0;
             countForagedItemType1 += ctl->nbForagedItemType1;
             
+            // balancing between resources, agent-level
+            
+            avgForagingBalancePerRobot += getBalance(ctl->nbForagedItemType0,ctl->nbForagedItemType1);
+
             // genome reservoir sizes
             
             int genomeReservoirSize = ctl->getGenomeReservoirSize();
@@ -172,32 +179,10 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     
     avgGenomeReservoirSize = avgGenomeReservoirSize / activeCount;
     
-    double foragingBalance;
-    if ( countForagedItemType0+countForagedItemType1 == 0 )
-        foragingBalance = -1.0;
-    else
-        foragingBalance =
-            1.0 -
-            (
-                (
-                std::max( float(countForagedItemType0) , float(countForagedItemType1) )
-                /
-                float(countForagedItemType0 + countForagedItemType1)
-                )
-                - 0.5
-            ) * 2.0;
+    avgForagingBalancePerRobot = avgForagingBalancePerRobot / activeCount; // robot-level
     
-    /*
-    =1 perfect equilibrium
-    =0 no equilibrium
-    =? si n/a
-     
-    if a+b = 0:
-        res = -1
-    else:
-        res = 1 - ( max(a,b)/(a+b) - 0.5 ) * 2
-    */
-     
+    double foragingBalance = getBalance( countForagedItemType0 , countForagedItemType1 ); // pop-level
+    
     double avgFitnessNormalized;
     
     if ( activeCount == 0 ) // arbitrary convention: in case of extinction, min/max/avg fitness values are -1
@@ -267,6 +252,9 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     + ","
     + std::to_string(avgGenomeReservoirSize);
     
+    sLitelog += ","
+    + std::to_string(avgForagingBalancePerRobot);
+    
     gLitelogManager->write(sLitelog);
     gLitelogFile << std::endl; // flush file output (+ "\n")
     gLitelogManager->flush();  // flush internal buffer to file
@@ -282,3 +270,5 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     }
 
 }
+
+
