@@ -21,7 +21,7 @@ std::uniform_real_distribution<double> disRandom(0.0, 1.0);
 std::normal_distribution<> disNormal(0,1);
 
 
-double computeBalance( double a, double b )
+double getBalance( double a, double b )
 {
     // x vs x => 1.0
     // x vs 0 => 0.0
@@ -37,12 +37,6 @@ double computeBalance( double a, double b )
 double getBalance( int a , int b )
 {
     return getBalance( (double)a, (double)b );
-}
-
-double getBalance( double a , double b )
-{
-	int result = static_cast<int>( a / b );
-	return a - static_cast<double>( result ) * b;
 }
 
 std::string getpidAsReadableString()
