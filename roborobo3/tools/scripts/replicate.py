@@ -8,7 +8,7 @@ import time
 debug = False   # if True: shell command are not issued, but displayed.
 
 def getTimestamp():
-    return datetime.datetime.now().strftime("%Y%m%d_%H%M")
+    return datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 
 def createdir(directory):
 	if not os.path.exists(directory):
