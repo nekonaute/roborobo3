@@ -25,7 +25,7 @@ ForagingRegionsWorldObserver::ForagingRegionsWorldObserver( World* world ) : Tem
     gProperties.checkAndGetPropertyValue("regretValue",&ForagingRegionsSharedData::regretValue,true);
     
     gLitelogManager->write("# lite logger\n");
-    gLitelogManager->write("# [0]:generation,[1]:iteration,[2]:populationSize,[3]:minFitness,[4]:maxFitness,[5]:avgFitnessNormalized,[6]:sumOfFitnesses,[7]:foragingBalance,[8]:avg_countForagedItemType0,[9]:stddev_countForagedItemType0, [10]:avg_countForagedItemType1,[11]:stddev_countForagedItemType1,[12]:globalWelfare,[13]minGenomeReservoirSize,[14]maxGenomeReservoirSize,[15]avgGenomeReservoirSize,[16]avgForagingBalancePerRobot,[17]activeCountWithForaging.\n");
+    gLitelogManager->write("# [0]:generation,[1]:iteration,[2]:populationSize,[3]:minFitness,[4]:maxFitness,[5]:avgFitnessNormalized,[6]:sumOfFitnesses,[7]:foragingBalance,[8]:avg_countForagedItemType0,[9]:stddev_countForagedItemType0, [10]:avg_countForagedItemType1,[11]:stddev_countForagedItemType1,[12]:globalWelfare,[13]minGenomeReservoirSize,[14]maxGenomeReservoirSize,[15]avgGenomeReservoirSize,[16]avgForagingBalancePerRobot,[17]avgForagingBalancePerRobot,[18]activeCountWithForaging.\n");
     gLitelogManager->flush();
 }
 
@@ -131,6 +131,7 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     double avgGenomeReservoirSize = -1;
     
     double avgForagingBalancePerRobot = 0;
+    double stddev_activeCountWithForaging = 0;
     
     for ( int i = 0 ; i != gNbOfRobots ; i++ )
     {
@@ -234,11 +235,15 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
         {
             stddev_countForagedItemType0 += pow( (double)ctl->nbForagedItemType0 - avg_countForagedItemType0, 2);
             stddev_countForagedItemType1 += pow( (double)ctl->nbForagedItemType1 - avg_countForagedItemType1, 2);
+            
+            stddev_activeCountWithForaging += pow( getBalance(ctl->nbForagedItemType0,ctl->nbForagedItemType1) - avgForagingBalancePerRobot, 2);
         }
     }
     
     stddev_countForagedItemType0 /= activeCount;
     stddev_countForagedItemType1 /= activeCount;
+    
+    stddev_activeCountWithForaging /= avgForagingBalancePerRobot;
     
     sLitelog += ","
     + std::to_string(avg_countForagedItemType0)
@@ -260,6 +265,8 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
     
     sLitelog += ","
     + std::to_string(avgForagingBalancePerRobot)
+    + ","
+    + std::to_string(stddev_activeCountWithForaging)
     + ","
     + std::to_string(activeCountWithForaging);
     
