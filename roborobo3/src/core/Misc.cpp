@@ -27,6 +27,7 @@ double getBalance( double a, double b )
     // x vs 0 => 0.0
     // 0 vs 0 => -1.0 (divbyzero protection)
     // f(a,b) = 1.0 - ( ( max(a,b) / ( a+b ) - 0.5 ) * 2.0 ) = 2. - 2. * max(a,b) / (a+b)
+    // constraints: a>=0, b>=0
     
     if ( a+b == 0 )
         return ( -1. );
