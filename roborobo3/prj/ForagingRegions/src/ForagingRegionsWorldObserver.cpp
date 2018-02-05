@@ -25,7 +25,7 @@ ForagingRegionsWorldObserver::ForagingRegionsWorldObserver( World* world ) : Tem
     gProperties.checkAndGetPropertyValue("regretValue",&ForagingRegionsSharedData::regretValue,true);
     
     gLitelogManager->write("# lite logger\n");
-    gLitelogManager->write("# [0]:generation,[1]:iteration,[2]:populationSize,[3]:minFitness,[4]:maxFitness,[5]:avgFitnessNormalized,[6]:sumOfFitnesses,[7]:foragingBalance,[8]:avg_countForagedItemType0,[9]:stddev_countForagedItemType0, [10]:avg_countForagedItemType1,[11]:stddev_countForagedItemType1,[12]:globalWelfare,[13]minGenomeReservoirSize,[14]maxGenomeReservoirSize,[15]avgGenomeReservoirSize,[16]avgForagingBalancePerRobot,[17]avgForagingBalancePerRobot,[18]activeCountWithForaging.\n");
+    gLitelogManager->write("# [0]:generation,[1]:iteration,[2]:populationSize,[3]:minFitness,[4]:maxFitness,[5]:avgFitnessNormalized,[6]:sumOfFitnesses,[7]:foragingBalance,[8]:avg_countForagedItemType0,[9]:stddev_countForagedItemType0, [10]:avg_countForagedItemType1,[11]:stddev_countForagedItemType1,[12]:globalWelfare,[13]minGenomeReservoirSize,[14]maxGenomeReservoirSize,[15]avgGenomeReservoirSize,[16]avgForagingBalancePerRobot,[17]stdForagingBalancePerRobot,[18]activeCountWithForaging.\n");
     gLitelogManager->flush();
 }
 
