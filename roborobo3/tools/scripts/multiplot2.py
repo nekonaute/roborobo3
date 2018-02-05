@@ -42,6 +42,8 @@ parser.add_argument('-autoscaling', type=bool, nargs='?', default=True, help='gr
 
 parser.add_argument('-locLegend', type=str, nargs='?', default='lower right', help='location of legend [optional]')
 
+parser.add_argument('--outputFilename', '-o', type=str, nargs='?', default='empty', help='output graph filename [optional]')
+
 args = parser.parse_args()
 
 if debug == True:
@@ -83,7 +85,7 @@ if len(args.filenames) == 1:
             yData.append( l[args.yIndex] )
             print ( str(l[args.xIndex]) + "," + str(l[args.yIndex]) )
         i = i + 1
-    traceData( xData, yData, title=args.title, ylimMin=args.ylimMin, ylimMax=args.ylimMax, xlimMin=args.xlimMin, xlimMax=args.xlimMax, autoscaling=args.autoscaling, locLegend=args.locLegend, xLabel=args.xLabel, yLabel=args.yLabel)
+    traceData( xData, yData, title=args.title, ylimMin=args.ylimMin, ylimMax=args.ylimMax, xlimMin=args.xlimMin, xlimMax=args.xlimMax, autoscaling=args.autoscaling, locLegend=args.locLegend, xLabel=args.xLabel, yLabel=args.yLabel, outputFilename=args.outputFilename)
 else:
     # compile data from multiple files and display boxplots
     
@@ -110,4 +112,4 @@ else:
         yData.append(l)
         print ( str(xData[-1]) + "," + str(yData[-1]))
 
-    traceData( xData, yData, "multi", title=args.title, ylimMin=args.ylimMin, ylimMax=args.ylimMax, xlimMin=args.xlimMin, xlimMax=args.xlimMax, autoscaling=args.autoscaling, locLegend=args.locLegend, xLabel=args.xLabel, yLabel=args.yLabel)
+    traceData( xData, yData, "multi", title=args.title, ylimMin=args.ylimMin, ylimMax=args.ylimMax, xlimMin=args.xlimMin, xlimMax=args.xlimMax, autoscaling=args.autoscaling, locLegend=args.locLegend, xLabel=args.xLabel, yLabel=args.yLabel, outputFilename=args.outputFilename)

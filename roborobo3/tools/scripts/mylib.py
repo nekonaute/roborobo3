@@ -61,7 +61,7 @@ def getMaximumLength ( myList ): # return the length of maximally lengthy sub-el
 # many examples: http://matplotlib.org/gallery.html#
 # code below adapted from: http://blog.bharatbhole.com/creating-boxplots-with-matplotlib/
 # ###
-def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, xlimMax=-1, ylimMin=-1, ylimMax=-1, legendLabel="", locLegend='upper right', autoscaling=False):
+def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, xlimMax=-1, ylimMin=-1, ylimMax=-1, legendLabel="", locLegend='upper right', autoscaling=False, outputFilename="empty"):
     
     #pl.gca().set_color_cycle(['red', 'green', 'blue', 'orange', 'violet', 'darkblue', 'black','purple','cyan','brown']) # force cycle through specified colors
 
@@ -101,7 +101,11 @@ def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, 
         pl.ylim(ylimMin, ylimMax)
 
     # Save the figure
-    fig.savefig("graph_"+getTimestamp()+".pdf", format="pdf", bbox_inches='tight')
+    
+    if outputFilename == "empty":
+        outputFilename = "graph_"+getTimestamp()+".pdf"
+    
+    fig.savefig(outputFilename, format="pdf", bbox_inches='tight')
     
     # Display
     pl.show() # mandatory: call after savefig(.)
