@@ -236,7 +236,8 @@ void ForagingRegionsWorldObserver::monitorPopulation( bool localVerbose )
             stddev_countForagedItemType0 += pow( (double)ctl->nbForagedItemType0 - avg_countForagedItemType0, 2);
             stddev_countForagedItemType1 += pow( (double)ctl->nbForagedItemType1 - avg_countForagedItemType1, 2);
             
-            stddev_activeCountWithForaging += pow( getBalance(ctl->nbForagedItemType0,ctl->nbForagedItemType1) - avgForagingBalancePerRobot, 2);
+            if ( ctl->nbForagedItemType0 + ctl->nbForagedItemType1 > 0 )
+                stddev_activeCountWithForaging += pow( getBalance(ctl->nbForagedItemType0,ctl->nbForagedItemType1) - avgForagingBalancePerRobot, 2);
         }
     }
     
