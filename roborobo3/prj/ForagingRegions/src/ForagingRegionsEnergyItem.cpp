@@ -69,10 +69,10 @@ void ForagingRegionsEnergyItem::relocate()
         
         double xPos;
         
-        xPos = random01() * _range + _offsetRegion;
+        xPos = random() * _range + _offsetRegion;
         
         // with a sigmoid
-        //double value = random01();
+        //double value = random();
         //xPos = (1/(1 + std::exp(-value*5 + 13)))*3000; // (1/(1 + Exp[-x*5 + 13])*3000) <===
         //xPos = std::pow(value,3); // x^3   <==
         //xPos = (1/(1 + std::exp(-value*5 + 5)))*2; // (1/(1 + Exp[-x*5 + 5]))
@@ -84,7 +84,7 @@ void ForagingRegionsEnergyItem::relocate()
         //xPos = sigma*randgaussian() / gaussianPeakValue;
         
         double x = xPos * ( gScreenWidth - 2*border ) + border;
-        double y = random01() * ( gScreenHeight - 2*border ) + border;
+        double y = random() * ( gScreenHeight - 2*border ) + border;
         
         setCoordinates(x,y);
         
