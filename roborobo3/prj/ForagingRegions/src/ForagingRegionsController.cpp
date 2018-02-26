@@ -148,30 +148,30 @@ void ForagingRegionsController::performSelection()
 
 void ForagingRegionsController::selectNaiveMO()
 {
-    std::map<std::pair<int,int>, float >::iterator fitnessIt = _fitnessValueList.begin();
-    std::map<std::pair<int,int>, int >::iterator regretIt = _regretValueList.begin();
+    std::map<std::pair<int,int>, float >::iterator fitnessItUnderFocus = _fitnessValueList.begin();
+    std::map<std::pair<int,int>, int >::iterator regretItUnderFocus = _regretValueList.begin();
  
     std::vector<std::pair<int,int>> paretoFrontGenomeList;
     
     // build the Pareto front
     
-    for ( ; fitnessIt != _fitnessValueList.end(); ++fitnessIt, ++regretIt )
+    for ( ; fitnessItUnderFocus != _fitnessValueList.end(); ++fitnessItUnderFocus, ++regretItUnderFocus )
     {
-        std::map<std::pair<int,int>, float >::iterator fitnessIt2 = _fitnessValueList.begin();
-        std::map<std::pair<int,int>, int >::iterator regretIt2 = _regretValueList.begin();
+        std::map<std::pair<int,int>, float >::iterator fitnessItChallenger = _fitnessValueList.begin();
+        std::map<std::pair<int,int>, int >::iterator regretItChallenger = _regretValueList.begin();
         
         bool candidate = true;
         
-        for ( ; fitnessIt2 != _fitnessValueList.end(); ++fitnessIt2, ++regretIt2 )
+        for ( ; fitnessItChallenger != _fitnessValueList.end(); ++fitnessItChallenger, ++regretItChallenger )
         {
-            if ( (*fitnessIt).second < (*fitnessIt2).second and (*regretIt).second > (*regretIt2).second ) // remember: regret is positive and larger value is worse.
+            if ( (*fitnessItUnderFocus).second < (*fitnessItChallenger).second and (*regretItUnderFocus).second > (*regretItChallenger).second ) // remember: regret is positive and larger value is worse.
             {
                 candidate = false;
                 break;
             }
         }
         if ( candidate == true )
-            paretoFrontGenomeList.push_back( (*fitnessIt2).first );
+            paretoFrontGenomeList.push_back( (*fitnessItUnderFocus).first );
     }
     
     // select a random genome from the Pareto front

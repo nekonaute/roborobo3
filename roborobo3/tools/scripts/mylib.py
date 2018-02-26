@@ -3,9 +3,11 @@
 # TROUBLE SHOOTING: 
 #  if you get an error like "ValueError: unknown locale: UTF-8"
 #  then first type in the terminal: "export LC_ALL=en_US.UTF-8"
+#
+# Requires: python 2.x, matplotlib, and seaborn (optional)
 
 # nicolas.bredeche(at)upmc.fr
-# Last revision: 2017-01-30 14h48
+# Last revision: 2017-02-08 10h39
 
 import os
 import sys
@@ -15,9 +17,13 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as pl
 
-import seaborn as sns
-sns.set() #Charge la conf de seaborn
-sns.set_palette('colorblind')  # évidemment
+try:
+    import seaborn as sns
+except ImportError:
+    print "[Warning]: seaborn package not available"
+else:
+    sns.set() #Charge la conf de seaborn
+    sns.set_palette('colorblind')  # évidemment
 
 ## agg backend is used to create plot as a .png file
 #mpl.use('agg')   # removed (caused: "UserWarning:  This call to matplotlib.use() has no effect")
@@ -44,7 +50,7 @@ def getLinesWithPrefix( lines, prefix, removePrefix = False):
 def parseLinesToArrayOfValues ( rawlines ):
     lines = []
     for l in rawlines:
-        if l[0] != "#":
+        if len(l) != 0 and l[0] != "#":
             l = l.split(",")
             l = map(float, l)
             lines.append(l)
