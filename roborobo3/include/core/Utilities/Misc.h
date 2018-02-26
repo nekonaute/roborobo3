@@ -31,8 +31,9 @@ extern std::mt19937 engine;
 extern std::uniform_real_distribution<double> disRandom;
 extern std::normal_distribution<> disNormal;
 
-#define random() disRandom(engine) // uniform in [0,1), return double
-#define randgaussian() disNormal(engine) // normal distribution mean=0 and stddev=1 (use: mean+rand*stddev)
+inline double random01() { return disRandom(engine); } // uniform in [0,1), return double
+inline double randgaussian() { return disNormal(engine); } // normal distribution mean=0 and stddev=1 (use: mean+rand*stddev)
+
 
 // Cast string to value.
 //

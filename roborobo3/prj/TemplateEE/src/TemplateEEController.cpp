@@ -507,7 +507,7 @@ void TemplateEEController::mapGenotypeToPhenotype()
 
 void TemplateEEController::performVariation()
 {
-    if ( TemplateEESharedData::gIndividualMutationRate > random() ) // global mutation rate (whether this genome will get any mutation or not) - default: always
+    if ( TemplateEESharedData::gIndividualMutationRate > random01() ) // global mutation rate (whether this genome will get any mutation or not) - default: always
     {
         switch ( TemplateEESharedData::gMutationOperator )
         {
@@ -635,7 +635,7 @@ void TemplateEEController::selectFitProp()
     
     // randomly draw a value in [0,sum_of_fitness] -- assume maximisation
     
-    float fitnessTarget = random()*sumOfFit;
+    float fitnessTarget = random01()*sumOfFit;
     
     // find the parent
 
