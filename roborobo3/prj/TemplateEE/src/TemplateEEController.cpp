@@ -9,9 +9,10 @@
 #include "RoboroboMain/roborobo.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "World/World.h"
-#include <neuralnetworks/MLP.h>
-#include <neuralnetworks/Perceptron.h>
-#include <neuralnetworks/Elman.h>
+#include "neuralnetworks/MLP.h"
+#include "neuralnetworks/Perceptron.h"
+#include "neuralnetworks/Elman.h"
+#include "neuralnetworks/ESN/ESNEigen.h"
 #include "Utilities/Misc.h"
 
 using namespace Neural;
@@ -378,7 +379,17 @@ void TemplateEEController::stepController()
     
     nn->setInputs(inputs);
     
-    nn->step();
+    switch ( TemplateEESharedData::gControllerType )
+    {
+        case 3:
+		{
+			static_cast<ESNEigen*>(nn)->step(static_cast<size_t>(TemplateEESharedData::gESNStepsBySimulationStep));
+			break;
+		}
+
+		default:
+			nn->step();
+	}
     
     std::vector<double> outputs = nn->readOut();
     
@@ -424,6 +435,23 @@ void TemplateEEController::createNN()
         {
             // ELMAN
             nn = new Elman(_parameters, _nbInputs, _nbOutputs, *(_nbNeuronsPerHiddenLayer));
+            break;
+        }
+        case 3:
+        {
+            // ESNEigen
+			ESNEigen::seed_t seedESN = 0L;
+            nn = new ESNEigen(_parameters, _nbInputs, _nbOutputs, TemplateEESharedData::gESNReservoirSize, TemplateEESharedData::gESNDensityOfConnections, TemplateEESharedData::gESNAlpha, seedESN, 0.5, 0.5, 0.5, 0.5, 0.5,
+				TemplateEESharedData::gESNAllowInputToOutputDirectConnections,	// allowInputToOutputDirectConnections
+				TemplateEESharedData::gESNAllowOutputSelfRecurrentConnections,	// allowOutputSelfRecurrentConnections
+				TemplateEESharedData::gESNAllowInputToReservoirConnections,	// allowInputToReservoirConnections
+				TemplateEESharedData::gESNFixedInputToReservoirConnections,	// fixedInputToReservoirConnections
+				TemplateEESharedData::gESNAllowOutputToReservoirConnections, 	// allowOutputToReservoirConnections
+				TemplateEESharedData::gESNAddConstantInputBias,	// addConstantInputBias 
+				TemplateEESharedData::gESNAddSinInputBias,	// addSinInputBias
+				TemplateEESharedData::gESNSinBiasPeriod,	// sinBiasPeriod 
+				TemplateEESharedData::gESNUseSparseComputation	// useSparseComputation
+			);
             break;
         }
         default: // default: no controller
@@ -507,7 +535,7 @@ void TemplateEEController::mapGenotypeToPhenotype()
 
 void TemplateEEController::performVariation()
 {
-    if ( TemplateEESharedData::gIndividualMutationRate > random() ) // global mutation rate (whether this genome will get any mutation or not) - default: always
+    if ( TemplateEESharedData::gIndividualMutationRate > random01() ) // global mutation rate (whether this genome will get any mutation or not) - default: always
     {
         switch ( TemplateEESharedData::gMutationOperator )
         {
@@ -635,7 +663,7 @@ void TemplateEEController::selectFitProp()
     
     // randomly draw a value in [0,sum_of_fitness] -- assume maximisation
     
-    float fitnessTarget = random()*sumOfFit;
+    float fitnessTarget = random01()*sumOfFit;
     
     // find the parent
 

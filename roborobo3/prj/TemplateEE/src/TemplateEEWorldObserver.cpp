@@ -47,6 +47,20 @@ TemplateEEWorldObserver::TemplateEEWorldObserver( World* world ) : WorldObserver
     gProperties.checkAndGetPropertyValue("gNbHiddenLayers",&TemplateEESharedData::gNbHiddenLayers,true);
     gProperties.checkAndGetPropertyValue("gNbNeuronsPerHiddenLayer",&TemplateEESharedData::gNbNeuronsPerHiddenLayer,true);
     gProperties.checkAndGetPropertyValue("gNeuronWeightRange",&TemplateEESharedData::gNeuronWeightRange,true);
+
+    gProperties.checkAndGetPropertyValue("gESNStepsBySimulationStep",&TemplateEESharedData::gESNStepsBySimulationStep,true);
+    gProperties.checkAndGetPropertyValue("gESNReservoirSize",&TemplateEESharedData::gESNReservoirSize,true);
+    gProperties.checkAndGetPropertyValue("gESNDensityOfConnections",&TemplateEESharedData::gESNDensityOfConnections,true);
+    gProperties.checkAndGetPropertyValue("gESNAlpha",&TemplateEESharedData::gESNAlpha,true);
+    gProperties.checkAndGetPropertyValue("gESNAllowInputToOutputDirectConnections",&TemplateEESharedData::gESNAllowInputToOutputDirectConnections,true);
+    gProperties.checkAndGetPropertyValue("gESNFixedInputToReservoirConnections",&TemplateEESharedData::gESNFixedInputToReservoirConnections,true);
+    gProperties.checkAndGetPropertyValue("gESNAllowOutputSelfRecurrentConnections",&TemplateEESharedData::gESNAllowOutputSelfRecurrentConnections,true);
+    gProperties.checkAndGetPropertyValue("gESNAllowInputToReservoirConnections",&TemplateEESharedData::gESNAllowInputToReservoirConnections,true);
+    gProperties.checkAndGetPropertyValue("gESNAllowOutputToReservoirConnections",&TemplateEESharedData::gESNAllowOutputToReservoirConnections,true);
+    gProperties.checkAndGetPropertyValue("gESNAddConstantInputBias",&TemplateEESharedData::gESNAddConstantInputBias,true);
+    gProperties.checkAndGetPropertyValue("gESNAddSinInputBias",&TemplateEESharedData::gESNAddSinInputBias,true);
+    gProperties.checkAndGetPropertyValue("gESNSinBiasPeriod",&TemplateEESharedData::gESNSinBiasPeriod,true);
+    gProperties.checkAndGetPropertyValue("gESNUseSparseComputation",&TemplateEESharedData::gESNUseSparseComputation,true);
     
     gProperties.checkAndGetPropertyValue("gSnapshots",&TemplateEESharedData::gSnapshots,false);
     gProperties.checkAndGetPropertyValue("gSnapshotsFrequency",&TemplateEESharedData::gSnapshotsFrequency,false);

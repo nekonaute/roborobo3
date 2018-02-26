@@ -20,7 +20,8 @@ std::uniform_real_distribution<double> disRandom(0.0, 1.0);
 std::uniform_int_distribution<> disRandint(0, UINT32_MAX);
 std::normal_distribution<> disNormal(0,1);
 
-#define random() disRandom(engine) // uniform in [0,1), return double
+//#define random() disRandom(engine) // uniform in [0,1), return double
+inline double random01() { return disRandom(engine); }
 #define randint() disRandint(engine) // uniform in [0,max), returns int
 #define randgaussian() disNormal(engine) // normal distribution mean=0 and stddev=1 (use: mean+rand*stddev)
 
@@ -40,8 +41,8 @@ double getGaussianRand(double m, double s)	/* normal random variate generator */
 	{
 		do {
 			//x1 = ((double)randint()/(1.0+(double)RAND_MAX)); //??? check and delete
-			x1 = 2.0 * random() - 1.0;
-			x2 = 2.0 * random() - 1.0;
+			x1 = 2.0 * random01() - 1.0;
+			x2 = 2.0 * random01() - 1.0;
 			w = x1 * x1 + x2 * x2;
 		} while ( ( w >= 1.0 ) || ( w == 0.0 ) );
 

@@ -36,6 +36,20 @@ public:
     static int gNbHiddenLayers; // default: 1
     static int gNbNeuronsPerHiddenLayer; // default: 5
     static int gNeuronWeightRange; // default: 800.0 (ie. weights are in [-400,+400[
+
+    static int gESNStepsBySimulationStep; // default: 10
+    static int gESNReservoirSize; // default: 100
+    static double gESNDensityOfConnections; // default: 0.10
+    static double gESNAlpha; // default: 0.88
+    static bool gESNAllowInputToOutputDirectConnections; // default: false
+    static bool gESNAllowOutputSelfRecurrentConnections; // default: true
+    static bool gESNAllowInputToReservoirConnections; // default: true
+    static bool gESNFixedInputToReservoirConnections; // default: true
+    static bool gESNAllowOutputToReservoirConnections; // default: true
+    static bool gESNAddConstantInputBias; // default: true
+    static bool gESNAddSinInputBias; // default: false
+    static double gESNSinBiasPeriod; // default: 0.01
+    static bool gESNUseSparseComputation; // default: false
     
     static bool gSnapshots; // take snapshots
     static int gSnapshotsFrequency; // every N generations

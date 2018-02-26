@@ -26,6 +26,20 @@ int TemplateEESharedData::gNbHiddenLayers = 1;
 int TemplateEESharedData::gNbNeuronsPerHiddenLayer = 5;
 int TemplateEESharedData::gNeuronWeightRange = 800;
 
+int TemplateEESharedData::gESNStepsBySimulationStep = 10;
+int TemplateEESharedData::gESNReservoirSize = 100;
+double TemplateEESharedData::gESNDensityOfConnections = 0.10;
+double TemplateEESharedData::gESNAlpha = 0.88;
+bool TemplateEESharedData::gESNAllowInputToOutputDirectConnections = false;
+bool TemplateEESharedData::gESNFixedInputToReservoirConnections = true;
+bool TemplateEESharedData::gESNAllowOutputSelfRecurrentConnections = true;
+bool TemplateEESharedData::gESNAllowInputToReservoirConnections = true;
+bool TemplateEESharedData::gESNAllowOutputToReservoirConnections = true;
+bool TemplateEESharedData::gESNAddConstantInputBias = true;
+bool TemplateEESharedData::gESNAddSinInputBias = false;
+double TemplateEESharedData::gESNSinBiasPeriod = 0.01;
+bool TemplateEESharedData::gESNUseSparseComputation = false;
+
 bool TemplateEESharedData::gSnapshots = true; // take snapshots
 int TemplateEESharedData::gSnapshotsFrequency = 50; // every N generations
 

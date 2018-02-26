@@ -40,7 +40,7 @@ namespace Neural {
 			/**
 			 * @return the number of neurons
 			 */
-			size_t getNbNeurons();
+			virtual size_t getNbNeurons();
 
 
 		public :

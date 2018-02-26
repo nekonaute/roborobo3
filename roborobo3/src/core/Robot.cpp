@@ -179,8 +179,8 @@ void Robot::reset()
 		
 			// pick random coordinate
 			
-            x = (int)(random() * (double)(gAgentsInitAreaWidth - (2 * gRobotWidth))) + gRobotWidth + gAgentsInitAreaX;
-            y = (int)(random() * (double)(gAgentsInitAreaHeight - (2 * gRobotHeight))) + gRobotHeight + gAgentsInitAreaY;
+            x = (int)(random01() * (double)(gAgentsInitAreaWidth - (2 * gRobotWidth))) + gRobotWidth + gAgentsInitAreaX;
+            y = (int)(random01() * (double)(gAgentsInitAreaHeight - (2 * gRobotHeight))) + gRobotHeight + gAgentsInitAreaY;
            
 			// check for agents superposition - ie. if picked position is valid vs. already located agents.
 			for ( int i = 0 ; i != _wm->getId() ; i++ )
@@ -254,7 +254,7 @@ void Robot::reset()
     }
 	else
 	{
-		_wm->_agentAbsoluteOrientation = random() * 360. - 180.;
+		_wm->_agentAbsoluteOrientation = random01() * 360. - 180.;
         //randomOrientation = true;
 	}
     
@@ -743,9 +743,9 @@ void Robot::show(SDL_Surface *surface) // display on screen
 			int dy = 10;
 			int xcenter = (int)_wm->_xReal + 0.5;
 			int ycenter = (int)_wm->_yReal + 0.5;
-			int r = 255.0 * random();
-			int g = 255.0 * random();
-			int b = 255.0 * random();
+			int r = 255.0 * random01();
+			int g = 255.0 * random01();
+			int b = 255.0 * random01();
 						
 			for ( int xTmp = xcenter - dx ; xTmp != xcenter + dx + 1 ; xTmp++ )
 			{
