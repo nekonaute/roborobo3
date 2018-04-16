@@ -3,14 +3,16 @@
 // ROBOROBO^3                                                                                    //
 //                                                                                               //
 // Author: Nicolas Bredeche                                                                      //
-// Contact: nicolas.bredeche(at)upmc.fr / niko(at)factorycity.com                                //
+// Contact: nicolas.bredeche(at)sorbonne-universite.fr / niko(at)factorycity.com                 //
 // http://pages.isir.upmc.fr/~bredeche                                                           //
 //                                                                                               //
-// 2008-2017 (started 20081216, version 3: 20160122)                                             //
+// 2008-2018 (started 20081216, version 3: 20160122)                                             //
 // current version: (see gVersion value)                                                         //
 //                                                                                               //
 // People involved, at some point or another, in roborobo:                                       //
-//   JM Montanier, L. Cazenille [NNlib], E. Haasdijk [Properties], B. Weel                       //
+//   JM Montanier, L. Cazenille [NNlib], E. Haasdijk [Properties], B. Weel,                      //
+//   T. Grohens (movable objects), P. Ecoffet, etc.                                              //
+//   Check list in README.md -- dont hesitate to tell me if I forgot to add your name here.      //
 //                                                                                               //
 // Official reference:                                                                           //
 //                                                                                               //
@@ -67,7 +69,7 @@
 
 // =-=-=-=-=
 
-long int gVersion  = 20170301;
+long int gVersion  = 20180416;
 std::string gLogCommentText  = "(under development)"; //
 
 std::string gStartTime = getCurrentTimeAsReadableString();
@@ -80,7 +82,7 @@ std::string gCompileDate = __DATE__;
 
 
 std::string gPropertiesFilename = "config/template_wander_bigrobots.properties";
-std::string gCurrentBuildInfo   = "Tokyo build (roborobo^3 w/ SDL2)";  // display through "-v[ersion]" command line option -- check/set value in config.h
+std::string gCurrentBuildInfo   = "Trieste build (roborobo^3 w/ SDL2)";  // display through "-v[ersion]" command line option -- check/set value in config.h
 // start development: 2009
 // Bristol build -- june 2010
 // Krakow build -- sept 2010
@@ -92,6 +94,7 @@ std::string gCurrentBuildInfo   = "Tokyo build (roborobo^3 w/ SDL2)";  // displa
 // Ljubljana build -- sept 2014 -- roborobo on github
 // Lutetia build -- sept 2015 -- roborobo^3 (major revision: switch to SDL2)
 // Tokyo build -- jan 2016 -- roborobo^3 (rev 1, public release on github)
+// Trieste build -- april 2018 -- roborobo^3 (rev 2, many improvements and fixes)
 
 ExtendedProperties gProperties;
 

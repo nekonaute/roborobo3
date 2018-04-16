@@ -1,9 +1,9 @@
-roborobo3
+Roborobo3
 =========
 
-Roborobo! is a fast and simple 2D mobile robot simulator written in C++ loosely based on a khepera/epuck model. It is targeted for fast single and multi-robots simulation (primary motivation is evolutionary robotics et swarm/collective robotics).
+Roborobo is a fast and simple 2D mobile robot simulator written in C++ loosely based on a khepera/epuck model. It is targeted for fast single and multi-robots simulation (primary motivation is evolutionary robotics et swarm/collective robotics).
 
-Roborobo3 is currently the __only__ supported version.
+Roborobo version 3 is currently the __only__ supported version.
 
 ###### __Dependencies__
  * SDL2
@@ -16,9 +16,13 @@ Roborobo3 is currently the __only__ supported version.
  * MacOSX
  * previously tried on: MS Windows, Raspbian, Pandora (though no support is provided)
 
-###### __Author__
+###### __Main author__
  * nicolas.bredeche(at)sorbonne-universite.fr
  * http://pages.isir.upmc.fr/~bredeche/
+
+###### __ Other contributors__
+
+ * Thanks to J.-M. Montanier, E. Haasdijk, B. Weel, A. Boumaza, A. Steyven, L. Cazenille, and many others.
 
 Installation and F.A.Q.
 =======================
