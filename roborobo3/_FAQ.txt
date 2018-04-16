@@ -107,7 +107,7 @@ A: It can be done in three ways: (1) within the GUI, use the 't' or shift+'t' co
 This is provided as is for quick vizualization, you may want something more complex/different. The correct way to get it is *not* to modify the code, but rather to dump the coordinates of your agents for external processing.
 
 Q: Roborobo seems to run slower on my Mac compared to a similar machine on Linux?
-A: SDL (ver. 1 and 2) implementations are slower on Mac... Ironically, there is a work-around: install Linux in Virtual Box (or Parallels) on your mac (the very mac which you think is slow), build and launch roborobo and... it will run faster. Up to 300% on my macbook pro. So ironic...
+A: Check the build target: debug or release?
 
 Q: [this might be deprecated for roborobo3 w/ SDL2] I tested roborobo for memory leaks with Valgrind, there are plenty of them!
 A: (if your code is not responsible for these:) SDL is responsible for them. Actually, these are not ''real'' memory leaks. Check the internet for further explanations. Or be reassured: you can safely ignore them.
