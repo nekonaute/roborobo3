@@ -82,7 +82,7 @@ std::string gCompileDate = __DATE__;
 
 
 std::string gPropertiesFilename = "config/template_wander_bigrobots.properties";
-std::string gCurrentBuildInfo   = "Trieste build (roborobo^3 w/ SDL2)";  // display through "-v[ersion]" command line option -- check/set value in config.h
+std::string gCurrentBuildInfo   = "Kyoto build (roborobo^3 w/ SDL2)";  // display through "-v[ersion]" command line option -- check/set value in config.h
 // start development: 2009
 // Bristol build -- june 2010
 // Krakow build -- sept 2010
@@ -94,7 +94,7 @@ std::string gCurrentBuildInfo   = "Trieste build (roborobo^3 w/ SDL2)";  // disp
 // Ljubljana build -- sept 2014 -- roborobo on github
 // Lutetia build -- sept 2015 -- roborobo^3 (major revision: switch to SDL2)
 // Tokyo build -- jan 2016 -- roborobo^3 (rev 1, public release on github)
-// Trieste build -- april 2018 -- roborobo^3 (rev 2, many improvements and fixes)
+// Kyoto build -- april 2018 -- roborobo^3 (rev 2, many improvements and fixes)
 
 ExtendedProperties gProperties;
 
