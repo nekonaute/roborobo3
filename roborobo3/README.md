@@ -20,9 +20,9 @@ Roborobo version 3 is currently the __only__ supported version.
  * nicolas.bredeche(at)sorbonne-universite.fr
  * http://pages.isir.upmc.fr/~bredeche/
 
-###### __ Other contributors__
+###### __Other contributors__
 
- * Thanks to J.-M. Montanier, E. Haasdijk, B. Weel, A. Boumaza, A. Steyven, L. Cazenille, and many others.
+ * Thanks to J.-M. Montanier, E. Haasdijk, B. Weel, A. Boumaza, A. Steyven, L. Cazenille, T. Grohens, P. Ecoffet, and many others.
 
 Installation and F.A.Q.
 =======================
