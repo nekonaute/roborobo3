@@ -3,7 +3,9 @@ Roborobo3
 
 Roborobo is a fast and simple 2D mobile robot simulator written in C++ loosely based on a khepera/epuck model. It is targeted for fast single and multi-robots simulation (primary motivation is evolutionary robotics et swarm/collective robotics).
 
-Roborobo version 3 is currently the __only__ supported version.
+Roborobo version 3 is currently the __only__ supported version. Current official release is (from: *roborobo.cpp*):
+ * *gVersion = 20180416*
+ * *gCurrentBuildInfo = Kyoto build*
 
 ###### __Dependencies__
  * SDL2
