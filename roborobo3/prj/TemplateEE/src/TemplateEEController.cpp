@@ -386,7 +386,6 @@ void TemplateEEController::stepController()
 			static_cast<ESNEigen*>(nn)->step(static_cast<size_t>(TemplateEESharedData::gESNStepsBySimulationStep));
 			break;
 		}
-
 		default:
 			nn->step();
 	}

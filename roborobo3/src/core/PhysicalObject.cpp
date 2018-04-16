@@ -187,6 +187,7 @@ void PhysicalObject::stepPhysicalObject()
                 findRandomLocation(); // fail: exit or return (x,y)=(-1,-1)
                 if ( getXReal() != -1 ) // check if new location is possible
                 {
+                    //std::cout << "REGROW!\n";
                     _visible = true;
                     registered = true;
                     registerObject();
