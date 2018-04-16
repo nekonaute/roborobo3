@@ -181,7 +181,10 @@ void World::updateWorld(const Uint8 *__keyboardStates)
     int shuffledObjectIndex[gNbOfPhysicalObjects];
     for ( int i = 0 ; i < gNbOfPhysicalObjects ; i++ )
         shuffledObjectIndex[i] = i;
-    std::random_shuffle(&shuffledObjectIndex[0], &shuffledObjectIndex[gNbOfPhysicalObjects]);
+    
+    std::shuffle(&shuffledObjectIndex[0], &shuffledObjectIndex[gNbOfPhysicalObjects],engine);
+    //std::random_shuffle(&shuffledObjectIndex[0], &shuffledObjectIndex[gNbOfPhysicalObjects]); // [!n] remove after 2018-5-1 - random_shuffle was not seeded, and uses rand() - thanks Amine.
+    
     for ( int i = 0 ; i < gNbOfPhysicalObjects ; i++ )
         gPhysicalObjects[shuffledObjectIndex[i]]->step();
     
@@ -201,7 +204,11 @@ void World::updateWorld(const Uint8 *__keyboardStates)
     int shuffledRobotIndex[gNbOfRobots];
     for ( int i = 0 ; i < gNbOfRobots ; i++ )
         shuffledRobotIndex[i] = i;
-    std::random_shuffle(&shuffledRobotIndex[0], &shuffledRobotIndex[gNbOfRobots]);
+    
+    std::shuffle(&shuffledRobotIndex[0], &shuffledRobotIndex[gNbOfRobots],engine);
+    //std::random_shuffle(&shuffledRobotIndex[0], &shuffledRobotIndex[gNbOfRobots]); // [!n] remove after 2018-5-1 - random_shuffle was not seeded, and uses rand() - thanks Amine.
+    
+    
     
 	// update agent level observers
 	for ( int i = 0 ; i != gNbOfRobots ; i++ )

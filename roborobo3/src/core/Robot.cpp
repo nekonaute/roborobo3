@@ -838,7 +838,7 @@ void Robot::show(SDL_Surface *surface) // display on screen
 
 void Robot::registerRobot()
 {
-    // [!n] CONVENTION: _agentId+gRobotIndexStartOffset to avoid confusion with empty space (0: empty ; 1: static object; 2-99: reserved for other static objects)
+    // BY CONVENTION: _agentId+gRobotIndexStartOffset to avoid confusion with empty space (0: empty ; 1: static object; 2-99: reserved for other static objects)
     register_robotMask( _x, _y, gEnvironmentImage, _wm->getId()+gRobotIndexStartOffset );
 }
 
