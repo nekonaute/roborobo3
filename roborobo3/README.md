@@ -18,6 +18,7 @@ Platforms:
 
 Author: 
  * nicolas.bredeche(at)sorbonne-universite.fr
+ * http://pages.isir.upmc.fr/~bredeche/
 
 Installation
 ============
