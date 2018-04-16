@@ -5,7 +5,7 @@ Roborobo! is a fast and simple 2D mobile robot simulator written in C++ loosely 
 
 Roborobo3 is currently the __only__ supported version.
 
-__Dependencies
+__Dependencies__
  * SDL2
  * SDL2_image
  * boost (headers-only)
@@ -20,15 +20,15 @@ __Author__
  * nicolas.bredeche(at)sorbonne-universite.fr
  * http://pages.isir.upmc.fr/~bredeche/
 
-Installation
-============
+Installation and F.A.Q.
+=======================
 
  * Check _INSTALL.TXT for __installation guide__ (incl. quick start).
  * Check _README.TXT for a __quick introduction__.
  * Check _FAQ.TXT for __trouble shooting__ and __frequently asked questions__.
 
-Citing roborobo
-===============
+How to cite roborobo in your publications
+=========================================
 
 If you use roborobo in your work, __please cite the following paper__:
 
