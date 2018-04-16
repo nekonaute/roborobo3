@@ -25,13 +25,13 @@ If roborobo is installed and running, and you want to quickly get into the code,
 
 ==== DESCRIPTION ====
 
-Roborobo! is a fast and simple 2D mobile robot simulator written in C++ loosely based on a khepera/epuck model. It is targeted for fast single and multi-robots simulation (primary motivation is evolutionary robotics et swarm/collective robotics). Its dependencies to external libraries are kept to the minimum (SDL 2 and BOOST) and the code rely on a simple philosophy: "Keep it simple". It can be compiled with a simple Makefile. And new projects can be introduced quickly and easily. Any new project can be created in a dedicated location in the prj/ directory, without any modifications to the roborobo core.
+Roborobo! is a fast and simple 2D mobile robot simulator written in C++ loosely based on a khepera/epuck model. It is targeted for fast single and multi-robots simulation (primary motivation is evolutionary robotics et swarm/collective robotics). Its dependencies to external libraries are kept to the minimum (SDL 2, BOOST and EIGEN) and the code rely on a simple philosophy: "Keep it simple". It can be compiled with a simple Makefile. And new projects can be introduced quickly and easily. Any new project can be created in a dedicated location in the prj/ directory, without any modifications to the roborobo core.
 
 Some random bits of information:
 - Robot position and mouvement are real-valued (ie. precise)
 - Collision is performed on a pixel-based information for fast speed (ie. fast but not precise)
 - both GUI mode and batch mode are available. Note that batch mode is the fastest mode (gBatchMode=true, gVerbose=false). It also makes it possible to run roborobo "headless", which is useful if you use a cluster of computers.
-- only two external dependencies: SDL2 and SDL2_image library (multi-platform fast 2D library), and the boost librairy, header-only.
+- only three external dependencies: SDL2 and SDL2_image library (multi-platform fast 2D library), the boost librairy (header-only) and Eigen (only required to use Echo State Network).
 - most parameters are to be found in the config/ subdirectory (e.g. default.properties)
 - full environment and robot specifications can set up directly with an image editor (check data directories). E.g. Robot proximity sensor positions are set up in the robot image. 
 - you can specify a properties file as command line option (see "./roborobo -h" for help)
@@ -50,6 +50,7 @@ Some random bits of information:
 The current version is Roborobo.3 (since 2016).
 Compared to version 1, it requires Boost as dependencies.
 Compared to version 2, it uses SDL2 instead of SDL1.2
+Compared to version 2 and version 3 prior to April 16th 2018, uses Eigen (to implement echo state networks)
 Of course, every version changes also included heavy useful upgrades.
 
 ==== CREDITS ====

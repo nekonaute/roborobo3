@@ -128,7 +128,7 @@ A: If you are running under Linux/Unix/MacOsX, the following commands are really
 		find . -name '*.bmp' -type f -delete
 
 Q: What are the dependencies?
-A: As of roborobo.3, only SDL2, boost (headers only) are required. Previous versions (<3) use SDL1.2, SDL1.2_image and boost (headers only)
+A: As of roborobo.3, only SDL2, boost (headers only) are required. Previous versions (<3) use SDL1.2, SDL1.2_image and boost (headers only). Also uses Eigen to implement echo state networks.
 
 Q: Should I use g++ (or gcc) or clang++?
 A: both works. Dont forget to edit the Makefile.Modular to set the right compiler, and re-generate a Makefile with the ./makefile-manager script.
@@ -159,9 +159,13 @@ Troubleshooting:
 
 Q: I use Xcode. I have some strange error when compiling: "linker command failed with exit code 1". It seems to point to a source that is already registered in my project, but which is not compiled...?
 A: This is usually due to the source file being in your project tab (the left window of Xcode), but not registered as source to be compiler. To change that, click on the project name (upper-left), then select ''Roborobo3'' as target (not as project), then ''Build phases'', then ''Compile Sources''. Note that this is a common error when cloning a project and adding the source files to Xcode project.
+        Summary: go to [Roborobo3] (left-tab) => [Build Phases] => [Compile Sources] and add your CPP file(s)
 
 Q: I am using some python script from the tools sub-directory (or wherever) and I get an error with the message ending with "raise ValueError, 'unknown locale: %s' % localename" and "ValueError: unknown locale: UTF-8". (Ubuntu or MacOS).
 A: Your script tries to import matplotlib and the LC_ALL environment variable is not properly defined. Solution: type "export LC_ALL=$LANG" in the terminal before running your python script (or put it in your login profile). Testing can be done by launching python interactive, then "import locale" then "locale.getdefaultlocale()" (raises the same error).
+
+Q: I am using some of your python script and it does not work...?
+A: Check which version is required for your script (Python 2 or 3?). Or, if in the tools sub-dir, it might just be that it is under development.
 
 Q: How to make a video out of all these BMP files in the log directory?
 A: There are many ways, and the answer is out-of-scope from this FAQ. Anyway, with ubuntu and macOS, I installed mplayer and use the following command-line:
@@ -169,6 +173,10 @@ A: There are many ways, and the answer is out-of-scope from this FAQ. Anyway, wi
 
 Q: Roborobo sometimes generate a *lot* of data.
 A: Yep. The BMP files takes a lot, you may want to create less of them (change parameters in the properties file) or to compress them (e.g. convert to JPG). You can also make a video out of them. The datalog files also are quite big. You can zip/tgz them, and you can also change the code to generate less data.
+
+Q: How to install Eigen on MacOS with Xcode?
+A: check out https://stackoverflow.com/questions/35658420/installing-eigen-on-mac-os-x-for-xcode
+
 
 -n
 

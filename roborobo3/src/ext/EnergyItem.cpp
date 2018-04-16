@@ -84,9 +84,8 @@ void EnergyItem::isWalked( int __idAgent )
             break;
     }
 
-    registered = false;
-
     unregisterObject();
+    registered = false;
     hide();
     _visible = false;
 }
