@@ -165,7 +165,7 @@ namespace Neural {
 			 */
 			inline static std::string getNNTypeName() { return "ESNEigen"; }
 
-			virtual size_t getNbNeurons();
+			virtual size_t getNbNeurons() override;
 
 			/**
 			 * @return the id of the first input neuron in the weights matrix and in neuronsValues vector

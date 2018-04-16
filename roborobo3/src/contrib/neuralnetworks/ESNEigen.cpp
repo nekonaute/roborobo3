@@ -5,7 +5,7 @@
  *
  */
 
-#include <neuralnetworks/ESN/ESNEigen.h>
+#include <neuralnetworks/ESNEigen.h>
 #include <neuralnetworks/NeuralNetwork.h>
 #include <sstream>
 #include <memory>
@@ -302,7 +302,7 @@ unsigned int ESNEigen::computeRequiredNumberOfWeights() {
 	if(_allowOutputToReservoirConnections)
 		result += _nbOutputs * _reservoirSize;
 
-	return result;
+	return (int)result;
 }
 
 

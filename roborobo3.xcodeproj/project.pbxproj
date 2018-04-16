@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		37000B452084E00C009CDA00 /* ESNEigen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37000B442084E00C009CDA00 /* ESNEigen.cpp */; };
 		3705F05C1BC66E21001A016D /* TemplateBoidsConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3705F0591BC66E21001A016D /* TemplateBoidsConfigurationLoader.cpp */; };
 		3705F05E1BC66E21001A016D /* TemplateWanderConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3705F05B1BC66E21001A016D /* TemplateWanderConfigurationLoader.cpp */; };
 		3705F07E1BC66E3B001A016D /* TemplateBoidsAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3705F0661BC66E3B001A016D /* TemplateBoidsAgentObserver.cpp */; };
@@ -20,7 +21,6 @@
 		373976271BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976241BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp */; };
 		373976281BCFAED500A007BF /* TemplateRandomwalkController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976251BCFAED500A007BF /* TemplateRandomwalkController.cpp */; };
 		373976291BCFAED500A007BF /* TemplateRandomwalkWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976261BCFAED500A007BF /* TemplateRandomwalkWorldObserver.cpp */; };
-		3763886A2044A12700664AB4 /* ESNEigen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3763886720449E4D00664AB4 /* ESNEigen.cpp */; };
 		3766DF721E29125D0069E44C /* TemplateVanillaEEAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3766DF6E1E29125D0069E44C /* TemplateVanillaEEAgentObserver.cpp */; };
 		3766DF731E29125D0069E44C /* TemplateVanillaEEController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3766DF6F1E29125D0069E44C /* TemplateVanillaEEController.cpp */; };
 		3766DF741E29125D0069E44C /* TemplateVanillaEESharedData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3766DF701E29125D0069E44C /* TemplateVanillaEESharedData.cpp */; };
@@ -97,6 +97,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		37000B442084E00C009CDA00 /* ESNEigen.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ESNEigen.cpp; sourceTree = "<group>"; };
+		37000B462084E013009CDA00 /* ESNEigen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESNEigen.h; sourceTree = "<group>"; };
 		3705F0561BC66E03001A016D /* TemplateBoidsConfigurationLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateBoidsConfigurationLoader.h; sourceTree = "<group>"; };
 		3705F0581BC66E03001A016D /* TemplateWanderConfigurationLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateWanderConfigurationLoader.h; sourceTree = "<group>"; };
 		3705F0591BC66E21001A016D /* TemplateBoidsConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateBoidsConfigurationLoader.cpp; sourceTree = "<group>"; };
@@ -133,8 +135,6 @@
 		3739762A1BD0EC6200A007BF /* _FAQ.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _FAQ.txt; path = roborobo3/_FAQ.txt; sourceTree = "<group>"; };
 		3739762B1BD0EC6200A007BF /* _INSTALL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _INSTALL.txt; path = roborobo3/_INSTALL.txt; sourceTree = "<group>"; };
 		3739762C1BD0EC6200A007BF /* _README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _README.txt; path = roborobo3/_README.txt; sourceTree = "<group>"; };
-		3763886720449E4D00664AB4 /* ESNEigen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ESNEigen.cpp; sourceTree = "<group>"; };
-		3763886920449E6300664AB4 /* ESNEigen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ESNEigen.h; sourceTree = "<group>"; };
 		3766DF691E29125D0069E44C /* TemplateVanillaEEAgentObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEAgentObserver.h; sourceTree = "<group>"; };
 		3766DF6A1E29125D0069E44C /* TemplateVanillaEEController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEController.h; sourceTree = "<group>"; };
 		3766DF6B1E29125D0069E44C /* TemplateVanillaEESharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEESharedData.h; sourceTree = "<group>"; };
@@ -389,22 +389,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		3763886620449E4D00664AB4 /* ESN */ = {
-			isa = PBXGroup;
-			children = (
-				3763886720449E4D00664AB4 /* ESNEigen.cpp */,
-			);
-			path = ESN;
-			sourceTree = "<group>";
-		};
-		3763886820449E6300664AB4 /* ESN */ = {
-			isa = PBXGroup;
-			children = (
-				3763886920449E6300664AB4 /* ESNEigen.h */,
-			);
-			path = ESN;
-			sourceTree = "<group>";
-		};
 		3766DF671E29125D0069E44C /* TemplateVanillaEE */ = {
 			isa = PBXGroup;
 			children = (
@@ -578,7 +562,7 @@
 		37BA26291BC3D014002DF5DC /* neuralnetworks */ = {
 			isa = PBXGroup;
 			children = (
-				3763886820449E6300664AB4 /* ESN */,
+				37000B462084E013009CDA00 /* ESNEigen.h */,
 				37BA262A1BC3D014002DF5DC /* Elman.h */,
 				37BA262B1BC3D014002DF5DC /* LayeredNeuralNetwork.h */,
 				37BA262C1BC3D014002DF5DC /* MLP.h */,
@@ -773,7 +757,7 @@
 		37BA26D91BC3D014002DF5DC /* neuralnetworks */ = {
 			isa = PBXGroup;
 			children = (
-				3763886620449E4D00664AB4 /* ESN */,
+				37000B442084E00C009CDA00 /* ESNEigen.cpp */,
 				37BA26DA1BC3D014002DF5DC /* Elman.cpp */,
 				37BA26DB1BC3D014002DF5DC /* LayeredNeuralNetwork.cpp */,
 				37BA26DC1BC3D014002DF5DC /* MLP.cpp */,
@@ -956,6 +940,7 @@
 				37B4505C1FE074D600B50263 /* ForagingRegionsConfigurationLoader.cpp in Sources */,
 				37BA27541BC3D014002DF5DC /* LandmarkObject.cpp in Sources */,
 				376C24571E28BB8800E70850 /* TemplateEEWorldObserver.cpp in Sources */,
+				37000B452084E00C009CDA00 /* ESNEigen.cpp in Sources */,
 				37BA27491BC3D014002DF5DC /* SquareObject.cpp in Sources */,
 				376C24551E28BB8800E70850 /* TemplateEEController.cpp in Sources */,
 				37BA27331BC3D014002DF5DC /* NeuralNetworkException.cpp in Sources */,
@@ -971,7 +956,6 @@
 				37BA273F1BC3D014002DF5DC /* Graphics.cpp in Sources */,
 				373976271BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp in Sources */,
 				3705F0861BC66E3B001A016D /* TemplateWanderAgentObserver.cpp in Sources */,
-				3763886A2044A12700664AB4 /* ESNEigen.cpp in Sources */,
 				37BA273D1BC3D014002DF5DC /* ExtendedProperties.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

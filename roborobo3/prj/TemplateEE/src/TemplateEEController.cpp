@@ -12,7 +12,7 @@
 #include "neuralnetworks/MLP.h"
 #include "neuralnetworks/Perceptron.h"
 #include "neuralnetworks/Elman.h"
-#include "neuralnetworks/ESN/ESNEigen.h"
+#include "neuralnetworks/ESNEigen.h"
 #include "Utilities/Misc.h"
 
 using namespace Neural;
