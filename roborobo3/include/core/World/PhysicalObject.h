@@ -75,13 +75,12 @@ public :
     
     void setType ( int __type ) { type = __type; }
     
-
     virtual void step() = 0;
-    void stepPhysicalObject(); // default step method. Suggested: call this method from step().
+    virtual void stepPhysicalObject() final; // default step method. Suggested: call this method from step(). Do not override.
     
     virtual bool canRegister() = 0; // test if register object is possible (use both shape or footprints)
     
-    void registerObject(); // register object in the world (write images) -- object-specific implementation. When implementing, call super class.
+    virtual void registerObject(); // register object in the world (write images) -- object-specific implementation. When implementing, call super class.
     
     virtual void unregisterObject() = 0; // unregister object in the world (write blank pixels)
 
