@@ -10,9 +10,12 @@
 #include "RoboroboMain/roborobo.h"
 #include "Utilities/Graphics.h"
 #include "Utilities/Misc.h"
+#include "WorldModels/RobotWorldModel.h"
+#include "Agents/Robot.h"
 
 int gSnapshotIndex = 0;
 int gRenderScreenshotIndex = 0; // numbering screenshots
+int gFullLoggerScreenshotIndex = 0; // number calls to full logger
 int gEnvironmentScreenshotIndex = 0;
 int gFootprintScreenshotIndex = 0;
 int gTrajectoryFileIndex = 0; // numbering trajectory images (used by saveTrajectoryImage(...))
@@ -157,6 +160,111 @@ void saveRenderScreenshot( std::string __comment) // parameter is optional
 
     gRenderScreenshotIndex++;
 }
+
+void saveFullLoggerScreenshot( std::string __comment) // parameter is optional
+{
+    std::string screenShotIndexStr = convertToString(gFullLoggerScreenshotIndex);
+    
+    while( screenShotIndexStr.length() < 9 )
+    {
+        screenShotIndexStr =  "0" + screenShotIndexStr;
+    }
+
+    std::string comment = "";
+    if ( __comment != "" )
+        comment += "_" + __comment;
+    
+    saveImage(gScreen,"fullLogger_gScreen",screenShotIndexStr+comment);
+    saveImage(gEnvironmentImage,"fullLogger_gEnvironmentImage",screenShotIndexStr+comment);
+    saveImage(gFootprintImage,"fullLogger_gFootprintImage",screenShotIndexStr+comment);
+    
+    std::string filename = gLogDirectoryname + "/fullLogger_" + gStartTime + "_" + getpidAsReadableString() + "_" + screenShotIndexStr + comment + ".txt";
+
+    std::ofstream file;
+    file.open(filename.c_str());
+    
+    if(!file) {
+        std::cout << "[error] Cannot open Full Logger text file " << std::endl;
+        exit (-1);
+    }
+    
+    std::string s = "### ### ###\n### Full logger\n\n### ### ###\n";
+    
+    s += "#\n#\n# Robots\n";
+    s += "#\n# id, x, y, orientation, groupId, LED_redValue, LED_greenValue, LED_blueValue, energyLevel, isAlive, isRegistered\n";
+    s += "#\n#\n";
+   
+    for ( int i = 0 ; i < gNbOfRobots ; i++ )
+    {
+        int x,y;
+        gRobots[i]->getCoord(x, y);
+        
+        std::stringstream out;
+        out << gRobots[i]->getWorldModel()->getId();
+        out << ",";
+        out << x;
+        out << ",";
+        out << y;
+        out << ",";
+        out << gRobots[i]->getWorldModel()->_agentAbsoluteOrientation;
+        out << ",";
+        out << gRobots[i]->getWorldModel()->getGroupId();
+        out << ",";
+        out << gRobots[i]->getWorldModel()->getRobotLED_redValue();
+        out << ",";
+        out << gRobots[i]->getWorldModel()->getRobotLED_greenValue();
+        out << ",";
+        out << gRobots[i]->getWorldModel()->getRobotLED_blueValue();
+        out << ",";
+        out << gRobots[i]->getWorldModel()->getEnergyLevel();
+        out << ",";
+        out << gRobots[i]->getWorldModel()->isAlive();
+        out << ",";
+        out << gRobotsRegistry[i];
+        out << "\n";
+        s += out.str();
+    }
+    
+    s += "#\n#\n# Physical Objects\n";
+    s += "#\n# id, x, y, isVisible\n";
+    s += "#\n#\n";
+    
+    for ( int i = 0 ; i < gNbOfPhysicalObjects ; i++ )
+    {
+        std::stringstream out;
+        out << gPhysicalObjects[i]->getXCenterPixel();
+        out << ",";
+        out << gPhysicalObjects[i]->getYCenterPixel();
+        out << ",";
+        out << gPhysicalObjects[i]->isVisible();
+        out << "\n";
+        s += out.str();
+    }
+
+    s += "#\n#\n# Landmarks\n";
+    s += "#\n# id, x, y\n";
+    s += "#\n#\n";
+
+    for ( int i = 0 ; i < gNbOfLandmarks ; i++ )
+    {
+        Point2d pos = gLandmarks[i]->getCoordinates();
+        std::stringstream out;
+        out << i;
+        out << ",";
+        out << pos.x;
+        out << ",";
+        out << pos.y;
+        out << "\n";
+        s += out.str();
+    }
+    
+    file << s;
+
+    file.close();
+
+    gFullLoggerScreenshotIndex++;
+}
+
 
 void saveEnvironmentScreenshot( std::string __comment) // parameter is optional
 {

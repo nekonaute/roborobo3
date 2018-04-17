@@ -99,6 +99,7 @@ std::string gCurrentBuildInfo   = "Kyoto build (roborobo^3 w/ SDL2)";  // displa
 ExtendedProperties gProperties;
 
 bool gVideoRecording = false;
+bool gFullLoggerRecording = false;
 bool gOutputImageFormat = false; // default: PNG. (if True: BMP)
 
 
@@ -591,6 +592,36 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 		}
         
         
+        if ( keyboardStates[ SDL_SCANCODE_R ] ) // full logger screenshot and sequence (used for 3rd-party rendering/analysing)
+        {
+            if ( keyboardStates[ SDL_SCANCODE_RSHIFT ] || keyboardStates[ SDL_SCANCODE_LSHIFT ] )
+            {
+                // start/stop recording of full logger information
+                
+                gFullLoggerRecording = !gFullLoggerRecording;
+                
+                if ( gVerbose )
+                {
+                    if ( gFullLoggerRecording )
+                        std::cout << "Starting recording of full logging information (shift+r to stop)." << std::endl;
+                    else
+                        std::cout << "Stopping recording of full logging information." << std::endl;
+                }
+            }
+            else
+            {
+                // save screenshot
+                
+                saveFullLoggerScreenshot();
+                
+                if ( gVerbose )
+                    std::cout << "Full log saved." << std::endl;
+            }
+            
+            SDL_Delay(PAUSE_COMMAND); // 200ms delay
+        }
+
+        
 		if ( keyboardStates[ SDL_SCANCODE_T ] ) // build/dump image with robot trajectories
 		{
             if ( !gTrajectoryMonitor ) // check if start or stop
@@ -896,6 +927,7 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
         {
             saveCustomScreenshot("firstIteration");
             saveRenderScreenshot("firstIteration");
+            saveFullLoggerScreenshot("firstIteration");
             saveEnvironmentScreenshot("firstIteration");
             saveFootprintScreenshot("firstIteration");
             
@@ -906,6 +938,7 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
             {
                 saveCustomScreenshot("lastIteration");
                 saveRenderScreenshot("lastIteration");
+                saveFullLoggerScreenshot("lastIteration");
                 saveEnvironmentScreenshot("lastIteration");
                 saveFootprintScreenshot("lastIteration");
             }
@@ -934,6 +967,10 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
         // video capture (sync with screen update)
         if ( gVideoRecording == true )
             saveRenderScreenshot("movie");
+        
+        // Full logger capture: all images + log
+        if ( gFullLoggerRecording == true )
+            saveFullLoggerScreenshot("sequence");
     }
     
     if ( gWorld->getIterations() == 1 )

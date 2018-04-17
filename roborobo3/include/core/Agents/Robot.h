@@ -28,8 +28,6 @@ class Robot : public Agent
 	
 		RobotWorldModel *_wm;
 
-        int _groupId; // used for seperating populations
-    
 		// real displacement (x/y format, delta applied to real coordinates (_xReal,_yReal))
 		double _xDeltaReal;
 		double _yDeltaReal;

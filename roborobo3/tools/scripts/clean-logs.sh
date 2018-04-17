@@ -10,4 +10,5 @@ rm -f *.eps
 rm -f log.txt
 rm -f extract*.dat*
 rm -f output.std*
+rm -f fullLogger_*
 

@@ -14,6 +14,7 @@
 
 extern int gSnapshotIndex;
 extern int gRenderScreenshotIndex;
+extern int gFullLoggerScreenshotIndex;
 extern int gEnvironmentScreenshotIndex; 
 extern int gTrajectoryImageIndex;
 
@@ -64,8 +65,9 @@ void toggle_fullscreen();
 
 SDL_Surface *load_image( std::string filename );
 
-void saveCustomScreenshot( std::string __comment = "");
-void saveRenderScreenshot( std::string __comment = "");
+void saveCustomScreenshot( std::string __comment = "" );
+void saveRenderScreenshot( std::string __comment = "" );
+void saveFullLoggerScreenshot( std::string __comment = "" );
 void saveEnvironmentScreenshot( std::string __comment = "" );
 void saveFootprintScreenshot( std::string __comment = "" );
 
