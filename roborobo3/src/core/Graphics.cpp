@@ -174,7 +174,9 @@ void saveFullLoggerScreenshot( std::string __comment) // parameter is optional
     if ( __comment != "" )
         comment += "_" + __comment;
     
-    saveImage(gScreen,"fullLogger_gScreen",screenShotIndexStr+comment);
+    if ( gDisplayMode != 2 )
+        saveImage(gScreen,"fullLogger_gScreen",screenShotIndexStr+comment);
+    
     saveImage(gEnvironmentImage,"fullLogger_gEnvironmentImage",screenShotIndexStr+comment);
     saveImage(gFootprintImage,"fullLogger_gFootprintImage",screenShotIndexStr+comment);
     

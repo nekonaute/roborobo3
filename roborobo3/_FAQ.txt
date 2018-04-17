@@ -177,6 +177,7 @@ A: Yep. The BMP files takes a lot, you may want to create less of them (change p
 Q: How to install Eigen on MacOS with Xcode?
 A: check out https://stackoverflow.com/questions/35658420/installing-eigen-on-mac-os-x-for-xcode
 
+Q: How to record all displayed information?
+A: It can be done by using the saveFullLoggerScreenshot() method. It records the environment image (objects and robots), the image footprint (object footprint) and a text file that contains all information that can observed externally (coordinates, orientation, LED RGB values and so on, also including landmark positions). If the display mode is either 0 or 1, it also record a snapshot of the rendered scene. It can be triggered either by using the "r" key (snapshot) or "shift+r" keys (start/stop sequence), or by changing the boolean value of gFullLoggerRecording. Note that full logging is both computationally and memory expensive. Information obtained that way can be used for detail analysis/debugging or 3rd party software rendering (e.g. draw a nice (but accurate) 3D rendering or your scene).
 
 -n
-

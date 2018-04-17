@@ -375,9 +375,9 @@ void displayHelp()
 		
 		//std::cout << "       n : radio network communication on/off (unused)" << std::endl;
 		std::cout << "       d : set display mode (shift+d: reverse)" << std::endl;
-        std::cout << "       \t (1) default-60-fps;" << std::endl;
-        std::cout << "       \t (2) fast;" << std::endl;
-        std::cout << "       \t (3) fastest-no-display." << std::endl;
+        std::cout << "       \t (0) default-60-fps;" << std::endl;
+        std::cout << "       \t (1) fast;" << std::endl;
+        std::cout << "       \t (2) fastest-no-display." << std::endl;
 		std::cout << "       v : verbose on/off (console)" << std::endl;
 		std::cout << "       p : pause/freeze simulation (display mode)"  << std::endl;
         std::cout << "       \t use <space> for step-by-step update" << std::endl;
@@ -401,6 +401,10 @@ void displayHelp()
         std::cout << "       \t save images to disk (in ./logs) (display mode)" << std::endl;
         std::cout << "       T : start/stop tracking trajectories (target agent)" << std::endl;
         std::cout << "       \t save images to disk (in ./logs) (display mode)" << std::endl;
+        std::cout << "       r : record a full logger screenshot" << std::endl;
+        std::cout << "       \t save image to disk (in ./logs) (any mode)" << std::endl;
+        std::cout << "       \t screenshot provided only with display mode 0 or 1)" << std::endl;
+        std::cout << "       R : full logger recording start/stop" << std::endl;
         
 		std::cout << "   <tab> : switch focus to next agent (shift+o: previous agent)" << std::endl;
 		std::cout << " <enter> : (in agent following mode) trigger manual agent control mode" << std::endl;
@@ -968,10 +972,11 @@ void updateDisplay() // display is called starting when gWorld->getIterations > 
         if ( gVideoRecording == true )
             saveRenderScreenshot("movie");
         
-        // Full logger capture: all images + log
-        if ( gFullLoggerRecording == true )
-            saveFullLoggerScreenshot("sequence");
     }
+
+    // Full logger capture: all images + log
+    if ( gFullLoggerRecording == true )
+        saveFullLoggerScreenshot("sequence"); // note that screen will be blank if display mode is 2
     
     if ( gWorld->getIterations() == 1 )
         gDisplayMode = backup_gDisplayMode;
