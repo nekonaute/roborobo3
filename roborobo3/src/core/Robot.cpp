@@ -149,7 +149,9 @@ void Robot::reset()
         _wm->setGroupId(groupId);
     }
     else
+    {
         _wm->setGroupId(0);
+    }
     
 	std::string str_Xcoord = "";
 	str_Xcoord += "robot[";
@@ -298,7 +300,9 @@ void Robot::reset()
 	}
     
     for ( int i = 0 ; i < 3 ; i++ )
+    {
         _wm->_groundSensorValue[i] = 0; // floor sensor value (taken from gFootprintImage)
+    }
 	
 	// Initialize agent observer and Behavior Control Architecture
   

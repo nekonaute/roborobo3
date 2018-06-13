@@ -227,13 +227,15 @@ void saveFullLoggerScreenshot( std::string __comment) // parameter is optional
         s += out.str();
     }
     
-    s += "#\n#\n# Physical Objects\n";
+    s += "### ### ###\n#\n# Physical Objects\n";
     s += "#\n# id, x, y, isVisible\n";
     s += "#\n#\n";
     
     for ( int i = 0 ; i < gNbOfPhysicalObjects ; i++ )
     {
         std::stringstream out;
+        out << i;
+        out << ",";
         out << gPhysicalObjects[i]->getXCenterPixel();
         out << ",";
         out << gPhysicalObjects[i]->getYCenterPixel();
@@ -243,7 +245,7 @@ void saveFullLoggerScreenshot( std::string __comment) // parameter is optional
         s += out.str();
     }
 
-    s += "#\n#\n# Landmarks\n";
+    s += "### ### ###\n#\n# Landmarks\n";
     s += "#\n# id, x, y\n";
     s += "#\n#\n";
 

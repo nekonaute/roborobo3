@@ -1473,7 +1473,7 @@ bool loadProperties( std::string __propertiesFilename )
     gProperties.checkAndGetPropertyValue("gFootprintImage_restoreOriginal",&gFootprintImage_restoreOriginal,false);
     
     //gProperties.checkAndGetPropertyValue("gExtendedSensoryInputs",&gExtendedSensoryInputs,false);
-    gProperties.checkAndGetPropertyValue("gSensoryInputs_distanceToContact",&gSensoryInputs_distanceToContact,true);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_distanceToContact",&gSensoryInputs_distanceToContact,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_physicalObjectType",&gSensoryInputs_physicalObjectType,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_isOtherAgent",&gSensoryInputs_isOtherAgent,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_otherAgentSameGroup",&gSensoryInputs_otherAgentSameGroup,false);
@@ -1508,7 +1508,9 @@ bool loadProperties( std::string __propertiesFilename )
     gProperties.checkAndGetPropertyValue("gReentrantMapping_virtualOutputs",&gReentrantMapping_virtualOutputs,false);
     
     if ( gProperties.hasProperty("gVirtualOutputs") )
+    {
         convertFromString<int>(gVirtualOutputs, gProperties.getProperty("gVirtualOutputs"), std::dec);
+    }
     else
     {
         std::cerr << "[MISSING] gVirtualOutputs value is missing. Assume value is 0.\n";
@@ -1516,7 +1518,9 @@ bool loadProperties( std::string __propertiesFilename )
     }
     
 	if ( gProperties.hasProperty("gInitialNumberOfRobots") )
+    {
 		convertFromString<int>(gInitialNumberOfRobots, gProperties.getProperty("gInitialNumberOfRobots"), std::dec);
+    }
 	else
 	{
 		std::cerr << "[MISSING] gInitialNumberOfRobots value is missing.\n";
@@ -1524,7 +1528,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
 	if ( gProperties.hasProperty("gLocationFinderMaxNbOfTrials") )
+    {
 		convertFromString<int>(gLocationFinderMaxNbOfTrials, gProperties.getProperty("gLocationFinderMaxNbOfTrials"), std::dec);
+    }
 	else
 	{
 		std::cerr << "[MISSING] gLocationFinderMaxNbOfTrials value is missing.\n";
@@ -1532,7 +1538,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 
     if ( gProperties.hasProperty("gPhysicalObjectIndexStartOffset") )
+    {
 		convertFromString<int>(gPhysicalObjectIndexStartOffset, gProperties.getProperty("gPhysicalObjectIndexStartOffset"), std::dec);
+    }
 	else
 	{
 		std::cerr << "[MISSING] gPhysicalObjectIndexStartOffset value is missing.\n";
@@ -1540,7 +1548,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 
     if ( gProperties.hasProperty("gRobotIndexStartOffset") )
+    {
 		convertFromString<int>(gRobotIndexStartOffset, gProperties.getProperty("gRobotIndexStartOffset"), std::dec);
+    }
 	else
 	{
 		std::cerr << "[MISSING] gRobotIndexStartOffset value is missing.\n";
@@ -1580,7 +1590,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 		
 	if ( gProperties.hasProperty("gScreenHeight") )
+    {
 		convertFromString<int>(gScreenHeight, gProperties.getProperty("gScreenHeight"), std::dec);
+    }
 	else
 	{
 		std::cerr << "[MISSING] gScreenHeight value is missing.\n";
@@ -1588,7 +1600,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
 	if ( gProperties.hasProperty("gScreenWidth") )
+    {
 		convertFromString<int>(gScreenWidth, gProperties.getProperty("gScreenWidth"), std::dec);
+    }
 	else
 	{
 		std::cerr << "[MISSING] gScreenWidth value is missing.\n";
@@ -1596,7 +1610,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
     if ( gProperties.hasProperty("gScreenDisplayHeight") )
+    {
         convertFromString<int>(gScreenDisplayHeight, gProperties.getProperty("gScreenDisplayHeight"), std::dec);
+    }
     else
     {
         std::cerr << "[INFO] gScreenDisplayHeight not defined, using gScreenDisplayHeight value.\n";
@@ -1604,7 +1620,9 @@ bool loadProperties( std::string __propertiesFilename )
     }
     
     if ( gProperties.hasProperty("gScreenDisplayWidth") )
+    {
         convertFromString<int>(gScreenDisplayWidth, gProperties.getProperty("gScreenDisplayWidth"), std::dec);
+    }
     else
     {
         std::cerr << "[INFO] gScreenDisplayWidth not defined, using gScreenDisplayWidth value.\n";
@@ -1612,7 +1630,9 @@ bool loadProperties( std::string __propertiesFilename )
     }
 
     if ( gProperties.hasProperty("gSensorRange") )
+    {
 		convertFromString<int>(gSensorRange, gProperties.getProperty("gSensorRange"), std::dec);
+    }
 	else
 	{
 		std::cerr << "[MISSING] gSensorRange value is missing.\n";
@@ -1620,9 +1640,13 @@ bool loadProperties( std::string __propertiesFilename )
 	}
     
     if ( gProperties.hasProperty("gTailLength") )
+    {
         convertFromString<int>(gTailLength, gProperties.getProperty("gTailLength"), std::dec);
+    }
     else
+    {
         std::cerr << "[MISSING] gTailLength value is missing. Assume default value (" << gTailLength << ").\n";
+    }
 
     if ( gProperties.hasProperty("gMaxRadioDistance") )
 	{
@@ -1653,8 +1677,11 @@ bool loadProperties( std::string __propertiesFilename )
     
     s = gProperties.getProperty("gLocationFinderExitOnFail");
     if ( s == "true" || s == "True" || s == "TRUE" )
+    {
         gLocationFinderExitOnFail = true;
+    }
     else
+    {
         if ( s == "false" || s == "False" || s == "FALSE" )
         {
             gLocationFinderExitOnFail = false;
@@ -1665,242 +1692,355 @@ bool loadProperties( std::string __propertiesFilename )
             std::cerr << "[WARNING] gLocationFinderExitOnFail is missing or corrupt (default is \"true\").\n";
             //returnValue = false; // not critical
         }
-    
+    }
+
 	s = gProperties.getProperty("gRobotDisplayFocus");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
+	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gRobotDisplayFocus = true;
+    }
 	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
+    {
+		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gRobotDisplayFocus = false;
+        }
 		else
 		{
 			std::cerr << "[WARNING] gRobotDisplayFocus is missing or corrupt (default is \"false\").\n";
 			//returnValue = false; // not critical
-		}	
+		}
+    }
 
     if ( gBatchMode_commandlineargument == false )
     {
         s = gProperties.getProperty("gBatchMode");
         if ( s == "true" || s == "True" || s == "TRUE" )
+        {
             gBatchMode = true;
+        }
         else
+        {
             if ( s == "false" || s == "False" || s == "FALSE" )
+            {
                 gBatchMode = false;
+            }
             else
             {
                 std::cerr << "[CORRUPT] gBatchMode should be boolean (\"true\" or \"false\").\n";
                 returnValue = false;
             }
+        }
     }
     else
+    {
         std::cout << "[INFO] gBatchMode value set as command-line paramater.\n";
+    }
 		
 	s = gProperties.getProperty("gTrajectoryMonitor");
 	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gTrajectoryMonitor = true;
+    }
 	else
+    {
 		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gTrajectoryMonitor = false;
+        }
 		else
 		{
 			std::cerr << "[WARNING] gTrajectoryMonitor is missing or corrupt (default is \"false\").\n";
 			//returnValue = false;
 		}
+    }
     
 	s = gProperties.getProperty("gVideoRecording");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
+	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gVideoRecording = true;
+    }
 	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
+    {
+		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gVideoRecording = false;
+        }
 		else
 		{
 			std::cerr << "[WARNING] gVideoRecording is missing or corrupt (default is \"false\").\n";
 			//returnValue = false;
 		}
+    }
     
     s = gProperties.getProperty("gOutputImageFormat");
     if ( s == "BMP" || s == "bmp" )
+    {
         gOutputImageFormat = true;
+    }
     else
+    {
         if ( s == "PNG" || s == "png" )
+        {
             gOutputImageFormat = false;
+        }
         else
         {
             std::cerr << "[WARNING] gOutputImageFormat is missing or unknown (default is PNG).\n";
             gOutputImageFormat = false;
             //returnValue = false;
         }
+    }
     
 	s = gProperties.getProperty("gRobotLEDdisplay");
 	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gRobotLEDdisplay = true;
+    }
 	else
+    {
 		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gRobotLEDdisplay = false;
+        }
 		else
 		{
 			std::cerr << "[WARNING] gRobotLEDdisplay is missing (default is \"true\").\n";
 			//returnValue = false;
 		}
+    }
     
 	s = gProperties.getProperty("gDisplayTail");
 	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gDisplayTail = true;
+    }
 	else
+    {
 		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gDisplayTail = false;
+        }
 		else
 		{
 			std::cerr << "[WARNING] gDisplayTail is missing (default is \"true\").\n";
 			//returnValue = false;
 		}
+    }
     
 	s = gProperties.getProperty("gPhysicalObjectsRedraw");
 	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gPhysicalObjectsRedraw = true;
+    }
 	else
+    {
 		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gPhysicalObjectsRedraw = false;
+        }
 		else
 		{
 			std::cerr << "[CORRUPT] gPhysicalObjectsRedraw should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
+    }
 
 	s = gProperties.getProperty("gMonitorRobot");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
+	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gMonitorRobot = true;
+    }
 	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
+    {
+		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gMonitorRobot = false;
+        }
 		else
 		{
 			std::cerr << "[CORRUPT] gMonitorRobot should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
-		
+    }
+    
 	s = gProperties.getProperty("gInspectorAgent");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
+	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gInspectorAgent = true;
+    }
 	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
+    {
+		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gInspectorAgent = false;
+        }
 		else
 		{
 			std::cerr << "[CORRUPT] gInspectorAgent should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
-	
+    }
+    
 	s = gProperties.getProperty("gInspectorMode");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
+	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gInspectorMode = true;
+    }
 	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
+    {
+		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gInspectorMode = false;
+        }
 		else
 		{
 			std::cerr << "[CORRUPT] gInspectorMode should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
-
+    }
+    
 	s = gProperties.getProperty("gNiceRendering");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
+	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gNiceRendering = true;
+    }
 	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
+    {
+		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gNiceRendering = false;
+        }
 		else
 		{
 			std::cerr << "[CORRUPT] gNiceRendering should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
+    }
 
 	s = gProperties.getProperty("gPauseMode");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
+	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gPauseMode = true;
+    }
 	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
+    {
+		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gPauseMode = false;
+        }
 		else
 		{
 			std::cerr << "[CORRUPT] gPauseMode should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
-
+    }
+    
 	s = gProperties.getProperty("gUserCommandMode");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
+	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gUserCommandMode = true;
+    }
 	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
+    {
+		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gUserCommandMode = false;
+        }
 		else
 		{
 			std::cerr << "[CORRUPT] gUserCommandMode should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
-	
+    }
+    
     if ( gVerbose_commandlineargument == false ) // command line argument overrules properties file
     {
         s = gProperties.getProperty("gVerbose");
         if ( s == "true" || s == "True" || s == "TRUE" )
+        {
             gVerbose = true;
+        }
         else
+        {
             if ( s == "false" || s == "False" || s == "FALSE" )
+            {
                 gVerbose = false;
+            }
             else
             {
                 std::cerr << "[CORRUPT] gVerbose should be boolean (\"true\" or \"false\").\n";
                 returnValue = false;
             }
+        }
     }
     else
         std::cout << "[INFO] gVerbose value set as command-line paramater.\n";
 	
 	s = gProperties.getProperty("gRadioNetwork");
-	if ( s == "true" || s == "True" || s == "TRUE" ) 
+	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gRadioNetwork = true;
+    }
 	else
-		if ( s == "false" || s == "False" || s == "FALSE" ) 
+    {
+		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gRadioNetwork = false;
+        }
 		else
 		{
 			std::cerr << "[CORRUPT] gRadioNetwork should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
+    }
     
 	s = gProperties.getProperty("gPhysicalObjectDefaultRelocate");
 	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gPhysicalObjectDefaultRelocate = true;
+    }
 	else
+    {
 		if ( s == "false" || s == "False" || s == "FALSE" )
 			gPhysicalObjectDefaultRelocate = false;
 		else
 		{
 			std::cerr << "[CORRUPT] gPhysicalObjectDefaultRelocate should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
-		}
+        }
+    }
     
 	s = gProperties.getProperty("gPhysicalObjectDefaultOverwrite");
 	if ( s == "true" || s == "True" || s == "TRUE" )
+    {
 		gPhysicalObjectDefaultOverwrite = true;
+    }
 	else
+    {
 		if ( s == "false" || s == "False" || s == "FALSE" )
+        {
 			gPhysicalObjectDefaultOverwrite = false;
+        }
 		else
 		{
 			std::cerr << "[CORRUPT] gPhysicalObjectDefaultOverwrite should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
+    }
 	
 	if ( gProperties.hasProperty("gTrajectoryMonitor") ) // optional
     {
         s = gProperties.getProperty("gTrajectoryMonitor");
-        if ( s == "true" || s == "True" || s == "TRUE" ) 
+        if ( s == "true" || s == "True" || s == "TRUE" )
+        {
             gTrajectoryMonitor = true;
+        }
         else
-            if ( s == "false" || s == "False" || s == "FALSE" ) 
+            if ( s == "false" || s == "False" || s == "FALSE" )
+            {
                 gTrajectoryMonitor = false;
+            }
             else
             {
                 std::cerr << "[CORRUPT] gTrajectoryMonitor should be boolean (\"true\" or \"false\").\n";
@@ -1908,83 +2048,123 @@ bool loadProperties( std::string __propertiesFilename )
             }
         
         if ( gProperties.hasProperty("gTrajectoryMonitorMode") ) // optional
+        {
             convertFromString<int>(gTrajectoryMonitorMode, gProperties.getProperty("gTrajectoryMonitorMode"), std::dec);
+        }
     }
 
     s = gProperties.getProperty("gCustomSnapshot_niceRendering");
     if ( s == "true" || s == "True" || s == "TRUE" )
+    {
         gCustomSnapshot_niceRendering = true;
+    }
     else
+    {
         if ( s == "false" || s == "False" || s == "FALSE" )
+        {
             gCustomSnapshot_niceRendering = false;
+        }
         else
         {
             std::cerr << "[WARNING] gCustomSnapshot_niceRendering is missing or corrupt (default value is \"" << gCustomSnapshot_niceRendering << "\").\n";
             //returnValue = false;
         }
+    }
 
     s = gProperties.getProperty("gCustomSnapshot_showLandmarks");
     if ( s == "true" || s == "True" || s == "TRUE" )
+    {
         gCustomSnapshot_showLandmarks = true;
+    }
     else
+    {
         if ( s == "false" || s == "False" || s == "FALSE" )
+        {
             gCustomSnapshot_showLandmarks = false;
+        }
         else
         {
             std::cerr << "[WARNING] gCustomSnapshot_showLandmarks is missing or corrupt (default value is \"" << gCustomSnapshot_showLandmarks << "\").\n";
             //returnValue = false;
         }
-    
+    }
+        
     s = gProperties.getProperty("gCustomSnapshot_showObjects");
     if ( s == "true" || s == "True" || s == "TRUE" )
+    {
         gCustomSnapshot_showObjects = true;
+    }
     else
+    {
         if ( s == "false" || s == "False" || s == "FALSE" )
+        {
             gCustomSnapshot_showObjects = false;
+        }
         else
         {
             std::cerr << "[WARNING] gCustomSnapshot_showObjects is missing or corrupt (default value is \"" << gCustomSnapshot_showObjects << "\").\n";
             //returnValue = false;
         }
+    }
 
     s = gProperties.getProperty("gCustomSnapshot_showRobots");
     if ( s == "true" || s == "True" || s == "TRUE" )
+    {
         gCustomSnapshot_showRobots = true;
+    }
     else
+    {
         if ( s == "false" || s == "False" || s == "FALSE" )
+        {
             gCustomSnapshot_showRobots = false;
+        }
         else
         {
             std::cerr << "[WARNING] gCustomSnapshot_showRobots is missing or corrupt (default value is \"" << gCustomSnapshot_showRobots << "\").\n";
             //returnValue = false;
         }
+    }
     
     s = gProperties.getProperty("gCustomSnapshot_showSensorRays");
     if ( s == "true" || s == "True" || s == "TRUE" )
+    {
         gCustomSnapshot_showSensorRays = true;
+    }
     else
+    {
         if ( s == "false" || s == "False" || s == "FALSE" )
+        {
             gCustomSnapshot_showSensorRays = false;
+        }
         else
         {
             std::cerr << "[WARNING] gCustomSnapshot_showSensorRays is missing or corrupt (default value is \"" << gCustomSnapshot_showSensorRays << "\").\n";
             //returnValue = false;
         }
+    }
     
     s = gProperties.getProperty("gMovableObjects");
     if ( s == "true" || s == "True" || s == "TRUE" )
+    {
         gMovableObjects = true;
+    }
     else
+    {
         if ( s == "false" || s == "False" || s == "FALSE" )
+        {
             gMovableObjects = false;
+        }
         else
         {
             std::cerr << "[WARNING] gMovableObjects is missing or corrupt (default is \"" << gMovableObjects << "\").\n";
             //returnValue = false;
         }
+    }
 
 	if ( gProperties.hasProperty("gRobotMaskImageFilename") )
+    {
 		gRobotMaskImageFilename = gProperties.getProperty("gRobotMaskImageFilename");
+    }
 	else
 	{
 		std::cerr << "[MISSING] gRobotMaskImageFilename string value is missing.\n";
@@ -1992,7 +2172,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
 	if ( gProperties.hasProperty("gRobotDisplayImageFilename") )
+    {
 		gRobotDisplayImageFilename = gProperties.getProperty("gRobotDisplayImageFilename");
+    }
 	else
 	{
 		std::cout << "[WARNING] gRobotDisplayImageFilename string value is missing (value will be copied from gRobotMaskImageFilename).\n";
@@ -2000,7 +2182,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
     if ( gProperties.hasProperty("gRobotSpecsImageFilename") )
+    {
 		gRobotSpecsImageFilename = gProperties.getProperty("gRobotSpecsImageFilename");
+    }
 	else
 	{
 		std::cerr << "[MISSING] gRobotSpecsImageFilename string value is missing.\n";
@@ -2008,7 +2192,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
 	if ( gProperties.hasProperty("gBackgroundImageFilename") )
+    {
 		gBackgroundImageFilename = gProperties.getProperty("gBackgroundImageFilename");
+    }
 	else
 	{
 		std::cerr << "[MISSING] gBackgroundImageFilename string value is missing.\n";
@@ -2016,7 +2202,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
 	if ( gProperties.hasProperty("gEnvironmentImageFilename") )
+    {
 		gEnvironmentImageFilename = gProperties.getProperty("gEnvironmentImageFilename");
+    }
 	else
 	{
 		std::cerr << "[MISSING] gEnvironmentImageFilename string value is missing.\n";
@@ -2024,7 +2212,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
 	if ( gProperties.hasProperty("gForegroundImageFilename") )
+    {
 		gForegroundImageFilename = gProperties.getProperty("gForegroundImageFilename");
+    }
 	else
 	{
 		std::cerr << "[MISSING] gForegroundImageFilename string value is missing.\n";
@@ -2032,7 +2222,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
 	if ( gProperties.hasProperty("gLogCommentText") )
+    {
 		gLogCommentText = gProperties.getProperty("gLogCommentText");
+    }
 	else
 	{
 		std::cerr << "[MISSING] gLogCommentText string value is missing.\n";
@@ -2040,7 +2232,9 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	
 	if ( gProperties.hasProperty("gLogFilename") )
+    {
 		gLogFilename = gProperties.getProperty("gLogFilename");
+    }
 	else
 	{
 		gLogFilename = "datalog_" + gStartTime + "_" + getpidAsReadableString() + ".txt";
@@ -2053,7 +2247,9 @@ bool loadProperties( std::string __propertiesFilename )
     if ( gLogDirectoryname_commandlineargument == false ) // ignore if command line argument => overrules any properties file entry
     {
         if ( gProperties.hasProperty("gLogDirectoryname") )
+        {
             gLogDirectoryname = gProperties.getProperty("gLogDirectoryname");
+        }
         else
         {
             gLogDirectoryname = "logs/";
@@ -2064,10 +2260,14 @@ bool loadProperties( std::string __propertiesFilename )
         }
     }
     else
+    {
         std::cout << "[INFO] gLogDirectoryname value set as command-line paramater.\n";
+    }
     
 	if ( gProperties.hasProperty("gFootprintImageFilename") )
+    {
 		gFootprintImageFilename = gProperties.getProperty("gFootprintImageFilename");
+    }
 	else
 	{
 		std::cerr << "[MISSING] gFootprintImageFilename string value is missing.\n";

@@ -39,7 +39,7 @@ ESNEigen::ESNEigen(std::vector<real_t>& weights, size_t nbInputs, size_t nbOutpu
 		bool addSinInputBias,
 		real_t sinBiasPeriod,
 		bool useSparseComputation) :
-		ReservoirNeuralNetwork(weights, nbInputs, nbOutputs, reservoirSize, inputToReservoirWeightRange, inputToOutputWeightRange, reservoirToOutputWeightRange, outputToReservoirWeightRange, outputToOutputWeightRange, allowInputToOutputDirectConnections, allowOutputSelfRecurrentConnections, allowInputToReservoirConnections, allowOutputToReservoirConnections), _densityOfConnections(densityOfConnections), _alpha(alpha), _seed(seed), _fixedInputToReservoirConnections(fixedInputToReservoirConnections), _addConstantInputBias(addConstantInputBias), _addSinInputBias(addSinInputBias), _sinBiasPeriod(sinBiasPeriod), _useSparseComputation(useSparseComputation) {
+		ReservoirNeuralNetwork(weights, nbInputs, nbOutputs, static_cast<unsigned int>(reservoirSize), inputToReservoirWeightRange, inputToOutputWeightRange, reservoirToOutputWeightRange, outputToReservoirWeightRange, outputToOutputWeightRange, allowInputToOutputDirectConnections, allowOutputSelfRecurrentConnections, allowInputToReservoirConnections, allowOutputToReservoirConnections), _densityOfConnections(densityOfConnections), _alpha(alpha), _seed(seed), _fixedInputToReservoirConnections(fixedInputToReservoirConnections), _addConstantInputBias(addConstantInputBias), _addSinInputBias(addSinInputBias), _sinBiasPeriod(sinBiasPeriod), _useSparseComputation(useSparseComputation) {
 
 	createESN(seed);
 }
@@ -85,7 +85,7 @@ void ESNEigen::createESN(seed_t const& seed) {
 	// Initialise random number generation
 	//std::random_device rd(static_cast<long unsigned int>(seed));
 	//std::mt19937 mtRd(rd());
-	std::default_random_engine mtRd(static_cast<long unsigned int>(seed));
+	std::default_random_engine mtRd(static_cast<unsigned int>(seed));
 
 	// Create weights matrix
 	//_w = Eigen::SparseMatrix<real_t>(nbNeurons, nbNeurons);
