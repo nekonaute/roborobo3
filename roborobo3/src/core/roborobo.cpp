@@ -1472,7 +1472,6 @@ bool loadProperties( std::string __propertiesFilename )
 
     gProperties.checkAndGetPropertyValue("gFootprintImage_restoreOriginal",&gFootprintImage_restoreOriginal,false);
     
-    //gProperties.checkAndGetPropertyValue("gExtendedSensoryInputs",&gExtendedSensoryInputs,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_distanceToContact",&gSensoryInputs_distanceToContact,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_physicalObjectType",&gSensoryInputs_physicalObjectType,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_isOtherAgent",&gSensoryInputs_isOtherAgent,false);

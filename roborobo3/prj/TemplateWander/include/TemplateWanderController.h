@@ -8,6 +8,7 @@
 #define TEMPLATEWANDERCONTROLLER_H
 
 #include "Controllers/Controller.h"
+#include "RoboroboMain/common.h"
 
 class RobotWorldModel;
 
@@ -19,8 +20,7 @@ class TemplateWanderController : public Controller
 		
 		void reset();
 		void step();
-    
-        void monitorSensory();
+
 };
 
 

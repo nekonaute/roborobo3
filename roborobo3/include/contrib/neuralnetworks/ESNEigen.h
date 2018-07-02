@@ -30,7 +30,7 @@ namespace Neural {
 	class ESNEigen : public ReservoirNeuralNetwork {
 		public:
 			typedef double real_t;
-			typedef long unsigned int seed_t;
+			typedef unsigned seed_t;
 
 		protected:
 			/** Weights Matrix */
@@ -91,7 +91,7 @@ namespace Neural {
 
 			// -+-+-  Constructors/Destructors  -+-+- //
 
-			ESNEigen(std::vector<real_t>& weights, size_t nbInputs, size_t nbOutputs, size_t reservoirSize = 100,
+			ESNEigen(std::vector<real_t>& weights, unsigned int nbInputs, unsigned int nbOutputs, size_t reservoirSize = 100,
 					real_t densityOfConnections = 0.10, real_t alpha = 0.88, seed_t seed = 0L,
 					real_t inputToReservoirWeightRange = 0.5,
 					real_t inputToOutputWeightRange = 0.5,

@@ -11,7 +11,6 @@
 #include "RoboroboMain/common.h"
 #include "Controllers/Controller.h"
 #include <neuralnetworks/NeuralNetwork.h>
-#include "RoboroboMain/common.h"
 
 using namespace Neural;
 

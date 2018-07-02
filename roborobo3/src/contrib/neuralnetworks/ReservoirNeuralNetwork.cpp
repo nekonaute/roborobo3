@@ -18,7 +18,7 @@ ReservoirNeuralNetwork::~ReservoirNeuralNetwork() {
 	// ...
 }
 
-ReservoirNeuralNetwork::ReservoirNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, unsigned int reservoirSize,
+ReservoirNeuralNetwork::ReservoirNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, size_t reservoirSize,
 	double inputToReservoirWeightRange,
 	double inputToOutputWeightRange,
 	double reservoirToOutputWeightRange,
@@ -44,7 +44,7 @@ ReservoirNeuralNetwork::ReservoirNeuralNetwork(std::vector<double>& weights, uns
 }
 
 
-ReservoirNeuralNetwork::ReservoirNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, unsigned int reservoirSize) :
+ReservoirNeuralNetwork::ReservoirNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, size_t reservoirSize) :
 		NeuralNetwork(weights, nbInputs, nbOutputs),
 		_reservoirSize(reservoirSize),
 		_inputToReservoirWeightRange(1.0),
@@ -78,7 +78,7 @@ ReservoirNeuralNetwork::ReservoirNeuralNetwork(ReservoirNeuralNetwork const& oth
 }
 
 
-unsigned int ReservoirNeuralNetwork::getReservoirSize() const {
+size_t ReservoirNeuralNetwork::getReservoirSize() const {
 	return _reservoirSize;
 }
 

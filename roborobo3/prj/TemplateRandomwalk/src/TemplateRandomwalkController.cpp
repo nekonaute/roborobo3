@@ -8,27 +8,15 @@
 #include "WorldModels/RobotWorldModel.h"
 #include "World/World.h"
 
-// Sensor Id
-// (L)eft, (R)ight, (B)ack, (F)ront
-// FFFL is a front sensor, pointing very slightly to the left (15°).
-#define SENSOR_L 0
-#define SENSOR_FL 1
-#define SENSOR_FFL 2
-#define SENSOR_FFFL 3
-#define SENSOR_F 4
-#define SENSOR_FFFR 5
-#define SENSOR_FFR 6
-#define SENSOR_FR 7
-#define SENSOR_R 8
-#define SENSOR_BR 9
-#define SENSOR_B 10
-#define SENSOR_BL 11
+// Load readable sensor names
+#define NB_SENSORS 12 // assume 12 sensors
+#include "Utilities/Sensorbelt.h"
 
 TemplateRandomwalkController::TemplateRandomwalkController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
-    if ( _wm->_cameraSensorsNb != 12 )
+    if ( _wm->_cameraSensorsNb != NB_SENSORS )
     {
-        std::cerr << "[CRITICAL] This project assumes robot specifications with 12 sensors (current specs: " << _wm->_cameraSensorsNb << "). STOP.\n";
+        std::cerr << "[CRITICAL] This project assumes robot specifications with " << NB_SENSORS << " sensors (provided: " << _wm->_cameraSensorsNb << " sensors). STOP.\n";
         exit(-1);
     }
     
@@ -62,8 +50,8 @@ void TemplateRandomwalkController::step()
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_F)  * _params[0] +
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_R)  * _params[1] +
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_L)  * _params[2] +
-        _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_FR) * _params[3] +
-        _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_FL) * _params[4] +
+        _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_FRR) * _params[3] +
+        _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_FFL) * _params[4] +
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_B)  * _params[5] +
         _params[6]
         ;
@@ -72,8 +60,8 @@ void TemplateRandomwalkController::step()
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_F)  * _params[7]  +
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_R)  * _params[8]  +
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_L)  * _params[9]  +
-        _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_FR) * _params[10] +
-        _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_FL) * _params[11] +
+        _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_FFR) * _params[10] +
+        _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_FFL) * _params[11] +
         _wm->getNormalizedDistanceValueFromCameraSensor(SENSOR_B)  * _params[12] +
         _params[13]
         ;
@@ -122,7 +110,7 @@ void TemplateRandomwalkController::monitorSensoryInformation()
             // Closest landmark (in any)
             
             _wm->updateLandmarkSensor();
-            std::cout << "Closest landmark is at distance " << std::setw(6) << _wm->getLandmarkDistanceValue() << ", angle = " << std::setw(6) << _wm->getLandmarkDistanceValue() << "\n";
+            std::cout << "Closest landmark is at distance " << std::setw(6) << _wm->getLandmarkDistanceValue() << ", angle = " << std::setw(6) << _wm->getLandmarkDirectionAngleValue() << "\n";
         }
         else
             std::cout << "No landmark.\n";

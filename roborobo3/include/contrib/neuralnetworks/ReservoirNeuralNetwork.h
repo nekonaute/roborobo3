@@ -22,7 +22,7 @@ namespace Neural {
 		protected:
 
 			/** Size of the reservoir, ie of neurons in the reservoir */
-			unsigned int _reservoirSize;
+			size_t _reservoirSize;
 
 			/* Ranges of weights */
 			double _inputToReservoirWeightRange;
@@ -49,7 +49,7 @@ namespace Neural {
 
 			virtual ~ReservoirNeuralNetwork();
 
-			ReservoirNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, unsigned int reservoirSize,
+			ReservoirNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, size_t reservoirSize,
 					double inputToReservoirWeightRange,
 					double inputToOutputWeightRange,
 					double reservoirToOutputWeightRange,
@@ -60,7 +60,7 @@ namespace Neural {
 					bool allowInputToReservoirConnections,
 					bool allowOutputToReservoirConnections);
 
-			ReservoirNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, unsigned int reservoirSize);
+			ReservoirNeuralNetwork(std::vector<double>& weights, unsigned int nbInputs, unsigned int nbOutputs, size_t reservoirSize);
 
 			/** Deep Copy constructor */
 			ReservoirNeuralNetwork(ReservoirNeuralNetwork const& other);
@@ -71,7 +71,7 @@ namespace Neural {
 			/**
 			 * Accessor for reservoirSize
 			 */
-			unsigned int getReservoirSize() const;
+			size_t getReservoirSize() const;
 
 			/**
 			 * Accessor for allowInputToOutputDirectConnections

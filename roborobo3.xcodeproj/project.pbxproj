@@ -164,6 +164,7 @@
 		37753A951ECB27EB0039BF21 /* MovableObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovableObject.cpp; sourceTree = "<group>"; };
 		37753A971ECB28070039BF21 /* MovableObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovableObject.h; sourceTree = "<group>"; };
 		37753A981ECB295C0039BF21 /* movingobjects.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = movingobjects.properties; sourceTree = "<group>"; };
+		378470CD20EA6842008833E9 /* Sensorbelt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sensorbelt.h; sourceTree = "<group>"; };
 		37A569C11E38AB2100B983FF /* template_vanillaEE.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template_vanillaEE.properties; sourceTree = "<group>"; };
 		37A9F91A1E28AA7E00006059 /* TemplateVanillaEEConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateVanillaEEConfigurationLoader.cpp; sourceTree = "<group>"; };
 		37A9F91D1E28AA9600006059 /* TemplateVanillaEEConfigurationLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEConfigurationLoader.h; sourceTree = "<group>"; };
@@ -649,6 +650,7 @@
 		37BA26471BC3D014002DF5DC /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				378470CD20EA6842008833E9 /* Sensorbelt.h */,
 				37BA26491BC3D014002DF5DC /* ExtendedProperties.h */,
 				37BA264A1BC3D014002DF5DC /* Geometry.h */,
 				37BA264B1BC3D014002DF5DC /* Graphics.h */,

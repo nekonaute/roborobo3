@@ -17,9 +17,20 @@
 
 using namespace Neural;
 
+// Load readable sensor names
+#define NB_SENSORS 12 // should be coherent with gRobotSpecsImageFilename value read from the property file.
+#include "Utilities/Sensorbelt.h"
+
+
 TemplateEEController::TemplateEEController( RobotWorldModel *wm )
 {
     _wm = wm;
+    
+    if ( _wm->_cameraSensorsNb != NB_SENSORS )
+    {
+        std::cerr << "[CRITICAL] This project assumes robot specifications with " << NB_SENSORS << " sensors (provided: " << _wm->_cameraSensorsNb << " sensors). STOP.\n";
+        exit(-1);
+    }
     
     nn = NULL;
     
@@ -224,9 +235,13 @@ std::vector<double> TemplateEEController::getInputs(){
                 for ( int i = 0 ; i != nbOfTypes ; i++ )
                 {
                     if ( i == gPhysicalObjects[objectId - gPhysicalObjectIndexStartOffset]->getType() )
+                    {
                         inputs.push_back( 1 ); // match
+                    }
                     else
+                    {
                         inputs.push_back( 0 );
+                    }
                 }
             }
             else
@@ -252,9 +267,13 @@ std::vector<double> TemplateEEController::getInputs(){
                 {
                     // same group?
                     if ( gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->getGroupId() == _wm->getGroupId() )
+                    {
                         inputs.push_back( 1 ); // match: same group
+                    }
                     else
+                    {
                         inputs.push_back( 0 ); // not the same group
+                    }
                 }
  
                 if ( gSensoryInputs_otherAgentOrientation )
@@ -264,10 +283,16 @@ std::vector<double> TemplateEEController::getInputs(){
                     double tgtOrientation = gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->_agentAbsoluteOrientation;
                     double delta_orientation = - ( srcOrientation - tgtOrientation );
                     if ( delta_orientation >= 180.0 )
+                    {
                         delta_orientation = - ( 360.0 - delta_orientation );
+                    }
                     else
+                    {
                         if ( delta_orientation <= -180.0 )
+                        {
                             delta_orientation = - ( - 360.0 - delta_orientation );
+                        }
+                    }
                     inputs.push_back( delta_orientation/180.0 );
                 }
             }
@@ -275,9 +300,13 @@ std::vector<double> TemplateEEController::getInputs(){
             {
                 inputs.push_back( 0 ); // not an agent...
                 if ( gSensoryInputs_otherAgentSameGroup )
+                {
                     inputs.push_back( 0 ); // ...therefore no match wrt. group.
+                }
                 if ( gSensoryInputs_otherAgentOrientation )
+                {
                     inputs.push_back( 0 ); // ...and no orientation.
+                }
             }
         }
         
@@ -285,9 +314,13 @@ std::vector<double> TemplateEEController::getInputs(){
         {
             // input: wall or empty?
             if ( objectId >= 0 && objectId < gPhysicalObjectIndexStartOffset ) // not empty, but cannot be identified: this is a wall.
+            {
                 inputs.push_back( 1 );
+            }
             else
+            {
                 inputs.push_back( 0 ); // nothing. (objectId=-1)
+            }
         }
         
     }
@@ -305,9 +338,13 @@ std::vector<double> TemplateEEController::getInputs(){
     {
         _wm->updateLandmarkSensor(); // update with closest landmark
         if ( gSensoryInputs_distanceToLandmark )
-            inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
+        {
+            inputs.push_back( _wm->getLandmarkDistanceValue() );
+        }
         if ( gSensoryInputs_orientationToLandmark )
-        inputs.push_back( _wm->getLandmarkDistanceValue() );
+        {
+            inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
+        }
     }
     else
         if ( gSensoryInputs_landmarkTrackerMode == 2 ) // register all landmarks
@@ -316,9 +353,13 @@ std::vector<double> TemplateEEController::getInputs(){
             {
                 _wm->updateLandmarkSensor(i); // update with closest landmark
                 if ( gSensoryInputs_distanceToLandmark )
-                    inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
-                if ( gSensoryInputs_orientationToLandmark )
+                {
                     inputs.push_back( _wm->getLandmarkDistanceValue() );
+                }
+                if ( gSensoryInputs_orientationToLandmark )
+                {
+                    inputs.push_back( _wm->getLandmarkDirectionAngleValue() );
+                }
             }
         }
     
@@ -339,17 +380,25 @@ std::vector<double> TemplateEEController::getInputs(){
         if ( gReentrantMapping_motorOutputs == false )
         {
             if ( TemplateEESharedData::gEnergyRequestOutput )
+            {
                 i_start = 3;
+            }
             else
+            {
                 i_start = 2;
+            }
         }
         
         if ( gReentrantMapping_virtualOutputs == false )
         {
             if ( TemplateEESharedData::gEnergyRequestOutput )
+            {
                 i_end = 3;
+            }
             else
+            {
                 i_end = 2;
+            }
         }
             
         for ( size_t i = i_start ; i < i_end ; i++ )
