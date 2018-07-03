@@ -531,18 +531,23 @@ void Robot::applyDynamics()
 	// Keep in mind that roborobo philosophy assumes pixel-based level of details for collision.
 }
 
-
-
-
  /**
     * update the agent position in the environment. Apply simple physics (ie. obstacle collision detection and consequences).
 	* if collision, translation and rotation speed are set to zero.
-    * note: __recursiveIt is currently unused (maybe used for debug purpose, eg. checking for infinite loop.)
+    * note: __recursiveIt could be used to set an upper limit w.r.t. calls (maybe used for debug purpose, eg. checking for infinite loop.)
+    *       but this is not required, as all calls terminate.
     */
 void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in more complex envt, this should be handled by the "world".
 {
 	// apply world dynamics onto this agent
 
+    double backup_desiredTranslationalValue = 0; // hack: backup desiredTranslationalValue as local modification(s) should not go beyond the scope of this function.
+    if ( __recursiveIt == 0 )
+    {
+        backup_desiredTranslationalValue = _wm->_desiredTranslationalValue;
+    }
+    
+    
 	// * compute real valued delta (convert to x/y delta coordinates)
     
 	applyDynamics();
@@ -567,7 +572,7 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
     
 	if ( isCollision() )
 	{
-		_wm->_desiredTranslationalValue = 0; // cancel any translation order as agent translation speed is set to zero after collision. (note that rotation is still ok)
+        _wm->_desiredTranslationalValue = 0; // cancel any translation order as agent translation speed is set to zero after collision. (note that rotation is still ok)
 		
 		if (_wm->_agentAbsoluteLinearSpeed >= 1.0 )
 		{
@@ -651,6 +656,11 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
         _wm->_groundSensorValue[0] = r;
         _wm->_groundSensorValue[1] = g;
         _wm->_groundSensorValue[2] = b;
+    }
+    
+    if ( __recursiveIt == 0 )
+    {
+        _wm->_desiredTranslationalValue = backup_desiredTranslationalValue;
     }
 }
 
