@@ -91,7 +91,7 @@ protected:
     double _Yinit;
     double _dSumTravelled;
     
-    virtual bool storeGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness=0);
+    virtual bool receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma=0, float __fitness=0);
     virtual bool sendGenome( TemplateEEController* __targetRobotController );
     
     void reset() override;

@@ -250,13 +250,13 @@ bool ForagingRegionsController::sendGenome( TemplateEEController* __targetRobotC
 {
     // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
     
-    bool retValue = ((ForagingRegionsController*)__targetRobotController)->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness(), this->regret);
+    bool retValue = ((ForagingRegionsController*)__targetRobotController)->receiveGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness(), this->regret);
     
     return retValue;
 }
 
 
-bool ForagingRegionsController::storeGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness, int __regret)
+bool ForagingRegionsController::receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness, int __regret)
 {
     std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(__senderId);
     

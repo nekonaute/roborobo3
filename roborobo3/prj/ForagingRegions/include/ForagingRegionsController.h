@@ -48,7 +48,7 @@ protected:
     void logCurrentState() override;
     
     bool sendGenome( TemplateEEController* __targetRobotController ) override;
-    bool storeGenome( std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness=0, int __regret=0 );
+    bool receiveGenome( std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness=0, int __regret=0 );
     
     void selectNaiveMO();
     

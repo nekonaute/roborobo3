@@ -43,6 +43,16 @@ void TemplateMedeaController::broadcastGenome()
     TemplateEEController::broadcastGenome();
 }
 
+bool TemplateMedeaController::sendGenome( TemplateEEController* __targetRobotController )
+{
+    return TemplateEEController::sendGenome(__targetRobotController);
+}
+
+bool TemplateMedeaController::receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness) // fitness is optional (default: 0)
+{
+    return TemplateEEController::receiveGenome(__genome, __senderId, __sigma, __fitness);
+}
+
 double TemplateMedeaController::getFitness()
 {
     // mEDEA uses no fitness. Set to zero by default.

@@ -31,6 +31,9 @@ class TemplateVanillaEEController : public TemplateEEController
     
         void broadcastGenome() override;
     
+        bool sendGenome( TemplateEEController* __targetRobotController ) override;
+        bool receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma=0, float __fitness=0) override;
+    
         void resetFitness() override;
         void updateFitness() override;
 

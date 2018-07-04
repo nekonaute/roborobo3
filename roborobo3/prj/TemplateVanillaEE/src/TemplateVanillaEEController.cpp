@@ -46,6 +46,16 @@ void TemplateVanillaEEController::broadcastGenome()
     TemplateEEController::broadcastGenome();
 }
 
+bool TemplateVanillaEEController::sendGenome( TemplateEEController* __targetRobotController )
+{
+    return TemplateEEController::sendGenome(__targetRobotController);
+}
+
+bool TemplateVanillaEEController::receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness) // fitness is optional (default: 0)
+{
+    return TemplateEEController::receiveGenome(__genome, __senderId, __sigma, __fitness);
+}
+
 double TemplateVanillaEEController::getFitness()
 {
     return TemplateEEController::getFitness();

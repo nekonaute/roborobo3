@@ -419,7 +419,6 @@ std::vector<double> TemplateEEController::getInputs(){
 
 void TemplateEEController::stepController()
 {
-
     // ---- compute and read out ----
     
     nn->setWeights(_parameters); // set-up NN
@@ -430,7 +429,7 @@ void TemplateEEController::stepController()
     
     switch ( TemplateEESharedData::gControllerType )
     {
-        case 3:
+        case 3: // ESN: multiple NN updates are possible (reservoir contains recurrent connections)
 		{
 			static_cast<ESNEigen*>(nn)->step(static_cast<size_t>(TemplateEESharedData::gESNStepsBySimulationStep));
 			break;
@@ -454,7 +453,6 @@ void TemplateEEController::stepController()
     // normalize to motor interval values
     _wm->_desiredTranslationalValue = _wm->_desiredTranslationalValue * gMaxTranslationalSpeed;
     _wm->_desiredRotationalVelocity = _wm->_desiredRotationalVelocity * gMaxRotationalSpeed;
-
 }
 
 
@@ -895,6 +893,7 @@ void TemplateEEController::clearReservoir()
     _fitnessValueList.clear();
 }
 
+
 void TemplateEEController::reset()
 {
     initController();
@@ -1153,7 +1152,7 @@ bool TemplateEEController::sendGenome( TemplateEEController* __targetRobotContro
 {
     // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
     
-    bool retValue = __targetRobotController->storeGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness());
+    bool retValue = __targetRobotController->receiveGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness());
     
     return retValue;
 }
@@ -1162,9 +1161,9 @@ bool TemplateEEController::sendGenome( TemplateEEController* __targetRobotContro
 /* manage storage of a genome received from a neighbour
  *
  * Note that in case of multiple encounters with the same robot (same id, same "birthdate"), genome is stored only once, and last known fitness value is stored (i.e. updated at each encounter).
- * Remark: storeGenome is called only if robot's listening mode is on (ie. _isListening == true).
+ * Remark: receiveGenome is called only if robot's listening mode is on (ie. _isListening == true).
  */
-bool TemplateEEController::storeGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness) // fitness is optional (default: 0)
+bool TemplateEEController::receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness) // sigma and fitness are optional (default: 0)
 {
     std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(__senderId);
     
