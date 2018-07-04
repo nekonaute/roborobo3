@@ -127,6 +127,11 @@ void ForagingRegionsController::initController()
     TemplateEEController::initController();
 }
 
+void ForagingRegionsController::initGenome()
+{
+    TemplateEEController::initGenome();
+}
+
 void ForagingRegionsController::performSelection()
 {
     switch ( TemplateEESharedData::gSelectionMethod )

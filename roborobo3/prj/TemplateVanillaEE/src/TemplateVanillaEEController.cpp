@@ -31,6 +31,11 @@ void TemplateVanillaEEController::initController()
     TemplateEEController::initController();
 }
 
+void TemplateVanillaEEController::initGenome()
+{
+    TemplateEEController::initGenome();
+}
+
 void TemplateVanillaEEController::performSelection()
 {
     TemplateEEController::performSelection();

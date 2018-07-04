@@ -521,7 +521,6 @@ unsigned int TemplateEEController::computeRequiredNumberOfWeights()
 
 void TemplateEEController::stepEvolution()
 {
-    
     if( gWorld->getIterations() > 0 && gWorld->getIterations() % TemplateEESharedData::gEvaluationTime == 0 )
                     //dynamic_cast<TemplateEEWorldObserver*>(gWorld->getWorldObserver())->getGenerationItCount() == 0 )  //todelete
     {
@@ -862,14 +861,16 @@ void TemplateEEController::initController()
     
     createNN();
 
-    unsigned int const nbGene = computeRequiredNumberOfWeights();
-    
     if ( gVerbose )
         std::cout << std::flush ;
-    
+
+}
+
+void TemplateEEController::initGenome()
+{
     _currentGenome.clear();
     
-    // Intialize genome
+    unsigned int const nbGene = computeRequiredNumberOfWeights();
     
     for ( unsigned int i = 0 ; i != nbGene ; i++ )
     {
@@ -897,6 +898,7 @@ void TemplateEEController::clearReservoir()
 void TemplateEEController::reset()
 {
     initController();
+    initGenome();
 }
 
 
@@ -982,9 +984,9 @@ void TemplateEEController::performSelection() // called only if at least 1 genom
     }
 }
 
-void TemplateEEController::logDescendance()
+void TemplateEEController::logLineage()
 {
-    // Logging: track descendance
+    // Logging: track lineage
     std::string sLog = std::string("");
     sLog += "" + std::to_string(gWorld->getIterations()) + "," + std::to_string(_wm->getId()) + "::" + std::to_string(_birthdate) + ",descendsFrom," + std::to_string((*_genomesList.begin()).first.first) + "::" + std::to_string((*_genomesList.begin()).first.second) + "\n";
     gLogManager->write(sLog);
@@ -1005,7 +1007,7 @@ void TemplateEEController::loadNewGenome()
             // case: 1+ genome(s) imported, random pick.
             
             performSelection();
-            logDescendance();
+            logLineage();
             performVariation();
             clearReservoir();
             

@@ -26,6 +26,8 @@ class TemplateMedeaController : public TemplateEEController
     protected:
     
         void initController() override;
+        void initGenome() override;
+    
         void stepController() override;
     
         void performSelection() override;

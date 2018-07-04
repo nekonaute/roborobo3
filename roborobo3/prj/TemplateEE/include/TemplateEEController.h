@@ -53,6 +53,8 @@ protected:
     void setIOcontrollerSize();
     
     virtual void initController(); // called by resetRobot
+    virtual void initGenome(); // called by resetRobot
+    
     virtual void stepController();
     
     void stepEvolution();
@@ -99,7 +101,7 @@ protected:
     void clearReservoir(); // clear genomesList, sigmaList, fitnessesList and birthdayList
     
     virtual void logCurrentState();
-    virtual void logDescendance();
+    virtual void logLineage();
     
     virtual void mapGenotypeToPhenotype();
     

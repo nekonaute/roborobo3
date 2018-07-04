@@ -28,6 +28,11 @@ void TemplateMedeaController::initController()
     TemplateEEController::initController();
 }
 
+void TemplateMedeaController::initGenome()
+{
+    TemplateEEController::initGenome();
+}
+
 void TemplateMedeaController::performSelection()
 {
     TemplateEEController::performSelection();
