@@ -35,9 +35,10 @@ public:
 protected:
     
     void initController() override;
-    void initGenome() override;
+    void initEvolution() override;
     
     void stepController() override;
+    void stepEvolution() override;
     
     void performSelection() override;
     void performVariation() override;

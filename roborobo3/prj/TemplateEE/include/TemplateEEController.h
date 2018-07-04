@@ -53,11 +53,11 @@ protected:
     void setIOcontrollerSize();
     
     virtual void initController(); // called by resetRobot
-    virtual void initGenome(); // called by resetRobot
+    virtual void initEvolution(); // called by resetRobot
     
     virtual void stepController();
     
-    void stepEvolution();
+    virtual void stepEvolution();
     
     virtual void broadcastGenome();
     

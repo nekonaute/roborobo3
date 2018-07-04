@@ -28,9 +28,14 @@ void TemplateMedeaController::initController()
     TemplateEEController::initController();
 }
 
-void TemplateMedeaController::initGenome()
+void TemplateMedeaController::initEvolution()
 {
-    TemplateEEController::initGenome();
+    TemplateEEController::initEvolution();
+}
+
+void TemplateMedeaController::stepEvolution()
+{
+    TemplateEEController::stepEvolution();
 }
 
 void TemplateMedeaController::performSelection()

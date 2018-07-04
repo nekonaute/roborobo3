@@ -127,9 +127,14 @@ void ForagingRegionsController::initController()
     TemplateEEController::initController();
 }
 
-void ForagingRegionsController::initGenome()
+void ForagingRegionsController::stepEvolution()
 {
-    TemplateEEController::initGenome();
+    TemplateEEController::stepEvolution();
+}
+
+void ForagingRegionsController::initEvolution()
+{
+    TemplateEEController::initEvolution();
 }
 
 void ForagingRegionsController::performSelection()

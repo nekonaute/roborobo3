@@ -866,7 +866,7 @@ void TemplateEEController::initController()
 
 }
 
-void TemplateEEController::initGenome()
+void TemplateEEController::initEvolution()
 {
     _currentGenome.clear();
     
@@ -898,7 +898,7 @@ void TemplateEEController::clearReservoir()
 void TemplateEEController::reset()
 {
     initController();
-    initGenome();
+    initEvolution();
 }
 
 
