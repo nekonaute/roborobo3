@@ -39,7 +39,7 @@
 //                                                                                               //
 // * Projects acknowledgements                                                                   //
 //  Symbrion EU project, grant agreement 216342 (2008-2013) (EU FET Proactive Intiative)         //
-//  Grid'5000 experimental testbed ( https://www.grid5000.fr )                                   //
+//  Grid'5000 experimental testbed ( https://www.grid5000.fr ) - used before 2016                //
 //  BQR UPMC (2012-2013)                                                                         //
 //  DREAM EU H2020 PROJECT, grant agreement 640891 (2015-2018) - http://robotsthatdream.org      //
 //                                                                                               //
@@ -69,7 +69,7 @@
 
 // =-=-=-=-=
 
-long int gVersion  = 20180416;
+long int gVersion  = 20180704;
 std::string gLogCommentText  = "(under development)"; //
 
 std::string gStartTime = getCurrentTimeAsReadableString();
@@ -495,10 +495,16 @@ bool checkEvent()
             break;
         }
         else
+        {
             if (gEvent.type == SDL_MOUSEBUTTONUP)
             {
-                inspectAtPixel(gEvent.button.x, gEvent.button.y);
+                int width, height, scaled_x, scaled_y;
+                SDL_GetWindowSize(gScreenWindow, &width, &height);
+                scaled_x = (int)(((float)gScreenDisplayWidth / width) * gEvent.button.x);
+                scaled_y = (int)(((float)gScreenDisplayHeight / height) * gEvent.button.y);
+                inspectAtPixel(scaled_x, scaled_y);
             }
+        }
     }
     return quit;
 }
