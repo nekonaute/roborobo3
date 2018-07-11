@@ -1152,10 +1152,18 @@ void TemplateEEController::updateFitness()
 
 bool TemplateEEController::sendGenome( TemplateEEController* __targetRobotController )
 {
-    // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
+    // other agent stores my genome. Contaminant stragegy.
+    // Note that medea does not use fitnessValue (default value: 0)
+    // if you need to send other information, derive your own Packet class and sendGenome/receiveGenome methods in your project space.
+
+    Packet* p = new Packet();
+    p->agentId = std::make_pair(_wm->getId(), _birthdate);
+    p->fitness = getFitness();
+    p->genome = _currentGenome;
+    p->sigma = _currentSigma;
     
-    bool retValue = __targetRobotController->receiveGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness());
-    
+    bool retValue = __targetRobotController->receiveGenome(p);
+ 
     return retValue;
 }
 
@@ -1165,20 +1173,21 @@ bool TemplateEEController::sendGenome( TemplateEEController* __targetRobotContro
  * Note that in case of multiple encounters with the same robot (same id, same "birthdate"), genome is stored only once, and last known fitness value is stored (i.e. updated at each encounter).
  * Remark: receiveGenome is called only if robot's listening mode is on (ie. _isListening == true).
  */
-bool TemplateEEController::receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness) // sigma and fitness are optional (default: 0)
+bool TemplateEEController::receiveGenome(Packet* p)
+//bool TemplateEEController::receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness) // sigma and fitness are optional (default: 0)
 {
-    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(__senderId);
+    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(p->agentId);
     
     if ( it != _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
     {
-        _fitnessValueList[__senderId] = __fitness; // update with most recent fitness
+        _fitnessValueList[p->agentId] = p->fitness; // update with most recent fitness
         return false;
     }
     else
     {
-        _genomesList[__senderId] = __genome;
-        _sigmaList[__senderId] = __sigma;
-        _fitnessValueList[__senderId] = __fitness;
+        _genomesList[p->agentId] = p->genome;
+        _sigmaList[p->agentId] = p->sigma;
+        _fitnessValueList[p->agentId] = p->fitness;
         return true;
     }
 }

@@ -58,9 +58,9 @@ bool TemplateMedeaController::sendGenome( TemplateEEController* __targetRobotCon
     return TemplateEEController::sendGenome(__targetRobotController);
 }
 
-bool TemplateMedeaController::receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness) // fitness is optional (default: 0)
+bool TemplateMedeaController::receiveGenome( Packet* p )
 {
-    return TemplateEEController::receiveGenome(__genome, __senderId, __sigma, __fitness);
+    return TemplateEEController::receiveGenome(p);
 }
 
 double TemplateMedeaController::getFitness()

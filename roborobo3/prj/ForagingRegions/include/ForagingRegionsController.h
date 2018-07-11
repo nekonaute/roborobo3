@@ -7,6 +7,7 @@
 #define FORAGINGREGIONSCONTROLLER_H
 
 #include "TemplateEE/include/TemplateEEController.h"
+#include "ForagingRegions/include/ForagingRegionsPacket.h"
 
 using namespace Neural;
 
@@ -51,7 +52,7 @@ protected:
     void logCurrentState() override;
     
     bool sendGenome( TemplateEEController* __targetRobotController ) override;
-    bool receiveGenome( std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness=0, int __regret=0 );
+    bool receiveGenome( Packet* p ) override;
     
     void selectNaiveMO();
     

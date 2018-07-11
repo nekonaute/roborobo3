@@ -9,6 +9,7 @@
 #define TEMPLATEMEDEACONTROLLER_H
 
 #include "TemplateEE/include/TemplateEEController.h"
+#include "Utilities/Packet.h"
 
 using namespace Neural;
 
@@ -37,7 +38,7 @@ class TemplateMedeaController : public TemplateEEController
         void broadcastGenome() override;
     
         bool sendGenome( TemplateEEController* __targetRobotController ) override;
-        bool receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma=0, float __fitness=0) override;
+        bool receiveGenome( Packet* p ) override;
     
         void resetFitness() override;
         void updateFitness() override;

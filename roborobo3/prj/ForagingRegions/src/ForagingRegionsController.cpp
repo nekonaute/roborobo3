@@ -258,30 +258,36 @@ void ForagingRegionsController::logCurrentState()
 
 bool ForagingRegionsController::sendGenome( TemplateEEController* __targetRobotController )
 {
-    // other agent stores my genome. Contaminant stragegy. Note that medea does not use fitnessValue (default value: 0)
+    ForagingRegionsPacket* p = new ForagingRegionsPacket();
+    p->agentId = std::make_pair(_wm->getId(), _birthdate);
+    p->fitness = getFitness();
+    p->genome = _currentGenome;
+    p->sigma = _currentSigma;
+    p->regret = this->regret;
     
-    bool retValue = ((ForagingRegionsController*)__targetRobotController)->receiveGenome(_currentGenome, std::make_pair(_wm->getId(), _birthdate), _currentSigma, getFitness(), this->regret);
+    bool retValue = ((ForagingRegionsController*)__targetRobotController)->receiveGenome(p);
     
     return retValue;
 }
 
 
-bool ForagingRegionsController::receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness, int __regret)
+bool ForagingRegionsController::receiveGenome( Packet* p )
 {
-    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(__senderId);
+    ForagingRegionsPacket* p2 = static_cast<ForagingRegionsPacket*>(p);
     
-    _fitnessValueList[__senderId] = __fitness;
-    _regretValueList[__senderId] = __regret;
+    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(p2->agentId);
+    
+    _fitnessValueList[p2->agentId] = p2->fitness;
+    _regretValueList[p2->agentId] = p2->regret;
     
     if ( it == _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
     {
-        _genomesList[__senderId] = __genome;
-        _sigmaList[__senderId] = __sigma;
+        _genomesList[p2->agentId] = p2->genome;
+        _sigmaList[p2->agentId] = p2->sigma;
         return true;
     }
     else
     {
         return false;
     }
-
 }

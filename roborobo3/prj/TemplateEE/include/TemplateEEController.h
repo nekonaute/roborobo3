@@ -12,6 +12,8 @@
 #include "Controllers/Controller.h"
 #include <neuralnetworks/NeuralNetwork.h>
 
+#include "Utilities/Packet.h"
+
 using namespace Neural;
 
 class RobotWorldModel;
@@ -93,7 +95,7 @@ protected:
     double _Yinit;
     double _dSumTravelled;
     
-    virtual bool receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma=0, float __fitness=0);
+    virtual bool receiveGenome( Packet* p );
     virtual bool sendGenome( TemplateEEController* __targetRobotController );
     
     void reset() override;
