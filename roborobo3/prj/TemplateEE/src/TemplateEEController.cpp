@@ -1146,7 +1146,7 @@ bool TemplateEEController::sendGenome( TemplateEEController* __targetRobotContro
     // if you need to send other information, derive your own Packet class and sendGenome/receiveGenome methods in your project space.
 
     Packet* p = new Packet();
-    p->agentId = std::make_pair(_wm->getId(), _birthdate);
+    p->senderId = std::make_pair(_wm->getId(), _birthdate);
     p->fitness = getFitness();
     p->genome = _currentGenome;
     p->sigma = _currentSigma;
@@ -1165,18 +1165,18 @@ bool TemplateEEController::sendGenome( TemplateEEController* __targetRobotContro
 bool TemplateEEController::receiveGenome(Packet* p)
 //bool TemplateEEController::receiveGenome(std::vector<double> __genome, std::pair<int,int> __senderId, float __sigma, float __fitness) // sigma and fitness are optional (default: 0)
 {
-    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(p->agentId);
+    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(p->senderId);
     
     if ( it != _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
     {
-        _fitnessValueList[p->agentId] = p->fitness; // update with most recent fitness
+        _fitnessValueList[p->senderId] = p->fitness; // update with most recent fitness
         return false;
     }
     else
     {
-        _genomesList[p->agentId] = p->genome;
-        _sigmaList[p->agentId] = p->sigma;
-        _fitnessValueList[p->agentId] = p->fitness;
+        _genomesList[p->senderId] = p->genome;
+        _sigmaList[p->senderId] = p->sigma;
+        _fitnessValueList[p->senderId] = p->fitness;
         return true;
     }
 }

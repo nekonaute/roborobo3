@@ -13,7 +13,7 @@ class Packet {
     public:
     
     std::vector<double> genome;
-    std::pair<int,int> agentId;
+    std::pair<int,int> senderId;
     float sigma = 0.0;
     float fitness = 0.0;
     
@@ -25,7 +25,7 @@ class Packet {
     void display()
     {
         std::cout << "[PACKET]\n";
-        std::cout << "\tsender's id  = " << std::get<0>(agentId) << "::" << std::get<1>(agentId) << "\n";
+        std::cout << "\tsender's id  = " << std::get<0>(senderId) << "::" << std::get<1>(senderId) << "\n";
         std::cout << "\tfitnessValue = " << fitness << "\n";
         std::cout << "\tsigma        = " << sigma << "\n";
     }

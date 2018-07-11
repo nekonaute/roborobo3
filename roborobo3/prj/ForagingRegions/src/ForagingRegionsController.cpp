@@ -259,7 +259,7 @@ void ForagingRegionsController::logCurrentState()
 bool ForagingRegionsController::sendGenome( TemplateEEController* __targetRobotController )
 {
     ForagingRegionsPacket* p = new ForagingRegionsPacket();
-    p->agentId = std::make_pair(_wm->getId(), _birthdate);
+    p->senderId = std::make_pair(_wm->getId(), _birthdate);
     p->fitness = getFitness();
     p->genome = _currentGenome;
     p->sigma = _currentSigma;
@@ -275,15 +275,15 @@ bool ForagingRegionsController::receiveGenome( Packet* p )
 {
     ForagingRegionsPacket* p2 = static_cast<ForagingRegionsPacket*>(p);
     
-    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(p2->agentId);
+    std::map<std::pair<int,int>, std::vector<double> >::const_iterator it = _genomesList.find(p2->senderId);
     
-    _fitnessValueList[p2->agentId] = p2->fitness;
-    _regretValueList[p2->agentId] = p2->regret;
+    _fitnessValueList[p2->senderId] = p2->fitness;
+    _regretValueList[p2->senderId] = p2->regret;
     
     if ( it == _genomesList.end() ) // this exact agent's genome is already stored. Exact means: same robot, same generation. Then: update fitness value (the rest in unchanged)
     {
-        _genomesList[p2->agentId] = p2->genome;
-        _sigmaList[p2->agentId] = p2->sigma;
+        _genomesList[p2->senderId] = p2->genome;
+        _sigmaList[p2->senderId] = p2->sigma;
         return true;
     }
     else
