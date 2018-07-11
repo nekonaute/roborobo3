@@ -17,20 +17,9 @@
 
 using namespace Neural;
 
-// Load readable sensor names
-#define NB_SENSORS 12 // should be coherent with gRobotSpecsImageFilename value read from the property file.
-#include "Utilities/Sensorbelt.h"
-
-
 TemplateEEController::TemplateEEController( RobotWorldModel *wm )
 {
     _wm = wm;
-    
-    if ( _wm->_cameraSensorsNb != NB_SENSORS )
-    {
-        std::cerr << "[CRITICAL] This project assumes robot specifications with " << NB_SENSORS << " sensors (provided: " << _wm->_cameraSensorsNb << " sensors). STOP.\n";
-        exit(-1);
-    }
     
     nn = NULL;
     
