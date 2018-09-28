@@ -25,7 +25,7 @@ void TemplateEEAgentObserver::reset()
     // nothing to do.
 }
 
-void TemplateEEAgentObserver::step()
+void TemplateEEAgentObserver::stepPre()
 {
     // * send callback messages to objects touched or walked upon.
     

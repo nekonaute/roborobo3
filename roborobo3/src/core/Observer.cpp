@@ -19,8 +19,12 @@ Observer::~Observer()
 	// nothing to do.
 }
 
-void Observer::step()
+void Observer::stepPre()
 {
 	// nothing to do.
 }
 
+void Observer::stepPost()
+{
+    // nothing to do.
+}

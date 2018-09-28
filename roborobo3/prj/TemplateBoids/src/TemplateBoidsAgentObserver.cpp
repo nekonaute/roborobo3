@@ -25,7 +25,7 @@ void TemplateBoidsAgentObserver::reset()
     // nothing to do.
 }
 
-void TemplateBoidsAgentObserver::step()
+void TemplateBoidsAgentObserver::stepPre()
 {
     // * update energy if needed
     if ( gEnergyLevel && _wm->isAlive() )

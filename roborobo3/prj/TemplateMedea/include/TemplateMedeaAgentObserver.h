@@ -17,7 +17,7 @@ class TemplateMedeaAgentObserver : public TemplateEEAgentObserver
         TemplateMedeaAgentObserver( RobotWorldModel *wm );
 		~TemplateMedeaAgentObserver();
 
-        void step() override;
+        void stepPre() override;
 };
 
 #endif

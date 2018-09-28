@@ -17,8 +17,8 @@ class TemplateBoidsAgentObserver : public AgentObserver
 		TemplateBoidsAgentObserver(RobotWorldModel *wm);
 		~TemplateBoidsAgentObserver();
 
-		void reset();
-		void step();
+		void reset() override;
+		void stepPre() override;
 
 };
 

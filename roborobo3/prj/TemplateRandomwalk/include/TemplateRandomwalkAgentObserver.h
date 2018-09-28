@@ -16,8 +16,8 @@ class TemplateRandomwalkAgentObserver : public AgentObserver
 		TemplateRandomwalkAgentObserver( RobotWorldModel *__wm );
 		~TemplateRandomwalkAgentObserver();
 				
-		void reset();
-		void step();
+		void reset() override;
+		void stepPre() override;
 		
 };
 

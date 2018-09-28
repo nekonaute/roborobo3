@@ -27,7 +27,7 @@ void TemplateWanderAgentObserver::reset()
 	// nothing to do.
 }
 
-void TemplateWanderAgentObserver::step()
+void TemplateWanderAgentObserver::stepPre()
 {
     // * send callback messages to objects touched or walked upon.
     

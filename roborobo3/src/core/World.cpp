@@ -212,7 +212,7 @@ void World::updateWorld(const Uint8 *__keyboardStates)
     
 	// update agent level observers
 	for ( int i = 0 ; i != gNbOfRobots ; i++ )
-		gRobots[shuffledRobotIndex[i]]->callObserver();
+		gRobots[shuffledRobotIndex[i]]->callObserverPre();
 
 	// controller step
 	for ( int i = 0 ; i < gNbOfRobots ; i++ )
@@ -244,6 +244,11 @@ void World::updateWorld(const Uint8 *__keyboardStates)
         gRobots[shuffledRobotIndex[i]]->registerRobot();
         gRobotsRegistry[shuffledRobotIndex[i]]=true;
     }
+    
+    // update agent level observers (post robots' move)
+    for ( int i = 0 ; i != gNbOfRobots ; i++ )
+        gRobots[shuffledRobotIndex[i]]->callObserverPost();
+
     
     // * update world level observer (*after* updating agent state and location)
     

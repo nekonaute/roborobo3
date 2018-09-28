@@ -31,8 +31,9 @@ class AgentObserver : public Observer
 		~AgentObserver();
 				
 		virtual void reset();
-		void step() override;
         Controller* getController();
+        void stepPre() override;
+        void stepPost() override;
 		
 };
 

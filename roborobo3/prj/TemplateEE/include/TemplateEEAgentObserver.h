@@ -18,7 +18,7 @@ class TemplateEEAgentObserver : public AgentObserver
 		~TemplateEEAgentObserver();
 
 		void reset() override;
-		void step() override;
+		void stepPre() override;
 
 };
 

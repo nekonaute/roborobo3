@@ -17,8 +17,8 @@ class Observer
 		Observer();
 		virtual ~Observer();
 	
-		virtual void step();
-		
+		virtual void stepPre();
+        virtual void stepPost();
 };
 
 

@@ -16,7 +16,7 @@ class TemplateVanillaEEAgentObserver : public TemplateEEAgentObserver
 		TemplateVanillaEEAgentObserver(RobotWorldModel *wm);
 		~TemplateVanillaEEAgentObserver();
     
-        void step() override;
+        void stepPre() override;
 };
 
 #endif

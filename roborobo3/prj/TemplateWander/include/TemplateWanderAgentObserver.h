@@ -16,8 +16,8 @@ class TemplateWanderAgentObserver : public AgentObserver
 		TemplateWanderAgentObserver( RobotWorldModel *__wm );
 		~TemplateWanderAgentObserver();
 				
-		void reset();
-		void step();
+		void reset() override;
+		void stepPre() override;
 		
 };
 

@@ -51,8 +51,10 @@ class Robot : public Agent
 		void stepBehavior() override;
 		void stepBehavior(const Uint8* __keyboardStates) override;
 
-		void callObserver(); // call the embedded genetic engine -- always called before stepBehavior.
+		void callObserverPre(); // always called before stepBehavior.
 
+        void callObserverPost(); // always called after stepBehavior.
+    
 		void applyDynamics(); // use transl/rot delta to compute x/y delta.
 
 		//Moves the agent

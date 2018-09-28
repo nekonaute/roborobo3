@@ -311,9 +311,14 @@ void Robot::reset()
 
 }
 
-void Robot::callObserver()
+void Robot::callObserverPre()
 {
-	_agentObserver->step();
+	_agentObserver->stepPre();
+}
+
+void Robot::callObserverPost()
+{
+    _agentObserver->stepPost();
 }
 
 void Robot::stepBehavior()
@@ -566,7 +571,8 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 	_wm->_xReal += _xDeltaReal;
 	_wm->_yReal += _yDeltaReal;	// TODO: round is for positive values... (ok in this case however as 0,0 is up-left)
 
-	setCoord((int)_wm->_xReal+0.5,(int)_wm->_yReal+0.5);
+	//setCoord((int)_wm->_xReal+0.5,(int)_wm->_yReal+0.5); // !n : 2018-07-23 -- original
+    setCoord((int)(_wm->_xReal+0.5),(int)(_wm->_yReal+0.5)); // !n : 2018-07-23
 	
 	// * collision with (image) border of the environment - position at border, then bounce
     
@@ -602,7 +608,8 @@ void Robot::move( int __recursiveIt ) // the interface btw agent and world -- in
 			// special case: agent cannot not move at all - restore original coordinate (remember, _x/yReal are global and modified during recursive call).
 			_wm->_xReal=xReal_old;
 			_wm->_yReal=yReal_old;			
-			setCoord((int)_wm->_xReal+0.5,(int)_wm->_yReal+0.5);
+			//setCoord((int)_wm->_xReal+0.5,(int)_wm->_yReal+0.5); // !n : 2018-07-23 -- original
+            setCoord((int)(_wm->_xReal+0.5),(int)(_wm->_yReal+0.5)); // !n : 2018-07-23
 		}
 
 		// update world model variables and internal data
