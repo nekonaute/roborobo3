@@ -69,6 +69,16 @@ void TemplateRandomwalkController::step()
     monitorSensoryInformation();
 }
 
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+/*                                                                                                     */
+/*    Everything after this comment can be safely ignored (and removed).                               */
+/*    The two following methods illustrates how to access all information available to the robot.      */
+/*                                                                                                     */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+/* **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** **** */
+
+
 void TemplateRandomwalkController::monitorSensoryInformation()
 {
     // Note that this code is executed only for the agent which is "on focus". By default, this means agent #0.

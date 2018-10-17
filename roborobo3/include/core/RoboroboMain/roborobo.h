@@ -123,7 +123,7 @@ extern bool gRobotLEDdisplay; // display LED status (RGB) on top of the robot
 extern bool gSensoryInputs_distanceToContact;
 extern bool gSensoryInputs_physicalObjectType;
 extern bool gSensoryInputs_isOtherAgent;
-extern bool gSensoryInputs_otherAgentSameGroup;
+extern bool gSensoryInputs_otherAgentGroup;
 extern bool gSensoryInputs_otherAgentOrientation;
 extern bool gSensoryInputs_isWall;
 extern bool gSensoryInputs_groundSensors;

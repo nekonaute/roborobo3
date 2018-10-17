@@ -39,16 +39,16 @@ std::string Controller::inspect( std::string prefix )
        Not that this method is automatically called when one of the wrapper function is used, if necessary.
        It can be quite useful to present sensory information in a clear, easy-to-use, format.
   Wrapper access function that use this method are (with "i", the index of the distance sensor):
-       int getObject( int i )
-       int getObjectType( int i )
-       int getRobot( int i )
-       int getRobotSamegroupDetector( int i )
-       int getWall( int i )
-       int getRobotOrientationDetectors( int i )
-       double getRedGroundDetectors( )
-       double getGreenGroundDetectors( )
-       double getBlueGroundDetectors( )
-       double getClosestLandmarkDirection()
+       int getObjectAt( int i )
+       int getObjectTypeAt( int i )
+       int getRobotIdAt( int i )
+       int getRobotGroupIdAt( int i )
+       int getWallAt( int i )
+       double getRobotOrientationAt( int i )
+       double getRedGroundDetector( )
+       double getGreenGroundDetector( )
+       double getBlueGroundDetector( )
+       double getClosestLandmarkDistance()
        double getClosestLandmarkOrientation()
  */
 void Controller::refreshInputs(){
@@ -72,8 +72,8 @@ void Controller::refreshInputs(){
     objectDetectors.clear();
     objectTypeDetectors.clear();
     robotDetectors.clear();
-    robotSamegroupDetector.clear();
-    robotOrientationDetectors.clear();
+    robotGroupDetector.clear();
+    robotRelativeOrientationDetectors.clear();
     wallDetectors.clear();
     
     redGroundDetectors = -1;
@@ -81,7 +81,7 @@ void Controller::refreshInputs(){
     blueGroundDetectors = -1;
 
     landmark_closest_DirectionDetector = -1;
-    landmark_closest_OrientationDetector = -1;
+    landmark_closest_DistanceDetector = -1;
     
     // camera sensors
     
@@ -116,19 +116,13 @@ void Controller::refreshInputs(){
             if ( Agent::isInstanceOf(objectId) )
             {
                 // this is an agent
-                robotDetectors.push_back( 1 );
+                int targetRobotId = gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->getId();
+                robotDetectors.push_back( targetRobotId );
                 
-                if ( gSensoryInputs_otherAgentSameGroup )
+                if ( gSensoryInputs_otherAgentGroup )
                 {
-                    // same group?
-                    if ( gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->getGroupId() == _wm->getGroupId() )
-                    {
-                        robotSamegroupDetector.push_back( 1 ); // match: same group
-                    }
-                    else
-                    {
-                        robotSamegroupDetector.push_back( 0 ); // not the same group
-                    }
+                    int targetRobotGroup = gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->getGroupId();
+                    robotGroupDetector.push_back( targetRobotGroup );
                 }
                 
                 if ( gSensoryInputs_otherAgentOrientation )
@@ -148,19 +142,19 @@ void Controller::refreshInputs(){
                             delta_orientation = - ( - 360.0 - delta_orientation );
                         }
                     }
-                    robotOrientationDetectors.push_back( delta_orientation/180.0 );
+                    robotRelativeOrientationDetectors.push_back( delta_orientation/180.0 );
                 }
             }
             else
             {
-                robotDetectors.push_back( 0 ); // not an agent...
-                if ( gSensoryInputs_otherAgentSameGroup )
+                robotDetectors.push_back( -1 ); // not an agent...
+                if ( gSensoryInputs_otherAgentGroup )
                 {
-                    robotSamegroupDetector.push_back( 0 ); // ...therefore no match wrt. group.
+                    robotGroupDetector.push_back( 0 ); // ...therefore no match wrt. group.
                 }
                 if ( gSensoryInputs_otherAgentOrientation )
                 {
-                    robotOrientationDetectors.push_back( 0 ); // ...and no orientation.
+                    robotRelativeOrientationDetectors.push_back( 0 ); // ...and no orientation.
                 }
             }
         }
@@ -194,13 +188,13 @@ void Controller::refreshInputs(){
     if ( gNbOfLandmarks > 0 )  // if ( gSensoryInputs_landmarkTrackerMode == 1 ) // register closest landmark
     {
         _wm->updateLandmarkSensor(); // update with closest landmark
+        landmark_closest_DistanceDetector = _wm->getLandmarkDistanceValue();
         landmark_closest_DirectionDetector = _wm->getLandmarkDirectionAngleValue();
-        landmark_closest_OrientationDetector = _wm->getLandmarkDirectionAngleValue();
     }
     else
     {
+        landmark_closest_DistanceDetector = -1;
         landmark_closest_DirectionDetector = -1;
-        landmark_closest_OrientationDetector = -1;
     }
 
 }
@@ -256,16 +250,140 @@ int Controller::getId()
 
 double Controller::getActualTranslation()
 {
-    return _wm->_actualTranslationalValue;
+    return _wm->_actualTranslationalValue/_wm->_maxTranslationalDeltaValue;
 }
 
 double Controller::getActualRotation()
 {
-    return _wm->_actualRotationalVelocity;
+    return _wm->_actualRotationalVelocity/_wm->_maxRotationalDeltaValue;
 }
 
-// Agent orientation w.r.t. North (ie. upwards) in degrees.
 double Controller::getCompass()
 {
+    return _wm->_agentAbsoluteOrientation / 180.0;
+}
+
+double Controller::getOrientation()
+{
+    return _wm->_agentAbsoluteOrientation / 180.0;
+}
+
+double Controller::getLinearSpeed()
+{
     return _wm->_agentAbsoluteOrientation;
+}
+
+Point2d Controller::getPosition()
+{
+    Point2d posRobot(_wm->_xReal,_wm->_yReal);
+    return posRobot;
+}
+
+// returns 0 (no object) or 1 (object)
+int Controller::getObjectAt( int sensorId )
+{
+    if ( gSensoryInputs_physicalObjectType == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getObjectAt(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    return objectDetectors[sensorId];
+}
+
+// returns target object's type (relevant if target object exists)
+// returns an integer. Check PhysicalObjectFactory class for existing types.
+// most common types are: 0 (round), 1 (energy item), 2 (gate), 3 (switch), 4 (movable), ...?
+int Controller::getObjectTypeAt( int sensorId )
+{
+    if ( gSensoryInputs_physicalObjectType == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getObjectTypeAt(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    return objectTypeDetectors[sensorId];
+}
+
+// returns robot's id, or -1 (not a robot)
+int Controller::getRobotIdAt( int sensorId )
+{
+    if ( gSensoryInputs_isOtherAgent == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getRobotIdAt(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    return robotDetectors[sensorId];
+}
+
+// returns target robot's group, or -1
+int Controller::getRobotGroupIdAt( int sensorId )
+{
+    if ( gSensoryInputs_isOtherAgent == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getRobotIdAt(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    return robotGroupDetector[sensorId];
+}
+
+// returns 0 (not a wall) or 1 (wall)
+int Controller::getWallAt( int sensorId )
+{
+    if ( gSensoryInputs_isWall == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getWallAt(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    return wallDetectors[sensorId];
+}
+
+double Controller::getRobotRelativeOrientationAt( int sensorId )
+{
+    if ( gSensoryInputs_otherAgentOrientation == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getRobotRelativeOrientationAt(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    return robotRelativeOrientationDetectors[sensorId];
+}
+
+// return a value in [0,1] (red component)
+double Controller::getRedGroundDetector( )
+{
+    if ( gSensoryInputs_groundSensors == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getRedGroundDetector(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    return redGroundDetectors;
+}
+
+// return a value in [0,1] (green component)
+double Controller::getGreenGroundDetector( )
+{
+    if ( gSensoryInputs_groundSensors == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getGreenGroundDetector(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    return greenGroundDetectors;
+}
+
+// return a value in [0,1] (blue component)
+double Controller::getBlueGroundDetector( )
+{
+    if ( gSensoryInputs_groundSensors == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getBlueGroundDetector(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    return blueGroundDetectors;
 }

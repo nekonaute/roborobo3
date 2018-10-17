@@ -163,7 +163,7 @@ std::vector<double> TemplateEEController::getInputs(){
     //      gSensoryInputs_distanceToContact: value in {true|false}, adds 1 input per distance sensors (suggested: at least set this one to True)
     //      gSensoryInputs_physicalObjectType: value in {true|false}, adds 1 input per distance sensors
     //      gSensoryInputs_isOtherAgent: value in {true|false}, adds 1 input per distance sensors
-    //      gSensoryInputs_otherAgentSameGroup: value in {true|false}, adds 1 input per distance sensors
+    //      gSensoryInputs_otherAgentGroup: value in {true|false}, adds 1 input per distance sensors
     //      gSensoryInputs_otherAgentOrientation: value in {true|false}, adds 1 input per distance sensors
     //      gSensoryInputs_isWall: value in {true|false}, adds 1 input per distance sensors
     //      gSensoryInputs_groundSensors: value in {true|false}, adds 3 inputs (R, G, B components)
@@ -252,7 +252,7 @@ std::vector<double> TemplateEEController::getInputs(){
                 // this is an agent
                 inputs.push_back( 1 );
                 
-                if ( gSensoryInputs_otherAgentSameGroup )
+                if ( gSensoryInputs_otherAgentGroup )
                 {
                     // same group?
                     if ( gWorld->getRobot(objectId-gRobotIndexStartOffset)->getWorldModel()->getGroupId() == _wm->getGroupId() )
@@ -288,7 +288,7 @@ std::vector<double> TemplateEEController::getInputs(){
             else
             {
                 inputs.push_back( 0 ); // not an agent...
-                if ( gSensoryInputs_otherAgentSameGroup )
+                if ( gSensoryInputs_otherAgentGroup )
                 {
                     inputs.push_back( 0 ); // ...therefore no match wrt. group.
                 }
@@ -786,7 +786,7 @@ void TemplateEEController::setIOcontrollerSize()
     if ( gSensoryInputs_isOtherAgent )
     {
         _nbInputs += _wm->_cameraSensorsNb;
-        if ( gSensoryInputs_otherAgentSameGroup )
+        if ( gSensoryInputs_otherAgentGroup )
             _nbInputs += _wm->_cameraSensorsNb;
         if ( gSensoryInputs_otherAgentOrientation )
             _nbInputs += _wm->_cameraSensorsNb;

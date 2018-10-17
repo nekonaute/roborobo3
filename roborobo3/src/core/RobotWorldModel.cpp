@@ -64,14 +64,12 @@ void RobotWorldModel::updateLandmarkSensor( int __landmarkId )
     
     double distanceToLandmark = getEuclideanDistance (posRobot,landmarkCoordinates);
     double diffAngleToLandmark = getAngleToTarget(posRobot,_agentAbsoluteOrientation,landmarkCoordinates);
-
+    
+    // orientation wrt to landmark. mapped to [-1,+1]
     setLandmarkDirectionAngleValue( diffAngleToLandmark / 180.0 );
-   
-    //cast the shortest distance between 0 and 1
-    if ( distanceToLandmark > gSensorRange )
-        setLandmarkDistanceValue(1.0);
-    else
-        setLandmarkDistanceValue( distanceToLandmark / (double)gSensorRange );
+    
+    // distance to landmark. normalized in [0,1] -- using maximum possible distance in arena
+    setLandmarkDistanceValue( distanceToLandmark / (double)(gAreaWidth*gAreaHeight) );
     
     // monitoring
     if ( gVerbose && gDisplayMode <= 1 && gMonitorRobot && gRobotIndexFocus == getId() )
@@ -124,14 +122,11 @@ void RobotWorldModel::updateLandmarkSensor()
     else
         diffAngleToClosestLandmark = 0;
     
-    //cast the diffAngle between -1 and 1
+    // orientation wrt to landmark. mapped to [-1,+1]
     setLandmarkDirectionAngleValue( diffAngleToClosestLandmark / 180.0 );
     
-    //cast the shortest distance between 0 and 1
-    if ( distanceToClosestLandmark > gSensorRange )
-        setLandmarkDistanceValue(1.0);
-    else
-        setLandmarkDistanceValue( distanceToClosestLandmark / (double)gSensorRange );
+    // distance to landmark. normalized in [0,1] -- using maximum possible distance in arena
+    setLandmarkDistanceValue( distanceToClosestLandmark / (double)(gAreaWidth*gAreaHeight) );
 
     // monitoring
     if ( gVerbose && gDisplayMode <= 1 && gMonitorRobot && gRobotIndexFocus == getId() )

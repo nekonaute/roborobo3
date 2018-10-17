@@ -176,7 +176,7 @@ bool gRobotLEDdisplay = true;
 bool gSensoryInputs_distanceToContact = true;
 bool gSensoryInputs_physicalObjectType = true;
 bool gSensoryInputs_isOtherAgent = true;
-bool gSensoryInputs_otherAgentSameGroup = true;
+bool gSensoryInputs_otherAgentGroup = true;
 bool gSensoryInputs_otherAgentOrientation = true;
 bool gSensoryInputs_isWall = true;
 bool gSensoryInputs_groundSensors = true;
@@ -1481,7 +1481,7 @@ bool loadProperties( std::string __propertiesFilename )
     gProperties.checkAndGetPropertyValue("gSensoryInputs_distanceToContact",&gSensoryInputs_distanceToContact,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_physicalObjectType",&gSensoryInputs_physicalObjectType,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_isOtherAgent",&gSensoryInputs_isOtherAgent,false);
-    gProperties.checkAndGetPropertyValue("gSensoryInputs_otherAgentSameGroup",&gSensoryInputs_otherAgentSameGroup,false);
+    gProperties.checkAndGetPropertyValue("gSensoryInputs_otherAgentGroup",&gSensoryInputs_otherAgentGroup,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_otherAgentOrientation",&gSensoryInputs_otherAgentOrientation,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_isWall",&gSensoryInputs_isWall,false);
     gProperties.checkAndGetPropertyValue("gSensoryInputs_groundSensors",&gSensoryInputs_groundSensors,false);

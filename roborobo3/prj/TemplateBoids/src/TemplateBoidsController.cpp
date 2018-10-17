@@ -151,10 +151,10 @@ void TemplateBoidsController::step()
         else
         {
             // obstacle avoidance (assume 8 sensors, but works ok with 12)
-            setTranslation( sin( ( ( getDistance(SENSOR_FFL) + getDistance(SENSOR_FFR) + getDistance(SENSOR_F) ) / 3.0 )* M_PI / 2.0) ); //( getDistance(SENSOR_FFL) + getDistance(SENSOR_FFR) ) / 2.0 );
+            setTranslation( sin( ( ( getDistanceAt(SENSOR_FFL) + getDistanceAt(SENSOR_FFR) + getDistanceAt(SENSOR_F) ) / 3.0 )* M_PI / 2.0) ); //( getDistanceAt(SENSOR_FFL) + getDistanceAt(SENSOR_FFR) ) / 2.0 );
             
-            double distanceOnMyLeft = getDistance(SENSOR_L) + getDistance(SENSOR_FL) + getDistance(SENSOR_FFL);
-            double distanceOnMyRight = getDistance(SENSOR_R) + getDistance(SENSOR_FR) + getDistance(SENSOR_FFR);
+            double distanceOnMyLeft = getDistanceAt(SENSOR_L) + getDistanceAt(SENSOR_FL) + getDistanceAt(SENSOR_FFL);
+            double distanceOnMyRight = getDistanceAt(SENSOR_R) + getDistanceAt(SENSOR_FR) + getDistanceAt(SENSOR_FFR);
             
             double rotationDelta = 0.3;
             double noiseAmplitude = 0.01;
