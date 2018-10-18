@@ -68,6 +68,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "-l config/tutorial.properties"
+            isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "-l config/test.properties"
             isEnabled = "NO">
          </CommandLineArgument>
@@ -85,7 +89,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_wander_bigrobots.properties"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_wander_smallrobots.properties"

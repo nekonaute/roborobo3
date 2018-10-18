@@ -97,6 +97,13 @@ class Controller
         // i.e. if both robots roughly go in the same direction, it returns a value around 0. If opposite directions, value returned is close to -1 or +1  
         double getRobotRelativeOrientationAt( int sensorId );
     
+        // return the target robot's controller
+        // enable to access *all* information from the target robot's controller
+        // this is a very powerful method and should be used with care
+        // don't forget to cast the result to the relevant Controller subclass
+        // example of use: implement message-based communication (if Controller class is extended)
+        Controller* getRobotControllerAt ( int sensorId );
+    
         // return a value in [0,1] (red component)
         double getRedGroundDetector( );
     

@@ -21,6 +21,10 @@
 		373976271BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976241BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp */; };
 		373976281BCFAED500A007BF /* TemplateRandomwalkController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976251BCFAED500A007BF /* TemplateRandomwalkController.cpp */; };
 		373976291BCFAED500A007BF /* TemplateRandomwalkWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 373976261BCFAED500A007BF /* TemplateRandomwalkWorldObserver.cpp */; };
+		3751778F21786CD900B68E59 /* TutorialConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3751778E21786CD900B68E59 /* TutorialConfigurationLoader.cpp */; };
+		3751779821786E1C00B68E59 /* TutorialAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3751778B21786BCF00B68E59 /* TutorialAgentObserver.cpp */; };
+		3751779921786E1C00B68E59 /* TutorialController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3751778C21786BCF00B68E59 /* TutorialController.cpp */; };
+		3751779A21786E1C00B68E59 /* TutorialWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3751778D21786BCF00B68E59 /* TutorialWorldObserver.cpp */; };
 		3766DF721E29125D0069E44C /* TemplateVanillaEEAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3766DF6E1E29125D0069E44C /* TemplateVanillaEEAgentObserver.cpp */; };
 		3766DF731E29125D0069E44C /* TemplateVanillaEEController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3766DF6F1E29125D0069E44C /* TemplateVanillaEEController.cpp */; };
 		3766DF741E29125D0069E44C /* TemplateVanillaEESharedData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3766DF701E29125D0069E44C /* TemplateVanillaEESharedData.cpp */; };
@@ -135,6 +139,15 @@
 		3739762A1BD0EC6200A007BF /* _FAQ.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _FAQ.txt; path = roborobo3/_FAQ.txt; sourceTree = "<group>"; };
 		3739762B1BD0EC6200A007BF /* _INSTALL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _INSTALL.txt; path = roborobo3/_INSTALL.txt; sourceTree = "<group>"; };
 		3739762C1BD0EC6200A007BF /* _README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; name = _README.txt; path = roborobo3/_README.txt; sourceTree = "<group>"; };
+		3751778721786BCF00B68E59 /* TutorialAgentObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TutorialAgentObserver.h; sourceTree = "<group>"; };
+		3751778821786BCF00B68E59 /* TutorialController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TutorialController.h; sourceTree = "<group>"; };
+		3751778921786BCF00B68E59 /* TutorialWorldObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TutorialWorldObserver.h; sourceTree = "<group>"; };
+		3751778B21786BCF00B68E59 /* TutorialAgentObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TutorialAgentObserver.cpp; sourceTree = "<group>"; };
+		3751778C21786BCF00B68E59 /* TutorialController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TutorialController.cpp; sourceTree = "<group>"; };
+		3751778D21786BCF00B68E59 /* TutorialWorldObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TutorialWorldObserver.cpp; sourceTree = "<group>"; };
+		3751778E21786CD900B68E59 /* TutorialConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TutorialConfigurationLoader.cpp; sourceTree = "<group>"; };
+		3751779021786CF400B68E59 /* TutorialConfigurationLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TutorialConfigurationLoader.h; sourceTree = "<group>"; };
+		3751779121786D3A00B68E59 /* tutorial.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = tutorial.properties; sourceTree = "<group>"; };
 		3766DF691E29125D0069E44C /* TemplateVanillaEEAgentObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEAgentObserver.h; sourceTree = "<group>"; };
 		3766DF6A1E29125D0069E44C /* TemplateVanillaEEController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEController.h; sourceTree = "<group>"; };
 		3766DF6B1E29125D0069E44C /* TemplateVanillaEESharedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEESharedData.h; sourceTree = "<group>"; };
@@ -348,6 +361,7 @@
 		3705F0891BC67B7C001A016D /* config */ = {
 			isa = PBXGroup;
 			children = (
+				3751779121786D3A00B68E59 /* tutorial.properties */,
 				37EAECC71FE1236D002E5C81 /* foragingregions.properties */,
 				37753A981ECB295C0039BF21 /* movingobjects.properties */,
 				37A569C11E38AB2100B983FF /* template_vanillaEE.properties */,
@@ -388,6 +402,35 @@
 				373976241BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp */,
 				373976251BCFAED500A007BF /* TemplateRandomwalkController.cpp */,
 				373976261BCFAED500A007BF /* TemplateRandomwalkWorldObserver.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		3751778521786BCF00B68E59 /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				3751778621786BCF00B68E59 /* include */,
+				3751778A21786BCF00B68E59 /* src */,
+			);
+			path = Tutorial;
+			sourceTree = "<group>";
+		};
+		3751778621786BCF00B68E59 /* include */ = {
+			isa = PBXGroup;
+			children = (
+				3751778721786BCF00B68E59 /* TutorialAgentObserver.h */,
+				3751778821786BCF00B68E59 /* TutorialController.h */,
+				3751778921786BCF00B68E59 /* TutorialWorldObserver.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		3751778A21786BCF00B68E59 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				3751778B21786BCF00B68E59 /* TutorialAgentObserver.cpp */,
+				3751778C21786BCF00B68E59 /* TutorialController.cpp */,
+				3751778D21786BCF00B68E59 /* TutorialWorldObserver.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -699,6 +742,7 @@
 			isa = PBXGroup;
 			children = (
 				37B4505D1FE074F300B50263 /* ForagingRegionsConfigurationLoader.h */,
+				3751779021786CF400B68E59 /* TutorialConfigurationLoader.h */,
 				3766DF761E2914160069E44C /* TemplateEEConfigurationLoader.h */,
 				3705F0561BC66E03001A016D /* TemplateBoidsConfigurationLoader.h */,
 				3705F0581BC66E03001A016D /* TemplateWanderConfigurationLoader.h */,
@@ -728,6 +772,7 @@
 			isa = PBXGroup;
 			children = (
 				37BA26D61BC3D014002DF5DC /* readme.txt */,
+				3751778521786BCF00B68E59 /* Tutorial */,
 				37B450691FE0757B00B50263 /* ForagingRegions */,
 				3766DF671E29125D0069E44C /* TemplateVanillaEE */,
 				376C24581E28BBA800E70850 /* TemplateMedea */,
@@ -825,6 +870,7 @@
 				37BA27041BC3D014002DF5DC /* PhysicalObjectFactory.cpp */,
 				37BA27061BC3D014002DF5DC /* RoundObject.cpp */,
 				37BA27071BC3D014002DF5DC /* SwitchObject.cpp */,
+				3751778E21786CD900B68E59 /* TutorialConfigurationLoader.cpp */,
 				3705F0591BC66E21001A016D /* TemplateBoidsConfigurationLoader.cpp */,
 				3739761A1BCEAA2F00A007BF /* TemplateRandomwalkConfigurationLoader.cpp */,
 				37C8103F1E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp */,
@@ -890,6 +936,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3751779821786E1C00B68E59 /* TutorialAgentObserver.cpp in Sources */,
+				3751779921786E1C00B68E59 /* TutorialController.cpp in Sources */,
+				3751779A21786E1C00B68E59 /* TutorialWorldObserver.cpp in Sources */,
 				37BA27471BC3D014002DF5DC /* Robot.cpp in Sources */,
 				376C24541E28BB8800E70850 /* TemplateEEAgentObserver.cpp in Sources */,
 				37BA274A1BC3D014002DF5DC /* Timer.cpp in Sources */,
@@ -935,6 +984,7 @@
 				3766DF731E29125D0069E44C /* TemplateVanillaEEController.cpp in Sources */,
 				37BA27351BC3D014002DF5DC /* ReservoirNeuralNetwork.cpp in Sources */,
 				37BA27301BC3D014002DF5DC /* LayeredNeuralNetwork.cpp in Sources */,
+				3751778F21786CD900B68E59 /* TutorialConfigurationLoader.cpp in Sources */,
 				37BA274B1BC3D014002DF5DC /* World.cpp in Sources */,
 				376C24641E28BBA800E70850 /* TemplateMedeaController.cpp in Sources */,
 				37B450761FE075FA00B50263 /* ForagingRegionsAgentObserver.cpp in Sources */,

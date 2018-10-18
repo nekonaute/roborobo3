@@ -23,15 +23,6 @@ TemplateBoidsWorldObserver::TemplateBoidsWorldObserver( World* world ) : WorldOb
     
     gProperties.checkAndGetPropertyValue("gSnapshots",&TemplateBoidsSharedData::gSnapshots,false);
     gProperties.checkAndGetPropertyValue("gSnapshotsFrequency",&TemplateBoidsSharedData::gSnapshotsFrequency,false);
-
-    
-    // ====
-    
-    if ( !gRadioNetwork)
-    {
-        std::cout << "Error : gRadioNetwork must be true." << std::endl;
-        exit(-1);
-    }
     
     // * iteration and generation counters
     

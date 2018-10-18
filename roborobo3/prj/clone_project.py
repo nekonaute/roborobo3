@@ -1,6 +1,8 @@
+#! /usr/bin/env python2
+# -*- coding: utf-8 -*-
+
 # roborobo project cloner
 # MUST BE RUN FROM THE PRJ/ DIRECTORY
-# -*- coding: utf-8 -*-
 
 import os
 from os import listdir
@@ -202,7 +204,7 @@ def cloneProject(source,target):
     print "\t\t\t2. select roborobo3 as target, not project (project/target list window, drop-down list)"
     print "\t\t\t4. select the \'build phases\' tab"
     print "\t\t\t5. go to the \'compile sources\' list"
-    print "\t\t\t6. add the new files, if needed"
+    print "\t\t\t6. add the new files, if needed (use + button at the bottom of the list)"
     print "\t\tRun with new configuration file as argument"
     print "\t\t\tClick on project name (top bar), then \'edit schemes\'"
     print "\n"

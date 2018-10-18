@@ -83,14 +83,6 @@ TemplateEEWorldObserver::TemplateEEWorldObserver( World* world ) : WorldObserver
     
     gProperties.checkAndGetPropertyValue("gSigma",&TemplateEESharedData::gSigma,false);
     
-    // ====
-    
-    if ( !gRadioNetwork)
-    {
-        std::cout << "Error : gRadioNetwork must be true." << std::endl;
-        exit(-1);
-    }
-    
     // * iteration and generation counters
     
     _generationItCount = -1;

@@ -165,9 +165,6 @@ std::vector<std::vector<int> > gRobotMaskData;
 
 //general data
 
-bool gRadioNetwork = false; // default is false -- see header for information about computational cost.
-int gMaxRadioDistance = -1; // not implemented (yet)
-
 int gDisplaySensors = 2; // 0:no, 1:if-contact, 2:always+red, 3: always
 bool gDisplayTail = true;
 bool gRobotLEDdisplay = true;
@@ -373,7 +370,6 @@ void displayHelp()
 		std::cout << " >>>> Keys:" << std::endl;
 		std::cout << "       h : help! (ie. this text)" << std::endl;
 		
-		//std::cout << "       n : radio network communication on/off (unused)" << std::endl;
 		std::cout << "       d : set display mode (shift+d: reverse)" << std::endl;
         std::cout << "       \t (0) default-60-fps;" << std::endl;
         std::cout << "       \t (1) fast;" << std::endl;
@@ -845,20 +841,6 @@ bool handleKeyEvent(const Uint8 *keyboardStates)
 			SDL_Delay(PAUSE_COMMAND);
 		}
         
-		if ( keyboardStates[ SDL_SCANCODE_N ] )
-		{
-            gRadioNetwork = !gRadioNetwork;
-            
-            if ( gVerbose )
-            {
-                if ( gRadioNetwork )
-                    std::cout << "Radio network is active." << std::endl;
-                else
-                    std::cout << "Radio network is inactive." << std::endl;
-            }
-			SDL_Delay(PAUSE_COMMAND); // 200ms delay
-		}
-        
 		if ( gSlowMotionMode )
 			SDL_Delay( 100 );
 	}/**/
@@ -1173,13 +1155,13 @@ bool loadProperties( std::string __propertiesFilename )
 		gConfigurationLoader = ConfigurationLoader::make_ConfigurationLoader(configurationLoaderObjectName);
 		if ( ! gConfigurationLoader )
 		{
-			std::cerr << "[CORRUPT] The configuration " << configurationLoaderObjectName << " isn't known by the ConfigurationLoader\n";
+			std::cerr << "[ERROR] The configuration " << configurationLoaderObjectName << " isn't known by the ConfigurationLoader\n";
 			returnValue = false;
 		}
 	}
 	else
 	{
-		std::cerr << "[MISSING] ConfigurationLoaderObjectName string value is missing.\n";
+		std::cerr << "[ERROR] ConfigurationLoaderObjectName string value is missing.\n";
 		returnValue = false;
 	}
     
@@ -1199,7 +1181,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gInspectorAgentXStart, gProperties.getProperty("gInspectorAgentXStart"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gInspectorAgentXStart value is missing.\n";
+		std::cerr << "[ERROR] gInspectorAgentXStart value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1207,7 +1189,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gInspectorAgentYStart, gProperties.getProperty("gInspectorAgentYStart"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gInspectorAgentYStart value is missing.\n";
+		std::cerr << "[ERROR] gInspectorAgentYStart value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1218,7 +1200,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gDisplayMode value is missing.\n";
+		std::cerr << "[ERROR] gDisplayMode value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1226,7 +1208,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gFastDisplayModeSpeed, gProperties.getProperty("gFastDisplayModeSpeed"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gFastDisplayModeSpeed value is missing.\n";
+		std::cerr << "[ERROR] gFastDisplayModeSpeed value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1234,7 +1216,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gFramesPerSecond, gProperties.getProperty("gFramesPerSecond"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gFramesPerSecond value is missing.\n";
+		std::cerr << "[ERROR] gFramesPerSecond value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1242,7 +1224,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gLocomotionMode, gProperties.getProperty("gLocomotionMode"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gLocomotionMode value is missing.\n";
+		std::cerr << "[ERROR] gLocomotionMode value is missing.\n";
 		returnValue = false;
 	}
 		
@@ -1250,7 +1232,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gInspectorCursorMaxSpeedOnXaxis, gProperties.getProperty("gInspectorCursorMaxSpeedOnXaxis"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gInspectorCursorMaxSpeedOnXaxis value is missing.\n";
+		std::cerr << "[ERROR] gInspectorCursorMaxSpeedOnXaxis value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1258,7 +1240,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gInspectorCursorMaxSpeedOnYaxis, gProperties.getProperty("gInspectorCursorMaxSpeedOnYaxis"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gInspectorCursorMaxSpeedOnYaxis value is missing.\n";
+		std::cerr << "[ERROR] gInspectorCursorMaxSpeedOnYaxis value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1266,7 +1248,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<float>(gMaxTranslationalSpeed, gProperties.getProperty("gMaxTranslationalSpeed"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gMaxTranslationalSpeed value is missing.\n";
+		std::cerr << "[ERROR] gMaxTranslationalSpeed value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1274,7 +1256,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<float>(gMaxTranslationalDeltaValue, gProperties.getProperty("gMaxTranslationalDeltaValue"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gMaxTranslationalDeltaValue value is missing.\n";
+		std::cerr << "[ERROR] gMaxTranslationalDeltaValue value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1282,7 +1264,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<float>(gMaxRotationalSpeed, gProperties.getProperty("gMaxRotationalSpeed"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gMaxRotationalSpeed value is missing.\n";
+		std::cerr << "[ERROR] gMaxRotationalSpeed value is missing.\n";
 		returnValue = false;
 	}
 
@@ -1290,7 +1272,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gInspectorCursorVerticalSpeed, gProperties.getProperty("gInspectorCursorVerticalSpeed"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gInspectorCursorVerticalSpeed value is missing.\n";
+		std::cerr << "[ERROR] gInspectorCursorVerticalSpeed value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1298,7 +1280,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gInspectorCursorHorizontalSpeed, gProperties.getProperty("gInspectorCursorHorizontalSpeed"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gInspectorCursorHorizontalSpeed value is missing.\n";
+		std::cerr << "[ERROR] gInspectorCursorHorizontalSpeed value is missing.\n";
 		returnValue = false;
 	}
 
@@ -1306,7 +1288,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gMaxIt, gProperties.getProperty("gMaxIt"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gMaxIt value is missing.\n";
+		std::cerr << "[ERROR] gMaxIt value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1314,7 +1296,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gNbOfLandmarks, gProperties.getProperty("gNbOfLandmarks"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gNbOfLandmarks value is missing.\n";
+		std::cerr << "[ERROR] gNbOfLandmarks value is missing.\n";
 		returnValue = false;
 	}
 
@@ -1322,7 +1304,7 @@ bool loadProperties( std::string __propertiesFilename )
 		convertFromString<int>(gNbOfPhysicalObjects, gProperties.getProperty("gNbOfPhysicalObjects"), std::dec);
 	else
 	{
-		std::cerr << "[MISSING] gNbOfPhysicalObjects value is missing.\n";
+		std::cerr << "[ERROR] gNbOfPhysicalObjects value is missing.\n";
 		returnValue = false;
 	}
     
@@ -1528,7 +1510,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gInitialNumberOfRobots value is missing.\n";
+		std::cerr << "[ERROR] gInitialNumberOfRobots value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1538,7 +1520,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gLocationFinderMaxNbOfTrials value is missing.\n";
+		std::cerr << "[ERROR] gLocationFinderMaxNbOfTrials value is missing.\n";
 		returnValue = false;
 	}
 
@@ -1548,7 +1530,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gPhysicalObjectIndexStartOffset value is missing.\n";
+		std::cerr << "[ERROR] gPhysicalObjectIndexStartOffset value is missing.\n";
 		returnValue = false;
 	}
 
@@ -1558,7 +1540,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gRobotIndexStartOffset value is missing.\n";
+		std::cerr << "[ERROR] gRobotIndexStartOffset value is missing.\n";
 		returnValue = false;
 	}
     
@@ -1590,7 +1572,7 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	else
 	{
-		std::cerr << "[MISSING] gRandomSeed value is missing.\n";
+		std::cerr << "[ERROR] gRandomSeed value is missing.\n";
 		returnValue = false;
 	}
 		
@@ -1600,7 +1582,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gScreenHeight value is missing.\n";
+		std::cerr << "[ERROR] gScreenHeight value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1610,7 +1592,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gScreenWidth value is missing.\n";
+		std::cerr << "[ERROR] gScreenWidth value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -1640,7 +1622,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gSensorRange value is missing.\n";
+		std::cerr << "[ERROR] gSensorRange value is missing.\n";
 		returnValue = false;
 	}
     
@@ -1652,17 +1634,6 @@ bool loadProperties( std::string __propertiesFilename )
     {
         std::cerr << "[MISSING] gTailLength value is missing. Assume default value (" << gTailLength << ").\n";
     }
-
-    if ( gProperties.hasProperty("gMaxRadioDistance") )
-	{
-        std::cerr << "[WARNING] gMaxRadioDistance is set, but is useless.\n";
-        convertFromString<int>(gMaxRadioDistance, gProperties.getProperty("gMaxRadioDistance"), std::dec);
-	}
-	else
-	{
-		std::cerr << "[MISSING] gMaxRadioDistance value is missing (set to -1 if not used).\n";
-		returnValue = false;
-	}
     
 	if ( gProperties.hasProperty("gDisplaySensors") )
 	{
@@ -1676,7 +1647,7 @@ bool loadProperties( std::string __propertiesFilename )
 	}
 	else
 	{
-		std::cerr << "[MISSING] gDisplaySensors value is missing.\n";
+		std::cerr << "[ERROR] gDisplaySensors value is missing.\n";
 		returnValue = false;
 	}
     
@@ -1732,7 +1703,7 @@ bool loadProperties( std::string __propertiesFilename )
             }
             else
             {
-                std::cerr << "[CORRUPT] gBatchMode should be boolean (\"true\" or \"false\").\n";
+                std::cerr << "[ERROR] gBatchMode should be boolean (\"true\" or \"false\").\n";
                 returnValue = false;
             }
         }
@@ -1846,8 +1817,8 @@ bool loadProperties( std::string __propertiesFilename )
         }
 		else
 		{
-			std::cerr << "[CORRUPT] gPhysicalObjectsRedraw should be boolean (\"true\" or \"false\").\n";
-			returnValue = false;
+            std::cerr << "[WARNING] gPhysicalObjectsRedraw is missing (default is \"" << gPhysicalObjectsRedraw << "\").\n";
+            //returnValue = false;
 		}
     }
 
@@ -1864,7 +1835,7 @@ bool loadProperties( std::string __propertiesFilename )
         }
 		else
 		{
-			std::cerr << "[CORRUPT] gMonitorRobot should be boolean (\"true\" or \"false\").\n";
+			std::cerr << "[ERROR] gMonitorRobot should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
     }
@@ -1882,7 +1853,7 @@ bool loadProperties( std::string __propertiesFilename )
         }
 		else
 		{
-			std::cerr << "[CORRUPT] gInspectorAgent should be boolean (\"true\" or \"false\").\n";
+			std::cerr << "[ERROR] gInspectorAgent should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
     }
@@ -1900,7 +1871,7 @@ bool loadProperties( std::string __propertiesFilename )
         }
 		else
 		{
-			std::cerr << "[CORRUPT] gInspectorMode should be boolean (\"true\" or \"false\").\n";
+			std::cerr << "[ERROR] gInspectorMode should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
     }
@@ -1918,7 +1889,7 @@ bool loadProperties( std::string __propertiesFilename )
         }
 		else
 		{
-			std::cerr << "[CORRUPT] gNiceRendering should be boolean (\"true\" or \"false\").\n";
+			std::cerr << "[ERROR] gNiceRendering should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
     }
@@ -1936,7 +1907,7 @@ bool loadProperties( std::string __propertiesFilename )
         }
 		else
 		{
-			std::cerr << "[CORRUPT] gPauseMode should be boolean (\"true\" or \"false\").\n";
+			std::cerr << "[ERROR] gPauseMode should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
     }
@@ -1954,7 +1925,7 @@ bool loadProperties( std::string __propertiesFilename )
         }
 		else
 		{
-			std::cerr << "[CORRUPT] gUserCommandMode should be boolean (\"true\" or \"false\").\n";
+			std::cerr << "[ERROR] gUserCommandMode should be boolean (\"true\" or \"false\").\n";
 			returnValue = false;
 		}
     }
@@ -1974,31 +1945,13 @@ bool loadProperties( std::string __propertiesFilename )
             }
             else
             {
-                std::cerr << "[CORRUPT] gVerbose should be boolean (\"true\" or \"false\").\n";
+                std::cerr << "[ERROR] gVerbose should be boolean (\"true\" or \"false\").\n";
                 returnValue = false;
             }
         }
     }
     else
         std::cout << "[INFO] gVerbose value set as command-line paramater.\n";
-	
-	s = gProperties.getProperty("gRadioNetwork");
-	if ( s == "true" || s == "True" || s == "TRUE" )
-    {
-		gRadioNetwork = true;
-    }
-	else
-    {
-		if ( s == "false" || s == "False" || s == "FALSE" )
-        {
-			gRadioNetwork = false;
-        }
-		else
-		{
-			std::cerr << "[CORRUPT] gRadioNetwork should be boolean (\"true\" or \"false\").\n";
-			returnValue = false;
-		}
-    }
     
 	s = gProperties.getProperty("gPhysicalObjectDefaultRelocate");
 	if ( s == "true" || s == "True" || s == "TRUE" )
@@ -2011,8 +1964,8 @@ bool loadProperties( std::string __propertiesFilename )
 			gPhysicalObjectDefaultRelocate = false;
 		else
 		{
-			std::cerr << "[CORRUPT] gPhysicalObjectDefaultRelocate should be boolean (\"true\" or \"false\").\n";
-			returnValue = false;
+			std::cerr << "[WARNING] gPhysicalObjectDefaultRelocate is missing (default is \"" << gPhysicalObjectDefaultRelocate << "\").\n";
+            //returnValue = false;
         }
     }
     
@@ -2029,8 +1982,8 @@ bool loadProperties( std::string __propertiesFilename )
         }
 		else
 		{
-			std::cerr << "[CORRUPT] gPhysicalObjectDefaultOverwrite should be boolean (\"true\" or \"false\").\n";
-			returnValue = false;
+            std::cerr << "[WARNING] gPhysicalObjectDefaultOverwrite is missing (default is \"" << gPhysicalObjectDefaultOverwrite << "\").\n";
+			//returnValue = false;
 		}
     }
 	
@@ -2048,7 +2001,7 @@ bool loadProperties( std::string __propertiesFilename )
             }
             else
             {
-                std::cerr << "[CORRUPT] gTrajectoryMonitor should be boolean (\"true\" or \"false\").\n";
+                std::cerr << "[ERROR] gTrajectoryMonitor should be boolean (\"true\" or \"false\").\n";
                 returnValue = false;
             }
         
@@ -2172,7 +2125,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gRobotMaskImageFilename string value is missing.\n";
+		std::cerr << "[ERROR] gRobotMaskImageFilename string value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -2192,7 +2145,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gRobotSpecsImageFilename string value is missing.\n";
+		std::cerr << "[ERROR] gRobotSpecsImageFilename string value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -2202,7 +2155,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gBackgroundImageFilename string value is missing.\n";
+		std::cerr << "[ERROR] gBackgroundImageFilename string value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -2212,7 +2165,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gEnvironmentImageFilename string value is missing.\n";
+		std::cerr << "[ERROR] gEnvironmentImageFilename string value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -2222,7 +2175,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gForegroundImageFilename string value is missing.\n";
+		std::cerr << "[ERROR] gForegroundImageFilename string value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -2232,7 +2185,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gLogCommentText string value is missing.\n";
+		std::cerr << "[ERROR] gLogCommentText string value is missing.\n";
 		returnValue = false;
 	}
 	
@@ -2275,7 +2228,7 @@ bool loadProperties( std::string __propertiesFilename )
     }
 	else
 	{
-		std::cerr << "[MISSING] gFootprintImageFilename string value is missing.\n";
+		std::cerr << "[ERROR] gFootprintImageFilename string value is missing.\n";
 		returnValue = false;
 	}
 	

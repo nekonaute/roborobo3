@@ -21,8 +21,11 @@ bool ExtendedProperties::checkAndGetPropertyValue( std::string __propertyName, i
 	else
 	{
 		std::cerr << "[MISSING] " << __propertyName << " value is missing.";
-		if ( __exitProgramOnError == true ) 
-			exit(-1);
+		if ( __exitProgramOnError == true )
+        {
+            std::cerr << "[CRITICAL ERROR] program will terminate.\n";
+            exit(-1);
+        }
         else
             std::cerr << " Assume default value (" << *__propertyValue << ")";
         std::cerr << "\n";
@@ -39,8 +42,11 @@ bool ExtendedProperties::checkAndGetPropertyValue( std::string __propertyName, d
 	else
 	{
 		std::cerr << "[MISSING] " << __propertyName << " value is missing.";
-		if ( __exitProgramOnError == true ) 
-			exit(-1);
+		if ( __exitProgramOnError == true )
+        {
+            std::cerr << "[CRITICAL ERROR] program will terminate.\n";
+            exit(-1);
+        }
         else
             std::cerr << " Assume default value (" << *__propertyValue << ").";
         std::cerr << "\n";
@@ -57,7 +63,10 @@ bool ExtendedProperties::checkAndGetPropertyValue( std::string __propertyName, f
 	{
 		std::cerr << "[MISSING] " << __propertyName << " value is missing.";
 		if ( __exitProgramOnError == true )
-			exit(-1);
+        {
+            std::cerr << "[CRITICAL ERROR] program will terminate.\n";
+            exit(-1);
+        }
         else
             std::cerr << " Assume default value (" << *__propertyValue << ").";
         std::cerr << "\n";
@@ -76,9 +85,12 @@ bool ExtendedProperties::checkAndGetPropertyValue( std::string __propertyName, b
 			*__propertyValue = false;
 		else
 		{
-			std::cerr << "[CORRUPT] " << __propertyName << " should be boolean (\"true\" or \"false\").";
-			if ( __exitProgramOnError == true ) 
+			std::cerr << "[MISSING] " << __propertyName << " should be boolean (\"true\" or \"false\").";
+			if ( __exitProgramOnError == true )
+            {
+                std::cerr << "[CRITICAL ERROR] program will terminate.\n";
 				exit(-1);
+            }
             else
             {
                 std::cerr << " Assume default value (";
@@ -102,8 +114,11 @@ bool ExtendedProperties::checkAndGetPropertyValue( std::string __propertyName, s
 	else
 	{
 		std::cerr << "[MISSING] " << __propertyName << " string value is missing.";
-		if ( __exitProgramOnError == true ) 
-			exit (-1);
+		if ( __exitProgramOnError == true )
+        {
+            std::cerr << "[CRITICAL ERROR] program will terminate.\n";
+            exit(-1);
+        }
         else
             std::cerr << " Assume default value (" << __propertyValue << ")";
         std::cerr << "\n";

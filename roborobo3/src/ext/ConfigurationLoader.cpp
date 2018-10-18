@@ -6,6 +6,7 @@
 #include "Config/TemplateVanillaEEConfigurationLoader.h"
 #include "Config/TemplateMedeaConfigurationLoader.h"
 #include "Config/ForagingRegionsConfigurationLoader.h"
+#include "Config/TutorialConfigurationLoader.h"
 //###DO-NOT-DELETE-THIS-LINE###TAG:INCLUDE###//
 
 
@@ -65,6 +66,12 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 	else if (configurationLoaderObjectName == "ForagingRegionsConfigurationLoader" )
 	{
 		return new ForagingRegionsConfigurationLoader();
+	}
+#endif
+#if defined PRJ_TUTORIAL || !defined MODULAR
+	else if (configurationLoaderObjectName == "TutorialConfigurationLoader" )
+	{
+		return new TutorialConfigurationLoader();
 	}
 #endif
     //###DO-NOT-DELETE-THIS-LINE###TAG:SWITCH###//

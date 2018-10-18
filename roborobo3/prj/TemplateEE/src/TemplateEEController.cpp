@@ -395,14 +395,7 @@ std::vector<double> TemplateEEController::getInputs(){
             inputs.push_back( outputs[i] );
         }
     }
-    /*
-    // DEBUG - to delete after 2018-01-16 [!n]
-    std::vector<double> outputs = nn->readOut();
-    std::cout << "[DEBUG] outputs:\n";
-    for ( int i = 0 ; i < outputs.size() ; i++ )
-        std::cout << "\t" << outputs[i] << "\n";
-    */
-    
+
     return inputs;
 }
 
@@ -522,7 +515,7 @@ void TemplateEEController::stepEvolution()
     {
         // * broadcasting genome : robot broadcasts its genome to all neighbors (contact-based wrt proximity sensors)
         // note: no broadcast if last iteration before replacement -- this is enforced as roborobo update method is random-asynchroneous. This means that robots broadcasting may transmit genomes to robot already at the next generation depending on the update ordering (should be avoided).
-        if ( _wm->isAlive() == true && gRadioNetwork )  	// only if agent is active (ie. not just revived) and deltaE>0.
+        if ( _wm->isAlive() == true )  	// only if agent is active (ie. not just revived) and deltaE>0.
         {
             broadcastGenome();
         }
@@ -588,7 +581,6 @@ void TemplateEEController::performVariation()
                 exit(-1);
         }
     }
-    
 }
 
 void TemplateEEController::selectRandomGenome() // if called, assume genomeList.size()>0

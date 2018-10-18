@@ -279,14 +279,14 @@ bool World::loadFiles()
     gForegroundImage = load_image( gForegroundImageFilename );
 	if ( gForegroundImageFilename.compare(gForegroundImageFilename.length()-3, 3, "jpg", 0, 3) == 0 )
 	{
-		std::cerr << "foreground: BMP format is *mandatory*\n";
+		std::cerr << "[ERROR] foreground: BMP format is *mandatory*\n";
 		returnValue = false;
 	}
 	
     gEnvironmentImage = load_image( gEnvironmentImageFilename );
 	if ( gEnvironmentImageFilename.compare(gEnvironmentImageFilename.length()-3, 3, "jpg", 0, 3) == 0 )
 	{
-		std::cerr << "environment: BMP format is *mandatory*\n";
+		std::cerr << "[ERROR] environment: BMP format is *mandatory*\n";
 		returnValue = false;
     }
 	

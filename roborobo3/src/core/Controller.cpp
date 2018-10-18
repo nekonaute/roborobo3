@@ -387,3 +387,16 @@ double Controller::getBlueGroundDetector( )
     if ( checkRefresh() == false ) { refreshInputs(); }
     return blueGroundDetectors;
 }
+
+Controller* Controller::getRobotControllerAt ( int sensorId )
+{
+    if ( gSensoryInputs_isOtherAgent == false )
+    {
+        std::cout << "[ERROR] Unauthorized call to Controller::getRobotControllerAt(.)\n";
+        exit(-1);
+    }
+    if ( checkRefresh() == false ) { refreshInputs(); }
+    Controller* targetRobotController = dynamic_cast<Controller*>(gWorld->getRobot(getRobotIdAt(sensorId))->getController());
+    return targetRobotController;
+    
+}

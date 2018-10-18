@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#! /usr/bin/env python2
 
 # History:
 # - 20180123: modified shebang to force the use of python 2

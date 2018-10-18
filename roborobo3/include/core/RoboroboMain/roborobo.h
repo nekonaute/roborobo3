@@ -106,8 +106,6 @@ extern bool gMovableObjects; // enable physics for moving (some) objects
 
 extern bool gRobotDisplayFocus;  // make focused robot more visible
 
-extern bool gRadioNetwork;			// update radio network.
-
 #define SENSOR_RAY_RED 224   //192,192,255
 #define SENSOR_RAY_GREEN 224
 #define SENSOR_RAY_BLUE 255
@@ -254,8 +252,6 @@ extern bool gFootprintImage_restoreOriginal; // If true, then any object footpri
 
 // general purpose
 extern SDL_Event gEvent; //The event structure
-
-extern int gMaxRadioDistance;
 
 // robot dynamics and structure
 extern float gMaxTranslationalSpeed; // pixels/sec.
