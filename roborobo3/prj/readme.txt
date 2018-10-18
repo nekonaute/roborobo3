@@ -8,8 +8,16 @@
 =-=-=-=-=-=-=-=-=-=-=
 
 CONTENT:
+0. How to start in 2 minutes
 1. List of "template" projects
 2. Creating your own project
+
+=-=-=-=-=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=
+
+## 0. HOW TO START IN 2 MINUTES
+
+Check the "Tutorial" project, in particular the step() method from TutorialController.cpp. 
 
 =-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=
