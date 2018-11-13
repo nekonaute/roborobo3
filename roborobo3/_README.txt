@@ -88,16 +88,16 @@ The paper is available on Arxiv: http://arxiv.org/abs/1304.2888
 
 ** VERY QUICK START **
 
-Check the Template* projects in prj/ (start with TemplateRandomwalk, then TemplateBoids). Everything you need is there. The code is meant to illustrate how it worksand contains a lot of comments.
+Check the projects in prj/ starting with the "Tutorial" project. Everything you need is there. The code is meant to illustrate how it worksand contains a lot of comments.
 Check also the config/ directory, which contains "properties" files, used to launch a particular instance of roborobo. It specifies both parameters and project classes to be used.
 A typical command to launch roborobo is: './roborobo -l config/boids.properties'
 
 If you want to start coding:
-1. clone a project (go to prj/, use the clone_project.py script)
-2. create your own config file (go to config/, copy an existing file)
-3. add your project to the Makefile (use makefile_manager script)
-4. compile ('make')
-5. run ('./roborobo -l config/myconfigurationfile.properties')
+1. clone a project (go to prj/, use the clone_project.py script). E.g. "python2 clone_project.py Tutorial MyProjectName"
+2. create your own config file (go to config/, copy an existing file). E.g. in the config/ directory, "cp Tutorial.properties myProjectName.properties"
+3. add your project to the Makefile (use makefile_manager script). E.g. "./makefile-manager -a MyProjectName"
+4. compile. E.g. "make" or "make -j16" (if you have a 16 cores CPU)
+5. run. E.g. "./roborobo -l config/myProjectName.properties"
 
 Detailed example, based on cloning the TemplateRandomWalk project:
 

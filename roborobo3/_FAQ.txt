@@ -19,7 +19,7 @@ Q: What it the current version of roborobo and what is the main difference with 
 A: This is version 3. It uses SDL2 (and SDL2_image), while older versions used SDL1.2. It is also better in every way (ah!). If you want to use SDL1.2, use roborobo version 2 - though I would strongly recommend using the latest version. Roborobo is extensively used on both Mac OS X and Linux (Ubuntu) on a daily basis.
 
 Q: I want to start coding now!
-A: check _README.txt, Section "DEVELOPER'S QUICK START", paragraph "VERY QUICK START". This includes entry points to tutorials, and how to create/clone a new project from an existing one.
+A: If you want to start *right now*, check the step() method in ./prj/Tutorial/src/TutorialController.cpp. Use "./roborobo -l config/Tutorial.properties" to test (ensure Makefile has been initialized before -- see _README.txt). If you want to go further, check _README.txt, Section "DEVELOPER'S QUICK START", paragraph "VERY QUICK START". This includes entry points to tutorials, and how to create/clone a new project from an existing one. 
 
 Q: roborobo does not compile.
 A: did you read _INSTALL.TXT ?
