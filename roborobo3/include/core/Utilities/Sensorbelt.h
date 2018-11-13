@@ -100,4 +100,55 @@
 #define SENSOR_BLL 15
 #endif
 
+//
+// 15 sensors (covering the front [-90°,+-90°])
+// the -90° and +90° sensors are placed slightly back from the center.
+// ASSUMES #define NB_SENSORS 15
+// ASSUMES gRobotSpecsImageFilename = data/minirobot-specs-15sensorsFront.bmp
+//
+#if NB_SENSORS == 15
+#define SENSOR_L 0          // -90°
+#define SENSOR_F6L 1        // -77°
+#define SENSOR_F5L 2        // -64°
+#define SENSOR_F4L 3        // -52°
+#define SENSOR_F3L 4        // -39°
+#define SENSOR_FLL 5        // -26°
+#define SENSOR_FL 6         // -13°
+#define SENSOR_F 7          // 0° (front)
+#define SENSOR_FR 8         // 13°
+#define SENSOR_FRR 9        // 26°
+#define SENSOR_F3R 10       // 38°
+#define SENSOR_F4R 11       // 51°
+#define SENSOR_F5R 12       // 64°
+#define SENSOR_F6R 13       // 77°
+#define SENSOR_R 14         // 90°
+#endif
+
+//
+// 18 sensors (15 covering the front [-90°,+-90°] and 3 on the back (135°,180°,-135°)
+// the -90° and +90° sensors are placed slightly back from the center.
+// ASSUMES #define NB_SENSORS 18
+// ASSUMES gRobotSpecsImageFilename = data/minirobot-specs-18sensorsFront.bmp
+//
+#if NB_SENSORS == 18
+#define SENSOR_L 0          // -90°
+#define SENSOR_F6L 1        // -77°
+#define SENSOR_F5L 2        // -64°
+#define SENSOR_F4L 3        // -52°
+#define SENSOR_F3L 4        // -39°
+#define SENSOR_FLL 5        // -26°
+#define SENSOR_FL 6         // -13°
+#define SENSOR_F 7          // 0° (front)
+#define SENSOR_FR 8         // 13°
+#define SENSOR_FRR 9        // 26°
+#define SENSOR_F3R 10       // 38°
+#define SENSOR_F4R 11       // 51°
+#define SENSOR_F5R 12       // 64°
+#define SENSOR_F6R 13       // 77°
+#define SENSOR_R 14         // 90°
+#define SENSOR_BR 15        // 135° (back-right)
+#define SENSOR_B 16         // 180° (back)
+#define SENSOR_BL 17        // 225° (back-left)
+#endif
+
 #endif // SENSORBELT
