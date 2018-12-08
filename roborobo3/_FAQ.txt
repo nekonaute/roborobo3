@@ -78,6 +78,9 @@ A: Unfortunatly, roborobo is provided "as is" and is not really supported. You'l
 Q: [deprecated?] I have some strange image related i/o processing problems under MACOSX (e.g. rendering is ok, but sensors dont seem to work) ?
 A: At some point, some versions of SDL may cause problems -- if you experience strange problem such as error wrt. sensor numbering, this may be caused by a too recent SDL. Install an older version (it works with 1.2.14), or the newest ones.
 
+Q: I am using MacOS X 10.14 (Mojave). When roborobo starts, I get a black screen though the simulator is running (from the console messages). The display turns to normal as soon as I resize or move the window. What's happening?
+A: This is a bug due to the OS, which is triggered by a call to SDL_PollEvent(...). Note that this does not affect the simulation (just the display). It has been fixed in SDL 2.0.9. Cf. https://bugzilla.libsdl.org/show_bug.cgi?id=4272
+
 Q: How can i run roborobo in batch mode for fast computation?
 A: it is enough to set the gBatchMode parameter value  to 'true' in the properties file (also, I suggest to switch to gDisplayMode = 2 and gVerbose=false). Note that we daily use this to launch stand-alone roborobo processes on the lab's cluster of machines as well as the Grid 5000 national cluster (ie. machines without video output) and this works like a charm. However, we never tried with a remote Mac (I use a mac, but not remotely) but it can be locally run headless.
 

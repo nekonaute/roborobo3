@@ -2362,13 +2362,16 @@ bool runRoborobo(int __maxIt) // default parameter is -1 (infinite)
 			updateDisplay();
             
             // monitor trajectories (if needed)
-            if ( gTrajectoryMonitor == true )
-                updateTrajectoriesMonitor();
+            if ( gPauseMode == false )
+                if ( gTrajectoryMonitor == true )
+                    updateTrajectoriesMonitor();
             
 			updateMonitor(keyboardStates);
 		}
 		
-		currentIt++;
+        if ( gPauseMode == false )
+            currentIt++;
+        
 		if (gWorld->getNbOfRobots() <= 0)
 		{
 			quit = true;

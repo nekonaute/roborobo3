@@ -5,14 +5,16 @@
 //
 //
 // Usage in source file:
-//      #define NB_SENSORS X // with X = 8, 9, 12 or 16
+//      #define NB_SENSORS X // with X = 8, 9, 12, 15, 16 or 18
 //      #include "Misc/Sensorbelt.h"
 //
 // Of course, you should ensure that the gRobotSpecsImageFilename property value points to a file that is coherent w.r.t. the NB_SENSORS value. I.e.:
 //          8  <=> minirobot-specs-8sensors.bmp
 //          9  <=> minirobot-specs-9sensorsFront.bmp
 //          12 <=> minirobot-specs-12sensors.bmp
+//          15 <=> minirobot-specs-15sensorsFront.bmp
 //          16 <=> minirobot-specs-16sensors.bmp
+//          18 <=> minirobot-specs-18sensorsFront.bmp
 //          any other file: dont use Sensorbelt.h
 //
 // (L)eft, (R)ight, (B)ack, (F)ront
@@ -22,6 +24,7 @@
 // FL is a front-left sensor (45°)
 // FLL is a front-left-left sensor, pointing nearly to the left (67.5°)
 // etc.
+// There may be some exceptions -- see comments below.
 
 //
 // 8 sensors
