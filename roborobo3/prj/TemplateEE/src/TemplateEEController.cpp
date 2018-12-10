@@ -756,7 +756,7 @@ void TemplateEEController::mutateUniform() // mutate within bounds.
 {
     for (unsigned int i = 0 ; i != _currentGenome.size() ; i++ )
     {
-        float randomValue = float(randint()%100) / 100.0; // in [0,1[
+        float randomValue = random01(); //float(randint()%100) / 100.0; // in [0,1[
         double range = _maxValue - _minValue;
         double value = randomValue * range + _minValue;
         
@@ -1145,6 +1145,8 @@ bool TemplateEEController::sendGenome( TemplateEEController* __targetRobotContro
     
     bool retValue = __targetRobotController->receiveGenome(p);
  
+    delete p;
+    
     return retValue;
 }
 
