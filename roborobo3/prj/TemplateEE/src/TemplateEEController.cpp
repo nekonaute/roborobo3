@@ -1144,7 +1144,9 @@ bool TemplateEEController::sendGenome( TemplateEEController* __targetRobotContro
     p->sigma = _currentSigma;
     
     bool retValue = __targetRobotController->receiveGenome(p);
- 
+
+    delete p;
+
     return retValue;
 }
 
