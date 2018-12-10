@@ -39,6 +39,11 @@
 		376C24651E28BBA800E70850 /* TemplateMedeaSharedData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 376C24611E28BBA800E70850 /* TemplateMedeaSharedData.cpp */; };
 		376C24661E28BBA800E70850 /* TemplateMedeaWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 376C24621E28BBA800E70850 /* TemplateMedeaWorldObserver.cpp */; };
 		37753A961ECB27EB0039BF21 /* MovableObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37753A951ECB27EB0039BF21 /* MovableObject.cpp */; };
+		378CF9D121BEB0AB00C142CB /* TemplateHITEESharedData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378CF9CD21BEB07900C142CB /* TemplateHITEESharedData.cpp */; };
+		378CF9D221BEB0AB00C142CB /* TemplateHITEEAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378CF9CE21BEB07900C142CB /* TemplateHITEEAgentObserver.cpp */; };
+		378CF9D321BEB0AB00C142CB /* TemplateHITEEController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378CF9CF21BEB07900C142CB /* TemplateHITEEController.cpp */; };
+		378CF9D421BEB0AB00C142CB /* TemplateHITEEWorldObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378CF9D021BEB07900C142CB /* TemplateHITEEWorldObserver.cpp */; };
+		378CF9D621BEB1C300C142CB /* TemplateHITEEConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 378CF9D521BEB1C200C142CB /* TemplateHITEEConfigurationLoader.cpp */; };
 		37A9F91B1E28AA7E00006059 /* TemplateVanillaEEConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37A9F91A1E28AA7E00006059 /* TemplateVanillaEEConfigurationLoader.cpp */; };
 		37B4505C1FE074D600B50263 /* ForagingRegionsConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37B4505B1FE074D600B50263 /* ForagingRegionsConfigurationLoader.cpp */; };
 		37B450761FE075FA00B50263 /* ForagingRegionsAgentObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37B450711FE0757B00B50263 /* ForagingRegionsAgentObserver.cpp */; };
@@ -180,6 +185,17 @@
 		378470CD20EA6842008833E9 /* Sensorbelt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Sensorbelt.h; sourceTree = "<group>"; };
 		378470CE20F3BF1F008833E9 /* Packet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Packet.h; path = roborobo3/include/core/Utilities/Packet.h; sourceTree = SOURCE_ROOT; };
 		378470CF20F5654E008833E9 /* ForagingRegionsPacket.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForagingRegionsPacket.h; sourceTree = "<group>"; };
+		378CF9C821BEB07900C142CB /* TemplateHITEEController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateHITEEController.h; sourceTree = "<group>"; };
+		378CF9C921BEB07900C142CB /* TemplateHITEEWorldObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateHITEEWorldObserver.h; sourceTree = "<group>"; };
+		378CF9CA21BEB07900C142CB /* TemplateHITEEAgentObserver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateHITEEAgentObserver.h; sourceTree = "<group>"; };
+		378CF9CB21BEB07900C142CB /* TemplateHITEESharedData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateHITEESharedData.h; sourceTree = "<group>"; };
+		378CF9CD21BEB07900C142CB /* TemplateHITEESharedData.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateHITEESharedData.cpp; sourceTree = "<group>"; };
+		378CF9CE21BEB07900C142CB /* TemplateHITEEAgentObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateHITEEAgentObserver.cpp; sourceTree = "<group>"; };
+		378CF9CF21BEB07900C142CB /* TemplateHITEEController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateHITEEController.cpp; sourceTree = "<group>"; };
+		378CF9D021BEB07900C142CB /* TemplateHITEEWorldObserver.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateHITEEWorldObserver.cpp; sourceTree = "<group>"; };
+		378CF9D521BEB1C200C142CB /* TemplateHITEEConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateHITEEConfigurationLoader.cpp; sourceTree = "<group>"; };
+		378CF9D721BEB1E500C142CB /* TemplateHITEEConfigurationLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateHITEEConfigurationLoader.h; sourceTree = "<group>"; };
+		378CF9D821BEB25500C142CB /* template_HITEE.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = template_HITEE.properties; sourceTree = "<group>"; };
 		37A569C11E38AB2100B983FF /* template_vanillaEE.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = template_vanillaEE.properties; sourceTree = "<group>"; };
 		37A9F91A1E28AA7E00006059 /* TemplateVanillaEEConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateVanillaEEConfigurationLoader.cpp; sourceTree = "<group>"; };
 		37A9F91D1E28AA9600006059 /* TemplateVanillaEEConfigurationLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateVanillaEEConfigurationLoader.h; sourceTree = "<group>"; };
@@ -364,6 +380,7 @@
 				3751779121786D3A00B68E59 /* tutorial.properties */,
 				37EAECC71FE1236D002E5C81 /* foragingregions.properties */,
 				37753A981ECB295C0039BF21 /* movingobjects.properties */,
+				378CF9D821BEB25500C142CB /* template_HITEE.properties */,
 				37A569C11E38AB2100B983FF /* template_vanillaEE.properties */,
 				3705F08A1BC67B7C001A016D /* benchmark.properties */,
 				3705F08B1BC67B7C001A016D /* template_boids.properties */,
@@ -524,6 +541,37 @@
 				376C24601E28BBA800E70850 /* TemplateMedeaController.cpp */,
 				376C24611E28BBA800E70850 /* TemplateMedeaSharedData.cpp */,
 				376C24621E28BBA800E70850 /* TemplateMedeaWorldObserver.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		378CF9C621BEB07900C142CB /* TemplateHITEE */ = {
+			isa = PBXGroup;
+			children = (
+				378CF9C721BEB07900C142CB /* include */,
+				378CF9CC21BEB07900C142CB /* src */,
+			);
+			path = TemplateHITEE;
+			sourceTree = "<group>";
+		};
+		378CF9C721BEB07900C142CB /* include */ = {
+			isa = PBXGroup;
+			children = (
+				378CF9C821BEB07900C142CB /* TemplateHITEEController.h */,
+				378CF9C921BEB07900C142CB /* TemplateHITEEWorldObserver.h */,
+				378CF9CA21BEB07900C142CB /* TemplateHITEEAgentObserver.h */,
+				378CF9CB21BEB07900C142CB /* TemplateHITEESharedData.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		378CF9CC21BEB07900C142CB /* src */ = {
+			isa = PBXGroup;
+			children = (
+				378CF9CD21BEB07900C142CB /* TemplateHITEESharedData.cpp */,
+				378CF9CE21BEB07900C142CB /* TemplateHITEEAgentObserver.cpp */,
+				378CF9CF21BEB07900C142CB /* TemplateHITEEController.cpp */,
+				378CF9D021BEB07900C142CB /* TemplateHITEEWorldObserver.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -741,6 +789,7 @@
 		37BA26591BC3D014002DF5DC /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				378CF9D721BEB1E500C142CB /* TemplateHITEEConfigurationLoader.h */,
 				37B4505D1FE074F300B50263 /* ForagingRegionsConfigurationLoader.h */,
 				3751779021786CF400B68E59 /* TutorialConfigurationLoader.h */,
 				3766DF761E2914160069E44C /* TemplateEEConfigurationLoader.h */,
@@ -773,6 +822,7 @@
 			children = (
 				37BA26D61BC3D014002DF5DC /* readme.txt */,
 				3751778521786BCF00B68E59 /* Tutorial */,
+				378CF9C621BEB07900C142CB /* TemplateHITEE */,
 				37B450691FE0757B00B50263 /* ForagingRegions */,
 				3766DF671E29125D0069E44C /* TemplateVanillaEE */,
 				376C24581E28BBA800E70850 /* TemplateMedea */,
@@ -871,6 +921,7 @@
 				37BA27061BC3D014002DF5DC /* RoundObject.cpp */,
 				37BA27071BC3D014002DF5DC /* SwitchObject.cpp */,
 				3751778E21786CD900B68E59 /* TutorialConfigurationLoader.cpp */,
+				378CF9D521BEB1C200C142CB /* TemplateHITEEConfigurationLoader.cpp */,
 				3705F0591BC66E21001A016D /* TemplateBoidsConfigurationLoader.cpp */,
 				3739761A1BCEAA2F00A007BF /* TemplateRandomwalkConfigurationLoader.cpp */,
 				37C8103F1E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp */,
@@ -936,6 +987,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				378CF9D121BEB0AB00C142CB /* TemplateHITEESharedData.cpp in Sources */,
+				378CF9D221BEB0AB00C142CB /* TemplateHITEEAgentObserver.cpp in Sources */,
+				378CF9D321BEB0AB00C142CB /* TemplateHITEEController.cpp in Sources */,
+				378CF9D421BEB0AB00C142CB /* TemplateHITEEWorldObserver.cpp in Sources */,
 				3751779821786E1C00B68E59 /* TutorialAgentObserver.cpp in Sources */,
 				3751779921786E1C00B68E59 /* TutorialController.cpp in Sources */,
 				3751779A21786E1C00B68E59 /* TutorialWorldObserver.cpp in Sources */,
@@ -1013,6 +1068,7 @@
 				373976271BCFAED500A007BF /* TemplateRandomwalkAgentObserver.cpp in Sources */,
 				3705F0861BC66E3B001A016D /* TemplateWanderAgentObserver.cpp in Sources */,
 				37BA273D1BC3D014002DF5DC /* ExtendedProperties.cpp in Sources */,
+				378CF9D621BEB1C300C142CB /* TemplateHITEEConfigurationLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

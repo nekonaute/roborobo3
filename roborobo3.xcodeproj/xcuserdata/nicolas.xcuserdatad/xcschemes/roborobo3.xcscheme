@@ -105,6 +105,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "-l config/template_vanillaEE.properties"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-l config/template_HITEE.properties"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
