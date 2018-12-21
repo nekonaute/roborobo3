@@ -14,19 +14,6 @@ using namespace Neural;
 
 bool debug = true;
 
-double impactScale_HIT = 1.; // in [0.0,1.0]. If 0.0: exactly *one* gene sent. If 1.0: transmit full genome.
-
-int maturationDelayDefaultValue = 400; // suggest: superior or equal to memorySlidingWindowSize
-
-int memorySlidingWindowSize = 400; // 100
-int coordSlidingWindowSize = 400; //3 // 10
-
-int mutationOp = 0;  // 0: uniform mutation ; 1: gaussian operator
-double P_mutation = 1.0/150/400/10; // ~ __1__ robot over __150__ mutates once every __400*10__ iterations for *each* robot.
-bool resetOnMutation = false;
-bool strictlySuperiorSelection = false; // accept if other.fitness > my.fitness or if other.fitness >= my.fitness? (default is false, i.e. ">=")
-
-int fitnessFunction = 0; // 0: collect ; 1: wander
 
 
 TemplateHITEEController::TemplateHITEEController( RobotWorldModel *wm ) : TemplateEEController( wm )
@@ -36,23 +23,23 @@ TemplateHITEEController::TemplateHITEEController( RobotWorldModel *wm ) : Templa
     _minValue = -10.0;
     _maxValue = 10.0;
     
-    _maturationDelay = maturationDelayDefaultValue;
+    _maturationDelay = TemplateHITEESharedData::maturationDelayDefaultValue;
     
-    rewards = new SlidingWindow(memorySlidingWindowSize);
+    rewards = new SlidingWindow(TemplateHITEESharedData::memorySlidingWindowSize);
     rewards->setAlwaysPositiveSum(true);
-    distances = new SlidingWindow(memorySlidingWindowSize);
+    distances = new SlidingWindow(TemplateHITEESharedData::memorySlidingWindowSize);
     distances->setAlwaysPositiveSum(true);
-    xCoords = new SlidingWindow(coordSlidingWindowSize);
-    yCoords = new SlidingWindow(coordSlidingWindowSize);
+    xCoords = new SlidingWindow(TemplateHITEESharedData::coordSlidingWindowSize);
+    yCoords = new SlidingWindow(TemplateHITEESharedData::coordSlidingWindowSize);
     resetFitness();
     
-    if ( impactScale_HIT == 0.0 )
+    if ( TemplateHITEESharedData::impactScale_HIT == 0.0 )
         packetLength_HIT = 1; // default minimal value
     else
-        if ( impactScale_HIT == 1.0 )
+        if ( TemplateHITEESharedData::impactScale_HIT == 1.0 )
             packetLength_HIT = (int)_currentGenome.size();
         else
-            packetLength_HIT = (int)_currentGenome.size() * impactScale_HIT;
+            packetLength_HIT = (int)_currentGenome.size() * TemplateHITEESharedData::impactScale_HIT;
     
     if ( _wm->getId() == 0 && debug == true )
         std::cout << "[Info] genome size = " << (int)_currentGenome.size() << "\n";
@@ -128,14 +115,14 @@ void TemplateHITEEController::updateFitness2( int value )
     double dist = getEuclideanDistance(
                     xCoords->getPrev( 0 ), // current position (same as _wm->getXreal()
                     yCoords->getPrev( 0 ),
-                    xCoords->getPrev( -coordSlidingWindowSize+1 ), // oldest recorded position
-                    yCoords->getPrev( -coordSlidingWindowSize+1 )
+                    xCoords->getPrev( -TemplateHITEESharedData::coordSlidingWindowSize+1 ), // oldest recorded position
+                    yCoords->getPrev( -TemplateHITEESharedData::coordSlidingWindowSize+1 )
                     );
 
     if ( dist < 0 ) // debug
     {
         std::cout << "[ERROR] dist<0\n";
-        std::cout << "[DEBUG] dist:" << (double)dist << " from: (" << _wm->getXReal() << "," << _wm->getYReal() << ")<=>(" << xCoords->getPrev( 0 ) << "," << yCoords->getPrev( 0 ) << ") vs (" << xCoords->getPrev(-coordSlidingWindowSize+1) << "," << yCoords->getPrev(-coordSlidingWindowSize+1) << ")\n";
+        std::cout << "[DEBUG] dist:" << (double)dist << " from: (" << _wm->getXReal() << "," << _wm->getYReal() << ")<=>(" << xCoords->getPrev( 0 ) << "," << yCoords->getPrev( 0 ) << ") vs (" << xCoords->getPrev(-TemplateHITEESharedData::coordSlidingWindowSize+1) << "," << yCoords->getPrev(-TemplateHITEESharedData::coordSlidingWindowSize+1) << ")\n";
         exit (-2);
     }
     
@@ -146,7 +133,7 @@ void TemplateHITEEController::updateFitness2( int value )
 
     // update "official" fitness
     
-    switch ( fitnessFunction )
+    switch ( TemplateHITEESharedData::fitnessFunction )
     {
         case 0:
             _wm->_fitnessValue = rewards->getSum();
@@ -155,13 +142,13 @@ void TemplateHITEEController::updateFitness2( int value )
             _wm->_fitnessValue = distances->getSum(); //distances->getPrev(0);
             break;
         default:
-            std::cout << "[ERROR] unknown fitness function ("<<fitnessFunction<<"). Exit.\n";
+            std::cout << "[ERROR] unknown fitness function ("<<TemplateHITEESharedData::fitnessFunction<<"). Exit.\n";
     }
     //if ( gRobotIndexFocus == _wm->getId() && gDisplayMode != 2 )
     //    std::cout << "[DEBUG] updateFitness2("<<value<<")\n";
     
     if ( gRobotDisplayFocus == true && gRobotIndexFocus == _wm->getId() && gDisplayMode != 2 && debug == true && gWorld->getIterations()%400 == 0 )
-        std::cout << "[DEBUG] dist:" << (double)dist << " from: (" << _wm->getXReal() << "," << _wm->getYReal() << ")<=>(" << xCoords->getPrev( 0 ) << "," << yCoords->getPrev( 0 ) << ") vs (" << xCoords->getPrev(-coordSlidingWindowSize+1) << "," << yCoords->getPrev(-coordSlidingWindowSize+1) << ") -- fitness()=" << getFitness() << "\n";
+        std::cout << "[DEBUG] dist:" << (double)dist << " from: (" << _wm->getXReal() << "," << _wm->getYReal() << ")<=>(" << xCoords->getPrev( 0 ) << "," << yCoords->getPrev( 0 ) << ") vs (" << xCoords->getPrev(-TemplateHITEESharedData::coordSlidingWindowSize+1) << "," << yCoords->getPrev(-TemplateHITEESharedData::coordSlidingWindowSize+1) << ") -- fitness()=" << getFitness() << "\n";
     
 }
 
@@ -183,7 +170,7 @@ void TemplateHITEEController::stepEvolution()
     {
         mapGenotypeToPhenotype();
         setNewGenomeStatus(false);
-        _maturationDelay = maturationDelayDefaultValue;
+        _maturationDelay = TemplateHITEESharedData::maturationDelayDefaultValue;
         resetFitness();
     }
     else
@@ -205,11 +192,11 @@ void TemplateHITEEController::stepEvolution()
         broadcastGenome();
 
         // with a (very) small probability, apply uniform mutation to one gene
-        if ( random01() < P_mutation )
+        if ( random01() < TemplateHITEESharedData::P_mutation )
         {
             int randomIndex = randint() % _currentGenome.size();
 
-            switch ( mutationOp )
+            switch ( TemplateHITEESharedData::mutationOp )
             {
                 case 0:
                                                              _currentGenome[randomIndex] = random01() * ( _maxValue - _minValue )  + _minValue;
@@ -225,12 +212,12 @@ void TemplateHITEEController::stepEvolution()
             if ( gRobotDisplayFocus == true && gRobotIndexFocus == _wm->getId() && gDisplayMode != 2 && debug == true  )
             {
                 std::cout << "[DEBUG] [" << gWorld->getIterations()<< "] robot #" << _wm->getId() << " mutates";
-                if ( resetOnMutation == true )
+                if ( TemplateHITEESharedData::resetOnMutation == true )
                     std::cout << "(reset: true)\n";
                 else
                     std::cout << "(reset: false)\n";
             }
-            if ( resetOnMutation == true )
+            if ( TemplateHITEESharedData::resetOnMutation == true )
                 setNewGenomeStatus(true);
         }
     }
@@ -307,7 +294,7 @@ bool TemplateHITEEController::receiveGenome( Packet* p )
         //_sigmaList[p->senderId] = p->sigma;
         //_fitnessValueList[p->senderId] = p->fitness;
 
-        if ( ( strictlySuperiorSelection == true and p->fitness > getFitness() ) or ( strictlySuperiorSelection == false and p->fitness >= getFitness() )  )
+        if ( ( TemplateHITEESharedData::strictlySuperiorSelection == true and p->fitness > getFitness() ) or ( TemplateHITEESharedData::strictlySuperiorSelection == false and p->fitness >= getFitness() )  )
         {
             std::vector<int> indexes;
             
@@ -315,7 +302,7 @@ bool TemplateHITEEController::receiveGenome( Packet* p )
             for ( int i = 0 ; i < _currentGenome.size(); i++ )
                 indexes.push_back(i); // 0 1 ... size-1
             
-            if ( impactScale_HIT < 1.0 ) // not necessary if transmit full genome
+            if ( TemplateHITEESharedData::impactScale_HIT < 1.0 ) // not necessary if transmit full genome
                 std::random_shuffle ( indexes.begin(), indexes.end() ); // use built-in random generator
                 //std::shuffle ( indexes.begin(), indexes.end(), engine ); // use MT
             

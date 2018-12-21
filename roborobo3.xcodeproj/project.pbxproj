@@ -303,6 +303,7 @@
 		37D24C6821CD971F0065D89A /* module_render_cfg1.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_render_cfg1.properties; sourceTree = "<group>"; };
 		37D24C6921CD971F0065D89A /* module_env_cfg1.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_env_cfg1.properties; sourceTree = "<group>"; };
 		37D24C6A21CD971F0065D89A /* module_monitoring_cfg1.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_monitoring_cfg1.properties; sourceTree = "<group>"; };
+		37D24C6B21CDA3390065D89A /* module_objects_cfg1.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_objects_cfg1.properties; sourceTree = "<group>"; };
 		37E870A91E799B20003D6DD8 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../../../../../Volumes/SDL2_image/SDL2_image.framework; sourceTree = "<group>"; };
 		37EAECC71FE1236D002E5C81 /* foragingregions.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foragingregions.properties; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -949,6 +950,7 @@
 				37D24C6721CD971F0065D89A /* module_robot_cfg1.properties */,
 				37D24C6821CD971F0065D89A /* module_render_cfg1.properties */,
 				37D24C6921CD971F0065D89A /* module_env_cfg1.properties */,
+				37D24C6B21CDA3390065D89A /* module_objects_cfg1.properties */,
 				37D24C6A21CD971F0065D89A /* module_monitoring_cfg1.properties */,
 			);
 			path = modules;
