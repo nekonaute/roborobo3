@@ -191,7 +191,14 @@ void TemplateEEWorldObserver::monitorPopulation( bool localVerbose )
             sumOfFitnesses += ctl->getFitness() ;
             
             if ( ctl->getFitness() < minFitness )
+            {
                 minFitness = ctl->getFitness();
+                if ( ctl->getFitness() < 0 )
+                {
+                    std::cout << "[ERROR] monitorPopulation error with ctl->getFitness(id="<< ctl->getId() << ") < 0 (" << ctl->getFitness() << ")\n";
+                    exit (-2);
+                }
+            }
             if ( ctl->getFitness() > maxFitness )
                 maxFitness = ctl->getFitness();
         }

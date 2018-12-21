@@ -40,7 +40,7 @@ inline double getEuclideanDistance(double x1, double y1, double x2, double y2)
 
 // return the square of the euclidean distance btw two 2D points.
 // hint: comparing squared values is faster than using squareroot...
-inline double getSquaredEuclideanDistance(double x1, double y1, double x2, double y2)
+inline double getUnsquaredEuclideanDistance(double x1, double y1, double x2, double y2)
 {
 	return ( ( x1 - x2 ) * ( x1 - x2 ) + ( y1 - y2 ) * ( y1 - y2 ) );
 }
@@ -51,7 +51,7 @@ inline double getEuclideanDistance(Point2d p1, Point2d p2)
 	return sqrt( pow(p1.x-p2.x,2) + pow(p1.y-p2.y,2));
 }
 
-double getSquaredEuclideanDistance(double x1, double y1, double x2, double y2);
+//double getSquaredEuclideanDistance(double x1, double y1, double x2, double y2);
 
 
 // return distance and orientation of targetPt wrt. refPt+orientation (takes into account refPt orientation)

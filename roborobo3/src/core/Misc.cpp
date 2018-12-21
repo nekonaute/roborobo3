@@ -20,6 +20,34 @@ std::mt19937 engine(rnd());
 std::uniform_real_distribution<double> disRandom(0.0, 1.0);
 std::normal_distribution<> disNormal(0,1);
 
+double getBoundedGaussianMutatedValue(double __value, float sigma, double __minValue, double __maxValue )
+{
+    double retValue = __value + randgaussian()*sigma;
+    
+    // bouncing upper/lower bounds
+    if ( __value < __minValue )
+    {
+        double range = __maxValue - __minValue;
+        double overflow = - ( (double)__value - __minValue );
+        overflow = overflow - 2*range * (int)( overflow / (2*range) );
+        if ( overflow < range )
+            __value = __minValue + overflow;
+        else // overflow btw range and range*2
+            __value = __minValue + range - (overflow-range);
+    }
+    else if ( __value > __maxValue )
+    {
+        double range = __maxValue - __minValue;
+        double overflow = (double)__value - __maxValue;
+        overflow = overflow - 2*range * (int)( overflow / (2*range) );
+        if ( overflow < range )
+            __value = __maxValue - overflow;
+        else // overflow btw range and range*2
+            __value = __maxValue - range + (overflow-range);
+    }
+    
+    return retValue;
+}
 
 double getBalance( double a, double b )
 {

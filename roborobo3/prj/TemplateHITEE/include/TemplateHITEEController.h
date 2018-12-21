@@ -8,6 +8,7 @@
 
 #include "TemplateEE/include/TemplateEEController.h"
 #include "Utilities/Packet.h"
+#include "Utilities/SlidingWindow.h"
 
 using namespace Neural;
 
@@ -21,8 +22,17 @@ class TemplateHITEEController : public TemplateEEController
         ~TemplateHITEEController();
     
         double getFitness() override;
+        void updateFitness2(int value); // project-specific
 
     protected:
+    
+        int _maturationDelay;
+        SlidingWindow* rewards;
+        SlidingWindow* xCoords;
+        SlidingWindow* yCoords;
+        SlidingWindow* distances;
+
+        int packetLength_HIT; // automatically set in constructor. in [ 1 , _currentGenome.size()-1 ]
     
         void initController() override;
         void initEvolution() override;
@@ -42,6 +52,7 @@ class TemplateHITEEController : public TemplateEEController
         void updateFitness() override;
 
         void logCurrentState() override;
+ 
 };
 
 

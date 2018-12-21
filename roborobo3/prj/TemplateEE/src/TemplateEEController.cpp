@@ -722,33 +722,7 @@ void TemplateEEController::mutateGaussian(float sigma) // mutate within bounds.
     _currentSigma = sigma;
     
     for (unsigned int i = 0 ; i != _currentGenome.size() ; i++ )
-    {
-        double value = _currentGenome[i] + randgaussian()*_currentSigma;
-        // bouncing upper/lower bounds
-        if ( value < _minValue )
-        {
-            double range = _maxValue - _minValue;
-            double overflow = - ( (double)value - _minValue );
-            overflow = overflow - 2*range * (int)( overflow / (2*range) );
-            if ( overflow < range )
-                value = _minValue + overflow;
-            else // overflow btw range and range*2
-                value = _minValue + range - (overflow-range);
-        }
-        else if ( value > _maxValue )
-        {
-            double range = _maxValue - _minValue;
-            double overflow = (double)value - _maxValue;
-            overflow = overflow - 2*range * (int)( overflow / (2*range) );
-            if ( overflow < range )
-                value = _maxValue - overflow;
-            else // overflow btw range and range*2
-                value = _maxValue - range + (overflow-range);
-        }
-        
-        _currentGenome[i] = value;
-    }
-    
+        _currentGenome[i] = getBoundedGaussianMutatedValue( _currentGenome[i], _currentSigma, _minValue, _maxValue );
 }
 
 

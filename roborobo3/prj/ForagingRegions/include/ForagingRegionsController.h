@@ -24,7 +24,7 @@ public:
     ~ForagingRegionsController();
     
     double getFitness() override;
-    
+
     int nbForagedItemType0;
     int nbForagedItemType1;
     

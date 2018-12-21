@@ -89,6 +89,7 @@
 		37BA27561BC3D014002DF5DC /* PhysicalObjectFactory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA27041BC3D014002DF5DC /* PhysicalObjectFactory.cpp */; };
 		37BA27581BC3D014002DF5DC /* RoundObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA27061BC3D014002DF5DC /* RoundObject.cpp */; };
 		37BA27591BC3D014002DF5DC /* SwitchObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BA27071BC3D014002DF5DC /* SwitchObject.cpp */; };
+		37BC225521C1089500670D86 /* SlidingWindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BC225421C1089500670D86 /* SlidingWindow.cpp */; };
 		37C810401E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37C8103F1E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp */; };
 		37E870AA1E799B20003D6DD8 /* SDL2_image.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37E870A91E799B20003D6DD8 /* SDL2_image.framework */; };
 /* End PBXBuildFile section */
@@ -293,8 +294,15 @@
 		37BA27041BC3D014002DF5DC /* PhysicalObjectFactory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicalObjectFactory.cpp; sourceTree = "<group>"; };
 		37BA27061BC3D014002DF5DC /* RoundObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RoundObject.cpp; sourceTree = "<group>"; };
 		37BA27071BC3D014002DF5DC /* SwitchObject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SwitchObject.cpp; sourceTree = "<group>"; };
+		37BC225321C106BD00670D86 /* SlidingWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SlidingWindow.h; sourceTree = "<group>"; };
+		37BC225421C1089500670D86 /* SlidingWindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SlidingWindow.cpp; sourceTree = "<group>"; };
 		37C8103F1E28AF1F00A71E6F /* TemplateMedeaConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateMedeaConfigurationLoader.cpp; sourceTree = "<group>"; };
 		37C810411E28AF2700A71E6F /* TemplateMedeaConfigurationLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateMedeaConfigurationLoader.h; sourceTree = "<group>"; };
+		37D24C6621CD971F0065D89A /* module_controller_cfg1.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_controller_cfg1.properties; sourceTree = "<group>"; };
+		37D24C6721CD971F0065D89A /* module_robot_cfg1.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_robot_cfg1.properties; sourceTree = "<group>"; };
+		37D24C6821CD971F0065D89A /* module_render_cfg1.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_render_cfg1.properties; sourceTree = "<group>"; };
+		37D24C6921CD971F0065D89A /* module_env_cfg1.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_env_cfg1.properties; sourceTree = "<group>"; };
+		37D24C6A21CD971F0065D89A /* module_monitoring_cfg1.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_monitoring_cfg1.properties; sourceTree = "<group>"; };
 		37E870A91E799B20003D6DD8 /* SDL2_image.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_image.framework; path = ../../../../../../../../../../Volumes/SDL2_image/SDL2_image.framework; sourceTree = "<group>"; };
 		37EAECC71FE1236D002E5C81 /* foragingregions.properties */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = foragingregions.properties; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -377,10 +385,11 @@
 		3705F0891BC67B7C001A016D /* config */ = {
 			isa = PBXGroup;
 			children = (
+				37D24C6521CD971F0065D89A /* modules */,
+				378CF9D821BEB25500C142CB /* template_HITEE.properties */,
 				3751779121786D3A00B68E59 /* tutorial.properties */,
 				37EAECC71FE1236D002E5C81 /* foragingregions.properties */,
 				37753A981ECB295C0039BF21 /* movingobjects.properties */,
-				378CF9D821BEB25500C142CB /* template_HITEE.properties */,
 				37A569C11E38AB2100B983FF /* template_vanillaEE.properties */,
 				3705F08A1BC67B7C001A016D /* benchmark.properties */,
 				3705F08B1BC67B7C001A016D /* template_boids.properties */,
@@ -557,9 +566,9 @@
 		378CF9C721BEB07900C142CB /* include */ = {
 			isa = PBXGroup;
 			children = (
-				378CF9C821BEB07900C142CB /* TemplateHITEEController.h */,
 				378CF9C921BEB07900C142CB /* TemplateHITEEWorldObserver.h */,
 				378CF9CA21BEB07900C142CB /* TemplateHITEEAgentObserver.h */,
+				378CF9C821BEB07900C142CB /* TemplateHITEEController.h */,
 				378CF9CB21BEB07900C142CB /* TemplateHITEESharedData.h */,
 			);
 			path = include;
@@ -752,6 +761,7 @@
 				37BA264C1BC3D014002DF5DC /* LogManager.h */,
 				37BA264D1BC3D014002DF5DC /* Misc.h */,
 				37BA264E1BC3D014002DF5DC /* SDLMain.h */,
+				37BC225321C106BD00670D86 /* SlidingWindow.h */,
 				37BA264F1BC3D014002DF5DC /* Timer.h */,
 			);
 			path = Utilities;
@@ -898,6 +908,7 @@
 				37BA26F31BC3D014002DF5DC /* roborobo.cpp */,
 				37BA26F41BC3D014002DF5DC /* Robot.cpp */,
 				37BA26F51BC3D014002DF5DC /* RobotWorldModel.cpp */,
+				37BC225421C1089500670D86 /* SlidingWindow.cpp */,
 				37BA26F61BC3D014002DF5DC /* SquareObject.cpp */,
 				37BA26F71BC3D014002DF5DC /* Timer.cpp */,
 				37BA26F81BC3D014002DF5DC /* World.cpp */,
@@ -929,6 +940,18 @@
 				37A9F91A1E28AA7E00006059 /* TemplateVanillaEEConfigurationLoader.cpp */,
 			);
 			path = ext;
+			sourceTree = "<group>";
+		};
+		37D24C6521CD971F0065D89A /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				37D24C6621CD971F0065D89A /* module_controller_cfg1.properties */,
+				37D24C6721CD971F0065D89A /* module_robot_cfg1.properties */,
+				37D24C6821CD971F0065D89A /* module_render_cfg1.properties */,
+				37D24C6921CD971F0065D89A /* module_env_cfg1.properties */,
+				37D24C6A21CD971F0065D89A /* module_monitoring_cfg1.properties */,
+			);
+			path = modules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -987,6 +1010,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37BC225521C1089500670D86 /* SlidingWindow.cpp in Sources */,
 				378CF9D121BEB0AB00C142CB /* TemplateHITEESharedData.cpp in Sources */,
 				378CF9D221BEB0AB00C142CB /* TemplateHITEEAgentObserver.cpp in Sources */,
 				378CF9D321BEB0AB00C142CB /* TemplateHITEEController.cpp in Sources */,

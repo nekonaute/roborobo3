@@ -19,7 +19,6 @@ class Packet {
     
     Packet()
     {
-        fitness = 14;
     }
     
     void display()

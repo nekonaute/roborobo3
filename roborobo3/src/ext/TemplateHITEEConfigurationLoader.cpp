@@ -32,6 +32,7 @@ AgentObserver* TemplateHITEEConfigurationLoader::make_AgentObserver(RobotWorldMo
 
 Controller* TemplateHITEEConfigurationLoader::make_Controller(RobotWorldModel* wm)
 {
+    std::cout << "[DEBUG::TemplateHITEEConfigLoader] new!\n";
 	return new TemplateHITEEController(wm);
 }
 

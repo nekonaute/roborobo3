@@ -51,6 +51,9 @@ bool convertFromString(T& t,
   return !(iss >> f >> t).fail();
 }
 
+// return a bounded value after gaussian mutation
+double getBoundedGaussianMutatedValue(double __value, float sigma, double __minValue, double __maxValue );
+
 // provide a value for the balance between the two input values.
 // f(a,b) = 1.0 - ( ( max(a,b) / ( a+b ) - 0.5 ) * 2.0 ) = 2. - 2. * max(a,b) / (a+b)
 double getBalance( double a, double b );

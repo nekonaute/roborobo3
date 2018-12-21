@@ -4,6 +4,7 @@
  */
 
 #include "TemplateHITEE/include/TemplateHITEEAgentObserver.h"
+#include "TemplateHITEE/include/TemplateHITEEController.h"
 #include "WorldModels/RobotWorldModel.h"
 #include "World/PhysicalObject.h"
 
@@ -26,9 +27,16 @@ TemplateHITEEAgentObserver::~TemplateHITEEAgentObserver()
 void TemplateHITEEAgentObserver::stepPre()
 {
     // * update fitness (if needed)
-    if ( _wm->isAlive() && PhysicalObject::isInstanceOf(_wm->getGroundSensorValue()) )
+    if ( _wm->isAlive() )
     {
-        _wm->_fitnessValue = _wm->_fitnessValue + 1;
+        if ( PhysicalObject::isInstanceOf(_wm->getGroundSensorValue()) )
+        {
+            dynamic_cast<TemplateHITEEController*>(getController())->updateFitness2(1);
+        }
+        else
+        {
+            dynamic_cast<TemplateHITEEController*>(getController())->updateFitness2(0);
+        }
     }
 
     TemplateEEAgentObserver::stepPre();
