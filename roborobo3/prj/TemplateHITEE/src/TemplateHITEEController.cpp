@@ -220,11 +220,11 @@ void TemplateHITEEController::stepEvolution()
                     switch ( TemplateHITEESharedData::mutationOp )
                     {
                         case 0:
-                            for ( int i = 0 ; i < _currentGenome.size() ; i++ )
+                            for ( unsigned int i = 0 ; i < _currentGenome.size() ; i++ )
                                 _currentGenome[i] = random01() * ( _maxValue - _minValue )  + _minValue;
                             break;
                         case 1:
-                            for ( int i = 0 ; i < _currentGenome.size() ; i++ )
+                            for ( unsigned int i = 0 ; i < _currentGenome.size() ; i++ )
                                 _currentGenome[i] = getBoundedGaussianMutatedValue( _currentGenome[i], _currentSigma, _minValue, _maxValue );
                             break;
                         default:
@@ -250,11 +250,11 @@ void TemplateHITEEController::stepEvolution()
                     switch ( TemplateHITEESharedData::mutationOp )
                     {
                         case 0:
-                            for ( int i = 0 ; i < nbGenesToMutate ; i++ )
+                            for ( unsigned int i = 0 ; i < nbGenesToMutate ; i++ )
                                 _currentGenome[indexes[i]] = random01() * ( _maxValue - _minValue )  + _minValue;
                             break;
                         case 1:
-                            for ( int i = 0 ; i < nbGenesToMutate ; i++ )
+                            for ( unsigned int i = 0 ; i < nbGenesToMutate ; i++ )
                                 _currentGenome[indexes[i]] = getBoundedGaussianMutatedValue( _currentGenome[indexes[i]], _currentSigma, _minValue, _maxValue );
                             break;
                         default:
