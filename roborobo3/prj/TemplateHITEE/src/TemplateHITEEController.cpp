@@ -220,11 +220,11 @@ void TemplateHITEEController::stepEvolution()
                     switch ( TemplateHITEESharedData::mutationOp )
                     {
                         case 0:
-                            for ( unsigned int i = 0 ; i < _currentGenome.size() ; i++ )
+                            for ( int i = 0 ; i < _currentGenome.size() ; i++ )
                                 _currentGenome[i] = random01() * ( _maxValue - _minValue )  + _minValue;
                             break;
                         case 1:
-                            for ( unsigned int i = 0 ; i < _currentGenome.size() ; i++ )
+                            for ( int i = 0 ; i < _currentGenome.size() ; i++ )
                                 _currentGenome[i] = getBoundedGaussianMutatedValue( _currentGenome[i], _currentSigma, _minValue, _maxValue );
                             break;
                         default:
@@ -241,7 +241,7 @@ void TemplateHITEEController::stepEvolution()
                     std::vector<int> indexes;
                     
                     // set some values:
-                    for ( int i = 0 ; i < _currentGenome.size(); i++ )
+                    for ( unsigned int i = 0 ; i < _currentGenome.size(); i++ )
                         indexes.push_back(i); // 0 1 ... size-1
                     
                     std::random_shuffle ( indexes.begin(), indexes.end() ); // use built-in random generator
@@ -250,11 +250,11 @@ void TemplateHITEEController::stepEvolution()
                     switch ( TemplateHITEESharedData::mutationOp )
                     {
                         case 0:
-                            for ( unsigned int i = 0 ; i < nbGenesToMutate ; i++ )
+                            for ( int i = 0 ; i < nbGenesToMutate ; i++ )
                                 _currentGenome[indexes[i]] = random01() * ( _maxValue - _minValue )  + _minValue;
                             break;
                         case 1:
-                            for ( unsigned int i = 0 ; i < nbGenesToMutate ; i++ )
+                            for ( int i = 0 ; i < nbGenesToMutate ; i++ )
                                 _currentGenome[indexes[i]] = getBoundedGaussianMutatedValue( _currentGenome[indexes[i]], _currentSigma, _minValue, _maxValue );
                             break;
                         default:
@@ -357,7 +357,7 @@ bool TemplateHITEEController::receiveGenome( Packet* p )
             std::vector<int> indexes;
             
             // set some values:
-            for ( int i = 0 ; i < _currentGenome.size(); i++ )
+            for ( unsigned int i = 0 ; i < _currentGenome.size(); i++ )
                 indexes.push_back(i); // 0 1 ... size-1
             
             if ( TemplateHITEESharedData::transferVolume < 1.0 ) // not necessary if transmit full genome
