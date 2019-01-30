@@ -1,8 +1,8 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-=-=-=-=-=-=-=-=-=-=-=-= ROBOROBO.3 -=-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-= ROBOROBO.3=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-=- 2008-2018 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=- 2008-2019 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 -=-=-=-= nicolas.bredeche(at)upmc.com =-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
@@ -131,7 +131,7 @@ A: If you are running under Linux/Unix/MacOsX, the following commands are really
 		find . -name '*.bmp' -type f -delete
 
 Q: What are the dependencies?
-A: As of roborobo.3, only SDL2, boost (headers only) are required. Previous versions (<3) use SDL1.2, SDL1.2_image and boost (headers only). Also uses Eigen to implement echo state networks.
+A: As of roborobo.3, only SDL2, boost (headers only) are required. Previous versions (<3) use SDL1.2, SDL1.2_image and boost (headers only). Also uses Eigen to implement echo state networks. Eigen is necessary if you use echo state networks (see {src|include}/contrib/neuralnetworks) - by default you need Eigen, but if you remove ESN, then it is not necessary. 
 
 Q: Should I use g++ (or gcc) or clang++?
 A: both works. Dont forget to edit the Makefile.Modular to set the right compiler, and re-generate a Makefile with the ./makefile-manager script.
@@ -170,15 +170,21 @@ A: Your script tries to import matplotlib and the LC_ALL environment variable is
 Q: I am using some of your python script and it does not work...?
 A: Check which version is required for your script (Python 2 or 3?). Or, if in the tools sub-dir, it might just be that it is under development.
 
-Q: How to make a video out of all these BMP files in the log directory?
+Q: How to make a video out of all these BMP or PNG files in the log directory?
 A: There are many ways, and the answer is out-of-scope from this FAQ. Anyway, with ubuntu and macOS, I installed mplayer and use the following command-line:
-    mencoder mf://*.bmp -mf fps=10 -ovc xvid -xvidencopts bitrate=10000 -o output.avi
+    30 fps loss-less (source: https://video.stackexchange.com/questions/7903/how-to-losslessly-encode-a-jpg-image-sequence-to-a-video-in-ffmpeg):
+        ffmpeg -f image2 -r 60 -i screenshot_(...)_%06d_movie.png -vcodec libx264 -profile:v high444 -refs 16 -crf 0 -preset ultrafast output.mp4
+            Details: (...) -f {fps} (...)
+    also:
+        - mogrify -resize 1024x1024 "*.png"
+        - alternative encoding method: mencoder mf://*.bmp -mf fps=10 -ovc xvid -xvidencopts bitrate=10000 -o output.avi
 
 Q: Roborobo sometimes generate a *lot* of data.
 A: Yep. The BMP files takes a lot, you may want to create less of them (change parameters in the properties file) or to compress them (e.g. convert to JPG). You can also make a video out of them. The datalog files also are quite big. You can zip/tgz them, and you can also change the code to generate less data.
 
 Q: How to install Eigen on MacOS with Xcode?
 A: check out https://stackoverflow.com/questions/35658420/installing-eigen-on-mac-os-x-for-xcode
+    note that Eigen is not mandatory to run roborobo if you remove any reference to Echo State Network.
 
 Q: How to record all displayed information?
 A: It can be done by using the saveFullLoggerScreenshot() method. It records the environment image (objects and robots), the image footprint (object footprint) and a text file that contains all information that can observed externally (coordinates, orientation, LED RGB values and so on, also including landmark positions). If the display mode is either 0 or 1, it also record a snapshot of the rendered scene. It can be triggered either by using the "r" key (snapshot) or "shift+r" keys (start/stop sequence), or by changing the boolean value of gFullLoggerRecording. Note that full logging is both computationally and memory expensive. Information obtained that way can be used for detail analysis/debugging or 3rd party software rendering (e.g. draw a nice (but accurate) 3D rendering or your scene).

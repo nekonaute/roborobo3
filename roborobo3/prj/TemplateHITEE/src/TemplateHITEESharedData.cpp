@@ -15,7 +15,8 @@
 //  to define a new parameter, do it in TemplateHITEESharedData.h, initialize it in TemplateHITEESharedData.cpp, then use TemplateHITEESharedData::parametername
 //
 
-double TemplateHITEESharedData::impactScale_HIT = 0.0;
+double TemplateHITEESharedData::transferVolume = 0.0;
+double TemplateHITEESharedData::mutationVolume = 0.0;
 int TemplateHITEESharedData::maturationDelayDefaultValue = 400;
 int TemplateHITEESharedData::memorySlidingWindowSize = 400;
 int TemplateHITEESharedData::coordSlidingWindowSize = 400;

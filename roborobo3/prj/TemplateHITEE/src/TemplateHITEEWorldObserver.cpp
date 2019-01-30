@@ -14,7 +14,8 @@ TemplateHITEEWorldObserver::TemplateHITEEWorldObserver( World* world ) : Templat
 {
     // superclass constructor called before
     
-    gProperties.checkAndGetPropertyValue("impactScale_HIT",&TemplateHITEESharedData::impactScale_HIT,true);
+    gProperties.checkAndGetPropertyValue("transferVolume",&TemplateHITEESharedData::transferVolume,true);
+    gProperties.checkAndGetPropertyValue("mutationVolume",&TemplateHITEESharedData::mutationVolume,true);
     gProperties.checkAndGetPropertyValue("maturationDelayDefaultValue",&TemplateHITEESharedData::maturationDelayDefaultValue,true);
     gProperties.checkAndGetPropertyValue("memorySlidingWindowSize",&TemplateHITEESharedData::memorySlidingWindowSize,true);
     gProperties.checkAndGetPropertyValue("coordSlidingWindowSize",&TemplateHITEESharedData::coordSlidingWindowSize,true);

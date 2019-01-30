@@ -25,7 +25,6 @@ void displayGeneralInformation()
 	std::cout << " =-= Current build name      : " << gCurrentBuildInfo << std::endl;
 	std::cout << " =-= Official version tag    : " << gVersion << std::endl;
 	std::cout << " =-= Compilation version tag : " << gCompileDate << " - " << gCompileTime << std::endl;
-    
 	std::cout << std::endl;
 }
 

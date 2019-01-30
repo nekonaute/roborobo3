@@ -33,13 +33,13 @@ TemplateHITEEController::TemplateHITEEController( RobotWorldModel *wm ) : Templa
     yCoords = new SlidingWindow(TemplateHITEESharedData::coordSlidingWindowSize);
     resetFitness();
     
-    if ( TemplateHITEESharedData::impactScale_HIT == 0.0 )
+    if ( TemplateHITEESharedData::transferVolume == 0.0 )
         packetLength_HIT = 1; // default minimal value
     else
-        if ( TemplateHITEESharedData::impactScale_HIT == 1.0 )
+        if ( TemplateHITEESharedData::transferVolume == 1.0 )
             packetLength_HIT = (int)_currentGenome.size();
         else
-            packetLength_HIT = (int)_currentGenome.size() * TemplateHITEESharedData::impactScale_HIT;
+            packetLength_HIT = (int)_currentGenome.size() * TemplateHITEESharedData::transferVolume;
     
     if ( _wm->getId() == 0 && debug == true )
         std::cout << "[Info] genome size = " << (int)_currentGenome.size() << "\n";
@@ -194,21 +194,78 @@ void TemplateHITEEController::stepEvolution()
         // with a (very) small probability, apply uniform mutation to one gene
         if ( random01() < TemplateHITEESharedData::P_mutation )
         {
-            int randomIndex = randint() % _currentGenome.size();
-
-            switch ( TemplateHITEESharedData::mutationOp )
+            if ( TemplateHITEESharedData::mutationVolume == 0.0 )
             {
-                case 0:
-                                                             _currentGenome[randomIndex] = random01() * ( _maxValue - _minValue )  + _minValue;
-                    break;
-                case 1:
-                    _currentGenome[randomIndex] = getBoundedGaussianMutatedValue( _currentGenome[randomIndex], _currentSigma, _minValue, _maxValue );
-                    break;
+                // only one gene mutates
+                int randomIndex = randint() % _currentGenome.size();
+
+                switch ( TemplateHITEESharedData::mutationOp )
+                {
+                    case 0:
+                        _currentGenome[randomIndex] = random01() * ( _maxValue - _minValue )  + _minValue;
+                        break;
+                    case 1:
+                        _currentGenome[randomIndex] = getBoundedGaussianMutatedValue( _currentGenome[randomIndex], _currentSigma, _minValue, _maxValue );
+                        break;
                 default:
                     std::cout << "[ERROR] Mutation operator incorrect. Exit.\n";
                     exit (-1);
+                }
             }
-            
+            else
+            {
+                if ( TemplateHITEESharedData::mutationVolume == 1.0 )
+                {
+                    // all genes mutate
+                    switch ( TemplateHITEESharedData::mutationOp )
+                    {
+                        case 0:
+                            for ( int i = 0 ; i < _currentGenome.size() ; i++ )
+                                _currentGenome[i] = random01() * ( _maxValue - _minValue )  + _minValue;
+                            break;
+                        case 1:
+                            for ( int i = 0 ; i < _currentGenome.size() ; i++ )
+                                _currentGenome[i] = getBoundedGaussianMutatedValue( _currentGenome[i], _currentSigma, _minValue, _maxValue );
+                            break;
+                        default:
+                            std::cout << "[ERROR] Mutation operator incorrect. Exit.\n";
+                            exit (-1);
+                    }
+                }
+                else
+                {
+                    // a sub-part of the genes mutate (more than 1, less than all)
+                    
+                    int nbGenesToMutate = TemplateHITEESharedData::mutationOp * _currentGenome.size() + 0.5;
+                    
+                    std::vector<int> indexes;
+                    
+                    // set some values:
+                    for ( int i = 0 ; i < _currentGenome.size(); i++ )
+                        indexes.push_back(i); // 0 1 ... size-1
+                    
+                    std::random_shuffle ( indexes.begin(), indexes.end() ); // use built-in random generator
+                    //std::shuffle ( indexes.begin(), indexes.end(), engine ); // use MT
+                    
+                    switch ( TemplateHITEESharedData::mutationOp )
+                    {
+                        case 0:
+                            for ( int i = 0 ; i < nbGenesToMutate ; i++ )
+                                _currentGenome[indexes[i]] = random01() * ( _maxValue - _minValue )  + _minValue;
+                            break;
+                        case 1:
+                            for ( int i = 0 ; i < nbGenesToMutate ; i++ )
+                                _currentGenome[indexes[i]] = getBoundedGaussianMutatedValue( _currentGenome[indexes[i]], _currentSigma, _minValue, _maxValue );
+                            break;
+                        default:
+                            std::cout << "[ERROR] Mutation operator incorrect. Exit.\n";
+                            exit (-1);
+                    }
+                }
+            }
+
+            mapGenotypeToPhenotype(); // genome must be reloaded to phenotype
+
             if ( gRobotDisplayFocus == true && gRobotIndexFocus == _wm->getId() && gDisplayMode != 2 && debug == true  )
             {
                 std::cout << "[DEBUG] [" << gWorld->getIterations()<< "] robot #" << _wm->getId() << " mutates";
@@ -217,6 +274,7 @@ void TemplateHITEEController::stepEvolution()
                 else
                     std::cout << "(reset: false)\n";
             }
+            
             if ( TemplateHITEESharedData::resetOnMutation == true )
                 setNewGenomeStatus(true);
         }
@@ -224,7 +282,7 @@ void TemplateHITEEController::stepEvolution()
     
     // logging
     _dSumTravelled = _dSumTravelled + getEuclideanDistance( _wm->getXReal(), _wm->getYReal(), _Xinit, _Yinit ); //remark: incl. squareroot.
-    
+
 }
 
 // -----
@@ -302,7 +360,7 @@ bool TemplateHITEEController::receiveGenome( Packet* p )
             for ( int i = 0 ; i < _currentGenome.size(); i++ )
                 indexes.push_back(i); // 0 1 ... size-1
             
-            if ( TemplateHITEESharedData::impactScale_HIT < 1.0 ) // not necessary if transmit full genome
+            if ( TemplateHITEESharedData::transferVolume < 1.0 ) // not necessary if transmit full genome
                 std::random_shuffle ( indexes.begin(), indexes.end() ); // use built-in random generator
                 //std::shuffle ( indexes.begin(), indexes.end(), engine ); // use MT
             

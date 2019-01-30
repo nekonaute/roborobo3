@@ -366,9 +366,10 @@ void displayHelp()
 	{
 		std::cout << "\n=-=-=-=-=-=-=-=-=-=-=-= roborobo! =-=-=-=-=-=-=-=-=-=-=-=\n";
 		std::cout << "Fast 2D autonomous agent simulator for large population of robots/agents\nnicolas.bredeche(at)upmc.fr\n";
-		std::cout << "Official version tag    : " << gVersion << std::endl;
-		std::cout << "Current build name      : " << gCurrentBuildInfo << std::endl << std::endl;
-		std::cout << "Compilation version tag : " << gCompileDate << " - " << gCompileTime << std::endl;
+		std::cout << "Current build name      : " << gCurrentBuildInfo << std::endl;
+        std::cout << "Official version tag    : " << gVersion << std::endl;
+        std::cout << "Compilation version tag : " << gCompileDate << " - " << gCompileTime << std::endl;
+        std::cout << std::endl;
 
 		std::cout << " >>>> Keys:" << std::endl;
 		std::cout << "       h : help! (ie. this text)" << std::endl;
@@ -1036,8 +1037,8 @@ void initLogging()
 	gLogFile << "# =-=-=-=-=-=-=-=-=-=-=" << std::endl;
 	gLogFile << "#" << std::endl;
 	gLogFile << "# =-= Roborobo^3 " << std::endl;
-	gLogFile << "# =-= Official version tag    : " << gVersion << std::endl;
 	gLogFile << "# =-= Current build name      : " << gCurrentBuildInfo << std::endl;
+    gLogFile << "# =-= Official version tag    : " << gVersion << std::endl;
 	gLogFile << "# =-= Compilation version tag : " << gCompileDate << " - " << gCompileTime << std::endl;
 	gLogFile << "#" << std::endl;
 	gLogFile << "# Loaded time stamp           : " << gStartTime << std::endl;
@@ -2258,8 +2259,8 @@ bool loadProperties( std::string __propertiesFilename )
 	out << "# =-=-=-=-=-=-=-=-=-=-=" << std::endl;
 	out << "#" << std::endl;
 	out << "# =-= Roborobo^3 " << std::endl;
-	out << "# =-= Official version tag    : " << gVersion << std::endl;
 	out << "# =-= Current build name      : " << gCurrentBuildInfo << std::endl;
+    out << "# =-= Official version tag    : " << gVersion << std::endl;
 	out << "# =-= Compilation version tag : " << gCompileDate << " - " << gCompileTime << std::endl;
 	out << "#" << std::endl;
 	out << "# Loaded time stamp           : " << gStartTime << std::endl;

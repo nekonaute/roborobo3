@@ -133,6 +133,8 @@
 		3705F08D1BC67B7C001A016D /* template_wander_bigrobots.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = template_wander_bigrobots.properties; sourceTree = "<group>"; };
 		3705F08E1BC67B7C001A016D /* template_wander_smallrobots.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = template_wander_smallrobots.properties; sourceTree = "<group>"; };
 		3705F08F1BC67B7C001A016D /* test.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.properties; sourceTree = "<group>"; };
+		370FF6C321E756BE0056CAF8 /* readme.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = readme.txt; sourceTree = "<group>"; };
+		370FF6C421E75D930056CAF8 /* module_env_cfg_5000.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = module_env_cfg_5000.properties; sourceTree = "<group>"; };
 		3739761A1BCEAA2F00A007BF /* TemplateRandomwalkConfigurationLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TemplateRandomwalkConfigurationLoader.cpp; sourceTree = "<group>"; };
 		3739761C1BCEAA6200A007BF /* TemplateRandomwalkConfigurationLoader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TemplateRandomwalkConfigurationLoader.h; sourceTree = "<group>"; };
 		3739761D1BCF8D1F00A007BF /* template_randomwalk.properties */ = {isa = PBXFileReference; lastKnownFileType = text; path = template_randomwalk.properties; sourceTree = "<group>"; };
@@ -946,12 +948,14 @@
 		37D24C6521CD971F0065D89A /* modules */ = {
 			isa = PBXGroup;
 			children = (
+				370FF6C421E75D930056CAF8 /* module_env_cfg_5000.properties */,
 				37D24C6621CD971F0065D89A /* module_controller_cfg1.properties */,
 				37D24C6721CD971F0065D89A /* module_robot_cfg1.properties */,
 				37D24C6821CD971F0065D89A /* module_render_cfg1.properties */,
 				37D24C6921CD971F0065D89A /* module_env_cfg1.properties */,
 				37D24C6B21CDA3390065D89A /* module_objects_cfg1.properties */,
 				37D24C6A21CD971F0065D89A /* module_monitoring_cfg1.properties */,
+				370FF6C321E756BE0056CAF8 /* readme.txt */,
 			);
 			path = modules;
 			sourceTree = "<group>";

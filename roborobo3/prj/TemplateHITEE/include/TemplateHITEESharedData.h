@@ -17,7 +17,8 @@ class TemplateHITEESharedData : TemplateEESharedData {
     
 public:
     
-    static double impactScale_HIT; // in [0.0,1.0]. If 0.0: exactly *one* gene sent. If 1.0: transmit full genome.
+    static double transferVolume; // in [0.0,1.0]. If 0.0: exactly *one* gene sent. If 1.0: transmit full genome. inbetween: transfer random genes.
+    static double mutationVolume; // in [0.0,1.0]. If 0.0: exactly *one* gene muted. If 1.0: mute full genome. inbetween: mute random genes.
     
     static int maturationDelayDefaultValue; // suggest: superior or equal to memorySlidingWindowSize
     

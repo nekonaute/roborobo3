@@ -1,10 +1,10 @@
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-=-=-=-=-=-=-=-=-=-=-=-= ROBOROBO.3 =-=-=-=-=-=-=
+=-=-=-=-=-=-=-=-=-=-=-= ROBOROBO.3=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-=- 2008-2018 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+=- 2008-2019 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
--=-=-=-= nicolas.bredeche(at)upmc.fr -=-=-=-=-=
+-=-=-=-= nicolas.bredeche(at)upmc.fr -=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
@@ -71,12 +71,13 @@ It should compile and run OK.
 
 Dependencies:
 - install Boost, SDL2 and SDL2-image (using apt-get, synaptic, or any package installation manager)
-	Example with Ubuntu 16.04 LTS (as of 2017-02-28):
-		sudo apt-get update
-		sudo apt-get install libsdl2-2.0
+	Example with Ubuntu 18.04 LTS (as of 2019-01-30):
+        sudo apt-get update
+        sudo apt-get install libsdl2-2.0
         sudo apt-get install libsdl2-dev
         sudo apt-get install libsdl2-image-dev
-		sudo apt-get install libboost-all-dev
+        sudo apt-get install libboost-all-dev
+        sudo apt-get install libeigen3-dev
 
 Compile&run:
 - use "./makefile-manager -l" to generate a makefile (see below for further explanation of using makefile-manager)
