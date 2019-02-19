@@ -2306,7 +2306,7 @@ void initRoborobo()
 	gCamera.w = gScreenWidth;
 	gCamera.h = gScreenHeight;
 
-    if( initSDL(SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE) == false )
+    if( initSDL(SDL_WINDOW_SHOWN|SDL_WINDOW_RESIZABLE|SDL_WINDOW_ALLOW_HIGHDPI) == false )
 	{
 		std::cout << "[CRITICAL] cannot initialize SDL: " << SDL_GetError() << std::endl << std::endl;
 		exit(-2);

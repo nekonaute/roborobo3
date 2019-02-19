@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding:utf-8 -*-
-# TROUBLE SHOOTING: 
+# TROUBLE SHOOTING:
 #  if you get an error like "ValueError: unknown locale: UTF-8"
 #  then first type in the terminal: "export LC_ALL=en_US.UTF-8"
 #
@@ -68,7 +68,7 @@ def getMaximumLength ( myList ): # return the length of maximally lengthy sub-el
 # code below adapted from: http://blog.bharatbhole.com/creating-boxplots-with-matplotlib/
 # ###
 def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, xlimMax=-1, ylimMin=-1, ylimMax=-1, legendLabel="", locLegend='upper right', autoscaling=False, outputFilename="empty"):
-    
+
     #pl.gca().set_color_cycle(['red', 'green', 'blue', 'orange', 'violet', 'darkblue', 'black','purple','cyan','brown']) # force cycle through specified colors
 
     # Create a figure instance
@@ -83,7 +83,9 @@ def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, 
     elif type == "multi":
         ax.boxplot(y)
         ax.set_xticklabels(x)
-    
+        #ax.set_xticks([0, 100, 200])
+        #ax.set_xticklabels(["x=0", "x=100", "x=200"])
+
     # Remove top axes and right axes ticks
     ax.get_xaxis().tick_bottom()
     ax.get_yaxis().tick_left()
@@ -107,12 +109,11 @@ def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, 
         pl.ylim(ylimMin, ylimMax)
 
     # Save the figure
-    
+
     if outputFilename == "empty":
         outputFilename = "graph_"+getTimestamp()+".pdf"
-    
+
     fig.savefig(outputFilename, format="pdf", bbox_inches='tight')
-    
+
     # Display
     pl.show() # mandatory: call after savefig(.)
-
