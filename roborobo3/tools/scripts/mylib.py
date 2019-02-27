@@ -82,15 +82,30 @@ def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, 
         ax.plot(x, y)
     elif type == "multi":
         ax.boxplot(y)
-        ax.set_xticklabels(x)
-        #ax.set_xticks([0, 100, 200])
-        #ax.set_xticklabels(["x=0", "x=100", "x=200"])
+        #ax.set_xticklabels(["x=400000", "x=800000"]) # TODO: specific to 2019-02-02 exp
+        ax.set_xticklabels(x) # generic
+        #ax.set_xticks(x)
+        #ax.tick_params(axis='x',which='minor',direction='out',bottom=True,length=2000)
+        #ax.set_xticks(ax.get_xticks()[1::8])
+        #ax.set_xticks([400000, 800000]) # TODO: specific to 2019-02-02 exp
+        #ax.set_xticklabels([i for i in x])
+        # Follows: display x label only every N labels
+        displayIndexInterval = 20
+        for index, label in enumerate(ax.xaxis.get_ticklabels()):
+            if index % displayIndexInterval != 0:
+                label.set_visible(False)
+
 
     # Remove top axes and right axes ticks
     ax.get_xaxis().tick_bottom()
     ax.get_yaxis().tick_left()
 
     ax.set_autoscale_on(autoscaling)
+
+    #if xlimMin != -1 and xlimMax != -1: # both values must be set ## seems to bug 20190206
+    #    ax.set_xlim(xlimMin, xlimMax)
+    if ylimMin != -1 and ylimMax != -1:
+        ax.set_ylim(ylimMin, ylimMax)
 
     # Add labels and legend
     pl.xlabel(xLabel)
@@ -102,11 +117,6 @@ def traceData( x, y, type="single", title="", xLabel="", yLabel="", xlimMin=-1, 
         pl.title(title)
         if legendLabel != "":
             pl.legend(legendLabel, loc=locLegend)
-
-    if xlimMin != -1 and xlimMax != -1:
-        pl.xlim(xlimMin, xlimMax)
-    if ylimMin != -1 and ylimMax != -1:
-        pl.ylim(ylimMin, ylimMax)
 
     # Save the figure
 
