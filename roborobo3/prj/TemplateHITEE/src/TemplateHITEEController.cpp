@@ -236,7 +236,7 @@ void TemplateHITEEController::stepEvolution()
                 {
                     // a sub-part of the genes mutate (more than 1, less than all)
                     
-                    int nbGenesToMutate = TemplateHITEESharedData::mutationOp * _currentGenome.size() + 0.5;
+                    int nbGenesToMutate = TemplateHITEESharedData::mutationVolume * _currentGenome.size() + 0.5;
                     
                     std::vector<int> indexes;
                     
