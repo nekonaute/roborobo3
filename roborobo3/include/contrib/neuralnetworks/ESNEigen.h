@@ -8,7 +8,7 @@
 #ifndef ESNEIGEN_H
 #define ESNEIGEN_H
 
-#pragma GCC diagnostic ignored "-Wint-in-bool-context"
+//#pragma GCC diagnostic ignored "-Wint-in-bool-context"
 #pragma GCC diagnostic ignored "-Wunused-variable"
 
 #include <Eigen/Dense>

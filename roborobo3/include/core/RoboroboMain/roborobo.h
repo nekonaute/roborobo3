@@ -195,6 +195,7 @@ extern int gInspectorAgentYStart;
 // max nb of trials when looking for a location for a physical object or a robot
 extern int gLocationFinderMaxNbOfTrials;
 extern bool gLocationFinderExitOnFail;
+extern bool gExpensiveObjectLocationFindingMethod;
 
 // area where objects can be randomly located (ie. not a constraint over explicit location)
 extern int gPhysicalObjectsInitAreaX;

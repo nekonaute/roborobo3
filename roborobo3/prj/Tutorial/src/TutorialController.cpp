@@ -13,6 +13,10 @@
 #define NB_SENSORS 12 // should be coherent with gRobotSpecsImageFilename value read from the property file.
 #include "Utilities/Sensorbelt.h"
 
+/* **** **** **** */
+/* **** **** **** */
+/* **** **** **** */
+
 TutorialController::TutorialController( RobotWorldModel *__wm ) : Controller ( __wm )
 {
     if ( _wm->_cameraSensorsNb != NB_SENSORS )
@@ -22,27 +26,72 @@ TutorialController::TutorialController( RobotWorldModel *__wm ) : Controller ( _
     }
 }
 
+/* **** **** **** */
+/* **** **** **** */
+/* **** **** **** */
+
 TutorialController::~TutorialController()
 {
     // nothing to do.
 }
+
+/* **** **** **** */
+/* **** **** **** */
+/* **** **** **** */
 
 void TutorialController::reset()
 {
     // nothing to do.
 }
 
+/* **** **** **** */
+/* **** **** **** */
+/* **** **** **** */
+
 // called at everytime step. Each robot is called once per timestep, but order of call always change from step to step. This is *the* function (and possibly the only one, in most case) you have to change.
 void TutorialController::step()
 {
     // QUICK HELP
     //
-    // setRotation(double value) and setTranslation(double value) take values in [-1.0,+1.0]
-    // rotation: positive value means clock-wise rotation.
-    // note that these are *desired* rotation/translation. The robot may not be able to comply if it is stuck.
     //
-    // getDistance returns a value in [0,1], with 1 as the maximal value (i.e. see nothing within (limited) eyesight)
-    
+    // ## SENSORS ##
+    //
+    // getDistance returns a real value in [0,1], with 1 as the maximal value (i.e. see nothing within (limited) eyesight)
+    //      To specify which sensor is requested, it is possible to use constant defines in include/core/Utilities/Sensorbelt.h
+    //      Depending on the number of sensors, the following sensor "names" can be used:
+    //          8 sensors:
+    //          12 sensors:
+    //          16 sensors:
+    //
+    // getActualRotation returns a real value in [-1,1] which represents the current rotational speed
+    // getActualTranslation returns a real value in [-1,1] which represents the current translational speed
+    // getOrientation returns a real value in [-1,1], which represents an absolute orientation wrt the center-top of the arena
+    //
+    // ## ACTUATORS ##
+    //
+    // setRotation(double value) and setTranslation(double value) take values in [-1.0,+1.0]
+    //      rotation: positive value means clock-wise rotation.
+    //      note that these are *desired* rotation/translation (see below). The robot may not be able to comply if it is stuck.
+    //
+    // The actual maximal translation speed, maximal rotational speed and maximal rotational update values are defined in the related properties file. Relevant parameters are:
+    //      gMaxTranslationalSpeed
+    //          strictly positive integer value.
+    //          it is strongly advised *not* to assign a value greated than the diameter of the robot to avoid jump in space.
+    //          suggested value: 3, for mini-robots
+    //          Values passed to the setTranslation function are mapped to [-gMaxTranslationalSpeed,+gMaxTranslationalSpeed]
+    //      gMaxRotationalSpeed
+    //          strictly positive integer value, in ]0,180]
+    //          expressed in degrees per step.
+    //          suggested value: 30
+    //      gMaxTranslationalDeltaValue
+    //          strictly positive integer value, in ]0,gMaxRotationalSpeed]
+    //          Maximum angle update per step for rotational speed
+    //          Rationale: this models the limits of change the motor output during one time step.
+    //          gMaxTranslationalDeltaValue and gMaxRotationalSpeed can have a similar value, i.e. motor is over-powered.
+    //          Values passed to the setRotational function are
+    //              1. mapped to [-gMaxTranslationalDeltaValue,+gMaxTranslationalDeltaValue]
+    //              2. actual rotational speed is updated using the value from (1), ie. increased, decreased or unchanged.
+    //              3. if needed, actual rotational speed is bounded to fit within [-gMaxRotationalSpeed,+gMaxRotationalSpeed]
     
     // * How to access various useful sensory information
     // Full list: check <roborobo3>/include/core/Controllers/Controller.h - section "Accessing methods"
@@ -52,7 +101,8 @@ void TutorialController::step()
     // to activate gRobotDisplayFocus, press the "F" key at runtime
     // to change the robot under focus, use <tab> (or <shift+tab>)
     // reminder: all commands available at run-time can be displayed in the console with the "H" key (=help)
-    if ( gRobotDisplayFocus && getId() == gRobotIndexFocus )
+    
+    if ( gRobotDisplayFocus && getId() == gRobotIndexFocus ) // Execute __only__ for robot under focus (press "F" to focus on a robot, <tab> and <shift>+<tab> to change robot focus)
     {
         std::cout << "Robot #" << getId() << "\n";
         std::cout << "\torientation: " << getOrientation()*180.0 << "°\n";
@@ -81,6 +131,9 @@ void TutorialController::step()
                     // can be useful if additional methods have been implemented (e.g. communication)
                     TutorialController* targetRobotController = dynamic_cast<TutorialController*>(getRobotControllerAt(i));
                     std::cout << "\t\t      [double-check] target robot's id really is #" << targetRobotController->getId() << "\n"; // example of use
+                    
+                    sendMessage(targetRobotController,"Ping");
+                    
                 }
                 else
                 {
@@ -111,3 +164,25 @@ void TutorialController::step()
             setRotation( noiseAmplitude * ( 1.0 - (double)(random01()*2.0) ) );
     
 }
+
+/* **** **** **** */
+/* **** **** **** */
+/* **** **** **** */
+
+void TutorialController::sendMessage(TutorialController* _targetRobot, std::string _message)
+{
+    _targetRobot->receiveMessage(getId(),_message);
+}
+
+/* **** **** **** */
+/* **** **** **** */
+/* **** **** **** */
+
+void TutorialController::receiveMessage(int _senderId, std::string _message)
+{
+    std::cout << "\t\t\t>>> [Robot #" << getId() << "] received message from robot #" << _senderId << " : \"" << _message << "\" <<<\n";
+}
+
+/* **** **** **** */
+/* **** **** **** */
+/* **** **** **** */

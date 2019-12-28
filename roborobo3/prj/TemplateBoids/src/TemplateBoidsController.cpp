@@ -179,7 +179,8 @@ void TemplateBoidsController::step()
     else
     {
         // * boids controller
-        
+        double rotationDelta = 0.3;
+
         if ( nbNeighbours == 0 )
         {
             // nobody? go forward.
@@ -195,9 +196,9 @@ void TemplateBoidsController::step()
                 
                 //if ( closestRobotDeltaOrientation < 0 ) // alternate method. Not as efficient.
                 if ( angleDeltaToCenterOfMass < 0 )
-                    _wm->_desiredRotationalVelocity = +10;
+                    setRotation(rotationDelta);
                 else
-                    _wm->_desiredRotationalVelocity = -10;
+                    setRotation(-rotationDelta);
             }
             else
             {
@@ -208,9 +209,9 @@ void TemplateBoidsController::step()
                     double angleDeltaToCenterOfMass = getAngleToTarget( _wm->_xReal, _wm->_yReal, _wm->_agentAbsoluteOrientation, avgCenterOfMass_X,avgCenterOfMass_Y);
                     
                     if ( angleDeltaToCenterOfMass < 0 )
-                        _wm->_desiredRotationalVelocity = -10;
-                    else
-                        _wm->_desiredRotationalVelocity = +10;
+                            setRotation(-rotationDelta);
+                        else
+                            setRotation(rotationDelta);
                 }
                 else
                 {
@@ -219,20 +220,19 @@ void TemplateBoidsController::step()
                     {
                         // (2) orientation
                         if ( avgDeltaOrientation < 0 )
-                            _wm->_desiredRotationalVelocity = +10;
+                            setRotation(rotationDelta);
                         else
-                            _wm->_desiredRotationalVelocity = -10;
+                            setRotation(-rotationDelta);
                     }
                     else
                     {
                         // default: nothing to do? go forward.
-                        _wm->_desiredRotationalVelocity = 0;
+                        setRotation(0);
                     }
                 }
             }
         }
-        
-        _wm->_desiredTranslationalValue = 3;
+        setTranslation(1.0);
     }
 }
 

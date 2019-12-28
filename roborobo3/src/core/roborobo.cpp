@@ -147,6 +147,7 @@ int gFramesPerSecond = 60; // frame rate
 
 int gLocationFinderMaxNbOfTrials = 100; 
 bool gLocationFinderExitOnFail = true; // true: exit, false: wait another turn and retry.
+bool gExpensiveObjectLocationFindingMethod = false; // true: tries all possible locations (O(n^2) with n: size of arena)
 
 int gPhysicalObjectsInitAreaX = 0;
 int gPhysicalObjectsInitAreaY = 0;
@@ -1670,6 +1671,25 @@ bool loadProperties( std::string __propertiesFilename )
         else
         {
             std::cerr << "[WARNING] gLocationFinderExitOnFail is missing or corrupt (default is \"true\").\n";
+            //returnValue = false; // not critical
+        }
+    }
+    
+    s = gProperties.getProperty("gExpensiveObjectLocationFindingMethod");
+    if ( s == "true" || s == "True" || s == "TRUE" )
+    {
+        gExpensiveObjectLocationFindingMethod = true;
+        std::cerr << "[WARNING] gExpensiveObjectLocationFindingMethod is set to True. This can _significantly_ slow down simulation (in particular when relocating objects in a densely populated arena).\n";
+    }
+    else
+    {
+        if ( s == "false" || s == "False" || s == "FALSE" )
+        {
+            gExpensiveObjectLocationFindingMethod = false;
+        }
+        else
+        {
+            std::cerr << "[WARNING] gExpensiveObjectLocationFindingMethod is missing or corrupt (default is \"false\").\n";
             //returnValue = false; // not critical
         }
     }

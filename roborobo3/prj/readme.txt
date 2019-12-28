@@ -44,7 +44,7 @@ Do *not* modify template projects, they can be quite useful. To create your own 
 ## 2. CREATING YOUR OWN PROJECT
 
 The easiest (and recommended) way is to create a new project from an existing project using the "clone_project.py" python script. Once this is done, do not forget to create a new properties file and to update the Makefile (and/or IDE project). Detailed how-to:
-1. in the prj directory, use "python clone_project.py TemplateProjectName MyProjectName"
+1. in the prj directory, use "python2 clone_project.py TemplateProjectName MyProjectName"
 2. in the config directory, copy an existing properties file. E.g.: "cp TemplateProjetName.properties MyProjectName.properties"
 3. edit your equivalent of MyProjectName.properties to correctly set the ConfigurationLoaderObjectName key. E.g.: "ConfigurationLoaderObjectName = MyProjectNameConfigurationLoader"
 4. in the root directory, set the new project as active in the Makefile. Use: "./makefile-manager -a MyProjectName" (check with: "./makefile-manager -l")

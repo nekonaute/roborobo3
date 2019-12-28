@@ -137,7 +137,8 @@ void PhysicalObject::init()
 }
 
 int PhysicalObject::findRandomLocation( )
-{
+{   /**/
+    // Original method, prior to 29/11/2019
     double x = 0.0, y = 0.0;
     
     int tries = 0;
@@ -153,17 +154,67 @@ int PhysicalObject::findRandomLocation( )
         
         tries++;
     } while ( canRegister() == false && tries < gLocationFinderMaxNbOfTrials );
+
+    if ( tries == gLocationFinderMaxNbOfTrials )
+    {
+        if ( gExpensiveObjectLocationFindingMethod == true )
+        {
+            /**/
+            // New method 2019-11-29 -- more efficient, but horribly costly wrt computation. Test *all* possible positions, pick a random one. Horrible as in O(n^2) with n = length of arena. n^2 (or rather length*width) is not only the worst case, but also the default number of operations, as all available positions must be identified to ensure unbiased random sampling of one position over all available. Use with care as it will significantly slow down your code for large and dense arena.
+            // enable/disable in config file using gExpensiveObjectLocationFindingMethod property
+            
+            std::cout << "[INFO] FindRandomLocation, Trying *computationally expensive* method (gExpensiveObjectLocationFindingMethod is True).\n";
+            
+            tries = 0;
+            int nbLocations = 0;
+            
+            std::vector<std::pair<int,int>> locations;
+            
+            for ( int x = gPhysicalObjectsInitAreaX ; x < gPhysicalObjectsInitAreaWidth ; x++ )
+                for ( int y = gPhysicalObjectsInitAreaY ; y < gPhysicalObjectsInitAreaHeight ; y++ )
+                {
+                    setCoordinates( x, y );
+                    if ( canRegister() == true )
+                    {
+                        locations.push_back(std::make_pair(x,y));
+                        nbLocations++;
+                    }
+                }
+            
+            if ( locations.empty() == false )
+            {
+                int randomIndex = (int)(locations.size() * random01());
+                std::pair<int,int> selectedLocation = locations.at(randomIndex);
+                setCoordinates(selectedLocation.first, selectedLocation.second);
+                tries = gLocationFinderMaxNbOfTrials + nbLocations;
+            }
+            else
+            {
+                tries = gLocationFinderMaxNbOfTrials; // Failed.
+            }
+            
+            std::cout << "[INFO] FindRandomLocation: picked one location out of " << nbLocations << " possible locations.\n";
+            /**/
+        }
+    }
     
     if ( tries == gLocationFinderMaxNbOfTrials )
     {
         if ( gLocationFinderExitOnFail == true )
         {
-            std::cerr << "[CRITICAL] Random initialization of initial position for physical object #" << getId() << " after trying " << gLocationFinderMaxNbOfTrials << " random picks (all failed). There may be too few (none?) possible locations (you may try to manually set initial positions). EXITING.\n";
+            if ( gExpensiveObjectLocationFindingMethod == false )
+                std::cerr << "[CRITICAL] Random initialization of initial position for physical object #" << getId() << " after trying " << gLocationFinderMaxNbOfTrials << " random picks (all failed). There may be too few (none?) possible locations (you may try to manually set initial positions, or setting gExpensiveObjectLocationFindingMethod to true in the configuration file). EXITING.\n";
+            else
+                std::cerr << "[CRITICAL] Random initialization of initial position for physical object #" << getId() << " after trying *all* possible locations (all failed). There are no possible location. EXITING.\n";
             exit(-1);
         }
         else
         {
-            std::cerr << "[WARNING] Random initialization of initial position for physical object #" << getId() << " after trying " << gLocationFinderMaxNbOfTrials << " random picks (all failed). Retry later.\n";
+            std::cerr << "[WARNING] Random initialization of initial position for physical object #" << getId() << " after trying ";
+            if ( gExpensiveObjectLocationFindingMethod == false )
+                std::cerr << gLocationFinderMaxNbOfTrials << " random picks (all failed). Retry later.\n";
+            else
+                std::cerr << "all current possible locations (all failed). Retry later.\n";
             regrowTime = 1;
             setCoordinates( -1, -1 );
         }

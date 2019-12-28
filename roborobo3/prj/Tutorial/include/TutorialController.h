@@ -20,6 +20,12 @@ class TutorialController : public Controller
     
 		void reset();
 		void step();
+    
+        void receiveMessage(int _senderId, std::string _message);
+
+    protected:
+        void sendMessage(TutorialController* _targetRobot, std::string _message);
+
 };
 
 

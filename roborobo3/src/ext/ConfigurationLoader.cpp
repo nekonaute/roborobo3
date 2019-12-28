@@ -8,6 +8,7 @@
 #include "Config/ForagingRegionsConfigurationLoader.h"
 #include "Config/TutorialConfigurationLoader.h"
 #include "Config/TemplateHITEEConfigurationLoader.h"
+#include "Config/SandboxConfigurationLoader.h"
 //###DO-NOT-DELETE-THIS-LINE###TAG:INCLUDE###//
 
 
@@ -79,6 +80,12 @@ ConfigurationLoader* ConfigurationLoader::make_ConfigurationLoader (std::string 
 	else if (configurationLoaderObjectName == "TemplateHITEEConfigurationLoader" )
 	{
 		return new TemplateHITEEConfigurationLoader();
+	}
+#endif
+#if defined PRJ_SANDBOX || !defined MODULAR
+	else if (configurationLoaderObjectName == "SandboxConfigurationLoader" )
+	{
+		return new SandboxConfigurationLoader();
 	}
 #endif
     //###DO-NOT-DELETE-THIS-LINE###TAG:SWITCH###//
