@@ -1,11 +1,10 @@
 
-<span style="color:red">
-# IMPORTANT NOTICE: AS OF MARCH 31st 2021
-# ROBOROBO 3 IS DEPRECATED AND WONT BE UPDATED ANYMORE
-#
-# PLEASE USE ROBOBORO 4 INSTEAD
-# LINK TO ROBOROBO 4: https://github.com/nekonaute/roborobo4
-</span>.
+
+# IMPORTANT NOTICE: 
+## AS OF MARCH 31st 2021, ROBOROBO 3 IS DEPRECATED
+##
+## PLEASE USE ROBOBORO 4 INSTEAD
+## LINK: https://github.com/nekonaute/roborobo4
 
 ___
 
