@@ -2,8 +2,11 @@ Roborobo3
 =========
 
 # !!!!!!!!
-# IMPORTANT NOTICE: AS OF March 31st 2021, ROBOROBO 3 IS DEPRECATED AND WONT BE UPDATED ANYMORE!! 
-# PLEASE USE ROBOBORO 4 INSTEAD. ROBOROBO 4 can be found at https://github.com/nekonaute/roborobo4
+# IMPORTANT NOTICE: AS OF March 31st 2021
+# ROBOROBO 3 IS DEPRECATED AND WONT BE UPDATED ANYMORE!! 
+#
+# PLEASE USE ROBOBORO 4 INSTEAD (MAJOR UPDATE INCLUDES PYTHON SCRIPTING)
+# ROBOROBO 4 can be found at https://github.com/nekonaute/roborobo4
 # !!!!!!!!
 
 Roborobo is a fast and simple 2D mobile robot simulator written in C++ loosely based on a khepera/epuck model. It is targeted for fast single and multi-robots simulation (primary motivation is evolutionary robotics et swarm/collective robotics).
